@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gayatri Malladi</title>
+  <meta name="description" content="Portfolio of Gayatri Malladi — projects in NLP, LLMs, agents, vision, and HPC." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='85'>GM</text></svg>">
+  <style>
+    /* —— Minimal single‑column layout closely mirroring rutadesai.github.io —— */
+    :root{--fg:#111;--muted:#555;--link:#0645ad;--bg:#fff;--rule:#e6e6e6}
+    @media (prefers-color-scheme: dark){:root{--fg:#f2f2f2;--muted:#b8b8b8;--link:#8ab4f8;--bg:#0b0b0b;--rule:#222}}
+    html{font-size:16px}
+    body{margin:0 auto;max-width:820px;padding:26px 16px 40px;line-height:1.6;color:var(--fg);background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Inter,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji"}
+    h1,h2,h3{line-height:1.25;margin:1.15em 0 .55em}
+    h1{font-size:2.3rem;margin-top:0}
+    h2{font-size:1.45rem}
+    h3{font-size:1.08rem}
+    p,ul{margin:.4em 0}
+    a{color:var(--link);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .muted{color:var(--muted)}
+    .row-links a{margin-right:.6rem}
+    .hr{height:1px;background:var(--rule);margin:22px 0}
+    /* Publication-style entry with a left thumbnail (like Ruta's) */
+    .entry{display:grid;grid-template-columns:160px 1fr;gap:14px;align-items:start;margin:16px 0 22px}
+    .entry img{width:160px;aspect-ratio:16/10;object-fit:cover;border:1px solid var(--rule)}
+    @media (max-width:640px){.entry{grid-template-columns:1fr}.entry img{width:100%}}
+    /* Simple tags (inspired by Maddy-Portfolio but subtle) */
+    .tags{display:flex;flex-wrap:wrap;gap:6px;margin:.3rem 0}
+    .tag{font-size:.74rem;border:1px solid var(--rule);padding:2px 8px;border-radius:999px;color:var(--muted)}
+    /* Video wrapper for featured demo */
+    .video{position:relative;aspect-ratio:16/9;max-width:720px}
+    .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Gayatri Malladi</h1>
+    <p>I’m a graduate student in Computer Science at the University of Washington (GPA 3.93/4.0). My interests span NLP & LLMs, autonomous agents, perception/planning, and efficient ML (CUDA/HPC). I like building practical systems that turn messy, multimodal data into robust models and tools.</p>
+    <p class="muted">Email: <strong>gayat23[at]uw.edu</strong></p>
+    <p class="row-links">
+      <a href="resume.pdf" target="_blank" rel="noopener">CV</a> /
+      <a href="https://www.linkedin.com/in/gayatri-malladi/" target="_blank" rel="me noopener">LinkedIn</a> /
+      <a href="https://github.com/mg-2321" target="_blank" rel="me noopener">GitHub</a> /
+      <a href="https://medium.com/@YOUR_MEDIUM_HANDLE" target="_blank" rel="me noopener">Medium</a> /
+      <a href="https://instagram.com/YOUR_PHOTOGRAPHY_HANDLE" target="_blank" rel="me noopener">Instagram (Photography)</a>
+    </p>
+
+    <h2 id="demo"># Featured Demo</h2>
+    <div class="entry">
+      <img src="https://via.placeholder.com/320x200?text=LLM+Demo" alt="LLM/NLP demo thumbnail placeholder" />
+      <div>
+        <strong>Conversational Coding Assistant for Safer Code</strong> <span class="muted">— Prototype, 2025</span>
+        <p>An LLM-powered assistant that reviews code changes, retrieves CWE patterns with lightweight RAG, and proposes secure diffs. It maintains short‑term repo context and adapts explanations by user expertise.</p>
+        <div class="tags">
+          <span class="tag">LLMs</span><span class="tag">RAG</span><span class="tag">Security</span><span class="tag">NLP</span>
+        </div>
+        <div class="video">
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="LLM demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+
+    <h2 id="projects"># Projects</h2>
+
+    <h3>Agents & Planning</h3>
+    <div class="entry">
+      <img src="https://via.placeholder.com/320x200?text=KAG+Agent" alt="Knowledge-aware agent" />
+      <div>
+        <strong>Solving Short‑term Memory Limits of ADAPT Agents</strong> <span class="muted">— May 2025 – Present</span>
+        <p>Integrated a <em>Knowledge‑Aware Graph</em> module into a vision‑language agent to model long‑term user preferences; added a diffusion‑style drive model for smoother multi‑modal planning under uncertainty.</p>
+        <div class="tags"><span class="tag">Vision‑Language</span><span class="tag">Graphs</span><span class="tag">RL</span></div>
+        <p class="row-links"><a href="https://github.com/mg-2321" target="_blank">Code</a></p>
+      </div>
+    </div>
+
+    <h3>Vision & Robotics</h3>
+    <div class="entry">
+      <img src="https://via.placeholder.com/320x200?text=Waymo+Trajectories" alt="Waymo trajectories" />
+      <div>
+        <strong>Future Trajectory Prediction for Autonomous Vehicles</strong> <span class="muted">— May 2025 – Present</span>
+        <p>Diffusion‑based model to forecast 5‑second future trajectories in long‑tail driving scenarios (Waymo Open Dataset), modeling multimodal uncertainty and temporal dependencies.</p>
+        <div class="tags"><span class="tag">Diffusion</span><span class="tag">Forecasting</span><span class="tag">PyTorch</span></div>
+        <p class="row-links"><a href="https://github.com/mg-2321" target="_blank">Code</a></p>
+      </div>
+    </div>
+    <div class="entry">
+      <img src="https://via.placeholder.com/320x200?text=CUDA+HPC" alt="CUDA optimization" />
+      <div>
+        <strong>Optimizing LIMO Pipeline with CUDA Parallelization</strong> <span class="muted">— Jan 2025 – Mar 2025</span>
+        <p>Shared‑memory tiling, async transfers, and custom kernels for 2D conv, keyframe selection, and pose estimation, improving kernel time by up to 60% with Nsight‑guided optimization.</p>
+        <div class="tags"><span class="tag">CUDA</span><span class="tag">Nsight</span><span class="tag">ResNet</span></div>
+        <p class="row-links"><a href="https://github.com/mg-2321" target="_blank">Code</a></p>
+      </div>
+    </div>
+    <div class="entry">
+      <img src="https://via.placeholder.com/320x200?text=EEG+Signals" alt="EEG" />
+      <div>
+        <strong>Stroke Rehabilitation — EEG Motor Action Classification</strong> <span class="muted">— Oct 2024 – Dec 2024</span>
+        <p>Pre/post‑stroke EEG analysis for motor actions (hand wave, clench, face rub) with ICA, band‑pass filtering, and PCA; models: Decision Trees, SVMs, NNs.</p>
+        <div class="tags"><span class="tag">EEG</span><span class="tag">ICA/PCA</span><span class="tag">SVM</span></div>
+      </div>
+    </div>
+
+    <h3>NLP & Safety</h3>
+    <div class="entry">
+      <img src="https://via.placeholder.com/320x200?text=NLP+Clinical" alt="NLP for suicide risk" />
+      <div>
+        <strong>NLP for Suicide Ideation & Attempt Detection</strong> <span class="muted">— Jan 2023 – Jun 2023</span>
+        <p>Preprocessed clinical + forum text (MIMIC‑III, SuicideWatch); compared GloVe/Word2Vec/FastText/CBOW; trained BERT & RoBERTa vs Bi‑LSTM baselines for SI/SA detection.</p>
+        <div class="tags"><span class="tag">BERT</span><span class="tag">RoBERTa</span><span class="tag">Bi‑LSTM</span></div>
+      </div>
+    </div>
+
+    <h3>Security & Code Analysis</h3>
+    <div class="entry">
+      <img src="https://via.placeholder.com/320x200?text=LLM+Security" alt="LLM code security" />
+      <div>
+        <strong>LLMs for Code Vulnerability Detection</strong> <span class="muted">— Sept 2023 – Mar 2024</span>
+        <p>Prompt‑engineered LLMs + RAG for vulnerable code detection with self‑explanations; built GraphCodeBERT + DCGAN pipeline to flag zero‑day patterns via data‑flow visualizations.</p>
+        <div class="tags"><span class="tag">RAG</span><span class="tag">GraphCodeBERT</span><span class="tag">DCGAN</span></div>
+      </div>
+    </div>
+    <div class="entry">
+      <img src="https://via.placeholder.com/320x200?text=Vision+Safety" alt="Construction safety detection" />
+      <div>
+        <strong>Real‑time Construction Worker Safety Inspection</strong> <span class="muted">— Dec 2022 – Jan 2023</span>
+        <p>Benchmarked CNN/RCNN/SSD/Faster‑RCNN and integrated the best detector into a web app for on‑site deployment to reduce supervision gaps.</p>
+        <div class="tags"><span class="tag">Faster‑RCNN</span><span class="tag">CV</span><span class="tag">Web</span></div>
+      </div>
+    </div>$1<h2 id="writing"># Writing</h2>
+$1<p>Read more on <a href="https://medium.com/@YOUR_MEDIUM_HANDLE" target="_blank" rel="me noopener">Medium</a>. Below are recent highlights (update titles and links as you publish):</p>
+$1<!-- Example entries (uncomment and update when ready)
+$1<div class="entry">
+$1  <img src="images/medium-cover-1.jpg" alt="Post cover placeholder" />
+$1  <div>
+$1    <strong><a href="https://medium.com/@YOUR_MEDIUM_HANDLE/YOUR_POST_SLUG" target="_blank" rel="noopener">Title of your post</a></strong> <span class="muted">— Month YYYY</span>
+$1    <p>One‑line summary of the article.</p>
+$1    <div class="tags"><span class="tag">LLMs</span><span class="tag">NLP</span></div>
+$1  </div>
+$1</div>
+$1-->
+$1
+$1<div class="hr"></div>
+$1<h2 id="experience"># Experience</h2>
+    <p><strong>Research Intern</strong>, Centre for Development of Advanced Computing (C‑DAC) — <span class="muted">Sept 2023 – Mar 2024</span></p>
+    <ul>
+      <li>LLMs for vulnerable code detection using <em>Prompt Engineering</em> + <em>RAG</em> with self‑explanations.</li>
+      <li>GraphCodeBERT + DCGAN pipeline; data‑flow visualizations of insecure design.</li>
+    </ul>
+
+    <p><strong>Researcher</strong>, National University of Singapore — <span class="muted">Jan 2023 – Jun 2023</span></p>
+    <ul>
+      <li>Prepared clinical & forum datasets; expanded abbreviations; noise removal for clarity.</li>
+      <li>Compared vectorizers (GloVe, Word2Vec, FastText, CBOW) and models (BERT, RoBERTa, Bi‑LSTM).</li>
+    </ul>
+
+    <p><strong>Research Intern</strong>, National University of Singapore & Hewlett Packard Enterprise — <span class="muted">Dec 2022 – Jan 2023</span></p>
+    <ul>
+      <li>Optimized worker safety inspection; compared CNN/RCNN/SSD/Faster‑RCNN; integrated best model into a website.</li>
+    </ul>
+
+    <div class="hr"></div>
+
+    <h2 id="education"># Education</h2>
+    <p><strong>University of Washington Bothell</strong> — M.S. in Computer Science & Software Engineering, <span class="muted">Expected Jun 2026</span><br/>
+      <span class="muted">GPA: 3.93/4.0 • Coursework: Machine Learning; Data Mining for ML; High Performance Computing; Research Methods; Computer Vision; NLP; Software Architecture</span></p>
+    <p><strong>Sri Ramaswamy Memorial Institute of Science and Technology</strong> — B.Tech in Computer Science with Software Engineering, <span class="muted">Sept 2020 – Jun 2024</span></p>
+
+    <div class="hr"></div>
+
+    <p class="muted">© <span id="yr"></span> Gayatri Malladi</p>
+  </main>
+  <script>document.getElementById('yr').textContent=new Date().getFullYear()</script>
+</body>
+</html>
