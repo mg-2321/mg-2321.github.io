@@ -80,7 +80,11 @@
     h2::after{content:"";display:block;width:56px;height:3px;background:linear-gradient(90deg,#0b57d0,#8b5cf6);border-radius:3px;margin-top:6px;opacity:.85}
     /* Lead intro text */
     .lead{font-size:1.06rem;line-height:1.85}
-  </style>
+    /* Prose block formatting */
+  .prose{max-width:72ch}
+  .prose .lead{margin:.65rem 0;text-align:left;text-indent:1.25rem}
+  .prose .lead:first-child{ text-indent:0 }
+</style>
 </head>
 <body>
   <main>
@@ -93,10 +97,13 @@
     </p>
 
     <!-- Your photo (upload images/photo.jpg) -->
-    <img class="avatar" src="images/photo.jpg" alt="Portrait of Gayatri Malladi" />
+    $1
+    <div class="prose">
     <p class="lead">I’m a second‑year M.S. student in the Data Science department at the University of Washington, Seattle. My research focuses on agentic AI: planning and teaching language models when to ask vs. when to act, with lightweight grounding via a knowledge‑augmented graph (KAG) and preference‑based training (SFT → per‑step DPO/SimPO; optional KTO/ORPO for asymmetric ask/act risk).</p>
     <p class="lead">I also work on overcoming context‑window limits using short‑ and long‑term retrieval caches, summarization/compression, and Reflexion‑style episodic notes that are indexed and reused across tasks.</p>
-    <p class="lead">I’m open to research collaborations—please email <a href="mailto:gayat23@uw.edu">gayat23@uw.edu</a>—especially on assistive agents (day‑to‑day task automation, tool use, XR copilots) and self‑evolving language models (curriculum generation, reflective fine‑tuning, preference optimization).</p>
+    <p class="lead">I’m open to research collaborations. Please email me(gayat23 [at] uw.edu) if you are interested to explore on on assistive agents for day‑to‑day task automation, tool use, XR copilots, and self‑evolving language models for curriculum generation, reflective fine‑tuning, and preference optimization.</p>
+    </div>
+
     <p class="row-links">
       <a href="resume.pdf" target="_blank" rel="noopener">CV</a> /
       <a href="https://www.linkedin.com/in/gayatri-malladi/" target="_blank" rel="me noopener">LinkedIn</a> /
