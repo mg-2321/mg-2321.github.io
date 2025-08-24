@@ -102,6 +102,21 @@
   </style>
 
 </head>
+<script>
+(function(){
+  const root = document.documentElement;
+  const pref = localStorage.getItem('theme');
+  if (pref) root.setAttribute('data-theme', pref);
+  else if (matchMedia('(prefers-color-scheme: dark)').matches) root.setAttribute('data-theme','dark');
+  const btn = document.getElementById('themeToggle');
+  const setIcon = () => btn.textContent = (root.getAttribute('data-theme') === 'dark') ? '☀️' : '🌙';
+  btn.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next); localStorage.setItem('theme', next); setIcon();
+  });
+  setIcon();
+})();
+</script>
 <body>
   <main>
     <h1>Gayatri Malladi</h1>
