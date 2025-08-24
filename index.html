@@ -7,10 +7,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gayatri Malladi</title>
-  <meta name="description" content="Gayatri Malladi — NLP/LLM‑themed portfolio. Projects, papers, writing, and photography." />
+  <meta name="description" content="Gayatri Malladi — NLP/LLM-themed portfolio. Projects, papers, writing, and photography." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='85'>GM</text></svg>">
   <style>
-    /* —— Light, single‑column, professional; innovative LLM theming —— */
+    /* —— Light, single-column, professional; innovative LLM theming —— */
     :root{--fg:#14161a;--muted:#5b6574;--link:#0b57d0;--bg:#ffffff;--rule:#e7ebf0;--pill:#f2f6ff}
     html{font-size:16px}
     body{margin:0 auto;max-width:900px;padding:26px 16px 64px;line-height:1.65;color:var(--fg);background:var(--bg);font-family:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"}
@@ -30,8 +30,11 @@
     .mini-nav a{font-size:.94rem;margin-right:.8rem;padding:2px 8px;border-radius:999px;border:1px solid transparent}
     .mini-nav a:hover{background:var(--pill);border-color:#d8e4ff;text-decoration:none}
 
-    /* avatar */
-    .avatar{float:right;width:170px;height:170px;border-radius:14px;object-fit:cover;border:1px solid var(--rule);margin:0 0 8px 16px}
+    /* intro layout: text + portrait side-by-side */
+    .intro{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:24px;align-items:start;margin-bottom:10px}
+    .avatar-wrap{align-self:stretch}
+    .avatar{width:100%;height:100%;object-fit:cover;border-radius:14px;border:1px solid var(--rule)}
+    @media (max-width:840px){.intro{grid-template-columns:1fr}.avatar-wrap{order:-1}.avatar{height:220px}}
 
     /* ——— Innovative hero: Token conveyor + quick facts ——— */
     .tokenribbon{position:relative;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:linear-gradient(90deg,#f7faff 0,#fff 50%,#f7faff 100%)}
@@ -44,7 +47,7 @@
     /* entry rows (thumbnail left, text right) */
     .entry{display:grid;grid-template-columns:200px 1fr;gap:14px;align-items:start;margin:16px 0 22px}
     .entry .thumb{position:relative;width:200px;aspect-ratio:16/10;object-fit:cover;border:1px solid var(--rule);border-radius:12px;overflow:hidden}
-    /* animated attention‑grid overlay */
+    /* animated attention-grid overlay */
     .entry .thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,87,208,.07) 1px,transparent 1px) 0 0/12px 100%,linear-gradient(rgba(11,87,208,.07) 1px,transparent 1px) 0 0/100% 12px;mix-blend-mode:multiply;opacity:.9;animation:drift 16s linear infinite}
     @keyframes drift{0%{background-position:0 0,0 0}100%{background-position:160px 0,0 160px}}
     .entry:hover .thumb{transform:translateY(-2px);box-shadow:0 10px 28px rgba(25,71,170,.12);transition:transform .2s ease, box-shadow .2s ease}
@@ -64,7 +67,7 @@
     .tokens{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
     .tok{font:600 .8rem ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:4px 8px;border-radius:8px;background:#f1f4fb;border:1px solid #dbe3f3}
     .stats{font-size:.85rem;color:var(--muted);margin-top:6px}
-      /* Q&A (Ask about my work) */
+    /* Q&A (Ask about my work) */
     .qa{border:1px solid var(--rule);border-radius:12px;padding:12px}
     .qa .ask{display:flex;gap:8px}
     .qa input{flex:1;padding:10px 12px;border-radius:10px;border:1px solid var(--rule)}
@@ -75,16 +78,16 @@
     .bubble{background:#f7faff;border:1px solid #d8e4ff;padding:10px 12px;border-radius:12px}
     .bubble.me{align-self:flex-end;background:#eef3ff}
     .bubble.bot{align-self:flex-start}
-      /* Enhanced section heading underline */
+    /* Enhanced section heading underline */
     h2{position:relative}
     h2::after{content:"";display:block;width:56px;height:3px;background:linear-gradient(90deg,#0b57d0,#8b5cf6);border-radius:3px;margin-top:6px;opacity:.85}
     /* Lead intro text */
     .lead{font-size:1.06rem;line-height:1.85}
     /* Prose block formatting */
-  .prose{max-width:72ch}
-  .prose .lead{margin:.65rem 0;text-align:left;text-indent:1.25rem}
-  .prose .lead:first-child{ text-indent:0 }
-</style>
+    .prose{max-width:72ch}
+    .prose .lead{margin:.65rem 0;text-align:justify;text-justify:inter-word;text-indent:0;hyphens:auto}
+    .prose .lead:first-child{ text-indent:0 }
+  </style>
 </head>
 <body>
   <main>
@@ -96,13 +99,14 @@
       <a href="#education">Education</a>
     </p>
 
-    <!-- Your photo (upload images/photo.jpg) -->
-    $1
-    <div class="prose">
-    <p class="lead">I’m a second‑year M.S. student in the Data Science department at the University of Washington, Seattle. My research focuses on agentic AI: planning and teaching language models when to ask vs. when to act, with lightweight grounding via a knowledge‑augmented graph (KAG) and preference‑based training (SFT → per‑step DPO/SimPO; optional KTO/ORPO for asymmetric ask/act risk).</p>
-    <p class="lead">I also work on overcoming context‑window limits using short‑ and long‑term retrieval caches, summarization/compression, and Reflexion‑style episodic notes that are indexed and reused across tasks.</p>
-    <p class="lead">I’m open to research collaborations. Please email me(gayat23 [at] uw.edu) if you are interested to explore on on assistive agents for day‑to‑day task automation, tool use, XR copilots, and self‑evolving language models for curriculum generation, reflective fine‑tuning, and preference optimization.</p>
-    </div>
+    <section class="intro">
+      <div class="prose">
+        <p class="lead">I’m a second-year M.S. student in the Data Science department at the University of Washington, Seattle. My research focuses on agentic AI: planning and teaching language models when to ask vs. when to act, with lightweight grounding via a knowledge-augmented graph (KAG) and preference-based training (SFT → per-step DPO/SimPO; optional KTO/ORPO for asymmetric ask/act risk).</p>
+        <p class="lead">I also work on overcoming context-window limits using short- and long-term retrieval caches, summarization/compression, and Reflexion-style episodic notes that are indexed and reused across tasks.</p>
+        <p class="lead">I’m open to research collaborations. Please email me(gayat23 [at] uw.edu) if you are interested to explore on on assistive agents for day-to-day task automation, tool use, XR copilots, and self-evolving language models for curriculum generation, reflective fine-tuning, and preference optimization.</p>
+      </div>
+      <aside class="avatar-wrap"><img class="avatar" src="images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG" alt="Portrait of Gayatri Malladi" /></aside>
+    </section>
 
     <p class="row-links">
       <a href="resume.pdf" target="_blank" rel="noopener">CV</a> /
@@ -132,8 +136,8 @@
     <div class="entry">
       <img class="thumb" src="images/agents-kag.jpg" alt="Knowledge-aware agent"/>
       <div>
-        <strong>Solving Short‑term Memory Limits of ADAPT Agents</strong> <span class="muted">— May 2025 – Present</span>
-        <p>Added a <em>Knowledge‑Aware Graph</em> module for long‑term user preferences and a diffusion‑style drive model for smoother planning under uncertainty.</p>
+        <strong>Solving Short-term Memory Limits of ADAPT Agents</strong> <span class="muted">— May 2025 – Present</span>
+        <p>Added a <em>Knowledge-Aware Graph</em> module for long-term user preferences and a diffusion-style drive model for smoother planning under uncertainty.</p>
         <p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a><a class="btn" href="papers/adapt-kag.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
@@ -143,7 +147,7 @@
       <img class="thumb" src="images/waymo-forecast.jpg" alt="Waymo trajectories"/>
       <div>
         <strong>Future Trajectory Prediction for Autonomous Vehicles</strong> <span class="muted">— May 2025 – Present</span>
-        <p>Diffusion‑based model predicting 5‑second future trajectories in long‑tail scenarios using the Waymo Open Dataset; explicitly models multimodal uncertainty.</p>
+        <p>Diffusion-based model predicting 5-second future trajectories in long-tail scenarios using the Waymo Open Dataset; explicitly models multimodal uncertainty.</p>
         <p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a><a class="btn" href="papers/waymo-forecast.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
@@ -152,7 +156,7 @@
       <img class="thumb" src="images/cuda-limo.jpg" alt="CUDA optimization"/>
       <div>
         <strong>Optimizing LIMO Pipeline with CUDA Parallelization</strong> <span class="muted">— Jan 2025 – Mar 2025</span>
-        <p>Shared‑memory tiling, async transfers, and custom kernels for 2D conv, keyframe selection, and pose estimation, improving kernel time by up to 60%.</p>
+        <p>Shared-memory tiling, async transfers, and custom kernels for 2D conv, keyframe selection, and pose estimation, improving kernel time by up to 60%.</p>
         <p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a><a class="btn" href="papers/limo-cuda.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
@@ -161,7 +165,7 @@
       <img class="thumb" src="images/eeg-stroke.jpg" alt="EEG"/>
       <div>
         <strong>Stroke Rehabilitation — EEG Motor Action Classification</strong> <span class="muted">— Oct 2024 – Dec 2024</span>
-        <p>Pre/post‑stroke EEG analysis for motor actions (hand wave, clench, face rub) with ICA, band‑pass filtering, and PCA; models: Decision Trees, SVMs, NNs.</p>
+        <p>Pre/post-stroke EEG analysis for motor actions (hand wave, clench, face rub) with ICA, band-pass filtering, and PCA; models: Decision Trees, SVMs, NNs.</p>
         <p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a><a class="btn" href="papers/eeg-stroke.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
@@ -171,7 +175,7 @@
       <img class="thumb" src="images/nlp-si.jpg" alt="NLP for suicide risk"/>
       <div>
         <strong>NLP for Suicide Ideation & Attempt Detection</strong> <span class="muted">— Jan 2023 – Jun 2023</span>
-        <p>Preprocessed clinical + forum text (MIMIC‑III, SuicideWatch); compared GloVe/Word2Vec/FastText/CBOW; trained BERT & RoBERTa vs Bi‑LSTM baselines.</p>
+        <p>Preprocessed clinical + forum text (MIMIC-III, SuicideWatch); compared GloVe/Word2Vec/FastText/CBOW; trained BERT & RoBERTa vs Bi-LSTM baselines.</p>
         <p class="row-links"><a class="btn" href="#" target="_blank">Code</a><a class="btn" href="papers/nlp-suicide-risk.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
@@ -181,7 +185,7 @@
       <img class="thumb" src="images/llm-security.jpg" alt="LLM code security"/>
       <div>
         <strong>LLMs for Code Vulnerability Detection</strong> <span class="muted">— Sept 2023 – Mar 2024</span>
-        <p>Prompt‑engineered LLMs + RAG for vulnerable code detection with self‑explanations; GraphCodeBERT + DCGAN pipeline to flag zero‑day patterns via data‑flow visuals.</p>
+        <p>Prompt-engineered LLMs + RAG for vulnerable code detection with self-explanations; GraphCodeBERT + DCGAN pipeline to flag zero-day patterns via data-flow visuals.</p>
         <p class="row-links"><a class="btn" href="#" target="_blank">Code</a><a class="btn" href="papers/llm-code-vuln.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
@@ -189,8 +193,8 @@
     <div class="entry">
       <img class="thumb" src="images/worker-safety.jpg" alt="Construction safety detection"/>
       <div>
-        <strong>Real‑time Construction Worker Safety Inspection</strong> <span class="muted">— Dec 2022 – Jan 2023</span>
-        <p>Benchmarked CNN/RCNN/SSD/Faster‑RCNN and integrated the best detector into a web app for on‑site deployment to reduce supervision gaps.</p>
+        <strong>Real-time Construction Worker Safety Inspection</strong> <span class="muted">— Dec 2022 – Jan 2023</span>
+        <p>Benchmarked CNN/RCNN/SSD/Faster-RCNN and integrated the best detector into a web app for on-site deployment to reduce supervision gaps.</p>
         <p class="row-links"><a class="btn" href="#" target="_blank">Code</a><a class="btn" href="papers/worker-safety.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
@@ -206,7 +210,7 @@
       <div class="suggest">
         <span class="chip" data-q="What did you build for Waymo trajectory forecasting?">Waymo model?</span>
         <span class="chip" data-q="How did you optimize CUDA kernels in the LIMO project?">CUDA speedups?</span>
-        <span class="chip" data-q="What is the Knowledge‑Aware Graph in your agent project?">Agent KAG?</span>
+        <span class="chip" data-q="What is the Knowledge-Aware Graph in your agent project?">Agent KAG?</span>
         <span class="chip" data-q="Which datasets and models did you use for suicide ideation detection?">NLP dataset?</span>
         <span class="chip" data-q="Do you have papers to read for each project?">Papers?</span>
       </div>
@@ -222,34 +226,34 @@
       <img class="thumb" src="images/medium-cover-1.jpg" alt="Post cover"/>
       <div>
         <strong><a href="https://medium.com/@YOUR_MEDIUM_HANDLE/YOUR_POST_SLUG" target="_blank" rel="noopener">Title of your post</a></strong> <span class="muted">— Month YYYY</span>
-        <p>One‑line summary of the article.</p>
+        <p>One-line summary of the article.</p>
       </div>
     </div>
 
     <div class="hr"></div>
 
     <h2 id="experience">Experience</h2>
-    <p><strong>Research Intern</strong>, Centre for Development of Advanced Computing (C‑DAC) — <span class="muted">Sept 2023 – Mar 2024</span></p>
+    <p><strong>Research Intern</strong>, Centre for Development of Advanced Computing (C-DAC) — <span class="muted">Sept 2023 – Mar 2024</span></p>
     <ul>
-      <li>LLMs for vulnerable code detection using <em>Prompt Engineering</em> + <em>RAG</em> with self‑explanations.</li>
-      <li>GraphCodeBERT + DCGAN pipeline; data‑flow visualizations of insecure design.</li>
+      <li>LLMs for vulnerable code detection using <em>Prompt Engineering</em> + <em>RAG</em> with self-explanations.</li>
+      <li>GraphCodeBERT + DCGAN pipeline; data-flow visualizations of insecure design.</li>
     </ul>
 
     <p><strong>Researcher</strong>, National University of Singapore — <span class="muted">Jan 2023 – Jun 2023</span></p>
     <ul>
       <li>Prepared clinical & forum datasets; expanded abbreviations; noise removal for clarity.</li>
-      <li>Compared vectorizers (GloVe, Word2Vec, FastText, CBOW) and models (BERT, RoBERTa, Bi‑LSTM).</li>
+      <li>Compared vectorizers (GloVe, Word2Vec, FastText, CBOW) and models (BERT, RoBERTa, Bi-LSTM).</li>
     </ul>
 
     <p><strong>Research Intern</strong>, National University of Singapore & Hewlett Packard Enterprise — <span class="muted">Dec 2022 – Jan 2023</span></p>
     <ul>
-      <li>Optimized worker safety inspection; compared CNN/RCNN/SSD/Faster‑RCNN; integrated best model into a website.</li>
+      <li>Optimized worker safety inspection; compared CNN/RCNN/SSD/Faster-RCNN; integrated best model into a website.</li>
     </ul>
 
     <div class="hr"></div>
 
     <h2 id="education">Education</h2>
-    <p><strong>University of Washington Bothell</strong> — M.S. in Computer Science & Software Engineering, <span class="muted">Expected Jun 2026</span><br/>
+    <p><strong>University of Washington </strong> — M.S. in Computer Science , <span class="muted">Expected Jun 2026</span><br/>
       <span class="muted">GPA: 3.93/4.0 • Coursework: Machine Learning; Data Mining for ML; High Performance Computing; Research Methods; Computer Vision; NLP; Software Architecture</span></p>
     <p><strong>Sri Ramaswamy Memorial Institute of Science and Technology</strong> — B.Tech in Computer Science with Software Engineering, <span class="muted">Sept 2020 – Jun 2024</span></p>
 
@@ -299,36 +303,36 @@
         tags:'diffusion trajectory forecasting waymo uncertainty driving pytorch',
         code:'https://github.com/mg-2321', paper:'papers/waymo-forecast.pdf',
         details:{dataset:'Waymo Open Dataset', models:'Diffusion-based sequence model', metrics:'5s horizon, multimodal predictions'} },
-      { id:'agents', title:'Solving Short‑term Memory Limits of ADAPT Agents',
-        summary:'Added a Knowledge‑Aware Graph for long‑term user preferences and a diffusion-style drive model for smoother planning.',
+      { id:'agents', title:'Solving Short-term Memory Limits of ADAPT Agents',
+        summary:'Added a Knowledge-Aware Graph for long-term user preferences and a diffusion-style drive model for smoother planning.',
         tags:'agent VLA ADAPT KAG graph reinforcement learning planning diffusion',
         code:'https://github.com/mg-2321', paper:'papers/adapt-kag.pdf',
-        details:{approach:'Knowledge‑Aware Graph + planning under uncertainty', focus:'user preference memory'} },
+        details:{approach:'Knowledge-Aware Graph + planning under uncertainty', focus:'user preference memory'} },
       { id:'cuda', title:'Optimizing LIMO Pipeline with CUDA Parallelization',
-        summary:'Shared‑memory tiling, async copies, and custom conv kernels; Nsight-guided profiling with up to 60% kernel time speedup.',
+        summary:'Shared-memory tiling, async copies, and custom conv kernels; Nsight-guided profiling with up to 60% kernel time speedup.',
         tags:'cuda gpu kernels convolution shared-memory tiling nsight optimization limo',
         code:'https://github.com/mg-2321', paper:'papers/limo-cuda.pdf',
         details:{tech:'shared memory tiling, streams, async transfers', result:'~60% kernel time reduction'} },
       { id:'eeg', title:'Stroke Rehabilitation — EEG Motor Action Classification',
-        summary:'ICA + filtering + PCA features; DT/SVM/NN models to compare pre/post‑stroke EEG for motor actions.',
+        summary:'ICA + filtering + PCA features; DT/SVM/NN models to compare pre/post-stroke EEG for motor actions.',
         tags:'eeg signal processing ica pca svm neural',
         code:'#', paper:'papers/eeg-stroke.pdf',
-        details:{actions:'hand wave, clench, face rub', methods:'ICA, band‑pass, PCA'} },
+        details:{actions:'hand wave, clench, face rub', methods:'ICA, band-pass, PCA'} },
       { id:'nlp', title:'NLP for Suicide Ideation & Attempt Detection',
-        summary:'Preprocessed clinical & forum text; compared GloVe/Word2Vec/FastText/CBOW; trained BERT/RoBERTa vs Bi‑LSTM.',
+        summary:'Preprocessed clinical & forum text; compared GloVe/Word2Vec/FastText/CBOW; trained BERT/RoBERTa vs Bi-LSTM.',
         tags:'nlp suicide ideation attempt mimic-iii suicidewatch bert roberta bi-lstm',
         code:'#', paper:'papers/nlp-suicide-risk.pdf',
-        details:{datasets:'MIMIC‑III, r/SuicideWatch', models:'BERT, RoBERTa, Bi‑LSTM'} },
+        details:{datasets:'MIMIC-III, r/SuicideWatch', models:'BERT, RoBERTa, Bi-LSTM'} },
       { id:'vuln', title:'LLMs for Code Vulnerability Detection',
-        summary:'Prompt‑engineered LLMs + RAG; GraphCodeBERT + DCGAN to flag zero‑day patterns via data‑flow visuals.',
+        summary:'Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN to flag zero-day patterns via data-flow visuals.',
         tags:'security code vulnerability llm rag graphcodebert dcgan',
         code:'#', paper:'papers/llm-code-vuln.pdf',
-        details:{approach:'Prompting + retrieval, GraphCodeBERT classifier', extras:'data‑flow visualizations'} },
-      { id:'safety', title:'Real‑time Construction Worker Safety Inspection',
-        summary:'Benchmarked CNN/RCNN/SSD/Faster‑RCNN and deployed the best model in a web app to reduce on‑site risks.',
+        details:{approach:'Prompting + retrieval, GraphCodeBERT classifier', extras:'data-flow visualizations'} },
+      { id:'safety', title:'Real-time Construction Worker Safety Inspection',
+        summary:'Benchmarked CNN/RCNN/SSD/Faster-RCNN and deployed the best model in a web app to reduce on-site risks.',
         tags:'cv object detection faster-rcnn cnn rcnn ssd web',
         code:'#', paper:'papers/worker-safety.pdf',
-        details:{models:'Faster‑RCNN vs SSD/RCNN', deploy:'web integration'} }
+        details:{models:'Faster-RCNN vs SSD/RCNN', deploy:'web integration'} }
     ];
 
     const synonyms = {
@@ -401,7 +405,7 @@
       const q = qaInput.value.trim(); if(!q) return; pushUserBubble(q); qaInput.value='';
       const matches = bestMatches(q);
       if(matches.length===0){
-        pushBotBubble("I couldn't find that in my current projects. Try asking about <em>Waymo diffusion forecasting</em>, <em>CUDA speedups</em>, <em>Knowledge‑Aware Graph agents</em>, or <em>NLP suicide detection</em>.");
+        pushBotBubble("I couldn't find that in my current projects. Try asking about <em>Waymo diffusion forecasting</em>, <em>CUDA speedups</em>, <em>Knowledge-Aware Graph agents</em>, or <em>NLP suicide detection</em>.");
         return;
       }
       const first = matches[0].it; pushBotBubble(answerFor(first,q));
