@@ -4,40 +4,77 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gayatri Malladi</title>
-  <meta name="description" content="Portfolio of Gayatri Malladi — projects in NLP, LLMs, agents, vision, and HPC." />
+  <meta name="description" content="Gayatri Malladi — NLP/LLM‑themed portfolio. Projects, papers, writing, and photography." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='85'>GM</text></svg>">
   <style>
-    /* —— Minimal single‑column layout closely mirroring rutadesai.github.io —— */
-    :root{--fg:#111;--muted:#555;--link:#0645ad;--bg:#fff;--rule:#e6e6e6}
-    @media (prefers-color-scheme: dark){:root{--fg:#f2f2f2;--muted:#b8b8b8;--link:#8ab4f8;--bg:#0b0b0b;--rule:#222}}
+    /* —— Minimal single‑column base (Ruta-style), with LLM/NLP theming —— */
+    :root{--fg:#0e1116;--muted:#596273;--link:#4f46e5;--bg:#ffffff;--rule:#e9eef5;--accent1:#8b5cf6;--accent2:#06b6d4;--glow: 0 0 0 rgba(0,0,0,0)}
+    @media (prefers-color-scheme: dark){:root{--fg:#e8ecf4;--muted:#a7b0c0;--link:#a5b4fc;--bg:#0a0b0f;--rule:#1b2230}}
     html{font-size:16px}
-    body{margin:0 auto;max-width:820px;padding:26px 16px 40px;line-height:1.6;color:var(--fg);background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Inter,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji"}
+    body{margin:0 auto;max-width:860px;padding:26px 16px 48px;line-height:1.65;color:var(--fg);background:var(--bg);font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"}
     h1,h2,h3{line-height:1.25;margin:1.15em 0 .55em}
-    h1{font-size:2.3rem;margin-top:0}
-    h2{font-size:1.45rem}
+    h1{font-size:2.35rem;margin-top:0}
+    h2{font-size:1.48rem}
     h3{font-size:1.08rem}
-    p,ul{margin:.4em 0}
+    p,ul{margin:.45em 0}
     a{color:var(--link);text-decoration:none}
     a:hover{text-decoration:underline}
     .muted{color:var(--muted)}
     .row-links a{margin-right:.6rem}
     .hr{height:1px;background:var(--rule);margin:22px 0}
-    /* Publication-style entry with a left thumbnail (like Ruta's) */
-    .entry{display:grid;grid-template-columns:160px 1fr;gap:14px;align-items:start;margin:16px 0 22px}
-    .entry img{width:160px;aspect-ratio:16/10;object-fit:cover;border:1px solid var(--rule)}
-    @media (max-width:640px){.entry{grid-template-columns:1fr}.entry img{width:100%}}
-    /* Simple tags (inspired by Maddy-Portfolio but subtle) */
-    .tags{display:flex;flex-wrap:wrap;gap:6px;margin:.3rem 0}
+
+    /* ——— LLM token ribbon (innovative banner, subtle by default) ——— */
+    .token-ribbon{position:relative;display:block;width:100%;overflow:hidden;border:1px solid var(--rule);border-radius:10px;background:linear-gradient(90deg, color-mix(in oklab, var(--accent1), transparent 80%), color-mix(in oklab, var(--accent2), transparent 80%));}
+    .token-track{display:flex;gap:2rem;white-space:nowrap;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;font-size:.88rem;padding:8px 12px;color:color-mix(in oklab, var(--fg), transparent 30%);}
+    .token-track .t{opacity:.9}
+    .scroll{animation: marquee 28s linear infinite}
+    .scroll2{animation: marquee 36s linear infinite reverse}
+    @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)} }
+    @media (prefers-reduced-motion: reduce){.scroll,.scroll2{animation:none}}
+
+    /* ——— Publication-style entries with animated NLP thumbnail ——— */
+    .entry{display:grid;grid-template-columns:180px 1fr;gap:14px;align-items:start;margin:16px 0 22px}
+    .thumb{position:relative;width:180px;aspect-ratio:16/10;border:1px solid var(--rule);border-radius:10px;overflow:hidden;background:#0b1020}
+    .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.05)}
+    /* animated attention lines overlay */
+    .thumb svg{position:absolute;inset:0;width:100%;height:100%;opacity:.9}
+    .thumb .line{stroke:url(#grad);stroke-width:1.2;stroke-dasharray:4 6;animation: flow 3.4s linear infinite}
+    .thumb .line:nth-child(odd){animation-duration: 2.6s}
+    @keyframes flow{from{stroke-dashoffset:0}to{stroke-dashoffset:-200}}
+    /* hover lift */
+    .entry:hover .thumb{box-shadow:0 10px 30px 0 rgba(79,70,229,.18);transform:translateY(-2px);transition:transform .2s ease, box-shadow .2s ease}
+    @media (max-width:680px){.entry{grid-template-columns:1fr}.thumb{width:100%}}
+
+    /* tags / buttons */
+    .tags{display:flex;flex-wrap:wrap;gap:6px;margin:.35rem 0}
     .tag{font-size:.74rem;border:1px solid var(--rule);padding:2px 8px;border-radius:999px;color:var(--muted)}
-    /* Video wrapper for featured demo */
-    .video{position:relative;aspect-ratio:16/9;max-width:720px}
-    .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+    .row-links .btn{display:inline-block;border:1px solid var(--rule);padding:6px 10px;border-radius:10px;text-decoration:none;margin-right:.4rem}
+    .btn:hover{background:color-mix(in oklab, var(--link), transparent 90%);text-decoration:none}
+
+    /* tiny paper curl badge on thumbnails */
+    .paper-curl{position:absolute;right:-1px;top:-1px;width:42px;height:42px;background:conic-gradient(from 180deg,var(--rule),#fff0 60%);clip-path:polygon(0 0,100% 0,100% 100%);opacity:.7}
+    .paper-curl::after{content:"";position:absolute;right:6px;top:6px;width:10px;height:14px;border:1px solid var(--rule);background:linear-gradient(#fff2,#0000);transform:rotate(10deg)}
+
+    /* writing entries reuse .entry; ensure anchors look clean */
+    .entry a.title{color:inherit}
   </style>
 </head>
 <body>
   <main>
     <h1>Gayatri Malladi</h1>
-    <p>I’m a graduate student in Computer Science at the University of Washington (GPA 3.93/4.0). My interests span NLP & LLMs, autonomous agents, perception/planning, and efficient ML (CUDA/HPC). I like building practical systems that turn messy, multimodal data into robust models and tools.</p>
+    <div class="token-ribbon" aria-hidden="true">
+      <div class="token-track scroll">
+        <span class="t">token → embedding → attention → head₁ • head₂ • head₈ → logits → loss → update</span>
+        <span class="t">prompt → retrieval → context window → decoding → alignment → safety → evals</span>
+        <span class="t">BERT → RoBERTa → diffusion → CUDA → Waymo → EEG → agents → graphs</span>
+      </div>
+      <div class="token-track scroll2">
+        <span class="t">⟂ gradients → SGD → AdamW → LR warmup → cosine decay → checkpoints</span>
+        <span class="t">beam search → nucleus → sampling → temperature → perplexity → AUC → F1</span>
+      </div>
+    </div>
+
+    <p>I’m a graduate student in Computer Science at the University of Washington Bothell (GPA 3.93/4.0). My interests span NLP & LLMs, autonomous agents, perception/planning, and efficient ML (CUDA/HPC). I like building practical systems that turn messy, multimodal data into robust models and tools.</p>
     <p class="muted">Email: <strong>gayat23[at]uw.edu</strong></p>
     <p class="row-links">
       <a href="resume.pdf" target="_blank" rel="noopener">CV</a> /
@@ -49,16 +86,29 @@
 
     <h2 id="demo"># Featured Demo</h2>
     <div class="entry">
-      <img src="https://via.placeholder.com/320x200?text=LLM+Demo" alt="LLM/NLP demo thumbnail placeholder" />
+      <div class="thumb">
+        <img src="images/featured-llm.jpg" alt="LLM/NLP demo thumbnail"/>
+        <div class="paper-curl" aria-hidden="true"></div>
+        <svg viewBox="0 0 120 75" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#8b5cf6"/>
+              <stop offset="100%" stop-color="#06b6d4"/>
+            </linearGradient>
+          </defs>
+          <!-- animated attention lines -->
+          <path class="line" d="M2 62 C 30 40, 60 40, 118 12" fill="none"/>
+          <path class="line" d="M2 12 C 30 30, 70 35, 118 55" fill="none"/>
+          <path class="line" d="M2 36 C 45 20, 70 45, 118 28" fill="none"/>
+        </svg>
+      </div>
       <div>
         <strong>Conversational Coding Assistant for Safer Code</strong> <span class="muted">— Prototype, 2025</span>
-        <p>An LLM-powered assistant that reviews code changes, retrieves CWE patterns with lightweight RAG, and proposes secure diffs. It maintains short‑term repo context and adapts explanations by user expertise.</p>
+        <p>An LLM-powered assistant that reviews code changes, retrieves CWE patterns with lightweight RAG, and proposes secure diffs. It keeps repo context and adapts explanations by user expertise.</p>
         <div class="tags">
           <span class="tag">LLMs</span><span class="tag">RAG</span><span class="tag">Security</span><span class="tag">NLP</span>
         </div>
-        <div class="video">
-          <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="LLM demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
+        <p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank" rel="noopener">Code</a><a class="btn" href="papers/llm-sec-assistant.pdf" target="_blank" rel="noopener">Paper</a><a class="btn" href="https://www.youtube.com/watch?v=VIDEO_ID" target="_blank" rel="noopener">Demo</a></p>
       </div>
     </div>
 
@@ -66,84 +116,159 @@
 
     <h3>Agents & Planning</h3>
     <div class="entry">
-      <img src="https://via.placeholder.com/320x200?text=KAG+Agent" alt="Knowledge-aware agent" />
+      <div class="thumb">
+        <img src="images/agents-kag.jpg" alt="Knowledge-aware agent"/>
+        <div class="paper-curl" aria-hidden="true"></div>
+        <svg viewBox="0 0 120 75" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+          <path class="line" d="M2 60 C 35 45, 60 25, 118 12" fill="none"/>
+          <path class="line" d="M2 18 C 35 25, 75 40, 118 58" fill="none"/>
+        </svg>
+      </div>
       <div>
         <strong>Solving Short‑term Memory Limits of ADAPT Agents</strong> <span class="muted">— May 2025 – Present</span>
-        <p>Integrated a <em>Knowledge‑Aware Graph</em> module into a vision‑language agent to model long‑term user preferences; added a diffusion‑style drive model for smoother multi‑modal planning under uncertainty.</p>
+        <p>Added a <em>Knowledge‑Aware Graph</em> module for long‑term user preferences and a diffusion‑style drive model for smoother planning under uncertainty.</p>
         <div class="tags"><span class="tag">Vision‑Language</span><span class="tag">Graphs</span><span class="tag">RL</span></div>
-        <p class="row-links"><a href="https://github.com/mg-2321" target="_blank">Code</a></p>
+        <p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a><a class="btn" href="papers/adapt-kag.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
 
     <h3>Vision & Robotics</h3>
     <div class="entry">
-      <img src="https://via.placeholder.com/320x200?text=Waymo+Trajectories" alt="Waymo trajectories" />
+      <div class="thumb">
+        <img src="images/waymo-forecast.jpg" alt="Waymo trajectories"/>
+        <div class="paper-curl" aria-hidden="true"></div>
+        <svg viewBox="0 0 120 75" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+          <path class="line" d="M2 62 C 30 40, 60 40, 118 12" fill="none"/>
+          <path class="line" d="M2 12 C 30 30, 70 35, 118 55" fill="none"/>
+        </svg>
+      </div>
       <div>
         <strong>Future Trajectory Prediction for Autonomous Vehicles</strong> <span class="muted">— May 2025 – Present</span>
-        <p>Diffusion‑based model to forecast 5‑second future trajectories in long‑tail driving scenarios (Waymo Open Dataset), modeling multimodal uncertainty and temporal dependencies.</p>
+        <p>Diffusion‑based model predicting 5‑second future trajectories in long‑tail scenarios using the Waymo Open Dataset; explicitly models multimodal uncertainty.</p>
         <div class="tags"><span class="tag">Diffusion</span><span class="tag">Forecasting</span><span class="tag">PyTorch</span></div>
-        <p class="row-links"><a href="https://github.com/mg-2321" target="_blank">Code</a></p>
+        <p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a><a class="btn" href="papers/waymo-forecast.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
+
     <div class="entry">
-      <img src="https://via.placeholder.com/320x200?text=CUDA+HPC" alt="CUDA optimization" />
+      <div class="thumb">
+        <img src="images/cuda-limo.jpg" alt="CUDA optimization"/>
+        <div class="paper-curl" aria-hidden="true"></div>
+        <svg viewBox="0 0 120 75" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+          <path class="line" d="M2 54 C 45 35, 60 15, 118 8" fill="none"/>
+          <path class="line" d="M2 28 C 30 36, 70 40, 118 58" fill="none"/>
+        </svg>
+      </div>
       <div>
         <strong>Optimizing LIMO Pipeline with CUDA Parallelization</strong> <span class="muted">— Jan 2025 – Mar 2025</span>
-        <p>Shared‑memory tiling, async transfers, and custom kernels for 2D conv, keyframe selection, and pose estimation, improving kernel time by up to 60% with Nsight‑guided optimization.</p>
+        <p>Shared‑memory tiling, async transfers, and custom kernels for 2D conv, keyframe selection, and pose estimation, improving kernel time by up to 60%.</p>
         <div class="tags"><span class="tag">CUDA</span><span class="tag">Nsight</span><span class="tag">ResNet</span></div>
-        <p class="row-links"><a href="https://github.com/mg-2321" target="_blank">Code</a></p>
+        <p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a><a class="btn" href="papers/limo-cuda.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
+
     <div class="entry">
-      <img src="https://via.placeholder.com/320x200?text=EEG+Signals" alt="EEG" />
+      <div class="thumb">
+        <img src="images/eeg-stroke.jpg" alt="EEG"/>
+        <div class="paper-curl" aria-hidden="true"></div>
+        <svg viewBox="0 0 120 75" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+          <path class="line" d="M2 62 C 30 40, 60 40, 118 12" fill="none"/>
+          <path class="line" d="M2 12 C 30 30, 70 35, 118 55" fill="none"/>
+        </svg>
+      </div>
       <div>
         <strong>Stroke Rehabilitation — EEG Motor Action Classification</strong> <span class="muted">— Oct 2024 – Dec 2024</span>
         <p>Pre/post‑stroke EEG analysis for motor actions (hand wave, clench, face rub) with ICA, band‑pass filtering, and PCA; models: Decision Trees, SVMs, NNs.</p>
         <div class="tags"><span class="tag">EEG</span><span class="tag">ICA/PCA</span><span class="tag">SVM</span></div>
+        <p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a><a class="btn" href="papers/eeg-stroke.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
 
     <h3>NLP & Safety</h3>
     <div class="entry">
-      <img src="https://via.placeholder.com/320x200?text=NLP+Clinical" alt="NLP for suicide risk" />
+      <div class="thumb">
+        <img src="images/nlp-si.jpg" alt="NLP for suicide risk"/>
+        <div class="paper-curl" aria-hidden="true"></div>
+        <svg viewBox="0 0 120 75" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+          <path class="line" d="M2 52 C 35 25, 65 40, 118 20" fill="none"/>
+          <path class="line" d="M2 18 C 35 25, 75 40, 118 58" fill="none"/>
+        </svg>
+      </div>
       <div>
         <strong>NLP for Suicide Ideation & Attempt Detection</strong> <span class="muted">— Jan 2023 – Jun 2023</span>
-        <p>Preprocessed clinical + forum text (MIMIC‑III, SuicideWatch); compared GloVe/Word2Vec/FastText/CBOW; trained BERT & RoBERTa vs Bi‑LSTM baselines for SI/SA detection.</p>
+        <p>Preprocessed clinical + forum text (MIMIC‑III, SuicideWatch); compared GloVe/Word2Vec/FastText/CBOW; trained BERT & RoBERTa vs Bi‑LSTM baselines.</p>
         <div class="tags"><span class="tag">BERT</span><span class="tag">RoBERTa</span><span class="tag">Bi‑LSTM</span></div>
+        <p class="row-links"><a class="btn" href="#" target="_blank">Code</a><a class="btn" href="papers/nlp-suicide-risk.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
 
     <h3>Security & Code Analysis</h3>
     <div class="entry">
-      <img src="https://via.placeholder.com/320x200?text=LLM+Security" alt="LLM code security" />
+      <div class="thumb">
+        <img src="images/llm-security.jpg" alt="LLM code security"/>
+        <div class="paper-curl" aria-hidden="true"></div>
+        <svg viewBox="0 0 120 75" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+          <path class="line" d="M2 62 C 30 40, 60 40, 118 12" fill="none"/>
+          <path class="line" d="M2 12 C 30 30, 70 35, 118 55" fill="none"/>
+        </svg>
+      </div>
       <div>
         <strong>LLMs for Code Vulnerability Detection</strong> <span class="muted">— Sept 2023 – Mar 2024</span>
-        <p>Prompt‑engineered LLMs + RAG for vulnerable code detection with self‑explanations; built GraphCodeBERT + DCGAN pipeline to flag zero‑day patterns via data‑flow visualizations.</p>
+        <p>Prompt‑engineered LLMs + RAG for vulnerable code detection with self‑explanations; GraphCodeBERT + DCGAN pipeline to flag zero‑day patterns via data‑flow visuals.</p>
         <div class="tags"><span class="tag">RAG</span><span class="tag">GraphCodeBERT</span><span class="tag">DCGAN</span></div>
+        <p class="row-links"><a class="btn" href="#" target="_blank">Code</a><a class="btn" href="papers/llm-code-vuln.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
+
     <div class="entry">
-      <img src="https://via.placeholder.com/320x200?text=Vision+Safety" alt="Construction safety detection" />
+      <div class="thumb">
+        <img src="images/worker-safety.jpg" alt="Construction safety detection"/>
+        <div class="paper-curl" aria-hidden="true"></div>
+        <svg viewBox="0 0 120 75" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+          <path class="line" d="M2 62 C 30 40, 60 40, 118 12" fill="none"/>
+          <path class="line" d="M2 12 C 30 30, 70 35, 118 55" fill="none"/>
+        </svg>
+      </div>
       <div>
         <strong>Real‑time Construction Worker Safety Inspection</strong> <span class="muted">— Dec 2022 – Jan 2023</span>
         <p>Benchmarked CNN/RCNN/SSD/Faster‑RCNN and integrated the best detector into a web app for on‑site deployment to reduce supervision gaps.</p>
         <div class="tags"><span class="tag">Faster‑RCNN</span><span class="tag">CV</span><span class="tag">Web</span></div>
+        <p class="row-links"><a class="btn" href="#" target="_blank">Code</a><a class="btn" href="papers/worker-safety.pdf" target="_blank">Paper</a></p>
       </div>
-    </div>$1<h2 id="writing"># Writing</h2>
-$1<p>Read more on <a href="https://medium.com/@YOUR_MEDIUM_HANDLE" target="_blank" rel="me noopener">Medium</a>. Below are recent highlights (update titles and links as you publish):</p>
-$1<!-- Example entries (uncomment and update when ready)
-$1<div class="entry">
-$1  <img src="images/medium-cover-1.jpg" alt="Post cover placeholder" />
-$1  <div>
-$1    <strong><a href="https://medium.com/@YOUR_MEDIUM_HANDLE/YOUR_POST_SLUG" target="_blank" rel="noopener">Title of your post</a></strong> <span class="muted">— Month YYYY</span>
-$1    <p>One‑line summary of the article.</p>
-$1    <div class="tags"><span class="tag">LLMs</span><span class="tag">NLP</span></div>
-$1  </div>
-$1</div>
-$1-->
-$1
-$1<div class="hr"></div>
-$1<h2 id="experience"># Experience</h2>
+    </div>
+
+    <div class="hr"></div>
+
+    <h2 id="writing"># Writing</h2>
+    <p>Read more on <a href="https://medium.com/@YOUR_MEDIUM_HANDLE" target="_blank" rel="me noopener">Medium</a>. Add a couple of featured posts here for quick access.</p>
+
+    <div class="entry">
+      <div class="thumb">
+        <img src="images/medium-cover-1.jpg" alt="Post cover"/>
+        <div class="paper-curl" aria-hidden="true"></div>
+        <svg viewBox="0 0 120 75" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+          <path class="line" d="M2 52 C 35 25, 65 40, 118 20" fill="none"/>
+          <path class="line" d="M2 18 C 35 25, 75 40, 118 58" fill="none"/>
+        </svg>
+      </div>
+      <div>
+        <strong><a class="title" href="https://medium.com/@YOUR_MEDIUM_HANDLE/YOUR_POST_SLUG" target="_blank" rel="noopener">Title of your post</a></strong> <span class="muted">— Month YYYY</span>
+        <p>One‑line summary of the article.</p>
+        <div class="tags"><span class="tag">LLMs</span><span class="tag">NLP</span></div>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <h2 id="experience"># Experience</h2>
     <p><strong>Research Intern</strong>, Centre for Development of Advanced Computing (C‑DAC) — <span class="muted">Sept 2023 – Mar 2024</span></p>
     <ul>
       <li>LLMs for vulnerable code detection using <em>Prompt Engineering</em> + <em>RAG</em> with self‑explanations.</li>
@@ -172,6 +297,8 @@ $1<h2 id="experience"># Experience</h2>
 
     <p class="muted">© <span id="yr"></span> Gayatri Malladi</p>
   </main>
-  <script>document.getElementById('yr').textContent=new Date().getFullYear()</script>
+  <script>
+    document.getElementById('yr').textContent=new Date().getFullYear()
+  </script>
 </body>
 </html>
