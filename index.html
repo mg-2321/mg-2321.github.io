@@ -36,7 +36,38 @@
     .mini-nav a:hover{ background:var(--pill) }
 
     /* Intro: text + portrait side-by-side; photo starts at first line */
-    .intro{ display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:24px; align-items:start; }
+    /* Intro: make photo exactly match text block height */
+    .intro{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 320px;
+      gap:24px;
+      /* key change: stretch both columns to the same row height */
+      align-items:stretch;
+    }
+    
+    /* stretch the aside to the row height */
+    .avatar-wrap{ align-self:stretch; }
+    
+    /* make the image fill that height; crop gracefully */
+    .avatar{
+      width:100%;
+      height:100%;
+      object-fit:cover;           /* keeps face large; crops overflow */
+      object-position:center 30%; /* nudge focus upward a bit (optional) */
+      border-radius:16px;
+      border:1px solid var(--rule);
+    }
+    
+    /* remove extra top/bottom whitespace so the first/last lines align with image edges */
+    .prose .lead:first-child{ margin-top:0; }
+    .prose .lead:last-child{  margin-bottom:0; }
+    
+    /* Mobile: stack and go back to natural image height */
+    @media (max-width:860px){
+      .intro{ grid-template-columns:1fr; }
+      .avatar{ height:auto; max-height:260px; }
+    }
+
     .prose{ max-width:72ch; text-align:justify; text-justify:inter-word; hyphens:auto }
     .lead{ font-size:1.06rem }
     .lead.red{ color:#c62828 } /* full red paragraph */
