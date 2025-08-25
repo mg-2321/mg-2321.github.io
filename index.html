@@ -116,28 +116,28 @@
     .bubble{background:#f7faff;border:1px solid #d8e4ff;padding:10px 12px;border-radius:12px}
     .bubble.me{align-self:flex-end;background:#eef3ff}
     .bubble.bot{align-self:flex-start}
-    /* Tighter, title-aligned bullets for project blurbs */
-.proj-bullets{
-  margin:.2rem 0 0 0;      /* no top gap under the title */
-  padding:0;               /* remove default UL left padding */
-  list-style:none;         /* we'll draw the dot ourselves */
-}
-.proj-bullets li{
-  position:relative;
-  padding-left:1rem;       /* room for the dot */
-  margin:.25rem 0;
-  text-align:justify;
-  text-justify:inter-word;
-  hyphens:auto;
-  line-height:1.65;
-}
-.proj-bullets li::before{
-  content:"•";
-  position:absolute;
-  left:0;
-  top:0;
-  line-height:1.65;
-}
+   /* Align project bullets with the title — no left indent, neat spacing */
+    .entry ul{
+      margin:.25rem 0 0 0;   /* remove top gap under the title */
+      padding:0;             /* kill default UL padding */
+      list-style:none;       /* we'll draw the dot */
+    }
+    .entry ul li{
+      position:relative;
+      padding-left:1rem;     /* space for our custom dot */
+      margin:.25rem 0;
+      text-align:justify;
+      text-justify:inter-word;
+      hyphens:auto;
+      line-height:1.65;
+    }
+    .entry ul li::before{
+      content:"•";
+      position:absolute;
+      left:0;
+      top:0;
+      line-height:1.65;
+    }
 
 
 </style>
@@ -273,11 +273,11 @@
       <img class="thumb" src="images/worker-safety.jpg" alt="Construction safety detection"/>
       <div>
         <strong>Real-time Construction Worker Safety Inspection</strong>
-        <span class="muted">— Dec 2022 – Jan 2023</span>
+        <em class="muted">— Dec 2022 – Jan 2023</em>
     
-      <ul class="proj-bullets">
-        <p>Built a real-time PPE compliance detection system using a CenterNet-based model, reducing reliance on manual spot-checks and mitigating fatal accident risks on construction sites. Benchmarked CenterNet against Faster R-CNN and SSD on CHVG and Pictor PPE datasets; deployed the best-performing ResNet-50 variant in a lightweight web app that flags violations at entry and makes compliance auditable.</p>
-      </ul>
+        <ul class="proj-bullets">
+          <p>Built a real-time PPE compliance detection system using a CenterNet-based model, reducing reliance on manual spot-checks and mitigating fatal accident risks on construction sites. Benchmarked CenterNet against Faster R-CNN and SSD on CHVG and Pictor PPE datasets; deployed the best-performing ResNet-50 variant in a lightweight web app that flags violations at entry and makes compliance auditable.</p>
+        </ul>
     
         <p class="row-links">
           <a class="btn" href="https://github.com/mg-2321/Safety-equipment-check-using-object-detection"
