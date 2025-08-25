@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Gayatri Malladi</title>
-  <meta name="description" content="Gayatri Malladi — Agentic AI, LLMs, projects, and blogs." />
+  <meta name="description" content="Gayatri Malladi — Agentic AI, LLMs, projects, and blogs."/>
 
   <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,12 +36,15 @@
     .mini-nav a{ display:inline-block; font-size:.95rem; margin:0 .55rem; padding:2px 8px; border-radius:999px }
     .mini-nav a:hover{ background:var(--pill) }
 
-    /* Intro layout */
+    /* Intro layout (photo equals text height) */
     .intro{ display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:24px; align-items:stretch }
     .prose{ max-width:72ch; text-align:justify; text-justify:inter-word; hyphens:auto }
     .lead{ font-size:1.06rem }
     .lead.red{ color:#c62828 }
-    .avatar{ width:100%; height:100%; object-fit:cover; object-position:center 30%; border-radius:16px; border:1px solid var(--rule); display:block }
+    .avatar{
+      width:100%; height:100%; object-fit:cover; object-position:center 30%;
+      border-radius:16px; border:1px solid var(--rule); display:block;
+    }
     @media (max-width:860px){ .intro{ grid-template-columns:1fr } .avatar{ height:auto; max-height:260px } }
 
     /* Sections */
@@ -64,8 +67,8 @@
     .row-links a.btn{ display:inline-block; border:1px solid var(--rule); padding:6px 10px; border-radius:10px; text-decoration:none; margin-right:.45rem }
     .btn:hover{ background:#f7faff; border-color:#d8e4ff }
 
-    /* Big-media layout for PPE */
-    .entry--wide-media{ grid-template-columns:360px 1fr }
+    /* Big-media layout for PPE (bigger cover, smaller text) */
+    .entry--wide-media{ grid-template-columns:420px 1fr } /* bigger media column */
     .entry--wide-media .thumb{ width:100%; aspect-ratio:16/9 }
     .entry--wide-media .entry-body{ font-size:.95rem }
     .entry--wide-media .proj-cover{ border:2px solid var(--accent); box-shadow:0 8px 24px rgba(108,140,255,.18) }
@@ -76,7 +79,7 @@
     video.proj-cover::-webkit-media-controls-enclosure,
     video.proj-cover::-webkit-media-controls-panel{ display:none !important }
 
-    /* Token ribbon + playground (unchanged) */
+    /* Token ribbon + playground */
     .tokenribbon{position:relative;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:linear-gradient(90deg,#f7faff 0,#fff 50%,#f7faff 100%)}
     .track{display:flex;gap:2rem;white-space:nowrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;padding:10px 12px;color:#264;opacity:.9}
     .scroll{animation:marquee 26s linear infinite}
@@ -117,7 +120,7 @@
     <section class="intro">
       <div class="prose">
         <p class="lead">
-          I’m a second-year M.S. student in the Comuter Science department at the University of Washington. Currently, my research supervised by
+          I’m a second-year M.S. student in the Computer Science department at the University of Washington. Currently, my research supervised by
           <a href="https://rutadesai.github.io/" target="_blank" rel="noopener">Dr. Ruta Desai</a>
           focuses on agentic AI: planning and teaching language models when to ask vs. when to act, with lightweight grounding via a
           knowledge-augmented graph (KAG). Additionally, preference-based training (SFT → per-step DPO/SimPO; optional KTO/ORPO for asymmetric &lt;Ask&gt;/&lt;Act&gt; risk).
@@ -127,7 +130,7 @@
           Reflexion-style episodic notes that are indexed and reused across tasks.
         </p>
         <p class="lead red">
-          I’m open to research collaborations. Please email me (gayat23 [at] uw.edu) if you are interested to explore on on assistive agents for day-to-day task automation,
+          I’m open to research collaborations. Please email me (gayat23 [at] uw.edu) if you are interested to explore on assistive agents for day-to-day task automation,
           tool use, XR copilots, and self-evolving language models for curriculum generation, reflective fine-tuning, and preference optimization.
         </p>
       </div>
@@ -222,7 +225,7 @@
     <h3><span class="pill">Security &amp; Code Analysis</span></h3>
     <!-- LLM vulnerability project with a 2-video playlist cover -->
     <div class="entry">
-      <video id="vulnCover" class="thumb proj-cover" muted playsinline preload="metadata" poster="images/llm-security.jpg"></video>
+      <video id="vulnCover" class="thumb proj-cover" autoplay muted playsinline preload="metadata" poster="images/llm-security.jpg"></video>
       <div>
         <strong>LLMs for Code Vulnerability Detection</strong>
         <p>Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN to flag zero-day patterns via data-flow visuals.</p>
@@ -232,9 +235,7 @@
 
     <!-- PPE project with BIG cover and smaller text -->
     <div class="entry entry--wide-media">
-      <video class="thumb proj-cover"
-             autoplay muted playsinline loop preload="auto"
-             poster="images/worker-safety.jpg">
+      <video class="thumb proj-cover" autoplay muted playsinline loop preload="auto" poster="images/worker-safety.jpg">
         <source src="/ppe_pass_fail_corrected.mp4" type="video/mp4"/>
         <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/ppe_pass_fail_corrected.mp4" type="video/mp4"/>
       </video>
@@ -359,7 +360,7 @@
       ];
       let i=0, tried=0;
       function setSrc(idx){
-        v.src = playlist[idx] + '#t=0.1'; // nudge past first frame on iOS
+        v.src = playlist[idx] + '#t=0.1'; // skip first black frame on iOS
         v.play().catch(()=>{});
       }
       v.addEventListener('ended', ()=>{ i=(i+1)%playlist.length; setSrc(i); });
