@@ -248,11 +248,22 @@
     <div class="entry">
       <img class="thumb" src="images/worker-safety.jpg" alt="Construction safety detection"/>
       <div>
-        <strong>Real-time Construction Worker Safety Inspection</strong> <span class="muted">— Dec 2022 – Jan 2023</span>
-        <p>Benchmarked CNN/RCNN/SSD/Faster-RCNN and integrated the best detector into a web app for on-site deployment to reduce supervision gaps.</p>
-        <p class="row-links"><a class="btn" href="#" target="_blank">Code</a><a class="btn" href="papers/worker-safety.pdf" target="_blank">Paper</a></p>
-      </div>
+        <strong>Real-time Construction Worker Safety Inspection</strong>
+        <span class="muted">— Dec 2022 – Jan 2023</span>
+    
+        <ul class="proj-bullets">
+          <li>Construction sites rely on manual spot-checks; PPE non-compliance (hardhats, vests, glasses) slips through and raises injury risk.</li>
+          <li>Built Real-time employer-PPE object detection model using a CenterNet-based detector plus a rules engine that converts detections into a simple pass/fail safety check.</li>
+          <li>Compared CenterNet, Faster R-CNN, and SSD on CHVG and Pictor PPE datasets; CenterNet (ResNet-50) delivered the best precision-speed tradeoff for deployment.</li>
+          <li>Packaged the model in a lightweight web app that flags violations at entry, reducing inspector load and making compliance auditable.</li>
+        </ul>
+    
+        <p class="row-links">
+          <a class="btn" href="#" target="_blank">Code</a>
+          <a class="btn" href="papers/worker-safety.pdf" target="_blank">Paper</a>
+        </p>
     </div>
+
 
     <div class="hr"></div>
 
