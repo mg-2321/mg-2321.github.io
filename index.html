@@ -48,15 +48,15 @@
     .hr{ height:1px; background:var(--rule); margin:24px 0 }
     .pill{display:inline-block;font-size:.75rem;color:#244;padding:2px 8px;border-radius:999px;background:var(--pill);border:1px solid #d8e4ff;margin-bottom:.25rem}
 
-    /* Projects: UNIFORM cover size (bigger), no cropping */
+    /* Projects: UNIFORM cover size (no cropping) */
     .entry{
-      display:grid; grid-template-columns:380px 1fr; gap:16px; align-items:start; margin:18px 0 24px;
+      display:grid; grid-template-columns:400px 1fr; gap:16px; align-items:start; margin:18px 0 24px;
     }
     .cover{
       width:100%;
       aspect-ratio:16/9;
-      object-fit:contain;     /* IMPORTANT: no cropping */
-      background:#fff;        /* white letterboxing */
+      object-fit:contain;     /* no cropping */
+      background:#fff;        /* white letterbox */
       border:1px solid var(--rule);
       border-radius:12px;
       display:block;
@@ -170,7 +170,7 @@
     <h3><span class="pill">Agents &amp; Planning</span></h3>
     <div class="entry">
       <img class="cover" src="images/agents-kag.jpg" alt="Knowledge-aware agent"
-           onerror="this.onerror=null;this.src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='">
+           onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 450%22><rect width=%22800%22 height=%22450%22 fill=%22%23fff%22/></svg>'">
       <div>
         <div class="title">Solving Short-term Memory Limits of ADAPT Agents</div>
         <p>Added a <em>Knowledge-Aware Graph</em> module for long-term user preferences and a diffusion-style drive model for smoother planning under uncertainty.</p>
@@ -181,7 +181,7 @@
     <h3><span class="pill">Vision &amp; Robotics</span></h3>
     <div class="entry">
       <img class="cover" src="images/waymo-forecast.jpg" alt="Waymo trajectories"
-           onerror="this.onerror=null;this.src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='">
+           onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 450%22><rect width=%22800%22 height=%22450%22 fill=%22%23fff%22/></svg>'">
       <div>
         <div class="title">Future Trajectory Prediction for Autonomous Vehicles</div>
         <p>Diffusion-based model predicting 5-second future trajectories in long-tail scenarios using the Waymo Open Dataset; explicitly models multimodal uncertainty.</p>
@@ -191,7 +191,7 @@
 
     <div class="entry">
       <img class="cover" src="images/cuda-limo.jpg" alt="CUDA optimization"
-           onerror="this.onerror=null;this.src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='">
+           onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 450%22><rect width=%22800%22 height=%22450%22 fill=%22%23fff%22/></svg>'">
       <div>
         <div class="title">Optimizing LIMO Pipeline with CUDA Parallelization</div>
         <p>Shared-memory tiling, async transfers, and custom kernels for 2D conv, keyframe selection, and pose estimation, improving kernel time by up to 60%.</p>
@@ -204,6 +204,7 @@
       <video class="cover" autoplay muted loop playsinline preload="auto"
              poster="images/eeg-stroke.jpg"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <source src="cover_all_in_one_paper_exact4.mp4" type="video/mp4" />
         <source src="/cover_all_in_one_paper_exact4.mp4" type="video/mp4" />
         <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/cover_all_in_one_paper_exact4.mp4" type="video/mp4" />
       </video>
@@ -220,8 +221,8 @@
 
     <h3><span class="pill">NLP &amp; Safety</span></h3>
     <div class="entry">
-      <img class="cover" src="images/nlp-si.jpg" alt="NLP for suicide risk cover"
-           onerror="this.onerror=null;this.src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';">
+      <img class="cover" src="images/nlp-si.jpg" alt="NLP cover"
+           onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 450%22><rect width=%22800%22 height=%22450%22 fill=%22%23fff%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%2299a%22 font-family=%22sans-serif%22 font-size=%2220%22>NLP cover</text></svg>'">
       <div>
         <div class="title">NLP for Suicide Ideation &amp; Attempt Detection</div>
         <p>Preprocessed clinical + forum text (MIMIC-III, SuicideWatch); compared GloVe/Word2Vec/FastText/CBOW; trained BERT &amp; RoBERTa vs Bi-LSTM baselines.</p>
@@ -229,22 +230,11 @@
       </div>
     </div>
 
-    <!-- Security & Code Analysis (AUTO-SRC video cover) -->
+    <!-- Security & Code Analysis (robust video playlist/fallback) -->
     <h3><span class="pill">Security &amp; Code Analysis</span></h3>
     <div class="entry">
-      <video class="cover auto-src" autoplay muted loop playsinline preload="auto"
-             poster="images/llm-security.jpg"
-             data-srcs='[
-              "/gcb_merged_v2.mp4",
-              "/gcb_web_demo_v10.mp4",
-              "/gcb_full_demo_v13.mp4",
-              "https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/gcb_merged_v2.mp4",
-              "https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/gcb_web_demo_v10.mp4",
-              "https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/gcb_full_demo_v13.mp4"
-             ]'
-             onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-      </video>
-      <img class="cover" src="images/llm-security.jpg" alt="LLM code security poster" style="display:none">
+      <video id="vulnVid" class="cover" autoplay muted playsinline preload="auto" loop
+             poster="images/llm-security.jpg"></video>
       <div>
         <div class="title">LLMs for Code Vulnerability Detection</div>
         <p>Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN to flag zero-day patterns via data-flow visuals.</p>
@@ -257,6 +247,7 @@
       <video class="cover" autoplay muted loop playsinline preload="auto"
              poster="images/worker-safety.jpg"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <source src="ppe_pass_fail_corrected.mp4" type="video/mp4" />
         <source src="/ppe_pass_fail_corrected.mp4" type="video/mp4" />
         <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/ppe_pass_fail_corrected.mp4" type="video/mp4" />
       </video>
@@ -299,7 +290,7 @@
     <h2 id="blogs">Blogs</h2>
     <div class="entry">
       <img class="cover" src="images/medium-cover-1.jpg" alt="Post cover"
-           onerror="this.onerror=null;this.src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='">
+           onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 450%22><rect width=%22800%22 height=%22450%22 fill=%22%23fff%22/></svg>'">
       <div>
         <div class="title"><a href="https://medium.com/@YOUR_MEDIUM_HANDLE/YOUR_POST_SLUG" target="_blank" rel="noopener">Title of your post</a></div>
         <p>One-line summary of the article.</p>
@@ -355,14 +346,14 @@
       (function type(){ if(i < text.length){ el.textContent += text.charAt(i++); setTimeout(type, speed); } else { el.classList.remove('typing'); } })();
     })();
 
-    // Tokenizer toy
+    /* Tokenizer toy */
     function isWordChar(ch){const c=ch.charCodeAt(0);return (c>=48&&c<=57)||(c>=65&&c<=90)||(c>=97&&c<=122)||ch==='_';}
     const tokInput=document.getElementById('tokInput'), tokOut=document.getElementById('tokens'), tokStats=document.getElementById('tokStats');
     function tokenize(s){const out=[];let cur='',mode=null;for(const ch of s){const w=isWordChar(ch);if(mode===null){mode=w;cur=ch}else if((w&&mode)||(!w&&!mode)){cur+=ch}else{out.push(cur);cur=ch;mode=w}}if(cur)out.push(cur);return out.map(p=>p.length>6?p.slice(0,4)+'…':p)}
     function renderTokens(){const v=tokInput.value.trim();const t=v?tokenize(v):[];tokOut.innerHTML=t.map(x=>`<span class="tok">${x}</span>`).join('');tokStats.textContent=v?`${t.length} tokens (illustrative)`:''}
     tokInput.addEventListener('input',renderTokens);renderTokens();
 
-    // Q&A (simple matcher)
+    /* Q&A (simple matcher) */
     const KB=[
       {id:'waymo',title:'Future Trajectory Prediction for Autonomous Vehicles',summary:'Diffusion-based model forecasting 5-second trajectories on the Waymo Open Dataset; models multimodal uncertainty and temporal dependencies.',tags:'diffusion trajectory forecasting waymo uncertainty driving',code:'https://github.com/mg-2321',paper:'papers/waymo-forecast.pdf'},
       {id:'agents',title:'Solving Short-term Memory Limits of ADAPT Agents',summary:'Added a Knowledge-Aware Graph for long-term user preferences and a diffusion-style drive model for smoother planning.',tags:'agent adapt kag graph planning diffusion',code:'https://github.com/mg-2321',paper:'papers/adapt-kag.pdf'},
@@ -381,27 +372,76 @@
     function fmtLinks(it){const L=[];if(it.code&&it.code!=='#')L.push(`<a href="${it.code}" target="_blank">Code</a>`);if(it.paper)L.push(`<a href="${it.paper}" target="_blank">Paper</a>`);return L.length?` · ${L.join(' | ')}`:''}
     function push(who,html){const b=document.createElement('div');b.className='bubble '+(who==='me'?'me':'bot');b.innerHTML=html;chat.appendChild(b);chat.scrollTop=chat.scrollHeight}
     btn.addEventListener('click',ask);qa.addEventListener('keydown',e=>{if(e.key==='Enter')ask()});
-    document.querySelectorAll('.chip[data-q]').forEach(c=>c.addEventListener('click',()=>{qa.value=c.dataset.q;ask()}));
 
-    /* Auto-fallback video sources (handles 404s) */
-    function initAutoSrcVideos(){
-      document.querySelectorAll('video.auto-src[data-srcs]').forEach(v=>{
-        let list=[];
-        try{ list = JSON.parse(v.dataset.srcs || '[]'); }catch(e){}
-        let i = 0;
-        function tryNext(){
-          if(i >= list.length){ return; }
-          v.src = list[i++];
+    /* Robust video for Vulnerability project:
+       - Tries merged file first
+       - Falls back to each clip (local path, /path, raw URL)
+       - If using the two clips, loops them like one long video
+    */
+    (function initVulnVideo(){
+      const v = document.getElementById('vulnVid');
+      if(!v) return;
+
+      const local = (p)=>p;                    // same folder
+      const root  = (p)=>('/'+p.replace(/^\//,'')); // site root
+      const raw   = (p)=>('https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/'+p.replace(/^\//,''));
+
+      const merged = ['gcb_merged_v2.mp4', '/gcb_merged_v2.mp4', raw('gcb_merged_v2.mp4')];
+
+      const clipA = ['gcb_web_demo_v10.mp4', '/gcb_web_demo_v10.mp4', raw('gcb_web_demo_v10.mp4')];
+      const clipB = ['gcb_full_demo_v13.mp4', '/gcb_full_demo_v13.mp4', raw('gcb_full_demo_v13.mp4')];
+
+      let playlist = [];         // will be set to [merged] or [A,B]
+      let idxSrc = 0;            // index within current item’s candidates
+      let useClipsMode = false;  // true if we’re playing A then B
+
+      function trySet(srcList){
+        idxSrc = 0;
+        function tryOne(){
+          if(idxSrc >= srcList.length){ return false; }
+          v.src = srcList[idxSrc++];
           v.load();
-          v.play().catch(()=>{ /* ignore autoplay blocks */ });
+          v.play().catch(()=>{});
+          return true;
         }
-        v.addEventListener('error', tryNext);
-        v.addEventListener('stalled', tryNext);
-        v.addEventListener('emptied', tryNext);
-        tryNext();
+        v.addEventListener('error', onErrOnce, { once:true });
+        function onErrOnce(){ if(!tryOne()){ /* give up */ } }
+        tryOne();
+      }
+
+      // Step 1: try merged
+      (function tryMerged(){
+        const test = document.createElement('video');
+        let tried = 0;
+        function testNext(){
+          if(tried >= merged.length){ useClips(); return; }
+          test.src = merged[tried++];
+          test.addEventListener('canplay', ()=>{ playlist=[merged]; useClipsMode=false; trySet(merged); }, {once:true});
+          test.addEventListener('error', testNext, {once:true});
+          test.load();
+        }
+        function useClips(){
+          playlist=[clipA, clipB];
+          useClipsMode=true;
+          currentClip=0;
+          trySet(playlist[currentClip]);
+        }
+        testNext();
+      })();
+
+      // If clips mode, alternate A->B->A...
+      let currentClip = 0;
+      v.addEventListener('ended', ()=>{
+        if(useClipsMode){
+          currentClip = (currentClip+1) % playlist.length;
+          trySet(playlist[currentClip]);
+        }else{
+          // merged: just loop
+          v.currentTime = 0;
+          v.play().catch(()=>{});
+        }
       });
-    }
-    window.addEventListener('DOMContentLoaded', initAutoSrcVideos);
+    })();
   </script>
 </body>
 </html>
