@@ -116,6 +116,25 @@
     .bubble{background:#f7faff;border:1px solid #d8e4ff;padding:10px 12px;border-radius:12px}
     .bubble.me{align-self:flex-end;background:#eef3ff}
     .bubble.bot{align-self:flex-start}
+    /* Cleaner bullets + alignment for project text (Worker Safety) */
+.proj-bullets { 
+  margin:.5rem 0 0 1.1rem; 
+  padding:0; 
+  list-style:disc outside; 
+}
+.proj-bullets li{
+  margin:.35rem 0;
+  text-align:justify;
+  text-justify:inter-word;
+  hyphens:auto;
+  line-height:1.65;
+}
+.entry > div p{                /* keeps the Code/Paper line tidy */
+  text-align:justify;
+  text-justify:inter-word;
+  hyphens:auto;
+}
+
   </style>
 </head>
 <body>
@@ -252,17 +271,17 @@
         <span class="muted">— Dec 2022 – Jan 2023</span>
     
         <ul class="proj-bullets">
-          <li>Construction sites rely on manual spot-checks; PPE non-compliance (hardhats, vests, glasses) slips through and raises injury risk.</li>
-          <li>Built Real-time employer-PPE object detection model using a CenterNet-based detector plus a rules engine that converts detections into a simple pass/fail safety check.</li>
-          <li>Compared CenterNet, Faster R-CNN, and SSD on CHVG and Pictor PPE datasets; CenterNet (ResNet-50) delivered the best precision-speed tradeoff for deployment.</li>
-          <li>Packaged the model in a lightweight web app that flags violations at entry, reducing inspector load and making compliance auditable.</li>
+          <li><strong>Problem & approach:</strong> Manual spot-checks miss PPE non-compliance (hardhats, vests, glasses). Built a real-time PPE compliance system using a CenterNet (ResNet-50) detector + rules engine that converts detections into a simple pass/fail safety check; packaged as a lightweight web app that flags violations at entry and makes compliance auditable.</li>
+          <li><strong>Validation:</strong> Benchmarked CenterNet against Faster R-CNN and SSD on CHVG and Pictor PPE datasets; CenterNet delivered the best precision-speed trade-off for deployment.</li>
         </ul>
     
         <p class="row-links">
           <a class="btn" href="#" target="_blank">Code</a>
           <a class="btn" href="papers/worker-safety.pdf" target="_blank">Paper</a>
         </p>
+      </div>
     </div>
+
 
 
     <div class="hr"></div>
