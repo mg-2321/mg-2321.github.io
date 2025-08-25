@@ -1,29 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>   Gayatri Malladi</title>
-  <meta name="description" content="Gayatri Malladi — portfolio (agentic AI, LLMs, projects, writing)." />
+  <title>Gayatri Malladi</title>
+  <meta name="description" content="Gayatri Malladi — NLP/LLM‑themed portfolio. Projects, papers, writing, and photography." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='85'>GM</text></svg>">
-
   <style>
+    /* —— Light, single‑column, professional; innovative LLM theming —— */
     :root{--fg:#14161a;--muted:#5b6574;--link:#0b57d0;--bg:#ffffff;--rule:#e7ebf0;--pill:#f2f6ff}
     html{font-size:16px}
-    body{
-      margin:0 auto;max-width:900px;padding:26px 16px 64px;line-height:1.7;
-      color:var(--fg);background:var(--bg);
-      font-family:"Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial
-    }
-    h1,h2,h3{line-height:1.2;margin:1.15em 0 .55em}
+    body{margin:0 auto;max-width:900px;padding:26px 16px 64px;line-height:1.65;color:var(--fg);background:var(--bg);font-family:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"}
+    h1,h2,h3{line-height:1.22;margin:1.15em 0 .55em}
     h1{font-size:2.55rem;margin-top:0}
-    h2{font-size:1.55rem;position:relative}
-    h2::after{content:"";display:block;width:56px;height:3px;background:linear-gradient(90deg,#0b57d0,#8b5cf6);border-radius:3px;margin-top:6px;opacity:.9}
+    h2{font-size:1.55rem}
     h3{font-size:1.06rem;letter-spacing:.2px}
     p,ul{margin:.45em 0}
     a{color:var(--link);text-decoration:none}
@@ -32,33 +25,18 @@
     .row-links a{margin-right:.6rem}
     .hr{height:1px;background:var(--rule);margin:24px 0}
 
+    /* mini anchor nav under name */
     .mini-nav{margin:.2rem 0 1rem}
-    .mini-nav a{font-size:.95rem;margin-right:.8rem;padding:2px 8px;border-radius:999px;border:1px solid transparent}
+    .mini-nav a{font-size:.94rem;margin-right:.8rem;padding:2px 8px;border-radius:999px;border:1px solid transparent}
     .mini-nav a:hover{background:var(--pill);border-color:#d8e4ff;text-decoration:none}
 
-    /* Intro: text + portrait (photo begins at line 1) */
-    .intro{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:24px;align-items:start;margin-bottom:10px}
-    .avatar-wrap{align-self:start}
-    .avatar{width:100%;height:auto;border-radius:16px;border:1px solid var(--rule);display:block}
+    /* intro layout: text + portrait side-by-side */
+    .intro{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:24px;align-items:start;margin-bottom:10px}
+    .avatar-wrap{align-self:stretch}
+    .avatar{width:100%;height:100%;object-fit:cover;border-radius:14px;border:1px solid var(--rule)}
+    @media (max-width:840px){.intro{grid-template-columns:1fr}.avatar-wrap{order:-1}.avatar{height:220px}}
 
-    @media (max-width:860px){
-      .intro{grid-template-columns:1fr}
-      .avatar{max-height:260px;object-fit:cover}
-    }
-
-    /* Project entries */
-    .entry{display:grid;grid-template-columns:200px 1fr;gap:14px;align-items:start;margin:16px 0 22px}
-    .entry .thumb{position:relative;width:200px;aspect-ratio:16/10;object-fit:cover;border:1px solid var(--rule);border-radius:12px;overflow:hidden}
-    .entry .thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,87,208,.07) 1px,transparent 1px) 0 0/12px 100%,linear-gradient(rgba(11,87,208,.07) 1px,transparent 1px) 0 0/100% 12px;mix-blend-mode:multiply;opacity:.9;animation:drift 16s linear infinite}
-    @keyframes drift{0%{background-position:0 0,0 0}100%{background-position:160px 0,0 160px}}
-    .entry:hover .thumb{transform:translateY(-2px);box-shadow:0 10px 28px rgba(25,71,170,.12);transition:transform .2s ease, box-shadow .2s ease}
-    @media (max-width:680px){.entry{grid-template-columns:1fr}.entry .thumb{width:100%}}
-
-    .row-links .btn{display:inline-block;border:1px solid var(--rule);padding:6px 10px;border-radius:10px;text-decoration:none;margin-right:.45rem}
-    .btn:hover{background:#f7faff;text-decoration:none;border-color:#d8e4ff}
-    .pill{display:inline-block;font-size:.75rem;color:#244;padding:2px 8px;border-radius:999px;background:var(--pill);border:1px solid #d8e4ff;margin-bottom:.25rem}
-
-    /* Token ribbon + tokenizer */
+    /* ——— Innovative hero: Token conveyor + quick facts ——— */
     .tokenribbon{position:relative;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:linear-gradient(90deg,#f7faff 0,#fff 50%,#f7faff 100%)}
     .track{display:flex;gap:2rem;white-space:nowrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;padding:10px 12px;color:#264;opacity:.9}
     .scroll{animation:marquee 26s linear infinite}
@@ -66,13 +44,30 @@
     @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
     @media (prefers-reduced-motion: reduce){.scroll,.scroll2{animation:none}}
 
+    /* entry rows (thumbnail left, text right) */
+    .entry{display:grid;grid-template-columns:200px 1fr;gap:14px;align-items:start;margin:16px 0 22px}
+    .entry .thumb{position:relative;width:200px;aspect-ratio:16/10;object-fit:cover;border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+    /* animated attention‑grid overlay */
+    .entry .thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,87,208,.07) 1px,transparent 1px) 0 0/12px 100%,linear-gradient(rgba(11,87,208,.07) 1px,transparent 1px) 0 0/100% 12px;mix-blend-mode:multiply;opacity:.9;animation:drift 16s linear infinite}
+    @keyframes drift{0%{background-position:0 0,0 0}100%{background-position:160px 0,0 160px}}
+    .entry:hover .thumb{transform:translateY(-2px);box-shadow:0 10px 28px rgba(25,71,170,.12);transition:transform .2s ease, box-shadow .2s ease}
+    @media (prefers-reduced-motion: reduce){.entry .thumb::after{animation:none}}
+    @media (max-width:680px){.entry{grid-template-columns:1fr}.entry .thumb{width:100%}}
+
+    /* buttons */
+    .row-links .btn{display:inline-block;border:1px solid var(--rule);padding:6px 10px;border-radius:10px;text-decoration:none;margin-right:.45rem}
+    .btn:hover{background:#f7faff;text-decoration:none;border-color:#d8e4ff}
+
+    /* section pills for category subtitles */
+    .pill{display:inline-block;font-size:.75rem;color:#244;padding:2px 8px;border-radius:999px;background:var(--pill);border:1px solid #d8e4ff;margin-bottom:.25rem}
+
+    /* —— Tokenizer Playground —— */
     .playground{border:1px solid var(--rule);border-radius:12px;padding:12px}
     .playground input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--rule)}
     .tokens{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
     .tok{font:600 .8rem ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:4px 8px;border-radius:8px;background:#f1f4fb;border:1px solid #dbe3f3}
     .stats{font-size:.85rem;color:var(--muted);margin-top:6px}
-
-    /* Q&A */
+      /* Q&A (Ask about my work) */
     .qa{border:1px solid var(--rule);border-radius:12px;padding:12px}
     .qa .ask{display:flex;gap:8px}
     .qa input{flex:1;padding:10px 12px;border-radius:10px;border:1px solid var(--rule)}
@@ -83,38 +78,34 @@
     .bubble{background:#f7faff;border:1px solid #d8e4ff;padding:10px 12px;border-radius:12px}
     .bubble.me{align-self:flex-end;background:#eef3ff}
     .bubble.bot{align-self:flex-start}
-
-    /* Prose */
-    .lead{font-size:1.06rem}
-    .prose{max-width:72ch}
-    .prose .lead{margin:.65rem 0;text-align:justify;text-justify:inter-word;hyphens:auto}
-    .prose .lead:first-child{margin-top:0}
-    .lead.red{color:#c62828}
-  </style>
+      /* Enhanced section heading underline */
+    h2{position:relative}
+    h2::after{content:"";display:block;width:56px;height:3px;background:linear-gradient(90deg,#0b57d0,#8b5cf6);border-radius:3px;margin-top:6px;opacity:.85}
+    /* Lead intro text */
+    .lead{font-size:1.06rem;line-height:1.85}
+    /* Prose block formatting */
+  .prose{max-width:72ch}
+  .prose .lead{margin:.65rem 0;text-align:justify;text-justify:inter-word;text-indent:0;hyphens:auto}
+  .prose .lead:first-child{ text-indent:0 }
+</style>
 </head>
 <body>
   <main>
     <h1>Gayatri Malladi</h1>
     <p class="mini-nav">
       <a href="#projects">Projects</a>
-      <a href="#writing">Writing</a>
+      <a href="#blogs">Blogs</a>
       <a href="#experience">Experience</a>
       <a href="#education">Education</a>
     </p>
 
-    <!-- Intro with photo aligned to first line -->
     <section class="intro">
       <div class="prose">
-        <p class="lead">I’m a second-year M.S. student in the Comuter Science department at the University of Washington. Currently, my research supervised by <a href="https://rutadesai.github.io/" target="_blank" rel="noopener">Dr. Ruta Desai</a> focuses on agentic AI: planning and teaching language models when to ask vs. when to act, with lightweight grounding via a knowledge-augmented graph (KAG) for preference-based training..</p>
-
-        <p class="lead">Additionally, I'm working on overcoming memory context-window limits using short- and long-term retrieval caches, summarization, and Reflexion-style episodic notes that are indexed and reused across tasks.</p>
-
-        <p class="lead red">I’m open to research collaborations. Please email me(gayat23 [at] uw.edu) if you are interested to explore on on assistive agents for day-to-day task automation, tool use, XR copilots, and self-evolving language models for curriculum generation, reflective fine-tuning, and preference optimization.</p>
+        <p class="lead">I’m a second‑year M.S. student in the Computer Science department at the University of Washington. My research focuses on agentic AI: planning and teaching language models when to ask vs. when to act, with lightweight grounding via a knowledge‑augmented graph (KAG) and user preference‑based training.</p>
+        <p class="lead">Additionally, I'm exploring on to overcome memory context‑window limitations of language models using short‑ and long‑term retrieval caches, summarization/compression, and Reflexion‑style episodic notes that are indexed and reused across tasks.</p>
+        <p class="lead">I’m open to research collaborations. Please email me(gayat23 [at] uw.edu) if you are interested to explore on on assistive agents for day‑to‑day task automation, tool use, XR copilots, and self‑evolving language models for curriculum generation, reflective fine‑tuning, and preference optimization.</p>
       </div>
-
-      <aside class="avatar-wrap">
-        <img class="avatar" src="images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG" alt="Portrait of Gayatri Malladi" />
-      </aside>
+      <aside class="avatar-wrap"><img class="avatar" src="images/photo.jpg" alt="Portrait of Gayatri Malladi" /></aside>
     </section>
 
     <p class="row-links">
@@ -125,7 +116,7 @@
       <a href="https://instagram.com/YOUR_PHOTOGRAPHY_HANDLE" target="_blank" rel="me noopener">Instagram (Photography)</a>
     </p>
 
-    <!-- LLM hero ribbon -->
+    <!-- Innovative LLM hero ribbon -->
     <div class="tokenribbon" aria-hidden="true">
       <div class="track scroll">token → embedding → attention → head1 • head2 • head8 → logits → loss → update · prompt → retrieval → context → decoding → evals</div>
       <div class="track scroll2">beam search → nucleus → sampling → temperature → perplexity → AUC → F1 · CUDA → Waymo → EEG → agents → graphs</div>
@@ -133,7 +124,7 @@
 
     <!-- Tokenizer Playground -->
     <div class="playground" style="margin-top:14px">
-      <label for="tokInput" class="muted" style="font-size:.9rem">Tokenizer Playground — type a sentence (visual only; no network calls)</label>
+      <label for="tokInput" class="muted" style="font-size:.9rem">Tokenizer Playground — type a sentence (just a visual; no network calls)</label>
       <input id="tokInput" type="text" placeholder="e.g., Planning under uncertainty with diffusion models" />
       <div id="tokens" class="tokens" aria-live="polite"></div>
       <div id="tokStats" class="stats"></div>
@@ -141,22 +132,22 @@
 
     <h2 id="projects">Projects</h2>
 
-    <h3><span class="pill">Agents &amp; Planning</span></h3>
+    <h3><span class="pill">Agents & Planning</span></h3>
     <div class="entry">
       <img class="thumb" src="images/agents-kag.jpg" alt="Knowledge-aware agent"/>
       <div>
-        <strong>Solving Short-term Memory Limits of ADAPT Agents</strong> <span class="muted">— May 2025 – Present</span>
-        <p>Added a <em>Knowledge-Aware Graph</em> module for long-term user preferences and a diffusion-style drive model for smoother planning under uncertainty.</p>
+        <strong>Solving Short‑term Memory Limits of ADAPT Agents</strong> <span class="muted">— May 2025 – Present</span>
+        <p>Added a <em>Knowledge‑Aware Graph</em> module for long‑term user preferences and a diffusion‑style drive model for smoother planning under uncertainty.</p>
         <p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a><a class="btn" href="papers/adapt-kag.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
 
-    <h3><span class="pill">Vision &amp; Robotics</span></h3>
+    <h3><span class="pill">Vision & Robotics</span></h3>
     <div class="entry">
       <img class="thumb" src="images/waymo-forecast.jpg" alt="Waymo trajectories"/>
       <div>
         <strong>Future Trajectory Prediction for Autonomous Vehicles</strong> <span class="muted">— May 2025 – Present</span>
-        <p>Diffusion-based model predicting 5-second future trajectories in long-tail scenarios using the Waymo Open Dataset; explicitly models multimodal uncertainty.</p>
+        <p>Diffusion‑based model predicting 5‑second future trajectories in long‑tail scenarios using the Waymo Open Dataset; explicitly models multimodal uncertainty.</p>
         <p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a><a class="btn" href="papers/waymo-forecast.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
@@ -165,7 +156,7 @@
       <img class="thumb" src="images/cuda-limo.jpg" alt="CUDA optimization"/>
       <div>
         <strong>Optimizing LIMO Pipeline with CUDA Parallelization</strong> <span class="muted">— Jan 2025 – Mar 2025</span>
-        <p>Shared-memory tiling, async transfers, and custom kernels for 2D conv, keyframe selection, and pose estimation; up to 60% kernel time improvement.</p>
+        <p>Shared‑memory tiling, async transfers, and custom kernels for 2D conv, keyframe selection, and pose estimation, improving kernel time by up to 60%.</p>
         <p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a><a class="btn" href="papers/limo-cuda.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
@@ -174,27 +165,27 @@
       <img class="thumb" src="images/eeg-stroke.jpg" alt="EEG"/>
       <div>
         <strong>Stroke Rehabilitation — EEG Motor Action Classification</strong> <span class="muted">— Oct 2024 – Dec 2024</span>
-        <p>Pre/post-stroke EEG analysis for motor actions (hand wave, clench, face rub) with ICA, band-pass filtering, and PCA; models: Decision Trees, SVMs, NNs.</p>
+        <p>Pre/post‑stroke EEG analysis for motor actions (hand wave, clench, face rub) with ICA, band‑pass filtering, and PCA; models: Decision Trees, SVMs, NNs.</p>
         <p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a><a class="btn" href="papers/eeg-stroke.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
 
-    <h3><span class="pill">NLP &amp; Safety</span></h3>
+    <h3><span class="pill">NLP & Safety</span></h3>
     <div class="entry">
       <img class="thumb" src="images/nlp-si.jpg" alt="NLP for suicide risk"/>
       <div>
-        <strong>NLP for Suicide Ideation &amp; Attempt Detection</strong> <span class="muted">— Jan 2023 – Jun 2023</span>
-        <p>Preprocessed clinical + forum text (MIMIC-III, SuicideWatch); compared GloVe/Word2Vec/FastText/CBOW; trained BERT &amp; RoBERTa vs Bi-LSTM baselines.</p>
+        <strong>NLP for Suicide Ideation & Attempt Detection</strong> <span class="muted">— Jan 2023 – Jun 2023</span>
+        <p>Preprocessed clinical + forum text (MIMIC‑III, SuicideWatch); compared GloVe/Word2Vec/FastText/CBOW; trained BERT & RoBERTa vs Bi‑LSTM baselines.</p>
         <p class="row-links"><a class="btn" href="#" target="_blank">Code</a><a class="btn" href="papers/nlp-suicide-risk.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
 
-    <h3><span class="pill">Security &amp; Code Analysis</span></h3>
+    <h3><span class="pill">Security & Code Analysis</span></h3>
     <div class="entry">
       <img class="thumb" src="images/llm-security.jpg" alt="LLM code security"/>
       <div>
         <strong>LLMs for Code Vulnerability Detection</strong> <span class="muted">— Sept 2023 – Mar 2024</span>
-        <p>Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN to flag zero-day patterns via data-flow visuals.</p>
+        <p>Prompt‑engineered LLMs + RAG for vulnerable code detection with self‑explanations; GraphCodeBERT + DCGAN pipeline to flag zero‑day patterns via data‑flow visuals.</p>
         <p class="row-links"><a class="btn" href="#" target="_blank">Code</a><a class="btn" href="papers/llm-code-vuln.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
@@ -202,8 +193,8 @@
     <div class="entry">
       <img class="thumb" src="images/worker-safety.jpg" alt="Construction safety detection"/>
       <div>
-        <strong>Real-time Construction Worker Safety Inspection</strong> <span class="muted">— Dec 2022 – Jan 2023</span>
-        <p>Benchmarked CNN/RCNN/SSD/Faster-RCNN and deployed the best detector in a web app to reduce on-site risks.</p>
+        <strong>Real‑time Construction Worker Safety Inspection</strong> <span class="muted">— Dec 2022 – Jan 2023</span>
+        <p>Benchmarked CNN/RCNN/SSD/Faster‑RCNN and integrated the best detector into a web app for on‑site deployment to reduce supervision gaps.</p>
         <p class="row-links"><a class="btn" href="#" target="_blank">Code</a><a class="btn" href="papers/worker-safety.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
@@ -219,7 +210,7 @@
       <div class="suggest">
         <span class="chip" data-q="What did you build for Waymo trajectory forecasting?">Waymo model?</span>
         <span class="chip" data-q="How did you optimize CUDA kernels in the LIMO project?">CUDA speedups?</span>
-        <span class="chip" data-q="What is the Knowledge-Aware Graph in your agent project?">Agent KAG?</span>
+        <span class="chip" data-q="What is the Knowledge‑Aware Graph in your agent project?">Agent KAG?</span>
         <span class="chip" data-q="Which datasets and models did you use for suicide ideation detection?">NLP dataset?</span>
         <span class="chip" data-q="Do you have papers to read for each project?">Papers?</span>
       </div>
@@ -228,67 +219,205 @@
 
     <div class="hr"></div>
 
-    <h2 id="writing">Writing</h2>
+    <h2 id="blogs">Blogs</h2>
     <p>Read more on <a href="https://medium.com/@YOUR_MEDIUM_HANDLE" target="_blank" rel="me noopener">Medium</a>. Add a couple of featured posts here for quick access.</p>
 
     <div class="entry">
       <img class="thumb" src="images/medium-cover-1.jpg" alt="Post cover"/>
       <div>
         <strong><a href="https://medium.com/@YOUR_MEDIUM_HANDLE/YOUR_POST_SLUG" target="_blank" rel="noopener">Title of your post</a></strong> <span class="muted">— Month YYYY</span>
-        <p>One-line summary of the article.</p>
+        <p>One‑line summary of the article.</p>
       </div>
     </div>
 
     <div class="hr"></div>
 
     <h2 id="experience">Experience</h2>
-    <p><strong>Research Intern</strong>, Centre for Development of Advanced Computing (C-DAC) — <span class="muted">Sept 2023 – Mar 2024</span></p>
+    <p><strong>Research Intern</strong>, Centre for Development of Advanced Computing (C‑DAC) — <span class="muted">Sept 2023 – Mar 2024</span></p>
     <ul>
-      <li>LLMs for vulnerable code detection using <em>Prompt Engineering</em> + <em>RAG</em> with self-explanations.</li>
-      <li>GraphCodeBERT + DCGAN pipeline; data-flow visualizations of insecure design.</li>
+      <li>LLMs for vulnerable code detection using <em>Prompt Engineering</em> + <em>RAG</em> with self‑explanations.</li>
+      <li>GraphCodeBERT + DCGAN pipeline; data‑flow visualizations of insecure design.</li>
     </ul>
 
     <p><strong>Researcher</strong>, National University of Singapore — <span class="muted">Jan 2023 – Jun 2023</span></p>
     <ul>
       <li>Prepared clinical & forum datasets; expanded abbreviations; noise removal for clarity.</li>
-      <li>Compared vectorizers (GloVe, Word2Vec, FastText, CBOW) and models (BERT, RoBERTa, Bi-LSTM).</li>
+      <li>Compared vectorizers (GloVe, Word2Vec, FastText, CBOW) and models (BERT, RoBERTa, Bi‑LSTM).</li>
     </ul>
 
-    <p><strong>Research Intern</strong>, National University of Singapore &amp; Hewlett Packard Enterprise — <span class="muted">Dec 2022 – Jan 2023</span></p>
+    <p><strong>Research Intern</strong>, National University of Singapore & Hewlett Packard Enterprise — <span class="muted">Dec 2022 – Jan 2023</span></p>
     <ul>
-      <li>Optimized worker safety inspection; compared CNN/RCNN/SSD/Faster-RCNN; integrated best model into a website.</li>
+      <li>Optimized worker safety inspection; compared CNN/RCNN/SSD/Faster‑RCNN; integrated best model into a website.</li>
     </ul>
 
     <div class="hr"></div>
+
     <h2 id="education">Education</h2>
-    <p><strong>University of Washington</strong> — M.S. in Computer Science, <span class="muted">Expected Jun 2026</span><br/>
+    <p><strong>University of Washington </strong> — M.S. in Computer Science , <span class="muted">Expected Jun 2026</span><br/>
       <span class="muted">GPA: 3.93/4.0 • Coursework: Machine Learning; Data Mining for ML; High Performance Computing; Research Methods; Computer Vision; NLP; Software Architecture</span></p>
     <p><strong>Sri Ramaswamy Memorial Institute of Science and Technology</strong> — B.Tech in Computer Science with Software Engineering, <span class="muted">Sept 2020 – Jun 2024</span></p>
 
     <div class="hr"></div>
+
     <p class="muted">© <span id="yr"></span> Gayatri Malladi</p>
   </main>
-
   <script>
+    // Footer year
     document.getElementById('yr').textContent = new Date().getFullYear();
 
-    /* Tokenizer Playground (illustrative only) */
-    function isWordChar(ch){const c=ch.charCodeAt(0);return (c>=48&&c<=57)||(c>=65&&c<=90)||(c>=97&&c<=122)||ch==='_';}
-    const tokInput=document.getElementById('tokInput'), tokOut=document.getElementById('tokens'), tokStats=document.getElementById('tokStats');
-    function tokenize(s){const out=[];let cur='',mode=null;for(const ch of s){const w=isWordChar(ch);if(mode===null){mode=w;cur=ch}else if((w&&mode)||(!w&&!mode)){cur+=ch}else{out.push(cur);cur=ch;mode=w}}if(cur)out.push(cur);return out.map(p=>p.length>6?p.slice(0,4)+'…':p)}
-    function renderTokens(){const v=tokInput.value.trim();const t=v?tokenize(v):[];tokOut.innerHTML=t.map(x=>`<span class="tok">${x}</span>`).join('');tokStats.textContent=v?`${t.length} tokens (illustrative)`:''}
-    tokInput.addEventListener('input',renderTokens);renderTokens();
+    // Simple visual tokenizer (manual, no regex to keep the file portable)
+    function isWordChar(ch){
+      const code = ch.charCodeAt(0);
+      const isNum = code>=48 && code<=57;
+      const isUp  = code>=65 && code<=90;
+      const isLo  = code>=97 && code<=122;
+      return isNum || isUp || isLo || ch === '_';
+    }
+    const input = document.getElementById('tokInput');
+    const out = document.getElementById('tokens');
+    const stats = document.getElementById('tokStats');
+    function tokenize(str){
+      const toks=[]; let cur=''; let mode=null;
+      for(const ch of str){
+        const w = isWordChar(ch);
+        if(mode===null){ mode=w; cur=ch; }
+        else if((w && mode) || (!w && !mode)){ cur+=ch; }
+        else { toks.push(cur); cur=ch; mode=w; }
+      }
+      if(cur) toks.push(cur);
+      return toks.map(p=> p.length>6? p.slice(0,4)+'…' : p);
+    }
+    function render(){
+      const val = input.value.trim();
+      const toks = val? tokenize(val): [];
+      out.innerHTML = toks.map(t=> `<span class="tok">${t}</span>`).join('');
+      stats.textContent = val? `${toks.length} tokens (illustrative)` : '';
+    }
+    input.addEventListener('input', render);
+    render();
 
-    /* Q&A (client-side matcher over project blurbs) */
-    const KB=[{id:'waymo',title:'Future Trajectory Prediction for Autonomous Vehicles',summary:'Diffusion-based model forecasting 5-second trajectories on the Waymo Open Dataset; models multimodal uncertainty and temporal dependencies.',tags:'diffusion trajectory forecasting waymo uncertainty driving pytorch',code:'https://github.com/mg-2321',paper:'papers/waymo-forecast.pdf'},{id:'agents',title:'Solving Short-term Memory Limits of ADAPT Agents',summary:'Added a Knowledge-Aware Graph for long-term user preferences and a diffusion-style drive model for smoother planning.',tags:'agent VLA ADAPT KAG graph reinforcement learning planning diffusion',code:'https://github.com/mg-2321',paper:'papers/adapt-kag.pdf'},{id:'cuda',title:'Optimizing LIMO Pipeline with CUDA Parallelization',summary:'Shared-memory tiling, async copies, and custom conv kernels; Nsight-guided profiling with up to 60% kernel time speedup.',tags:'cuda gpu kernels convolution shared-memory tiling nsight optimization limo',code:'https://github.com/mg-2321',paper:'papers/limo-cuda.pdf'},{id:'eeg',title:'Stroke Rehabilitation — EEG Motor Action Classification',summary:'ICA + filtering + PCA features; DT/SVM/NN models to compare pre/post-stroke EEG for motor actions.',tags:'eeg signal processing ica pca svm neural',code:'#',paper:'papers/eeg-stroke.pdf'},{id:'nlp',title:'NLP for Suicide Ideation & Attempt Detection',summary:'Preprocessed clinical & forum text; compared GloVe/Word2Vec/FastText/CBOW; trained BERT/RoBERTa vs Bi-LSTM.',tags:'nlp suicide ideation attempt mimic-iii suicidewatch bert roberta bi-lstm',code:'#',paper:'papers/nlp-suicide-risk.pdf'},{id:'vuln',title:'LLMs for Code Vulnerability Detection',summary:'Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN to flag zero-day patterns via data-flow visuals.',tags:'security code vulnerability llm rag graphcodebert dcgan',code:'#',paper:'papers/llm-code-vuln.pdf'},{id:'safety',title:'Real-time Construction Worker Safety Inspection',summary:'Benchmarked CNN/RCNN/SSD/Faster-RCNN and deployed the best detector in a web app to reduce on-site risks.',tags:'cv object detection faster-rcnn cnn rcnn ssd web',code:'#',paper:'papers/worker-safety.pdf'}];
-    const SYN={waymo:['trajectory','trajectories','forecast','forecasting','autonomous','driving'],diffusion:['score','denoise','latent'],cuda:['gpu','parallel','kernel','kernels','nsight','tiling','memory'],eeg:['brain','signal','emg','electrode'],suicide:['si','sa','ideation','attempt'],vulnerability:['security','vuln','cwe','code'],agent:['agents','adapt','kag','planning','preferences']};
-    const chat=document.getElementById('qaChat'),qa=document.getElementById('qaInput'),btn=document.getElementById('qaBtn');
-    const tokens=q=>q.toLowerCase().split(/[^a-z0-9_]+/).filter(Boolean);
-    const expand=ts=>{const out=new Set(ts);for(const t of ts){for(const[k,vals]of Object.entries(SYN)){if(t===k||vals.includes(t)){out.add(k);vals.forEach(v=>out.add(v))}}}return[...out]};
-    const score=(it,q)=>{let s=0;const title=it.title.toLowerCase(),tags=(it.tags||'').toLowerCase(),sum=(it.summary||'').toLowerCase();for(const t of q){if(title.includes(t))s+=4;if(tags.includes(t))s+=3;if(sum.includes(t))s+=2}return s};
-    function ask(){const q=qa.value.trim();if(!q)return;push('me',q);qa.value='';const qts=expand(tokens(q));const ranked=KB.map(it=>({it,score:score(it,qts)})).sort((a,b)=>b.score-a.score).filter(x=>x.score>0);if(!ranked.length){push('bot',"Try asking about <em>Waymo diffusion forecasting</em>, <em>CUDA speedups</em>, <em>Knowledge-Aware Graph agents</em>, or <em>NLP suicide detection</em>.");return}const it=ranked[0].it;push('bot',`<strong>${it.title}</strong> — ${it.summary}`)}
-    function push(who,html){const b=document.createElement('div');b.className='bubble '+(who==='me'?'me':'bot');b.innerHTML=html;chat.appendChild(b);chat.scrollTop=chat.scrollHeight}
-    btn.addEventListener('click',ask);qa.addEventListener('keydown',e=>{if(e.key==='Enter')ask()});document.querySelectorAll('.chip[data-q]').forEach(c=>c.addEventListener('click',()=>{qa.value=c.dataset.q;ask()}));
+    // ======================= Q&A SECTION =======================
+    const kb = [
+      { id:'waymo', title:'Future Trajectory Prediction for Autonomous Vehicles',
+        summary:'Diffusion-based model forecasting 5-second trajectories on the Waymo Open Dataset; models multimodal uncertainty and temporal dependencies.',
+        tags:'diffusion trajectory forecasting waymo uncertainty driving pytorch',
+        code:'https://github.com/mg-2321', paper:'papers/waymo-forecast.pdf',
+        details:{dataset:'Waymo Open Dataset', models:'Diffusion-based sequence model', metrics:'5s horizon, multimodal predictions'} },
+      { id:'agents', title:'Solving Short‑term Memory Limits of ADAPT Agents',
+        summary:'Added a Knowledge‑Aware Graph for long‑term user preferences and a diffusion-style drive model for smoother planning.',
+        tags:'agent VLA ADAPT KAG graph reinforcement learning planning diffusion',
+        code:'https://github.com/mg-2321', paper:'papers/adapt-kag.pdf',
+        details:{approach:'Knowledge‑Aware Graph + planning under uncertainty', focus:'user preference memory'} },
+      { id:'cuda', title:'Optimizing LIMO Pipeline with CUDA Parallelization',
+        summary:'Shared‑memory tiling, async copies, and custom conv kernels; Nsight-guided profiling with up to 60% kernel time speedup.',
+        tags:'cuda gpu kernels convolution shared-memory tiling nsight optimization limo',
+        code:'https://github.com/mg-2321', paper:'papers/limo-cuda.pdf',
+        details:{tech:'shared memory tiling, streams, async transfers', result:'~60% kernel time reduction'} },
+      { id:'eeg', title:'Stroke Rehabilitation — EEG Motor Action Classification',
+        summary:'ICA + filtering + PCA features; DT/SVM/NN models to compare pre/post‑stroke EEG for motor actions.',
+        tags:'eeg signal processing ica pca svm neural',
+        code:'#', paper:'papers/eeg-stroke.pdf',
+        details:{actions:'hand wave, clench, face rub', methods:'ICA, band‑pass, PCA'} },
+      { id:'nlp', title:'NLP for Suicide Ideation & Attempt Detection',
+        summary:'Preprocessed clinical & forum text; compared GloVe/Word2Vec/FastText/CBOW; trained BERT/RoBERTa vs Bi‑LSTM.',
+        tags:'nlp suicide ideation attempt mimic-iii suicidewatch bert roberta bi-lstm',
+        code:'#', paper:'papers/nlp-suicide-risk.pdf',
+        details:{datasets:'MIMIC‑III, r/SuicideWatch', models:'BERT, RoBERTa, Bi‑LSTM'} },
+      { id:'vuln', title:'LLMs for Code Vulnerability Detection',
+        summary:'Prompt‑engineered LLMs + RAG; GraphCodeBERT + DCGAN to flag zero‑day patterns via data‑flow visuals.',
+        tags:'security code vulnerability llm rag graphcodebert dcgan',
+        code:'#', paper:'papers/llm-code-vuln.pdf',
+        details:{approach:'Prompting + retrieval, GraphCodeBERT classifier', extras:'data‑flow visualizations'} },
+      { id:'safety', title:'Real‑time Construction Worker Safety Inspection',
+        summary:'Benchmarked CNN/RCNN/SSD/Faster‑RCNN and deployed the best model in a web app to reduce on‑site risks.',
+        tags:'cv object detection faster-rcnn cnn rcnn ssd web',
+        code:'#', paper:'papers/worker-safety.pdf',
+        details:{models:'Faster‑RCNN vs SSD/RCNN', deploy:'web integration'} }
+    ];
+
+    const synonyms = {
+      waymo:['trajectory','trajectories','forecast','forecasting','autonomous','driving'],
+      diffusion:['score','denoise','latent'],
+      cuda:['gpu','parallel','kernel','kernels','nsight','tiling','memory'],
+      eeg:['brain','signal','emg','electrode'],
+      suicide:['si','sa','ideation','attempt'],
+      vulnerability:['security','vuln','cwe','code'],
+      agent:['agents','adapt','kag','planning','preferences']
+    };
+
+    function tokensOf(q){
+      return q.toLowerCase().split(/[^a-z0-9_]+/).filter(Boolean);
+    }
+    function expandTokens(ts){
+      const out = new Set(ts);
+      for(const t of ts){
+        for(const [k,vals] of Object.entries(synonyms)){
+          if(t===k || vals.includes(t)) { out.add(k); vals.forEach(v=>out.add(v)); }
+        }
+      }
+      return Array.from(out);
+    }
+    function scoreItem(item, qts){
+      let s = 0; const title=item.title.toLowerCase(); const tags=(item.tags||'').toLowerCase(); const sum=(item.summary||'').toLowerCase();
+      for(const t of qts){
+        if(title.includes(t)) s+=4;
+        if(tags.includes(t)) s+=3;
+        if(sum.includes(t)) s+=2;
+      }
+      if(qts.includes('paper') && item.paper) s+=2;
+      if(qts.includes('code') && item.code) s+=2;
+      return s;
+    }
+    function bestMatches(q){
+      const qts = expandTokens(tokensOf(q));
+      const ranked = kb.map(it=>({it,score:scoreItem(it,qts)})).sort((a,b)=>b.score-a.score);
+      return ranked.filter(x=>x.score>0).slice(0,3);
+    }
+    function fmtLinks(it){
+      const links = [];
+      if(it.code && it.code!=='#') links.push(`<a href="${it.code}" target="_blank">Code</a>`);
+      if(it.paper) links.push(`<a href="${it.paper}" target="_blank">Paper</a>`);
+      return links.length? ` · ${links.join(' | ')}` : '';
+    }
+    function answerFor(it, q){
+      const ql = q.toLowerCase();
+      const d = it.details||{}; let msg = `<strong>${it.title}</strong>`;
+      if(/model|architecture|approach|how/.test(ql) && d.models){ msg += ` — Model: ${d.models}.`; }
+      else if(/dataset|data|corpus/.test(ql) && (d.dataset||d.datasets)){ msg += ` — Dataset: ${d.dataset||d.datasets}.`; }
+      else if(/metric|result|speed|improv/.test(ql) && (d.metrics||d.result)){ msg += ` — Results: ${d.metrics||d.result}.`; }
+      else { msg += ` — ${it.summary}`; }
+      msg += fmtLinks(it);
+      return msg;
+    }
+
+    const chat = document.getElementById('qaChat');
+    const qaInput = document.getElementById('qaInput');
+    const qaBtn = document.getElementById('qaBtn');
+
+    function pushUserBubble(text){
+      const b = document.createElement('div'); b.className='bubble me'; b.textContent=text; chat.appendChild(b); chat.scrollTop = chat.scrollHeight;
+    }
+    function pushBotBubble(html){
+      const b = document.createElement('div'); b.className='bubble bot'; b.innerHTML=html; chat.appendChild(b); chat.scrollTop = chat.scrollHeight;
+    }
+
+    function ask(){
+      const q = qaInput.value.trim(); if(!q) return; pushUserBubble(q); qaInput.value='';
+      const matches = bestMatches(q);
+      if(matches.length===0){
+        pushBotBubble("I couldn't find that in my current projects. Try asking about <em>Waymo diffusion forecasting</em>, <em>CUDA speedups</em>, <em>Knowledge‑Aware Graph agents</em>, or <em>NLP suicide detection</em>.");
+        return;
+      }
+      const first = matches[0].it; pushBotBubble(answerFor(first,q));
+      if(matches.length>1){
+        const alt = matches.slice(1).map(m=>`• ${m.it.title}${fmtLinks(m.it)}`).join('<br>');
+        pushBotBubble(`<span class="muted">Related:</span><br>${alt}`);
+      }
+    }
+    qaBtn.addEventListener('click', ask);
+    qaInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') ask(); });
+    document.querySelectorAll('.chip[data-q]').forEach(el=> el.addEventListener('click', ()=>{ qaInput.value = el.dataset.q; ask(); }));
+
   </script>
 </body>
 </html>
