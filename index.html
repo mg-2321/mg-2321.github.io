@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Gayatri Malladi</title>
   <meta name="description" content="Gayatri Malladi — Agentic AI, LLMs, projects, and blogs." />
 
@@ -14,7 +14,7 @@
   <style>
     :root{
       --fg:#14161a; --muted:#5b6574; --link:#0b57d0; --bg:#ffffff; --rule:#e7ebf0; --pill:#f2f6ff;
-      --accent:#6c8cff; /* video border */
+      --accent:#6c8cff;
     }
     html{font-size:16px}
     body{
@@ -36,13 +36,12 @@
     .mini-nav a{ display:inline-block; font-size:.95rem; margin:0 .55rem; padding:2px 8px; border-radius:999px }
     .mini-nav a:hover{ background:var(--pill) }
 
-    /* Intro */
-    .intro{ display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:24px; align-items:stretch; }
-    .avatar{ width:100%; height:100%; object-fit:cover; object-position:center 30%;
-             border-radius:16px; border:1px solid var(--rule); display:block; }
+    /* Intro layout */
+    .intro{ display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:24px; align-items:stretch }
     .prose{ max-width:72ch; text-align:justify; text-justify:inter-word; hyphens:auto }
     .lead{ font-size:1.06rem }
     .lead.red{ color:#c62828 }
+    .avatar{ width:100%; height:100%; object-fit:cover; object-position:center 30%; border-radius:16px; border:1px solid var(--rule); display:block }
     @media (max-width:860px){ .intro{ grid-template-columns:1fr } .avatar{ height:auto; max-height:260px } }
 
     /* Sections */
@@ -51,43 +50,62 @@
     .hr{ height:1px; background:var(--rule); margin:24px 0 }
     .pill{display:inline-block;font-size:.75rem;color:#244;padding:2px 8px;border-radius:999px;background:var(--pill);border:1px solid #d8e4ff;margin-bottom:.25rem}
 
-    /* Project entries */
-    .entry{
-      display:grid; grid-template-columns:200px 1fr; gap:14px; align-items:start; margin:16px 0 22px;
-    }
-    .thumb{ width:200px; aspect-ratio:16/10; object-fit:cover; border:1px solid var(--rule); border-radius:12px; overflow:hidden; display:block; background:#f3f6fb; }
-    .row-links a.btn{ display:inline-block;border:1px solid var(--rule);padding:6px 10px;border-radius:10px;text-decoration:none;margin-right:.45rem }
-    .btn:hover{background:#f7faff;text-decoration:none;border-color:#d8e4ff}
+    /* Projects */
+    .entry{ display:grid; grid-template-columns:200px 1fr; gap:14px; align-items:start; margin:16px 0 22px }
+    .thumb{ width:200px; aspect-ratio:16/10; object-fit:cover; border:1px solid var(--rule); border-radius:12px; overflow:hidden; display:block; background:#f3f6fb }
     @media (max-width:680px){ .entry{grid-template-columns:1fr}.thumb{width:100%} }
 
-    /* Clean bullets */
-    .entry ul{ margin:.25rem 0 0 0; padding:0; list-style:none; }
-    .entry ul li{ position:relative; padding-left:1rem; margin:.25rem 0; text-align:justify; text-justify:inter-word; hyphens:auto; line-height:1.65; }
-    .entry ul li::before{ content:"•"; position:absolute; left:0; top:0; line-height:1.65; }
-    .entry > div > p{ margin:.35rem 0 0 0; text-align:justify; text-justify:inter-word; hyphens:auto; }
+    /* Bullets tidy */
+    .entry ul{ margin:.25rem 0 0 0; padding:0; list-style:none }
+    .entry ul li{ position:relative; padding-left:1rem; margin:.25rem 0; text-align:justify; text-justify:inter-word; hyphens:auto; line-height:1.65 }
+    .entry ul li::before{ content:"•"; position:absolute; left:0; top:0; line-height:1.65 }
 
-    /* Wide-media layout for hero covers */
-    .entry--wide-media{
-      grid-template-columns:480px 1fr;       /* big media */
-    }
-    .entry--wide-media .thumb{ width:100%; aspect-ratio:16/9; }
-    .entry--wide-media .entry-body{ font-size:.95rem }  /* slightly smaller text */
-    .proj-cover{ border:2px solid var(--accent); border-radius:12px; box-shadow:0 10px 28px rgba(108,140,255,.18); background:#eef2ff; }
+    /* Links */
+    .row-links a.btn{ display:inline-block; border:1px solid var(--rule); padding:6px 10px; border-radius:10px; text-decoration:none; margin-right:.45rem }
+    .btn:hover{ background:#f7faff; border-color:#d8e4ff }
 
-    /* Make videos feel like GIFs (no controls, click-through) */
-    video.proj-cover{ pointer-events:none; }
+    /* Big-media layout for PPE */
+    .entry--wide-media{ grid-template-columns:360px 1fr }
+    .entry--wide-media .thumb{ width:100%; aspect-ratio:16/9 }
+    .entry--wide-media .entry-body{ font-size:.95rem }
+    .entry--wide-media .proj-cover{ border:2px solid var(--accent); box-shadow:0 8px 24px rgba(108,140,255,.18) }
+
+    /* “Video like GIF” */
+    video.proj-cover{ pointer-events:none }
     video.proj-cover::-webkit-media-controls,
     video.proj-cover::-webkit-media-controls-enclosure,
-    video.proj-cover::-webkit-media-controls-panel{ display:none !important; }
+    video.proj-cover::-webkit-media-controls-panel{ display:none !important }
+
+    /* Token ribbon + playground (unchanged) */
+    .tokenribbon{position:relative;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:linear-gradient(90deg,#f7faff 0,#fff 50%,#f7faff 100%)}
+    .track{display:flex;gap:2rem;white-space:nowrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;padding:10px 12px;color:#264;opacity:.9}
+    .scroll{animation:marquee 26s linear infinite}
+    .scroll2{animation:marquee 34s linear infinite reverse}
+    @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+    @media (prefers-reduced-motion: reduce){.scroll,.scroll2{animation:none}}
+    .playground{border:1px solid var(--rule);border-radius:12px;padding:12px;margin-top:14px}
+    .playground input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--rule)}
+    .tokens{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+    .tok{font:600 .8rem ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:4px 8px;border-radius:8px;background:#f1f4fb;border:1px solid #dbe3f3}
+    .stats{font-size:.85rem;color:var(--muted);margin-top:6px}
+    .qa{border:1px solid var(--rule);border-radius:12px;padding:12px}
+    .qa .ask{display:flex;gap:8px}
+    .qa input{flex:1;padding:10px 12px;border-radius:10px;border:1px solid var(--rule)}
+    .qa button{border:1px solid var(--rule);border-radius:10px;padding:8px 12px;background:#f7faff}
+    .qa .suggest{margin-top:8px;display:flex;flex-wrap:wrap;gap:8px}
+    .qa .chip{border:1px solid var(--rule);border-radius:999px;padding:4px 8px;font-size:.85rem;background:#fff;cursor:pointer}
+    .qa .chat{margin-top:12px;display:flex;flex-direction:column;gap:10px}
+    .bubble{background:#f7faff;border:1px solid #dbe3f3;padding:10px 12px;border-radius:12px}
+    .bubble.me{align-self:flex-end;background:#eef3ff}
   </style>
 </head>
 <body>
   <main>
-    <!-- Centered, typing title -->
+    <!-- Title -->
     <h1 id="siteTitle" class="site-title" aria-label="Gayatri Malladi"></h1>
     <noscript><h1 class="site-title">Gayatri Malladi</h1></noscript>
 
-    <!-- Top nav -->
+    <!-- Nav -->
     <p class="mini-nav">
       <a href="#projects">Projects</a>
       <a href="#blogs">Blogs</a>
@@ -120,7 +138,7 @@
       </aside>
     </section>
 
-    <!-- Links row -->
+    <!-- Links -->
     <p class="row-links">
       <a href="resume.pdf" target="_blank" rel="noopener">CV</a> /
       <a href="https://www.linkedin.com/in/gayatri-malladi/" target="_blank" rel="me noopener">LinkedIn</a> /
@@ -129,52 +147,58 @@
       <a href="https://instagram.com/YOUR_PHOTOGRAPHY_HANDLE" target="_blank" rel="me noopener">Instagram (Photography)</a>
     </p>
 
-    <!-- Fun ribbon -->
-    <div class="hr"></div>
+    <!-- Token ribbon -->
+    <div class="tokenribbon" aria-hidden="true">
+      <div class="track scroll">token → embedding → attention → head1 • head2 • head8 → logits → loss → update · prompt → retrieval → context → decoding → evals</div>
+      <div class="track scroll2">beam search → nucleus → sampling → temperature → perplexity → AUC → F1 · CUDA → Waymo → EEG → agents → graphs</div>
+    </div>
+
+    <!-- Playground -->
+    <div class="playground">
+      <label for="tokInput" class="muted" style="font-size:.9rem">Tokenizer Playground — type a sentence (visual only; no network calls)</label>
+      <input id="tokInput" type="text" placeholder="e.g., Planning under uncertainty with diffusion models"/>
+      <div id="tokens" class="tokens" aria-live="polite"></div>
+      <div id="tokStats" class="stats"></div>
+    </div>
+
+    <!-- Projects -->
     <h2 id="projects">Projects</h2>
 
-    <!-- Agents & Planning -->
     <h3><span class="pill">Agents &amp; Planning</span></h3>
     <div class="entry">
-      <img class="thumb" src="images/agents-kag.jpg" alt="Knowledge-aware agent"/>
+      <img class="thumb" src="images/agents-kag.jpg" alt="Knowledge-aware agent">
       <div>
         <strong>Solving Short-term Memory Limits of ADAPT Agents</strong>
         <p>Added a <em>Knowledge-Aware Graph</em> module for long-term user preferences and a diffusion-style drive model for smoother planning under uncertainty.</p>
-        <p class="row-links">
-          <a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a>
-          <a class="btn" href="papers/adapt-kag.pdf" target="_blank">Paper</a>
-        </p>
+        <p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a><a class="btn" href="papers/adapt-kag.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
 
-    <!-- Vision & Robotics -->
     <h3><span class="pill">Vision &amp; Robotics</span></h3>
     <div class="entry">
-      <img class="thumb" src="images/waymo-forecast.jpg" alt="Waymo trajectories"/>
+      <img class="thumb" src="images/waymo-forecast.jpg" alt="Waymo trajectories">
       <div>
         <strong>Future Trajectory Prediction for Autonomous Vehicles</strong>
         <p>Diffusion-based model predicting 5-second future trajectories in long-tail scenarios using the Waymo Open Dataset; explicitly models multimodal uncertainty.</p>
-        <p class="row-links">
-          <a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a>
-          <a class="btn" href="papers/waymo-forecast.pdf" target="_blank">Paper</a>
-        </p>
+        <p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a><a class="btn" href="papers/waymo-forecast.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
 
     <div class="entry">
-      <img class="thumb" src="images/cuda-limo.jpg" alt="CUDA optimization"/>
+      <img class="thumb" src="images/cuda-limo.jpg" alt="CUDA optimization">
       <div>
         <strong>Optimizing LIMO Pipeline with CUDA Parallelization</strong>
         <p>Shared-memory tiling, async transfers, and custom kernels for 2D conv, keyframe selection, and pose estimation, improving kernel time by up to 60%.</p>
-        <p class="row-links">
-          <a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a>
-          <a class="btn" href="papers/limo-cuda.pdf" target="_blank">Paper</a>
-        </p>
+        <p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a><a class="btn" href="papers/limo-cuda.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
 
+    <!-- Stroke Rehabilitation with COVER VIDEO -->
     <div class="entry">
-      <img class="thumb" src="images/eeg-stroke.jpg" alt="EEG"/>
+      <video class="thumb proj-cover" autoplay muted loop playsinline preload="metadata" poster="images/eeg-stroke.jpg">
+        <source src="/cover_all_in_one_paper_exact4.mp4" type="video/mp4"/>
+        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/cover_all_in_one_paper_exact4.mp4" type="video/mp4"/>
+      </video>
       <div>
         <strong>Stroke Rehabilitation — EEG Motor Action Classification</strong>
         <p>Pre/post-stroke EEG analysis for motor actions (hand wave, clench, face rub) with ICA, band-pass filtering, and PCA; models: Decision Trees, SVMs, NNs.</p>
@@ -185,52 +209,40 @@
       </div>
     </div>
 
-    <!-- NLP & Safety -->
     <h3><span class="pill">NLP &amp; Safety</span></h3>
     <div class="entry">
-      <img class="thumb" src="images/nlp-si.jpg" alt="NLP for suicide risk"/>
+      <img class="thumb" src="images/nlp-si.jpg" alt="NLP for suicide risk">
       <div>
         <strong>NLP for Suicide Ideation &amp; Attempt Detection</strong>
         <p>Preprocessed clinical + forum text (MIMIC-III, SuicideWatch); compared GloVe/Word2Vec/FastText/CBOW; trained BERT &amp; RoBERTa vs Bi-LSTM baselines.</p>
-        <p class="row-links">
-          <a class="btn" href="#" target="_blank">Code</a>
-          <a class="btn" href="papers/nlp-suicide-risk.pdf" target="_blank">Paper</a>
-        </p>
+        <p class="row-links"><a class="btn" href="#" target="_blank">Code</a><a class="btn" href="papers/nlp-suicide-risk.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
 
-    <!-- Security & Code Analysis -->
     <h3><span class="pill">Security &amp; Code Analysis</span></h3>
-
-    <!-- LLMs for Code Vulnerability Detection — MERGED COVER (cycles the two MP4s) -->
-    <div class="entry entry--wide-media">
-      <video id="vulnCover" class="thumb proj-cover" muted autoplay playsinline preload="auto"></video>
-      <div class="entry-body">
+    <!-- LLM vulnerability project with a 2-video playlist cover -->
+    <div class="entry">
+      <video id="vulnCover" class="thumb proj-cover" muted playsinline preload="metadata" poster="images/llm-security.jpg"></video>
+      <div>
         <strong>LLMs for Code Vulnerability Detection</strong>
-        <ul>
-          <li>Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN to flag zero-day patterns via code data-flow.</li>
-          <li>Live demo + full pipeline walkthrough — merged into a single looping cover preview.</li>
-        </ul>
-        <p class="row-links">
-          <a class="btn" href="#" target="_blank">Code</a>
-          <a class="btn" href="papers/llm-code-vuln.pdf" target="_blank">Paper</a>
-        </p>
+        <p>Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN to flag zero-day patterns via data-flow visuals.</p>
+        <p class="row-links"><a class="btn" href="#" target="_blank">Code</a><a class="btn" href="papers/llm-code-vuln.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
 
-    <!-- PPE project — BIG cover video -->
+    <!-- PPE project with BIG cover and smaller text -->
     <div class="entry entry--wide-media">
       <video class="thumb proj-cover"
-             autoplay muted loop playsinline preload="auto"
+             autoplay muted playsinline loop preload="auto"
              poster="images/worker-safety.jpg">
-        <source src="/ppe_pass_fail_corrected.mp4" type="video/mp4" />
-        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/ppe_pass_fail_corrected.mp4" type="video/mp4" />
+        <source src="/ppe_pass_fail_corrected.mp4" type="video/mp4"/>
+        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/ppe_pass_fail_corrected.mp4" type="video/mp4"/>
       </video>
       <div class="entry-body">
         <strong>Real-time Construction Worker Safety Inspection</strong>
         <ul>
-          <li>Built a real-time PPE compliance detector (CenterNet-based) to reduce manual spot-checks and mitigate on-site risk.</li>
-          <li>Benchmarked CenterNet vs Faster R-CNN &amp; SSD on CHVG + Pictor; deployed best ResNet-50 variant in a lightweight web app that flags entry violations and makes compliance auditable.</li>
+          <li>Built a real-time PPE compliance detection system using a CenterNet-based model to reduce manual spot-checks and mitigate on-site risk.</li>
+          <li>Benchmarked CenterNet vs Faster R-CNN and SSD on CHVG &amp; Pictor; deployed the best ResNet-50 variant in a lightweight web app that flags violations at entry and makes compliance auditable.</li>
         </ul>
         <p class="row-links">
           <a class="btn" href="https://github.com/mg-2321/Safety-equipment-check-using-object-detection" target="_blank" rel="noopener">Code</a>
@@ -241,11 +253,30 @@
 
     <div class="hr"></div>
 
+    <!-- Ask about my work -->
+    <h2 id="ask">Ask about my work</h2>
+    <div class="qa" role="region" aria-live="polite">
+      <div class="ask">
+        <input id="qaInput" type="text" placeholder="Ask about any project (e.g., What model did you use for trajectory prediction?)"/>
+        <button id="qaBtn" type="button">Ask</button>
+      </div>
+      <div class="suggest">
+        <span class="chip" data-q="What did you build for Waymo trajectory forecasting?">Waymo model?</span>
+        <span class="chip" data-q="How did you optimize CUDA kernels in the LIMO project?">CUDA speedups?</span>
+        <span class="chip" data-q="What is the Knowledge-Aware Graph in your agent project?">Agent KAG?</span>
+        <span class="chip" data-q="Which datasets and models did you use for suicide ideation detection?">NLP dataset?</span>
+        <span class="chip" data-q="Do you have papers to read for each project?">Papers?</span>
+      </div>
+      <div id="qaChat" class="chat" aria-live="polite"></div>
+    </div>
+
+    <div class="hr"></div>
+
     <!-- Blogs -->
     <h2 id="blogs">Blogs</h2>
     <p>Read more on <a href="https://medium.com/@YOUR_MEDIUM_HANDLE" target="_blank" rel="noopener">Medium</a>. Add a couple of featured posts here for quick access.</p>
     <div class="entry">
-      <img class="thumb" src="images/medium-cover-1.jpg" alt="Post cover"/>
+      <img class="thumb" src="images/medium-cover-1.jpg" alt="Post cover">
       <div>
         <strong><a href="https://medium.com/@YOUR_MEDIUM_HANDLE/YOUR_POST_SLUG" target="_blank" rel="noopener">Title of your post</a></strong>
         <p>One-line summary of the article.</p>
@@ -281,44 +312,60 @@
     // Footer year
     document.getElementById('yr').textContent = new Date().getFullYear();
 
-    // Typing animation
-    (function() {
-      const el = document.getElementById('siteTitle');
-      if (!el) return;
-      const text = el.getAttribute('aria-label') || 'Gayatri Malladi';
-      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (prefersReduced) { el.textContent = text; return; }
-      el.textContent = ''; el.classList.add('typing');
-      let i = 0, speed = 80;
-      (function type(){ if(i < text.length){ el.textContent += text.charAt(i++); setTimeout(type, speed); } else { el.classList.remove('typing'); } })();
+    // Typewriter title (respects reduced-motion)
+    (function(){
+      const el=document.getElementById('siteTitle');
+      const text=el.getAttribute('aria-label')||'Gayatri Malladi';
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){ el.textContent=text; return; }
+      el.classList.add('typing'); el.textContent=''; let i=0;
+      (function type(){ if(i<text.length){ el.textContent+=text.charAt(i++); setTimeout(type,80);} else {el.classList.remove('typing');} })();
     })();
 
-    // --- MERGED cover: cycle two MP4s for the LLMs project ---
-    document.addEventListener('DOMContentLoaded', () => {
-      const vuln = document.getElementById('vulnCover');
-      if (!vuln) return;
+    /* Tokenizer demo */
+    function isWordChar(ch){const c=ch.charCodeAt(0);return (c>=48&&c<=57)||(c>=65&&c<=90)||(c>=97&&c<=122)||ch==='_';}
+    const tokInput=document.getElementById('tokInput'), tokOut=document.getElementById('tokens'), tokStats=document.getElementById('tokStats');
+    function tokenize(s){const out=[];let cur='',mode=null;for(const ch of s){const w=isWordChar(ch);if(mode===null){mode=w;cur=ch}else if((w&&mode)||(!w&&!mode)){cur+=ch}else{out.push(cur);cur=ch;mode=w}}if(cur)out.push(cur);return out.map(p=>p.length>6?p.slice(0,4)+'…':p)}
+    function renderTokens(){const v=tokInput.value.trim();const t=v?tokenize(v):[];tokOut.innerHTML=t.map(x=>`<span class="tok">${x}</span>`).join('');tokStats.textContent=v?`${t.length} tokens (illustrative)`:''}
+    tokInput.addEventListener('input',renderTokens);renderTokens();
 
-      // Use raw GitHub URLs so the files stream correctly
-      const playlist = [
+    /* Tiny Q&A */
+    const chat=document.getElementById('qaChat'),qa=document.getElementById('qaInput'),btn=document.getElementById('qaBtn');
+    function push(who,html){const b=document.createElement('div');b.className='bubble '+(who==='me'?'me':'bot');b.innerHTML=html;chat.appendChild(b);chat.scrollTop=chat.scrollHeight}
+    function fmtLinks(it){const L=[];if(it.code&&it.code!=='#')L.push(`<a href="${it.code}" target="_blank">Code</a>`);if(it.paper)L.push(`<a href="${it.paper}" target="_blank">Paper</a>`);return L.length?` · ${L.join(' | ')}`:''}
+    const KB=[
+      {title:'Future Trajectory Prediction for Autonomous Vehicles',summary:'Diffusion-based model forecasting 5-second trajectories on the Waymo Open Dataset.',code:'https://github.com/mg-2321',paper:'papers/waymo-forecast.pdf'},
+      {title:'Solving Short-term Memory Limits of ADAPT Agents',summary:'Knowledge-Aware Graph for long-term preferences; diffusion-style drive model.',code:'https://github.com/mg-2321',paper:'papers/adapt-kag.pdf'},
+      {title:'Optimizing LIMO Pipeline with CUDA Parallelization',summary:'Shared-memory tiling, async copies, and custom conv kernels; up to 60% speedup.',code:'https://github.com/mg-2321',paper:'papers/limo-cuda.pdf'},
+      {title:'Stroke Rehabilitation — EEG Motor Action Classification',summary:'ICA + filtering + PCA; DT/SVM/NN vs pre/post-stroke EEG.',code:'https://github.com/mg-2321/Stroke_Rehabilitation',paper:'https://github.com/mg-2321/Stroke_Rehabilitation/blob/main/Iteration%204_%20Paper-4.pdf'},
+      {title:'NLP for Suicide Ideation & Attempt Detection',summary:'Clinical + forum text; classic vectors vs BERT/RoBERTa baselines.',paper:'papers/nlp-suicide-risk.pdf'},
+      {title:'LLMs for Code Vulnerability Detection',summary:'Prompt + RAG; GraphCodeBERT + DCGAN with data-flow visuals.',paper:'papers/llm-code-vuln.pdf'},
+      {title:'Real-time Construction Worker Safety Inspection',summary:'CenterNet PPE detection; deploy as lightweight web app.',code:'https://github.com/mg-2321/Safety-equipment-check-using-object-detection',paper:'papers/worker-safety.pdf'}
+    ];
+    function ask(){
+      const q=qa.value.trim(); if(!q) return; push('me',q); qa.value='';
+      const hit=KB.find(it=>q.toLowerCase().includes(it.title.toLowerCase().split(' ')[0]));
+      if(hit){ push('bot',`<strong>${hit.title}</strong> — ${hit.summary}${fmtLinks(hit)}`) }
+      else{ push('bot','Try asking about <em>Waymo forecasting</em>, <em>CUDA speedups</em>, <em>Knowledge-Aware Graph</em>, or <em>PPE safety</em>.') }
+    }
+    btn.addEventListener('click',ask); qa.addEventListener('keydown',e=>{ if(e.key==='Enter') ask(); });
+
+    /* LLM Vulnerability cover: 2-video playlist that loops forever */
+    (function(){
+      const v=document.getElementById('vulnCover');
+      if(!v) return;
+      const playlist=[
         'https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/gcb_web_demo_v10.mp4',
         'https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/gcb_full_demo_v13.mp4'
       ];
-      let i = 0;
-
-      function playIndex(k){
-        i = (k + playlist.length) % playlist.length;
-        vuln.src = playlist[i];
-        vuln.load();
-        const p = vuln.play();
-        if (p && typeof p.catch === 'function') { p.catch(()=>{}); }
+      let i=0, tried=0;
+      function setSrc(idx){
+        v.src = playlist[idx] + '#t=0.1'; // nudge past first frame on iOS
+        v.play().catch(()=>{});
       }
-
-      vuln.addEventListener('ended', () => playIndex(i+1));
-      vuln.addEventListener('error', () => playIndex(i+1));
-      playIndex(0);
-    });
-
-    /* (Optional) Tokenizer / Q&A sections can be added back here if you want them on this page too */
+      v.addEventListener('ended', ()=>{ i=(i+1)%playlist.length; setSrc(i); });
+      v.addEventListener('error', ()=>{ tried++; if(tried<playlist.length){ i=(i+1)%playlist.length; setSrc(i);} });
+      setSrc(i);
+    })();
   </script>
 </body>
 </html>
