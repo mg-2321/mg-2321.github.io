@@ -138,6 +138,15 @@
       top:0;
       line-height:1.65;
     }
+    /* Project text: flush-left with the title and fully justified */
+    .entry > div > p{
+      margin:.35rem 0 0 0;      /* remove the extra top gap under the title/date */
+      text-align:justify;       /* straight left/right edges (except last line) */
+      text-justify:inter-word;
+      hyphens:auto;
+      text-indent:0;            /* guard against any first-line indent */
+    }
+
 
 
 </style>
