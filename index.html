@@ -296,38 +296,39 @@
       </div>
     </div>
      <!-- Replace the IMG cover with this VIDEO+fallback block -->
-    <div class="entry">
-      <video class="thumb proj-cover"
-             playsinline autoplay muted loop controls
-             preload="metadata"
-             poster="images/worker-safety.jpg">
-        <!-- 1) GitHub Pages path (file in repo root) -->
-        <source src="/ppe_pass_fail_corrected.mp4" type="video/mp4" />
-        <!-- 2) Fallback to raw GitHub URL -->
-        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/ppe_pass_fail_corrected.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+    <!-- Project entry (cover plays like a GIF) -->
+<div class="entry">
+  <video class="thumb proj-cover"
+         playsinline autoplay muted loop
+         preload="auto"
+         poster="images/worker-safety.jpg"
+         src="/ppe_pass_fail_corrected.mp4"
+         onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/ppe_pass_fail_corrected.mp4'; this.play();"
+         oncanplay="this.muted=true; this.play();"
+         disablepictureinpicture
+         controlslist="nodownload noplaybackrate noremoteplayback nofullscreen">
+    <!-- No <source> blocks needed; the JS onerror swaps to the raw URL if the root file 404s -->
+  </video>
 
-     <div>
-      <strong>Real-time Construction Worker Safety Inspection</strong>
-      <em class="muted">— <i>Dec 2022 – Jan 2023</i></em>
-  
-      <ul class="proj-bullets">
-        <p>
-          Built a real-time PPE compliance detection system using a CenterNet-based model, reducing reliance on manual
-          spot-checks and mitigating fatal accident risks on construction sites. Benchmarked CenterNet against Faster
-          R-CNN and SSD on CHVG and Pictor PPE datasets; deployed the best-performing ResNet-50 variant in a lightweight
-          web app that flags violations at entry and makes compliance auditable.
-        </p>
-       </ul>
-  
-       <p class="row-links">
-         <a class="btn" href="https://github.com/mg-2321/Safety-equipment-check-using-object-detection" target="_blank" rel="noopener noreferrer">Code</a>
-         <a class="btn" href="papers/worker-safety.pdf" target="_blank" rel="noopener noreferrer">Paper</a>
-       </p>
-     </div>
+  <div>
+    <strong>Real-time Construction Worker Safety Inspection</strong>
+    <em class="muted">— <i>Dec 2022 – Jan 2023</i></em>
+
+    <ul class="proj-bullets">
+      <p>
+        Built a real-time PPE compliance detection system using a CenterNet-based model, reducing reliance on manual
+        spot-checks and mitigating fatal accident risks on construction sites. Benchmarked CenterNet against Faster
+        R-CNN and SSD on CHVG and Pictor PPE datasets; deployed the best-performing ResNet-50 variant in a lightweight
+        web app that flags violations at entry and makes compliance auditable.
+      </p>
+    </ul>
+
+    <p class="row-links">
+      <a class="btn" href="https://github.com/mg-2321/Safety-equipment-check-using-object-detection" target="_blank" rel="noopener noreferrer">Code</a>
+      <a class="btn" href="papers/worker-safety.pdf" target="_blank" rel="noopener noreferrer">Paper</a>
+    </p>
   </div>
-
+</div>
 
     
 
