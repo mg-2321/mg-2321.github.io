@@ -47,6 +47,7 @@
     h2::after{ content:""; display:block; width:56px; height:3px; background:linear-gradient(90deg,#0b57d0,#8b5cf6); border-radius:3px; margin-top:6px; opacity:.9 }
     .hr{ height:1px; background:var(--rule); margin:24px 0 }
     .pill{display:inline-block;font-size:.75rem;color:#244;padding:2px 8px;border-radius:999px;background:var(--pill);border:1px solid #d8e4ff;margin-bottom:.25rem}
+    .title{ font-weight:600 }
 
     /* Projects: UNIFORM cover size (no cropping) */
     .entry{
@@ -55,7 +56,7 @@
     .cover{
       width:100%;
       aspect-ratio:16/9;
-      object-fit:contain;     /* no cropping */
+      object-fit:contain;     /* prevents cropping */
       background:#fff;        /* white letterbox */
       border:1px solid var(--rule);
       border-radius:12px;
@@ -63,12 +64,11 @@
       box-shadow:0 2px 12px rgba(17,24,39,.06);
       overflow:hidden;
     }
-    .title{ font-weight:600 }
     .row-links a.btn{ display:inline-block;border:1px solid var(--rule);padding:6px 10px;border-radius:10px;text-decoration:none;margin-right:.45rem }
     .btn:hover{background:#f7faff;text-decoration:none;border-color:#d8e4ff}
     @media (max-width:680px){ .entry{grid-template-columns:1fr} .cover{width:100%} }
 
-    /* Make bullets tidy */
+    /* Bullets tidy */
     .entry ul{ margin:.25rem 0 0 0; padding:0 0 0 1rem; }
     .entry ul li{ margin:.25rem 0; text-align:justify; text-justify:inter-word; hyphens:auto; line-height:1.65; }
 
@@ -189,9 +189,20 @@
       </div>
     </div>
 
+    <!-- CUDA project — VIDEO COVER -->
     <div class="entry">
-      <img class="cover" src="images/cuda-limo.jpg" alt="CUDA optimization"
-           onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 450%22><rect width=%22800%22 height=%22450%22 fill=%22%23fff%22/></svg>'">
+      <video class="cover" autoplay muted loop playsinline preload="auto"
+             poster="images/cuda-limo.jpg"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <!-- 1) repo path -->
+        <source src="images/limo_cuda_preview_v4.mp4" type="video/mp4" />
+        <!-- 2) site root -->
+        <source src="/images/limo_cuda_preview_v4.mp4" type="video/mp4" />
+        <!-- 3) raw fallback -->
+        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/images/limo_cuda_preview_v4.mp4" type="video/mp4" />
+      </video>
+      <!-- fallback image if video fails -->
+      <img class="cover" src="images/cuda-limo.jpg" alt="CUDA optimization preview" style="display:none">
       <div>
         <div class="title">Optimizing LIMO Pipeline with CUDA Parallelization</div>
         <p>Shared-memory tiling, async transfers, and custom kernels for 2D conv, keyframe selection, and pose estimation, improving kernel time by up to 60%.</p>
@@ -230,7 +241,7 @@
       </div>
     </div>
 
-    <!-- Security & Code Analysis (robust video playlist/fallback) -->
+    <!-- Security & Code Analysis (video playlist/fallback) -->
     <h3><span class="pill">Security &amp; Code Analysis</span></h3>
     <div class="entry">
       <video id="vulnVid" class="cover" autoplay muted playsinline preload="auto" loop
@@ -359,7 +370,7 @@
       {id:'agents',title:'Solving Short-term Memory Limits of ADAPT Agents',summary:'Added a Knowledge-Aware Graph for long-term user preferences and a diffusion-style drive model for smoother planning.',tags:'agent adapt kag graph planning diffusion',code:'https://github.com/mg-2321',paper:'papers/adapt-kag.pdf'},
       {id:'cuda',title:'Optimizing LIMO Pipeline with CUDA Parallelization',summary:'Shared-memory tiling, async copies, and custom conv kernels; Nsight-guided profiling with up to 60% speedup.',tags:'cuda gpu kernels convolution nsight optimization',code:'https://github.com/mg-2321',paper:'papers/limo-cuda.pdf'},
       {id:'eeg',title:'Stroke Rehabilitation — EEG Motor Action Classification',summary:'ICA + filtering + PCA features; DT/SVM/NN models comparing pre/post-stroke EEG.',tags:'eeg signal ica pca svm',code:'https://github.com/mg-2321/Stroke_Rehabilitation',paper:'https://github.com/mg-2321/Stroke_Rehabilitation/blob/main/Iteration%204_%20Paper-4.pdf'},
-      {id:'nlp',title:'NLP for Suicide Ideation & Attempt Detection',summary:'Preprocessed clinical & forum text; compared GloVe/Word2Vec/FastText/CBOW; trained BERT & RoBERTa vs Bi-LSTM.',tags:'nlp suicide mimic-iii suicidewatch bert roberta',code:'#',paper:'papers/nlp-suicide-risk.pdf'},
+      {id:'nlp',title:'NLP for Suicide Ideation & Attempt Detection',summary:'Preprocessed clinical & forum text; compared GloVe/Word2Vec, FastText, CBOW; trained BERT & RoBERTa vs Bi-LSTM.',tags:'nlp suicide mimic-iii suicidewatch bert roberta',code:'#',paper:'papers/nlp-suicide-risk.pdf'},
       {id:'vuln',title:'LLMs for Code Vulnerability Detection',summary:'Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN for code-flow patterns.',tags:'security code vulnerability llm rag graphcodebert',code:'#',paper:'papers/llm-code-vuln.pdf'},
       {id:'safety',title:'Real-time Construction Worker Safety Inspection',summary:'Benchmarked CNN/RCNN/SSD/Faster-RCNN; deployed best detector in a web app.',tags:'cv object detection faster-rcnn ssd safety',code:'https://github.com/mg-2321/Safety-equipment-check-using-object-detection',paper:'papers/worker-safety.pdf'}
     ];
@@ -373,73 +384,45 @@
     function push(who,html){const b=document.createElement('div');b.className='bubble '+(who==='me'?'me':'bot');b.innerHTML=html;chat.appendChild(b);chat.scrollTop=chat.scrollHeight}
     btn.addEventListener('click',ask);qa.addEventListener('keydown',e=>{if(e.key==='Enter')ask()});
 
-    /* Robust video for Vulnerability project:
-       - Tries merged file first
-       - Falls back to each clip (local path, /path, raw URL)
-       - If using the two clips, loops them like one long video
+    /* Vulnerability video:
+       - Try merged file; else play A then B in a loop.
     */
     (function initVulnVideo(){
       const v = document.getElementById('vulnVid');
       if(!v) return;
 
-      const local = (p)=>p;                    // same folder
-      const root  = (p)=>('/'+p.replace(/^\//,'')); // site root
-      const raw   = (p)=>('https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/'+p.replace(/^\//,''));
+      const raw = (p)=>('https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/'+p.replace(/^\//,''));
+      const merged = ['gcb_merged_v2.mp4','/gcb_merged_v2.mp4',raw('gcb_merged_v2.mp4')];
+      const clipA = ['gcb_web_demo_v10.mp4','/gcb_web_demo_v10.mp4',raw('gcb_web_demo_v10.mp4')];
+      const clipB = ['gcb_full_demo_v13.mp4','/gcb_full_demo_v13.mp4',raw('gcb_full_demo_v13.mp4')];
 
-      const merged = ['gcb_merged_v2.mp4', '/gcb_merged_v2.mp4', raw('gcb_merged_v2.mp4')];
+      let playlist=[]; let useClips=false; let cur=0, idx=0;
 
-      const clipA = ['gcb_web_demo_v10.mp4', '/gcb_web_demo_v10.mp4', raw('gcb_web_demo_v10.mp4')];
-      const clipB = ['gcb_full_demo_v13.mp4', '/gcb_full_demo_v13.mp4', raw('gcb_full_demo_v13.mp4')];
-
-      let playlist = [];         // will be set to [merged] or [A,B]
-      let idxSrc = 0;            // index within current item’s candidates
-      let useClipsMode = false;  // true if we’re playing A then B
-
-      function trySet(srcList){
-        idxSrc = 0;
-        function tryOne(){
-          if(idxSrc >= srcList.length){ return false; }
-          v.src = srcList[idxSrc++];
-          v.load();
-          v.play().catch(()=>{});
+      function trySet(srcs){
+        idx=0;
+        function nextSource(){
+          if(idx>=srcs.length) return false;
+          v.src = srcs[idx++]; v.load(); v.play().catch(()=>{});
           return true;
         }
-        v.addEventListener('error', onErrOnce, { once:true });
-        function onErrOnce(){ if(!tryOne()){ /* give up */ } }
-        tryOne();
+        v.addEventListener('error', onErr, {once:true});
+        function onErr(){ if(!nextSource()){ /* give up */ } }
+        nextSource();
       }
 
-      // Step 1: try merged
-      (function tryMerged(){
-        const test = document.createElement('video');
-        let tried = 0;
-        function testNext(){
-          if(tried >= merged.length){ useClips(); return; }
-          test.src = merged[tried++];
-          test.addEventListener('canplay', ()=>{ playlist=[merged]; useClipsMode=false; trySet(merged); }, {once:true});
-          test.addEventListener('error', testNext, {once:true});
-          test.load();
+      (function boot(){
+        const test=document.createElement('video'); let i=0;
+        function tryMerged(){
+          if(i>=merged.length){ useClips=true; playlist=[clipA,clipB]; cur=0; return trySet(playlist[cur]); }
+          test.src=merged[i++]; test.addEventListener('canplay',()=>{ useClips=false; playlist=[merged]; trySet(merged); },{once:true});
+          test.addEventListener('error', tryMerged,{once:true}); test.load();
         }
-        function useClips(){
-          playlist=[clipA, clipB];
-          useClipsMode=true;
-          currentClip=0;
-          trySet(playlist[currentClip]);
-        }
-        testNext();
+        tryMerged();
       })();
 
-      // If clips mode, alternate A->B->A...
-      let currentClip = 0;
-      v.addEventListener('ended', ()=>{
-        if(useClipsMode){
-          currentClip = (currentClip+1) % playlist.length;
-          trySet(playlist[currentClip]);
-        }else{
-          // merged: just loop
-          v.currentTime = 0;
-          v.play().catch(()=>{});
-        }
+      v.addEventListener('ended',()=>{
+        if(useClips){ cur=(cur+1)%playlist.length; trySet(playlist[cur]); }
+        else { v.currentTime=0; v.play().catch(()=>{}); }
       });
     })();
   </script>
