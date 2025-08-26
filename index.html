@@ -179,13 +179,17 @@
     </div>
 
     <h3><span class="pill">Vision &amp; Robotics</span></h3>
+    <!-- Waymo project — VIDEO PLAYLIST COVER -->
     <div class="entry">
-      <img class="cover" src="images/waymo-forecast.jpg" alt="Waymo trajectories"
-           onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 450%22><rect width=%22800%22 height=%22450%22 fill=%22%23fff%22/></svg>'">
+      <video id="waymoVid" class="cover" autoplay muted playsinline preload="auto" loop
+             poster="images/waymo-forecast.jpg"></video>
       <div>
         <div class="title">Future Trajectory Prediction for Autonomous Vehicles</div>
         <p>Diffusion-based model predicting 5-second future trajectories in long-tail scenarios using the Waymo Open Dataset; explicitly models multimodal uncertainty.</p>
-        <p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a><a class="btn" href="papers/waymo-forecast.pdf" target="_blank">Paper</a></p>
+        <p class="row-links">
+          <a class="btn" href="https://github.com/mg-2321/Waymo_trajectory_prediction" target="_blank">Code</a>
+          <a class="btn" href="papers/waymo-forecast.pdf" target="_blank">Paper</a>
+        </p>
       </div>
     </div>
 
@@ -194,14 +198,10 @@
       <video class="cover" autoplay muted loop playsinline preload="auto"
              poster="images/cuda-limo.jpg"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-        <!-- 1) repo path -->
         <source src="images/limo_cuda_preview_v4.mp4" type="video/mp4" />
-        <!-- 2) site root -->
         <source src="/images/limo_cuda_preview_v4.mp4" type="video/mp4" />
-        <!-- 3) raw fallback -->
         <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/images/limo_cuda_preview_v4.mp4" type="video/mp4" />
       </video>
-      <!-- fallback image if video fails -->
       <img class="cover" src="images/cuda-limo.jpg" alt="CUDA optimization preview" style="display:none">
       <div>
         <div class="title">Optimizing LIMO Pipeline with CUDA Parallelization</div>
@@ -366,7 +366,7 @@
 
     /* Q&A (simple matcher) */
     const KB=[
-      {id:'waymo',title:'Future Trajectory Prediction for Autonomous Vehicles',summary:'Diffusion-based model forecasting 5-second trajectories on the Waymo Open Dataset; models multimodal uncertainty and temporal dependencies.',tags:'diffusion trajectory forecasting waymo uncertainty driving',code:'https://github.com/mg-2321',paper:'papers/waymo-forecast.pdf'},
+      {id:'waymo',title:'Future Trajectory Prediction for Autonomous Vehicles',summary:'Diffusion-based model forecasting 5-second trajectories on the Waymo Open Dataset; models multimodal uncertainty and temporal dependencies.',tags:'diffusion trajectory forecasting waymo uncertainty driving',code:'https://github.com/mg-2321/Waymo_trajectory_prediction',paper:'papers/waymo-forecast.pdf'},
       {id:'agents',title:'Solving Short-term Memory Limits of ADAPT Agents',summary:'Added a Knowledge-Aware Graph for long-term user preferences and a diffusion-style drive model for smoother planning.',tags:'agent adapt kag graph planning diffusion',code:'https://github.com/mg-2321',paper:'papers/adapt-kag.pdf'},
       {id:'cuda',title:'Optimizing LIMO Pipeline with CUDA Parallelization',summary:'Shared-memory tiling, async copies, and custom conv kernels; Nsight-guided profiling with up to 60% speedup.',tags:'cuda gpu kernels convolution nsight optimization',code:'https://github.com/mg-2321',paper:'papers/limo-cuda.pdf'},
       {id:'eeg',title:'Stroke Rehabilitation — EEG Motor Action Classification',summary:'ICA + filtering + PCA features; DT/SVM/NN models comparing pre/post-stroke EEG.',tags:'eeg signal ica pca svm',code:'https://github.com/mg-2321/Stroke_Rehabilitation',paper:'https://github.com/mg-2321/Stroke_Rehabilitation/blob/main/Iteration%204_%20Paper-4.pdf'},
@@ -384,45 +384,74 @@
     function push(who,html){const b=document.createElement('div');b.className='bubble '+(who==='me'?'me':'bot');b.innerHTML=html;chat.appendChild(b);chat.scrollTop=chat.scrollHeight}
     btn.addEventListener('click',ask);qa.addEventListener('keydown',e=>{if(e.key==='Enter')ask()});
 
-    /* Vulnerability video:
-       - Try merged file; else play A then B in a loop.
-    */
+    /* Waymo playlist cover (A then B loop; robust fallbacks) */
+    (function initWaymoVideo(){
+      const v = document.getElementById('waymoVid');
+      if(!v) return;
+      const raw = p => 'https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/'+p.replace(/^\//,'');
+      const A = [
+        'images/waymo_diffusion_cover_1080p_quick.mp4',
+        '/images/waymo_diffusion_cover_1080p_quick.mp4',
+        raw('images/waymo_diffusion_cover_1080p_quick.mp4')
+      ];
+      const B = [
+        'images/diffusion_3d_samples_FINAL_quick.mp4',
+        '/images/diffusion_3d_samples_FINAL_quick.mp4',
+        raw('images/diffusion_3d_samples_FINAL_quick.mp4')
+      ];
+      const playlist=[A,B];
+      let cur=0, idx=0;
+
+      function setNextSource(){
+        if(idx>=playlist[cur].length) return false;
+        v.src = playlist[cur][idx++];
+        v.load(); v.play().catch(()=>{});
+        return true;
+      }
+      v.addEventListener('error', ()=>{ if(!setNextSource()) {/* exhaust */} });
+      v.addEventListener('ended', ()=>{
+        cur = (cur+1)%playlist.length;
+        idx=0;
+        setNextSource();
+      });
+      setNextSource();
+    })();
+
+    /* Vulnerability video (try merged else clips) */
     (function initVulnVideo(){
       const v = document.getElementById('vulnVid');
       if(!v) return;
-
-      const raw = (p)=>('https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/'+p.replace(/^\//,''));
+      const raw = p=>'https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/'+p.replace(/^\//,'');
       const merged = ['gcb_merged_v2.mp4','/gcb_merged_v2.mp4',raw('gcb_merged_v2.mp4')];
       const clipA = ['gcb_web_demo_v10.mp4','/gcb_web_demo_v10.mp4',raw('gcb_web_demo_v10.mp4')];
       const clipB = ['gcb_full_demo_v13.mp4','/gcb_full_demo_v13.mp4',raw('gcb_full_demo_v13.mp4')];
 
-      let playlist=[]; let useClips=false; let cur=0, idx=0;
+      let useClips=false, cur=0, idx=0, active=merged;
 
-      function trySet(srcs){
-        idx=0;
-        function nextSource(){
-          if(idx>=srcs.length) return false;
-          v.src = srcs[idx++]; v.load(); v.play().catch(()=>{});
-          return true;
-        }
-        v.addEventListener('error', onErr, {once:true});
-        function onErr(){ if(!nextSource()){ /* give up */ } }
-        nextSource();
+      function setNextSource(){
+        if(idx>=active.length) return false;
+        v.src = active[idx++]; v.load(); v.play().catch(()=>{});
+        return true;
       }
+      v.addEventListener('error', ()=>{ if(!setNextSource()) {/* give up */} });
 
-      (function boot(){
-        const test=document.createElement('video'); let i=0;
-        function tryMerged(){
-          if(i>=merged.length){ useClips=true; playlist=[clipA,clipB]; cur=0; return trySet(playlist[cur]); }
-          test.src=merged[i++]; test.addEventListener('canplay',()=>{ useClips=false; playlist=[merged]; trySet(merged); },{once:true});
-          test.addEventListener('error', tryMerged,{once:true}); test.load();
+      // test merged quickly
+      (function testMerged(i=0){
+        const t=document.createElement('video');
+        function tryOne(){
+          if(i>=merged.length){ useClips=true; active=clipA; idx=0; setNextSource(); return; }
+          t.src=merged[i++]; t.addEventListener('canplay', ()=>{ active=merged; idx=0; setNextSource(); }, {once:true});
+          t.addEventListener('error', tryOne, {once:true}); t.load();
         }
-        tryMerged();
+        tryOne();
       })();
 
-      v.addEventListener('ended',()=>{
-        if(useClips){ cur=(cur+1)%playlist.length; trySet(playlist[cur]); }
-        else { v.currentTime=0; v.play().catch(()=>{}); }
+      v.addEventListener('ended', ()=>{
+        if(useClips){
+          active = (active===clipA)?clipB:clipA; idx=0; setNextSource();
+        }else{
+          v.currentTime=0; v.play().catch(()=>{});
+        }
       });
     })();
   </script>
