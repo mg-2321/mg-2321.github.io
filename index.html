@@ -56,8 +56,8 @@
     .cover{
       width:100%;
       aspect-ratio:16/9;
-      object-fit:contain;     /* prevents cropping */
-      background:#fff;        /* white letterbox */
+      object-fit:contain;         /* no cropping */
+      background:#fff;            /* white letterbox */
       border:1px solid var(--rule);
       border-radius:12px;
       display:block;
@@ -68,17 +68,16 @@
     .btn:hover{background:#f7faff;text-decoration:none;border-color:#d8e4ff}
     @media (max-width:680px){ .entry{grid-template-columns:1fr} .cover{width:100%} }
 
-    /* Bullets tidy */
     .entry ul{ margin:.25rem 0 0 0; padding:0 0 0 1rem; }
     .entry ul li{ margin:.25rem 0; text-align:justify; text-justify:inter-word; hyphens:auto; line-height:1.65; }
 
-    /* Hide native video controls (gif-like) */
+    /* Hide video controls for "gif-like" playback */
     video.cover{ pointer-events:none; }
     video.cover::-webkit-media-controls,
     video.cover::-webkit-media-controls-enclosure,
     video.cover::-webkit-media-controls-panel{ display:none !important; }
 
-    /* Token ribbon / playground etc. */
+    /* Token ribbon / playground */
     .tokenribbon{position:relative;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:linear-gradient(90deg,#f7faff 0,#fff 50%,#f7faff 100%)}
     .track{display:flex;gap:2rem;white-space:nowrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;padding:10px 12px;color:#264;opacity:.9}
     .scroll{animation:marquee 26s linear infinite}
@@ -253,7 +252,6 @@
       </div>
     </div>
 
-    <!-- PPE (video cover) -->
     <div class="entry">
       <video class="cover" autoplay muted loop playsinline preload="auto"
              poster="images/worker-safety.jpg"
@@ -293,19 +291,6 @@
         <span class="chip" data-q="Do you have papers to read for each project?">Papers?</span>
       </div>
       <div id="qaChat" class="chat" aria-live="polite"></div>
-    </div>
-
-    <div class="hr"></div>
-
-    <!-- Blogs -->
-    <h2 id="blogs">Blogs</h2>
-    <div class="entry">
-      <img class="cover" src="images/medium-cover-1.jpg" alt="Post cover"
-           onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 450%22><rect width=%22800%22 height=%22450%22 fill=%22%23fff%22/></svg>'">
-      <div>
-        <div class="title"><a href="https://medium.com/@YOUR_MEDIUM_HANDLE/YOUR_POST_SLUG" target="_blank" rel="noopener">Title of your post</a></div>
-        <p>One-line summary of the article.</p>
-      </div>
     </div>
 
     <div class="hr"></div>
@@ -384,21 +369,16 @@
     function push(who,html){const b=document.createElement('div');b.className='bubble '+(who==='me'?'me':'bot');b.innerHTML=html;chat.appendChild(b);chat.scrollTop=chat.scrollHeight}
     btn.addEventListener('click',ask);qa.addEventListener('keydown',e=>{if(e.key==='Enter')ask()});
 
-    /* Waymo playlist cover (A then B loop; robust fallbacks) */
+    /* Waymo playlist cover — UPDATED FILENAMES */
     (function initWaymoVideo(){
       const v = document.getElementById('waymoVid');
       if(!v) return;
       const raw = p => 'https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/'+p.replace(/^\//,'');
-      const A = [
-        '/waymo_diffusion_cover%20(1)%20(2)%20(1).mp4',
-        '/waymo_diffusion_cover%20(1)%20(2)%20(1).mp4',
-        raw('images/waymo_diffusion_cover_1080p_quick.mp4')
-      ];
-      const B = [
-        'images/diffusion_3d_samples_FINAL_quick.mp4',
-        '/images/diffusion_3d_samples_FINAL_quick.mp4',
-        raw('images/diffusion_3d_samples_FINAL_quick.mp4')
-      ];
+      const Aname = 'images/waymo_diffusion_cover%20%281%29%20%282%29%20%281%29.mp4';   // spaces + () encoded
+      const Bname = 'images/diffusion_3d_samples_FINAL_quick.mp4';
+
+      const A = [Aname, '/'+Aname, raw(Aname)];
+      const B = [Bname, '/'+Bname, raw(Bname)];
       const playlist=[A,B];
       let cur=0, idx=0;
 
@@ -408,7 +388,7 @@
         v.load(); v.play().catch(()=>{});
         return true;
       }
-      v.addEventListener('error', ()=>{ if(!setNextSource()) {/* exhaust */} });
+      v.addEventListener('error', ()=>{ setNextSource(); });
       v.addEventListener('ended', ()=>{
         cur = (cur+1)%playlist.length;
         idx=0;
@@ -433,14 +413,13 @@
         v.src = active[idx++]; v.load(); v.play().catch(()=>{});
         return true;
       }
-      v.addEventListener('error', ()=>{ if(!setNextSource()) {/* give up */} });
+      v.addEventListener('error', ()=>{ setNextSource(); });
 
-      // test merged quickly
       (function testMerged(i=0){
         const t=document.createElement('video');
         function tryOne(){
           if(i>=merged.length){ useClips=true; active=clipA; idx=0; setNextSource(); return; }
-          t.src=merged[i++]; t.addEventListener('canplay', ()=>{ active=merged; idx=0; setNextSource(); }, {once:true});
+          t.src=merged[i++]; t.addEventListener('canplay',()=>{ active=merged; idx=0; setNextSource(); }, {once:true});
           t.addEventListener('error', tryOne, {once:true}); t.load();
         }
         tryOne();
