@@ -21,6 +21,7 @@
     a:hover{text-decoration:underline}
     p{margin:.6rem 0}
 
+    /* Title + nav */
     .site-title{ text-align:center; font-size:2.8rem; letter-spacing:.4px; margin:0 0 .75rem; }
     .site-title.typing::after{ content:"▌"; margin-left:2px; animation:caretBlink 1s steps(1,end) infinite; }
     @keyframes caretBlink{50%{opacity:0}}
@@ -28,6 +29,7 @@
     .mini-nav a{ display:inline-block; font-size:.95rem; margin:0 .55rem; padding:2px 8px; border-radius:999px }
     .mini-nav a:hover{ background:var(--pill) }
 
+    /* Intro */
     .intro{ display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:24px; align-items:stretch; }
     .avatar{ width:100%; height:100%; object-fit:cover; object-position:center 30%;
       border-radius:16px; border:1px solid var(--rule); display:block; }
@@ -35,6 +37,7 @@
     .lead{ font-size:1.06rem } .lead.red{ color:#c62828 }
     @media (max-width:860px){ .intro{grid-template-columns:1fr} .avatar{height:auto; max-height:260px} }
 
+    /* Sections */
     h2{ font-size:1.55rem; line-height:1.25; margin:1.6rem 0 .6rem; position:relative }
     h2::after{ content:""; display:block; width:56px; height:3px; background:linear-gradient(90deg,#0b57d0,#8b5cf6); border-radius:3px; margin-top:6px; opacity:.9 }
     .hr{ height:1px; background:var(--rule); margin:24px 0 }
@@ -71,7 +74,7 @@
     .playground input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--rule)}
     .tokens{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
     .tok{font:600 .8rem ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:4px 8px;border-radius:8px;background:#f1f4fb;border:1px solid #dbe3f3}
-    .stats{font-size:.85rem;color:var(--muted);margin-top:6px}
+    .stats{font-size:.85rem;color:#5b6574;margin-top:6px}
 
     .qa{border:1px solid var(--rule);border-radius:12px;padding:12px}
     .qa .ask{display:flex;gap:8px}
@@ -82,6 +85,39 @@
     .qa .chat{margin-top:12px;display:flex;flex-direction:column;gap:10px}
     .bubble{background:#f7faff;border:1px solid #dbe3f0;padding:10px 12px;border-radius:12px}
     .bubble.me{align-self:flex-end;background:#eef3ff}
+
+    /* === Innovative avatar: Token-Orbit + Attention Glow === */
+    .avatar-lab{position:relative; width:100%; max-width:320px; margin:0 auto}
+    .avatar-lab .avatar{
+      width:100%; height:100%; max-height:420px; display:block;
+      object-fit:cover; object-position:center 30%;
+      border-radius:16px; border:1px solid var(--rule);
+      box-shadow:0 8px 24px rgba(12,20,40,.08);
+    }
+    .avatar-lab .orbit{
+      position:absolute; inset:-8px; border-radius:20px; pointer-events:none;
+      animation:spin 26s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @media (prefers-reduced-motion:reduce){ .avatar-lab .orbit{animation:none} }
+    .avatar-lab .atok{
+      position:absolute; left:50%; top:50%;
+      transform:translate(-50%,-50%) rotate(var(--a)) translate(var(--r)) rotate(calc(-1*var(--a)));
+      font:600 .70rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color:#3b5bbb; opacity:.9; padding:2px 6px; border-radius:999px;
+      background:#f2f6ff; border:1px solid #d8e4ff; white-space:nowrap;
+      filter:drop-shadow(0 1px 0 rgba(10,20,40,.05));
+    }
+    .avatar-lab .atok.h2{ color:#6c3bbf; background:#f6f1ff; border-color:#e6dbff }
+    .avatar-lab .atok.h8{ color:#0b57d0; background:#eef4ff; border-color:#d9e6ff }
+    .avatar-lab .att{
+      position:absolute; inset:0; border-radius:20px; pointer-events:none;
+      background:radial-gradient(160px 160px at var(--x,50%) var(--y,50%),
+        rgba(108,140,255,.22), rgba(108,140,255,0) 70%);
+      transition:background-position .08s linear;
+      mix-blend-mode:soft-light;
+    }
+    @media (prefers-reduced-motion:reduce){ .avatar-lab .att{display:none} }
   </style>
 </head>
 <body>
@@ -107,8 +143,14 @@
         <p class="lead">Additionally, I'm exploring on how to overcome memory context-window limits using short- and long-term retrieval caches, summarization/compression, and Reflexion-style episodic notes that are indexed and reused across tasks.</p>
         <p class="lead red">I’m open to research collaborations. Please email me (gayat23 [at] uw.edu) if you are interested to explore on on assistive agents for day-to-day task automation, tool use, XR copilots, and self-evolving language models for curriculum generation, reflective fine-tuning, and preference optimization.</p>
       </div>
-      <aside>
-        <img class="avatar" src="https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3" alt="Portrait of Gayatri Malladi" loading="eager" decoding="sync">
+
+      <!-- Innovative portrait -->
+      <aside class="avatar-lab" id="avatarLab">
+        <img class="avatar"
+             src="https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3"
+             alt="Portrait of Gayatri Malladi" loading="eager" decoding="sync">
+        <div class="orbit" aria-hidden="true" id="avatarOrbit"></div>
+        <div class="att" aria-hidden="true"></div>
       </aside>
     </section>
 
@@ -214,7 +256,7 @@
         <div class="title">Real-time Construction Worker Safety Inspection</div>
         <ul>
           <li>Built a real-time PPE compliance detection system using a CenterNet-based model to reduce manual spot-checks and mitigate on-site risk.</li>
-          <li>Benchmarked CenterNet vs Faster R-CNN and SSD on CHVG &amp; Pictor; deployed the best ResNet-50 variant in a lightweight web app that flags violations at entry and makes compliance auditable.</li>
+          <li>Benchmarked CenterNet vs Faster R-CNN and SSD on CHVG & Pictor; deployed the best ResNet-50 variant in a lightweight web app that flags violations at entry and makes compliance auditable.</li>
         </ul>
         <p class="row-links">
           <a class="btn" href="https://github.com/mg-2321/Safety-equipment-check-using-object-detection" target="_blank" rel="noopener">Code</a>
@@ -308,7 +350,35 @@
       let i=0; (function type(){ if(i<text.length){ el.textContent+=text.charAt(i++); setTimeout(type,80);} else { el.classList.remove('typing'); } })();
     })();
 
-    /* Waymo two-clip playlist (no loop attr so 'ended' fires) */
+    /* Build token orbit around avatar + attention glow */
+    (function(){
+      const host = document.getElementById('avatarOrbit'); if(!host) return;
+      const tokens = [
+        "token→embedding","multi-head","attention","logits","loss",
+        "decoder","beam search","nucleus","temperature","KAG","RAG",
+        "DPO/SimPO","KTO/ORPO","tool-use","agents","reflect","cache"
+      ];
+      const N = tokens.length, R = 165;
+      tokens.forEach((t,i)=>{
+        const s = document.createElement('span');
+        s.className = 'atok ' + (i%7===2?'h2': i%7===5?'h8':'');
+        const a = (i/N)*360 + 'deg';
+        s.style.setProperty('--a', a);
+        s.style.setProperty('--r', R+'px');
+        s.textContent = t;
+        host.appendChild(s);
+      });
+      const lab = document.getElementById('avatarLab');
+      lab.addEventListener('mousemove', (e)=>{
+        const r = lab.getBoundingClientRect();
+        const x = ((e.clientX - r.left) / r.width) * 100;
+        const y = ((e.clientY - r.top)  / r.height)* 100;
+        lab.style.setProperty('--x', x+'%');
+        lab.style.setProperty('--y', y+'%');
+      });
+    })();
+
+    /* Waymo two-clip playlist */
     (function initWaymoVideo(){
       const v = document.getElementById('waymoVid'); if(!v) return;
       v.loop = false;
