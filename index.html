@@ -391,6 +391,6 @@
     function fmtLinks(it){const L=[];if(it.code&&it.code!=='#')L.push(`<a href="${it.code}" target="_blank">Code</a>`);if(it.paper)L.push(`<a href="${it.paper}" target="_blank">Paper</a>`);return L.length?` · ${L.join(' | ')}`:''}
     function push(who,html){const b=document.createElement('div');b.className='bubble '+(who==='me'?'me':'bot');b.innerHTML=html;chat.appendChild(b);chat.scrollTop=chat.scrollHeight}
     btn.addEventListener('click',ask);qa.addEventListener('keydown',e=>{if(e.key==='Enter')ask()});
-  </script>
+  </script> 
 </body>
 </html>
