@@ -41,13 +41,19 @@
     .pill{display:inline-block;font-size:.75rem;color:#244;padding:2px 8px;border-radius:999px;background:var(--pill);border:1px solid #d8e4ff;margin-bottom:.25rem}
     .title{ font-weight:600 }
 
-    /* Uniform cover size without cropping */
+    /* Uniform cover size (no cropping) */
     .entry{ display:grid; grid-template-columns:400px 1fr; gap:16px; align-items:start; margin:18px 0 24px; }
     .cover{
       width:100%; aspect-ratio:16/9; object-fit:contain;
       background:#fff; border:1px solid var(--rule); border-radius:12px;
       display:block; box-shadow:0 2px 12px rgba(17,24,39,.06); overflow:hidden;
     }
+    /* Blog “tile” cover with centered text */
+    .cover-tile{ display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg,#f7faff,#ffffff); }
+    .tile-text{ text-align:center; color:#0b57d0; }
+    .tile-text .soon{ font-size:1.25rem; font-weight:700; letter-spacing:.3px; }
+    .tile-text .sub{ font-size:.95rem; color:#5b6574; margin-top:.25rem }
+
     .row-links a.btn{ display:inline-block;border:1px solid var(--rule);padding:6px 10px;border-radius:10px;text-decoration:none;margin-right:.45rem }
     .btn:hover{background:#f7faff;text-decoration:none;border-color:#d8e4ff}
     @media (max-width:680px){ .entry{grid-template-columns:1fr} .cover{width:100%} }
@@ -61,7 +67,7 @@
     video.cover::-webkit-media-controls-enclosure,
     video.cover::-webkit-media-controls-panel{ display:none !important; }
 
-    /* Token ribbon + playground */
+    /* Token ribbon & playground */
     .tokenribbon{position:relative;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:linear-gradient(90deg,#f7faff 0,#fff 50%,#f7faff 100%)}
     .track{display:flex;gap:2rem;white-space:nowrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;padding:10px 12px;color:#264;opacity:.9}
     .scroll{animation:marquee 26s linear infinite}.scroll2{animation:marquee 34s linear infinite reverse}
@@ -71,7 +77,7 @@
     .playground input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--rule)}
     .tokens{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
     .tok{font:600 .8rem ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:4px 8px;border-radius:8px;background:#f1f4fb;border:1px solid #dbe3f3}
-    .stats{font-size:.85rem;color:var(--muted);margin-top:6px}
+    .stats{font-size:.85rem;color:#5b6574;margin-top:6px}
 
     .qa{border:1px solid var(--rule);border-radius:12px;padding:12px}
     .qa .ask{display:flex;gap:8px}
@@ -102,7 +108,7 @@
           I’m a second-year M.S. student in the Comuter Science department at the University of Washington. Currently, my research supervised by
           <a href="https://rutadesai.github.io/" target="_blank" rel="noopener">Dr. Ruta Desai</a>
           focuses on agentic AI: planning and teaching language models when to ask vs. when to act, with lightweight grounding via a
-          knowledge-augmented graph (KAG)for preference-based training of agents.
+          knowledge-augmented graph (KAG)for preference-based training (SFT → per-step DPO/SimPO; optional KTO/ORPO for asymmetric &lt;Ask&gt;/&lt;Act&gt; risk).
         </p>
         <p class="lead">Additionally, I'm exploring on how to overcome memory context-window limits using short- and long-term retrieval caches, summarization/compression, and Reflexion-style episodic notes that are indexed and reused across tasks.</p>
         <p class="lead red">I’m open to research collaborations. Please email me (gayat23 [at] uw.edu) if you are interested to explore on on assistive agents for day-to-day task automation, tool use, XR copilots, and self-evolving language models for curriculum generation, reflective fine-tuning, and preference optimization.</p>
@@ -148,7 +154,7 @@
     </div>
 
     <!-- Vision & Robotics -->
-    <h3><span class="pill">Vision </span></h3>
+    <h3><span class="pill">Vision &amp; Robotics</span></h3>
 
     <!-- Waymo (two-clip playlist) -->
     <div class="entry">
@@ -200,7 +206,7 @@
       </div>
     </div>
 
-    <!-- PPE (moved here) -->
+    <!-- PPE (moved into Vision & Robotics) -->
     <div class="entry">
       <video class="cover" autoplay muted loop playsinline preload="auto"
              poster="images/worker-safety.jpg"
@@ -235,7 +241,7 @@
       </div>
     </div>
 
-    <!-- LLM Code Vulnerability (moved here) -->
+    <!-- LLMs for Code Vulnerability Detection (moved here) -->
     <div class="entry">
       <video id="vulnVid" class="cover" autoplay muted playsinline preload="auto" poster="images/llm-security.jpg"></video>
       <div>
@@ -266,24 +272,24 @@
 
     <div class="hr"></div>
 
-    <!-- Experience -->
-    <h2 id="experience">Experience</h2>
-    <p><strong>Research Intern</strong>, Centre for Development of Advanced Computing (C-DAC) — <span class="muted">Sept 2023 – Mar 2024</span></p>
-    <ul>
-      <li>LLMs for vulnerable code detection using <em>Prompt Engineering</em> + <em>RAG</em> with self-explanations.</li>
-      <li>GraphCodeBERT + DCGAN pipeline; data-flow visualizations of insecure design.</li>
-    </ul>
-
-    <p><strong>Researcher</strong>, National University of Singapore — <span class="muted">Jan 2023 – Jun 2023</span></p>
-    <ul>
-      <li>Prepared clinical &amp; forum datasets; expanded abbreviations; noise removal for clarity.</li>
-      <li>Compared vectorizers (GloVe, Word2Vec, FastText, CBOW) and models (BERT, RoBERTa, Bi-LSTM).</li>
-    </ul>
-
-    <p><strong>Research Intern</strong>, National University of Singapore &amp; Hewlett Packard Enterprise — <span class="muted">Dec 2022 – Jan 2023</span></p>
-    <ul>
-      <li>Optimized worker safety inspection; compared CNN/RCNN/SSD/Faster-RCNN; integrated best model into a website.</li>
-    </ul>
+    <!-- Blogs (restored) -->
+    <h2 id="blogs">Blogs</h2>
+    <div class="entry">
+      <div class="cover cover-tile" role="img" aria-label="Coming soon — Sept 1">
+        <div class="tile-text">
+          <div class="soon">Coming soon — Sept&nbsp;1</div>
+          <div class="sub">Teaser</div>
+        </div>
+      </div>
+      <div>
+        <div class="title">
+          <a href="#" target="_blank" rel="noopener">
+            YODA: Teacher-Student Progressive Learning for LMs vs R-Zero Self-Evolving Reasoning LLM
+          </a>
+        </div>
+        <p>Two-part series comparing progressive teacher→student learning (“YODA”) with self-evolving reasoning (R-Zero). Full post drops Sept 1.</p>
+      </div>
+    </div>
 
     <div class="hr"></div>
 
@@ -308,7 +314,7 @@
       let i=0; (function type(){ if(i<text.length){ el.textContent+=text.charAt(i++); setTimeout(type,80);} else { el.classList.remove('typing'); } })();
     })();
 
-    /* Waymo two-clip playlist (no loop attr so 'ended' fires) */
+    /* Waymo two-clip playlist */
     (function initWaymoVideo(){
       const v = document.getElementById('waymoVid'); if(!v) return;
       v.loop = false;
