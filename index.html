@@ -12,7 +12,7 @@
   <style>
     :root{
       --fg:#14161a; --muted:#5b6574; --link:#0b57d0; --bg:#ffffff; --rule:#e7ebf0; --pill:#f2f6ff;
-      --accentA:#0b57d0; --accentB:#8b5cf6;   /* for underlines & cover borders */
+      --accentA:#0b57d0; --accentB:#8b5cf6;
     }
     html{font-size:16px}
     body{
@@ -24,40 +24,22 @@
     a:hover{text-decoration:underline}
     p{margin:.6rem 0}
 
-    /* Title */
     .site-title{ text-align:center; font-size:2.8rem; letter-spacing:.4px; margin:0 0 .75rem; }
     .site-title.typing::after{ content:"▌"; margin-left:2px; animation:caretBlink 1s steps(1,end) infinite; }
     @keyframes caretBlink{50%{opacity:0}}
 
-    /* Mini nav */
     .mini-nav{ text-align:center; margin:.2rem 0 1.2rem }
     .mini-nav a{ display:inline-block; font-size:.95rem; margin:0 .55rem; padding:2px 8px; border-radius:999px }
     .mini-nav a:hover{ background:var(--pill) }
 
-    /* Intro: image height matches text height */
-    .intro{
-      display:grid; grid-template-columns:minmax(0,1fr) 280px;
-      gap:24px; align-items:stretch;   /* stretch makes right column match left height */
-    }
-    .prose{
-      max-width:72ch;
-      text-align:justify;        /* you asked for justified paragraphs */
-      hyphens:none;              /* no ugly “-” word splits */
-      word-break:normal; overflow-wrap:normal;
-    }
-    .lead{ font-size:1.06rem }
-    .lead.red{ color:#c62828 }
-    .avatar{
-      width:100%; height:100%;               /* fills full row height = matches text */
-      object-fit:cover; object-position:center 30%;
-      border-radius:16px; border:1px solid var(--rule); display:block;
-    }
-    @media (max-width:860px){
-      .intro{grid-template-columns:1fr}
-      .avatar{height:auto; max-height:320px}
-    }
+    /* Intro: image matches text height */
+    .intro{ display:grid; grid-template-columns:minmax(0,1fr) 280px; gap:24px; align-items:stretch; }
+    .prose{ max-width:72ch; text-align:justify; hyphens:none; word-break:normal; overflow-wrap:normal }
+    .lead{ font-size:1.06rem } .lead.red{ color:#c62828 }
+    .avatar{ width:100%; height:100%; object-fit:cover; object-position:center 30%;
+      border-radius:16px; border:1px solid var(--rule); display:block; }
+    @media (max-width:860px){ .intro{grid-template-columns:1fr} .avatar{height:auto; max-height:320px} }
 
-    /* Headings */
     h2{ font-size:1.55rem; line-height:1.25; margin:1.8rem 0 .6rem; position:relative }
     h2::after{ content:""; display:block; width:56px; height:3px; background:linear-gradient(90deg,var(--accentA),var(--accentB)); border-radius:3px; margin-top:6px; opacity:.95 }
     .hr{ height:1px; background:var(--rule); margin:24px 0 }
@@ -66,29 +48,60 @@
 
     /* Icon chips */
     .icons{ display:flex; flex-wrap:wrap; gap:8px; margin:.4rem 0 0 }
-    .chip{
-      display:inline-flex; align-items:center; gap:.45rem;
-      border:1px solid var(--rule); border-radius:10px; padding:6px 10px;
-      color:var(--fg); text-decoration:none; background:#fff;
-    }
+    .chip{ display:inline-flex; align-items:center; gap:.45rem; border:1px solid var(--rule); border-radius:10px; padding:6px 10px; background:#fff; color:var(--fg) }
     .chip:hover{ background:#f7faff; border-color:#d8e4ff; text-decoration:none }
 
     /* Entries */
-    .entry{
-      display:grid; grid-template-columns:400px 1fr; gap:16px; align-items:start; margin:18px 0 24px;
-    }
+    .entry{ display:grid; grid-template-columns:400px 1fr; gap:16px; align-items:start; margin:18px 0 24px; }
     @media (max-width:680px){ .entry{grid-template-columns:1fr} }
 
-    /* Gradient rounded border (matches headings) */
-    .cover, .cover-frame{
+    /* Unified rounded gradient frame for covers */
+    .frame-base{
       width:100%; aspect-ratio:16/9; border-radius:12px; border:2px solid transparent;
       background:
-        linear-gradient(#fff,#fff) padding-box,                          /* inner white */
-        linear-gradient(90deg,var(--accentA),var(--accentB)) border-box; /* gradient frame */
-      box-shadow:0 2px 12px rgba(17,24,39,.06);
-      overflow:hidden; display:block;
+        linear-gradient(#fff,#fff) padding-box,
+        linear-gradient(90deg,var(--accentA),var(--accentB)) border-box;
+      box-shadow:0 2px 12px rgba(17,24,39,.06); overflow:hidden;
     }
-    .cover{ object-fit:contain; }
+    .cover{ composes: frame-base; width:100%; aspect-ratio:16/9; object-fit:contain; border-radius:12px; }
+    .cover, .cover-frame{ width:100%; aspect-ratio:16/9; border-radius:12px; }
+    .cover-frame{ composes: frame-base; }
+
+    /* “Animated video-like” covers for Coming Soon */
+    .cover-anim{ position:relative; display:flex; align-items:center; justify-content:center; }
+    .cover-anim::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(1200px 400px at -10% 10%, rgba(11,87,208,.18), transparent 55%),
+        radial-gradient(1200px 400px at 110% 90%, rgba(139,92,246,.18), transparent 55%),
+        linear-gradient(120deg, #f9fbff 0%, #ffffff 40%, #f9fbff 100%);
+      animation:pan 10s linear infinite;
+    }
+    .cover-anim::after{
+      /* subtle shimmer lines */
+      content:"";
+      position:absolute; inset:-40% 0 -40% 0;
+      background:repeating-linear-gradient(100deg, rgba(11,87,208,.06) 0 6px, rgba(139,92,246,.06) 6px 12px, transparent 12px 22px);
+      transform:translateX(-20%);
+      animation:slide 6s linear infinite;
+      mix-blend-mode:multiply;
+    }
+    @keyframes pan{ 0%{background-position:0 0,0 0,0 0} 100%{background-position:200% 0,-200% 0,0 0} }
+    @keyframes slide{ 0%{transform:translateX(-20%)} 100%{transform:translateX(20%)} }
+
+    .soonText{
+      position:relative; z-index:1; text-align:center; pointer-events:none;
+      line-height:1.2;
+    }
+    .soonText .big{
+      font-weight:800; font-size:1.25rem; letter-spacing:.3px;
+      background:linear-gradient(90deg,var(--accentA),var(--accentB),var(--accentA));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      background-size:200% 100%; animation:shine 2.2s linear infinite;
+    }
+    .soonText .sub{ font-size:.95rem; color:var(--muted); margin-top:.25rem }
+    @keyframes shine{ 0%{background-position:0% 50%} 100%{background-position:200% 50%} }
 
     /* Video covers behave like GIFs */
     video.cover{ pointer-events:none; }
@@ -98,8 +111,6 @@
 
     .row-links a.btn{ display:inline-block;border:1px solid var(--rule);padding:6px 10px;border-radius:10px;text-decoration:none;margin-right:.45rem }
     .btn:hover{background:#f7faff;text-decoration:none;border-color:#d8e4ff}
-    .entry ul{ margin:.25rem 0 0 0; padding:0 0 0 1rem; }
-    .entry ul li{ margin:.25rem 0; line-height:1.65; }
 
     /* Token ribbon */
     .tokenribbon{position:relative;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:linear-gradient(90deg,#f7faff 0,#fff 50%,#f7faff 100%); margin-top:.6rem}
@@ -109,45 +120,12 @@
     @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
     @media (prefers-reduced-motion: reduce){.scroll,.scroll2{animation:none}}
 
-    /* Playground (kept simple) */
+    /* Playground */
     .play{border:1px solid var(--rule);border-radius:12px;padding:12px;margin-top:14px}
     .play input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--rule)}
     .tokens{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
     .tok{font:600 .8rem ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:4px 8px;border-radius:8px;background:#f1f4fb;border:1px solid #dbe3f3}
     .stats{font-size:.85rem;color:var(--muted);margin-top:6px}
-    .small{font-size:.86rem;color:var(--muted)}
-
-    /* “Coming soon” animated badge */
-    .cover-wrap{ position:relative }
-    .badge{
-      position:absolute; top:8px; left:8px;
-      padding:4px 8px; font-size:.75rem; font-weight:700; color:#fff;
-      background:linear-gradient(90deg,var(--accentA),var(--accentB));
-      border-radius:999px;
-      box-shadow:0 1px 6px rgba(0,0,0,.15);
-      animation:pulse 1.6s ease-in-out infinite;
-    }
-    @keyframes pulse{
-      0%,100%{ transform:scale(1); opacity:1 }
-      50%{ transform:scale(1.06); opacity:.9 }
-    }
-
-    /* Animated text for blog tile */
-    .tile{ display:flex; align-items:center; justify-content:center }
-    .tile-inner{ text-align:center }
-    .soon{
-      font-size:1.25rem; font-weight:800;
-      background:linear-gradient(90deg,var(--accentA),var(--accentB),var(--accentA));
-      -webkit-background-clip:text; background-clip:text; color:transparent;
-      background-size:200% 100%;
-      animation:shine 2.2s linear infinite;
-      letter-spacing:.3px;
-    }
-    .sub{ font-size:.95rem; color:var(--muted); margin-top:.25rem }
-    @keyframes shine{
-      0%{ background-position:0% 50% }
-      100%{ background-position:200% 50% }
-    }
   </style>
 </head>
 <body>
@@ -182,37 +160,31 @@
           tool use, XR copilots, and self-evolving language models for curriculum generation, reflective fine-tuning, and preference optimization.
         </p>
 
-        <!-- Icon links with real SVGs -->
+        <!-- Icon chips -->
         <p class="icons">
           <a class="chip" href="resume.pdf" target="_blank" rel="noopener" title="CV">
-            <!-- file icon -->
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="1.6"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="1.6"/></svg>
             <span>CV</span>
           </a>
           <a class="chip" href="https://www.linkedin.com/in/gayatri-malladi/" target="_blank" rel="me noopener" title="LinkedIn">
-            <!-- LinkedIn -->
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#0A66C2" d="M20.45 20.45h-3.56v-5.59c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.15 1.45-2.15 2.95v5.69H9.33V9h3.42v1.56h.05c.48-.9 1.66-1.86 3.41-1.86 3.65 0 4.32 2.4 4.32 5.51v6.24zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
             <span>LinkedIn</span>
           </a>
           <a class="chip" href="https://github.com/mg-2321" target="_blank" rel="me noopener" title="GitHub">
-            <!-- GitHub -->
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#24292F" d="M12 .5A11.5 11.5 0 0 0 .5 12.3c0 5.23 3.4 9.66 8.12 11.23.6.1.82-.27.82-.58v-2.15c-3.3.73-4-1.6-4-1.6-.54-1.4-1.32-1.78-1.32-1.78-1.08-.75.08-.73.08-.73 1.2.09 1.84 1.25 1.84 1.25 1.06 1.84 2.78 1.31 3.46 1 .1-.77.42-1.31.77-1.61-2.64-.31-5.42-1.34-5.42-5.97 0-1.32.47-2.4 1.24-3.25-.12-.31-.54-1.55.12-3.23 0 0 1-.33 3.3 1.24a11.4 11.4 0 0 1 6 0c2.28-1.57 3.28-1.24 3.28-1.24.67 1.68.25 2.92.13 3.23.78.85 1.24 1.93 1.24 3.25 0 4.65-2.79 5.65-5.45 5.95.43.38.82 1.12.82 2.27v3.36c0 .32.22.69.83.57A11.5 11.5 0 0 0 23.5 12.3 11.5 11.5 0 0 0 12 .5z"/></svg>
             <span>GitHub</span>
           </a>
           <a class="chip" href="https://medium.com/@YOUR_MEDIUM_HANDLE" target="_blank" rel="me noopener" title="Medium">
-            <!-- Medium -->
             <svg width="18" height="18" viewBox="0 0 1043.63 592.71" aria-hidden="true"><path fill="#12100E" d="M588.67 296.35c0 163.68-131.36 296.35-293.91 296.35S0.85 460.03 0.85 296.35 132.21 0 294.76 0s293.91 132.67 293.91 296.35z"/><ellipse fill="#12100E" cx="872.03" cy="296.35" rx="171.6" ry="296.35"/><path fill="#12100E" d="M1043.63 0v592.71c-94.65 0-171.6-132.67-171.6-296.35S948.98 0 1043.63 0z"/></svg>
             <span>Medium</span>
           </a>
           <a class="chip" href="https://twitter.com/YOUR_TWITTER_HANDLE" target="_blank" rel="me noopener" title="Twitter">
-            <!-- Twitter / X -->
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#111" d="M17.53 3H21l-7.57 8.66L22.5 21h-6.02l-4.72-5.62L5.3 21H2l8.14-9.32L1.8 3h6.1l4.28 5.1L17.53 3Zm-1.05 16h2.23L7.61 5H5.28l11.2 14Z"/></svg>
             <span>Twitter</span>
           </a>
         </p>
       </div>
 
-      <!-- Right column image matches left column height -->
       <aside>
         <img class="avatar"
              src="https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3"
@@ -228,7 +200,7 @@
 
     <!-- Tokenizer Playground -->
     <div class="play">
-      <label for="tokInput" class="small">Tokenizer Playground — type a sentence (illustrative only; no network calls)</label>
+      <label for="tokInput" class="stats">Tokenizer Playground — type a sentence (illustrative only; no network calls)</label>
       <input id="tokInput" type="text" placeholder="e.g., Planning under uncertainty with diffusion models" />
       <div id="tokens" class="tokens" aria-live="polite"></div>
       <div id="tokStats" class="stats"></div>
@@ -237,13 +209,14 @@
     <!-- Projects -->
     <h2 id="projects">Projects</h2>
 
-    <!-- Agents & Planning (with animated "Coming soon" badge) -->
+    <!-- Agents & Planning — Animated "Coming soon" cover -->
     <h3><span class="pill">Agents &amp; Planning</span></h3>
     <div class="entry">
-      <div class="cover-wrap">
-        <img class="cover" src="images/agents-kag.jpg" alt="Knowledge-aware agent"
-             onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 450%22><rect width=%22800%22 height=%22450%22 fill=%22%23fff%22/></svg>'">
-        <span class="badge">Coming&nbsp;soon</span>
+      <div class="cover-frame cover-anim" role="img" aria-label="Coming soon teaser">
+        <div class="soonText">
+          <div class="big">Coming soon</div>
+          <div class="sub">Short-term memory for ADAPT agents</div>
+        </div>
       </div>
       <div>
         <div class="title">Solving Short-term Memory Limits of ADAPT Agents</div>
@@ -340,7 +313,7 @@
       </div>
     </div>
 
-    <!-- LLM Vulnerability moved here -->
+    <!-- LLM Vulnerability -->
     <div class="entry">
       <video id="vulnVid" class="cover" autoplay muted playsinline preload="auto" poster="images/llm-security.jpg"></video>
       <div>
@@ -352,12 +325,12 @@
 
     <div class="hr"></div>
 
-    <!-- Blogs -->
+    <!-- Blogs — Animated “Coming soon” cover with border -->
     <h2 id="blogs">Blogs</h2>
     <div class="entry">
-      <div class="cover-frame tile">
-        <div class="tile-inner">
-          <div class="soon">Coming soon — Sept&nbsp;1</div>
+      <div class="cover-frame cover-anim" role="img" aria-label="Blog teaser coming Sept 1">
+        <div class="soonText">
+          <div class="big">Coming soon — Sept&nbsp;1</div>
           <div class="sub">YODA vs R-Zero (Part I)</div>
         </div>
       </div>
@@ -424,7 +397,7 @@
       nextSource();
     })();
 
-    /* Vulnerability video: try merged; else alternate clips */
+    /* Vulnerability video: try merged; else alternate clips forever */
     (function initVulnVideo(){
       const v = document.getElementById('vulnVid'); if(!v) return;
       const raw = p=>'https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/'+p.replace(/^\//,'');
