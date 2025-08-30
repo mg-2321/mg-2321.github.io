@@ -12,57 +12,37 @@
   <style>
     :root{ --fg:#14161a; --muted:#5b6574; --link:#0b57d0; --bg:#ffffff; --rule:#e7ebf0; --pill:#f2f6ff; --accentA:#0b57d0; --accentB:#8b5cf6; }
     html{font-size:16px}
-    body{
-      margin:0 auto; max-width:900px; padding:26px 16px 64px;
-      color:var(--fg); background:var(--bg); line-height:1.75;
-      font-family:"Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-    }
-    a{color:var(--link); text-decoration:none}
-    a:hover{text-decoration:underline}
+    body{ margin:0 auto; max-width:900px; padding:26px 16px 64px; color:var(--fg); background:var(--bg); line-height:1.75; font-family:"Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; }
+    a{color:var(--link); text-decoration:none} a:hover{text-decoration:underline}
     p{margin:.6rem 0}
 
-    /* Title */
     .site-title{ text-align:center; font-size:2.8rem; letter-spacing:.4px; margin:0 0 .75rem; }
     .site-title.typing::after{ content:"▌"; margin-left:2px; animation:caretBlink 1s steps(1,end) infinite; }
     @keyframes caretBlink{50%{opacity:0}}
 
-    /* Mini nav */
     .mini-nav{ text-align:center; margin:.2rem 0 1.2rem }
     .mini-nav a{ display:inline-block; font-size:.95rem; margin:0 .55rem; padding:2px 8px; border-radius:999px }
     .mini-nav a:hover{ background:var(--pill) }
 
-    /* Intro */
     .intro{ display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:24px; align-items:stretch; }
-    .avatar{ width:100%; height:100%; object-fit:cover; object-position:center 30%;
-      border-radius:16px; border:1px solid var(--rule); display:block; }
+    .avatar{ width:100%; height:100%; object-fit:cover; object-position:center 30%; border-radius:16px; border:1px solid var(--rule); display:block; }
     .prose{ max-width:72ch; text-align:justify; text-justify:inter-word; hyphens:auto }
     .lead{ font-size:1.06rem } .lead.red{ color:#c62828 }
     @media (max-width:860px){ .intro{grid-template-columns:1fr} .avatar{height:auto; max-height:260px} }
 
-    /* Sections */
     h2{ font-size:1.55rem; line-height:1.25; margin:1.6rem 0 .6rem; position:relative }
     h2::after{ content:""; display:block; width:56px; height:3px; background:linear-gradient(90deg,var(--accentA),var(--accentB)); border-radius:3px; margin-top:6px; opacity:.9 }
     .hr{ height:1px; background:var(--rule); margin:24px 0 }
     .pill{display:inline-block;font-size:.75rem;color:#244;padding:2px 8px;border-radius:999px;background:var(--pill);border:1px solid #d8e4ff;margin-bottom:.25rem}
     .title{ font-weight:600 }
 
-    /* Projects: UNIFORM cover size (no cropping) */
-    .entry{
-      display:grid; grid-template-columns:400px 1fr; gap:16px; align-items:start; margin:18px 0 24px;
-    }
+    /* Project entries — uniform cover size, accent border */
+    .entry{ display:grid; grid-template-columns:400px 1fr; gap:16px; align-items:start; margin:18px 0 24px; }
     .cover{
-      width:100%;
-      aspect-ratio:16/9;
-      object-fit:contain;     /* prevents cropping */
-      background:#fff;        /* white letterbox */
-      border:2px solid transparent;            /* accent border like section underline */
-      border-image:linear-gradient(90deg,var(--accentA),var(--accentB)) 1;
-      border-radius:12px;
-      display:block;
-      box-shadow:0 2px 12px rgba(17,24,39,.06);
-      overflow:hidden;
+      width:100%; aspect-ratio:16/9; object-fit:contain; background:#fff;
+      border:2px solid transparent; border-image:linear-gradient(90deg,var(--accentA),var(--accentB)) 1;
+      border-radius:12px; display:block; box-shadow:0 2px 12px rgba(17,24,39,.06); overflow:hidden;
     }
-    /* Blog “tile” cover with centered text */
     .cover-tile{ display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg,#f7faff,#ffffff); }
     .tile-text{ text-align:center; color:var(--accentA); }
     .tile-text .soon{ font-size:1.25rem; font-weight:700; letter-spacing:.3px; }
@@ -75,23 +55,23 @@
     .entry ul{ margin:.25rem 0 0 0; padding:0 0 0 1rem; }
     .entry ul li{ margin:.25rem 0; text-align:justify; text-justify:inter-word; hyphens:auto; line-height:1.65; }
 
-    /* Hide native video controls (gif-like) */
+    /* Video covers like GIFs */
     video.cover{ pointer-events:none; }
     video.cover::-webkit-media-controls,
     video.cover::-webkit-media-controls-enclosure,
     video.cover::-webkit-media-controls-panel{ display:none !important; }
 
-    /* ——— Icon links row ——— */
+    /* Icon links */
     .links { margin:.2rem 0 1.2rem; text-align:left }
     .links .icon-link{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:6px 10px; border:1px solid var(--rule); border-radius:12px;
-      margin-right:.5rem; text-decoration:none; transition:background .15s,border-color .15s;
+      display:inline-flex; align-items:center; gap:8px; padding:6px 10px;
+      border:1px solid var(--rule); border-radius:12px; margin-right:.5rem;
+      text-decoration:none; transition:background .15s,border-color .15s;
     }
     .links .icon-link:hover{ background:#f7faff; border-color:#d8e4ff; text-decoration:none }
     .links .icon{ width:18px; height:18px; display:inline-block; }
 
-    /* ——— Tech Toolbox & Project Finder ——— */
+    /* Toolbox & Finder */
     .toolbox, .finder{ border:1px solid var(--rule); border-radius:12px; padding:12px; margin:14px 0; }
     .toolbox h3, .finder h3{ margin:0 0 .4rem; font-size:1rem; font-weight:600; }
     .badges{ display:flex; flex-wrap:wrap; gap:8px }
@@ -100,7 +80,7 @@
       padding:4px 8px; border-radius:999px; border:1px solid #d8e4ff;
       background:linear-gradient(90deg,#f7faff,#fff);
     }
-    .finder .row{ display:flex; gap:8px; flex-wrap:wrap; }
+    .finder .row{ display:flex; gap:8px; flex-wrap:wrap; align-items:center }
     .finder input{ flex:1; min-width:240px; padding:10px 12px; border-radius:10px; border:1px solid var(--rule) }
     .finder .chip{ border:1px solid var(--rule); border-radius:999px; padding:6px 10px; background:#fff; cursor:pointer; font-size:.9rem }
     .finder .chip.active{ border-color:var(--accentA); background:linear-gradient(90deg,#f7faff,#fff) }
@@ -139,7 +119,7 @@
       </aside>
     </section>
 
-    <!-- Iconified links -->
+    <!-- Icon links -->
     <p class="links">
       <a class="icon-link" href="resume.pdf" target="_blank" rel="noopener">
         <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="1.5"/><path d="M14 3v5h5" stroke="currentColor" stroke-width="1.5"/></svg>
@@ -167,14 +147,8 @@
     <div class="toolbox">
       <h3>Tech toolbox</h3>
       <div class="badges">
-        <span class="badge">PyTorch</span>
-        <span class="badge">CUDA</span>
-        <span class="badge">Diffusion</span>
-        <span class="badge">RAG</span>
-        <span class="badge">DPO / SimPO</span>
-        <span class="badge">Graph ML</span>
-        <span class="badge">Object Detection</span>
-        <span class="badge">Evaluation</span>
+        <span class="badge">PyTorch</span><span class="badge">CUDA</span><span class="badge">Diffusion</span><span class="badge">RAG</span>
+        <span class="badge">DPO / SimPO</span><span class="badge">Graph ML</span><span class="badge">Object Detection</span><span class="badge">Evaluation</span>
       </div>
     </div>
 
@@ -183,13 +157,14 @@
       <h3>Project finder</h3>
       <div class="row">
         <input id="pfInput" type="text" placeholder="Search (e.g., CUDA, Waymo, EEG, agents)"/>
-        <button class="chip" data-k="agents">Agents</button>
-        <button class="chip" data-k="vision">Vision</button>
-        <button class="chip" data-k="cuda">CUDA</button>
-        <button class="chip" data-k="waymo">Waymo</button>
-        <button class="chip" data-k="eeg">EEG</button>
-        <button class="chip" data-k="safety">Safety</button>
-        <button class="chip" data-k="nlp">NLP</button>
+        <button type="button" class="chip" data-k="agents">Agents</button>
+        <button type="button" class="chip" data-k="vision">Vision</button>
+        <button type="button" class="chip" data-k="cuda">CUDA</button>
+        <button type="button" class="chip" data-k="waymo">Waymo</button>
+        <button type="button" class="chip" data-k="eeg">EEG</button>
+        <button type="button" class="chip" data-k="safety">Safety</button>
+        <button type="button" class="chip" data-k="nlp">NLP</button>
+        <button type="button" class="chip" id="pfClear" style="margin-left:auto">Clear</button>
       </div>
       <div class="count" id="pfCount"></div>
     </div>
@@ -198,7 +173,7 @@
     <h2 id="projects">Projects</h2>
 
     <h3><span class="pill">Agents &amp; Planning</span></h3>
-    <div class="entry">
+    <div class="entry" data-kind="project" data-tags="agents,planning,graphs,adapt,ai">
       <img class="cover" src="images/agents-kag.jpg" alt="Knowledge-aware agent"
            onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 450%22><rect width=%22800%22 height=%22450%22 fill=%22%23fff%22/></svg>'">
       <div>
@@ -210,8 +185,8 @@
 
     <h3><span class="pill">Vision &amp; Robotics</span></h3>
 
-    <!-- Waymo (two-clip playlist) -->
-    <div class="entry">
+    <!-- Waymo -->
+    <div class="entry" data-kind="project" data-tags="vision,waymo,diffusion,trajectory,forecasting">
       <video id="waymoVid" class="cover" autoplay muted playsinline preload="auto" poster="images/waymo-forecast.jpg"></video>
       <div>
         <div class="title">Future Trajectory Prediction for Autonomous Vehicles</div>
@@ -223,8 +198,8 @@
       </div>
     </div>
 
-    <!-- CUDA (single video) -->
-    <div class="entry">
+    <!-- CUDA -->
+    <div class="entry" data-kind="project" data-tags="vision,cuda,gpu,optimization,limo">
       <video class="cover" autoplay muted loop playsinline preload="auto"
              poster="images/cuda-limo.jpg"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
@@ -240,8 +215,8 @@
       </div>
     </div>
 
-    <!-- Stroke Rehabilitation -->
-    <div class="entry">
+    <!-- Stroke Rehab -->
+    <div class="entry" data-kind="project" data-tags="vision,eeg,stroke,rehabilitation,signals">
       <video class="cover" autoplay muted loop playsinline preload="auto"
              poster="images/eeg-stroke.jpg"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
@@ -260,8 +235,8 @@
       </div>
     </div>
 
-    <!-- PPE (kept in Vision & Robotics) -->
-    <div class="entry">
+    <!-- PPE -->
+    <div class="entry" data-kind="project" data-tags="vision,safety,object-detection,construction">
       <video class="cover" autoplay muted loop playsinline preload="auto"
              poster="images/worker-safety.jpg"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
@@ -283,11 +258,10 @@
       </div>
     </div>
 
-    <!-- NLP & Safety -->
     <h3><span class="pill">NLP &amp; Safety</span></h3>
-    <div class="entry">
+    <div class="entry" data-kind="project" data-tags="nlp,suicide,ideation,attempt,bert,roberta">
       <img class="cover" src="images/nlp-si.jpg" alt="NLP cover"
-           onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 450%22><rect width=%22800%22 height=%22450%22 fill=%22%23fff%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%2299a%22 font-family=%22sans-serif%22 font-size=%2220%22>NLP cover</text></svg>'">
+           onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 450%22><rect width=%22800%22 height=%22450%22 fill=%22%23fff%22/></svg>'">
       <div>
         <div class="title">NLP for Suicide Ideation &amp; Attempt Detection</div>
         <p>Preprocessed clinical + forum text (MIMIC-III, SuicideWatch); compared GloVe/Word2Vec/FastText/CBOW; trained BERT &amp; RoBERTa vs Bi-LSTM baselines.</p>
@@ -295,8 +269,8 @@
       </div>
     </div>
 
-    <!-- LLMs for Code Vulnerability Detection (moved here) -->
-    <div class="entry">
+    <!-- LLMs for Code Vulnerability Detection (moved under NLP) -->
+    <div class="entry" data-kind="project" data-tags="nlp,security,vulnerability,rag,graphcodebert,dcgan">
       <video id="vulnVid" class="cover" autoplay muted playsinline preload="auto" poster="images/llm-security.jpg"></video>
       <div>
         <div class="title">LLMs for Code Vulnerability Detection</div>
@@ -328,7 +302,7 @@
 
     <!-- Blogs -->
     <h2 id="blogs">Blogs</h2>
-    <div class="entry">
+    <div class="entry" data-kind="blog">
       <div class="cover cover-tile" role="img" aria-label="Coming soon — Sept 1">
         <div class="tile-text">
           <div class="soon">Coming soon — Sept&nbsp;1</div>
@@ -368,33 +342,54 @@
       let i=0; (function type(){ if(i<text.length){ el.textContent+=text.charAt(i++); setTimeout(type,80);} else { el.classList.remove('typing'); } })();
     })();
 
-    /* —— Project Finder logic —— */
+    /* —— Project Finder (safe; never hides until you interact) —— */
     (function(){
       const q   = document.getElementById('pfInput');
       const cnt = document.getElementById('pfCount');
-      const chips = Array.from(document.querySelectorAll('.finder .chip'));
-      const cards = Array.from(document.querySelectorAll('.entry'));
+      const chips = Array.from(document.querySelectorAll('.finder .chip[data-k]'));
+      const clear = document.getElementById('pfClear');
+      const cards = Array.from(document.querySelectorAll('.entry[data-kind="project"]'));
       if(!q || !cards.length) return;
 
-      function applyFilter(){
-        const terms = new Set(
+      let dirty = false;                // show count only after first interaction
+
+      function activeTerms(){
+        const t = new Set(
           (q.value || '').toLowerCase().split(/[^a-z0-9_]+/).filter(Boolean)
           .concat(chips.filter(c=>c.classList.contains('active')).map(c=>c.dataset.k))
         );
+        return t;
+      }
+
+      function applyFilter(){
+        const terms = activeTerms();
+        dirty = dirty || terms.size>0;
         let shown = 0;
+
+        if(!dirty || terms.size===0){
+          cards.forEach(c=>c.style.display='');    // show all
+          cnt.textContent = '';
+          return;
+        }
+
         cards.forEach(card=>{
-          const hay = card.innerText.toLowerCase();
-          const ok = !terms.size || [...terms].every(t=>hay.includes(t));
+          const tags = (card.dataset.tags||'').toLowerCase();
+          const ok = [...terms].every(t=>tags.includes(t));
           card.style.display = ok ? '' : 'none';
           if(ok) shown++;
         });
-        cnt.textContent = terms.size ? `${shown} project(s) match` : '';
+        cnt.textContent = `${shown} project(s) match`;
       }
 
-      q.addEventListener('input', applyFilter);
+      q.addEventListener('input', ()=>{ dirty=true; applyFilter(); });
       chips.forEach(c => c.addEventListener('click', ()=>{
-        c.classList.toggle('active'); applyFilter();
+        c.classList.toggle('active'); dirty=true; applyFilter();
       }));
+      clear.addEventListener('click', ()=>{
+        q.value=''; chips.forEach(c=>c.classList.remove('active')); dirty=false; applyFilter();
+      });
+
+      applyFilter(); // initial: show everything
     })();
 
     /* —— Waymo two-clip playlist —— */
