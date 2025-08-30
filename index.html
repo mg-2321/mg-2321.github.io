@@ -39,10 +39,17 @@
     /* Project entries — uniform cover size, accent border */
     .entry{ display:grid; grid-template-columns:400px 1fr; gap:16px; align-items:start; margin:18px 0 24px; }
     .cover{
-      width:100%; aspect-ratio:16/9; object-fit:contain; background:#fff;
-      border:2px solid transparent; border-image:linear-gradient(90deg,var(--accentA),var(--accentB)) 1;
-      border-radius:12px; display:block; box-shadow:0 2px 12px rgba(17,24,39,.06); overflow:hidden;
-    }
+      width:100%;
+      aspect-ratio:16/9;
+      object-fit:contain;              /* avoids cropping */
+      border-radius:12px;              /* rounded corners */
+      border:2px solid transparent;    /* space for the gradient border */
+      background:
+        linear-gradient(#fff,#fff) padding-box,                          /* white letterbox inside */
+        linear-gradient(90deg,var(--accentA),var(--accentB)) border-box; /* gradient border */
+      box-shadow:0 2px 12px rgba(17,24,39,.06);
+      overflow:hidden;                 /* ensures videos clip to the radius in Safari/Chrome */
+}
     .cover-tile{ display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg,#f7faff,#ffffff); }
     .tile-text{ text-align:center; color:var(--accentA); }
     .tile-text .soon{ font-size:1.25rem; font-weight:700; letter-spacing:.3px; }
