@@ -26,36 +26,27 @@
   a:hover{text-decoration:underline}
   p{margin:.6rem 0}
 
-  /* Title + mini-nav */
   .site-title{ text-align:center; font-size:2.4rem; font-weight:700; margin:0 0 .75rem }
   .mini-nav{ text-align:center; margin:.1rem 0 1.2rem }
   .mini-nav a{ display:inline-block; font-size:.95rem; margin:0 .55rem; padding:2px 8px; border-radius:999px }
   .mini-nav a:hover{ background:var(--pill) }
 
-  /* Intro layout */
+  /* Intro */
   .intro{
-    display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:24px;
-    align-items:start; margin-bottom:20px; /* keeps ribbon away */
+    display:grid; grid-template-columns:minmax(0,1fr) 280px; gap:24px;
+    align-items:start; margin-bottom:20px;
   }
-  @media (max-width:860px){
-    .intro{ grid-template-columns:1fr }
-  }
+  @media (max-width:860px){ .intro{ grid-template-columns:1fr } }
   .prose{ max-width:72ch; text-align:justify; text-justify:inter-word }
   .prose p{ hyphens:none; overflow-wrap:anywhere; }
   .lead.red{ color:#c62828 }
-  .portrait{
-    display:flex; align-items:flex-start;
-  }
+  .portrait{ display:flex; align-items:flex-start }
   .portrait img{
-    width:100%;
-    height:auto;              /* JS will set an explicit height */
-    object-fit:cover;         /* fill the measured height nicely */
-    border-radius:16px;
-    border:1px solid var(--rule);
-    display:block;
+    width:100%; height:auto; object-fit:cover;
+    border-radius:16px; border:1px solid var(--rule); display:block;
   }
 
-  /* Social row with real icons */
+  /* Social icons */
   .row-icons{ display:flex; flex-wrap:wrap; gap:10px; margin:.4rem 0 1rem }
   .ico{
     display:inline-flex; align-items:center; gap:8px;
@@ -65,7 +56,7 @@
   .ico svg{ width:18px; height:18px; display:block }
   .ico:hover{ background:#f7faff; border-color:#d8e4ff; text-decoration:none }
 
-  /* Ribbon + playground (no overlap, tidy spacing) */
+  /* Ribbon + playground */
   .tokenribbon{
     margin-top:8px;
     border:1px solid var(--rule); border-radius:12px; overflow:hidden;
@@ -77,9 +68,16 @@
   @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
   @media (prefers-reduced-motion: reduce){.scroll,.scroll2{animation:none}}
 
-  .playground{border:1px solid var(--rule);border-radius:12px;padding:12px;margin-top:10px}
-  .playground label{font-size:.9rem; color:var(--muted)}
-  .playground input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--rule)}
+  .playground{
+    border:1px solid var(--rule); border-radius:12px; padding:16px; margin-top:12px;
+    background:#fff; box-sizing:border-box;
+  }
+  .playground .input-row{ margin-top:8px }
+  .playground input{
+    display:block; width:100%; box-sizing:border-box;
+    padding:10px 12px; border-radius:10px; border:1px solid var(--rule);
+    background:#fff;
+  }
   .tokens{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
   .tok{font:600 .8rem ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:4px 8px;border-radius:8px;background:#f1f4fb;border:1px solid #dbe3f3}
   .stats{font-size:.85rem;color:var(--muted);margin-top:6px}
@@ -91,13 +89,13 @@
   .pill{display:inline-block;font-size:.75rem;color:#244;padding:2px 8px;border-radius:999px;background:var(--pill);border:1px solid #d8e4ff;margin-bottom:.25rem}
   .title{ font-weight:600 }
 
-  /* Project entries + consistent video cover borders */
+  /* Projects & covers */
   .entry{ display:grid; grid-template-columns:400px 1fr; gap:16px; align-items:start; margin:18px 0 24px; }
   @media (max-width:680px){ .entry{grid-template-columns:1fr} }
   .cover{
     width:100%; aspect-ratio:16/9; object-fit:contain; background:#fff;
     border-radius:14px; border:1px solid var(--soft);
-    box-shadow:0 0 0 2px rgba(11,87,208,.10); /* softly echoes the underline color */
+    box-shadow:0 0 0 2px rgba(11,87,208,.10);
     display:block; overflow:hidden;
   }
   video.cover{ pointer-events:none }
@@ -106,11 +104,22 @@
   .row-links a.btn{ display:inline-block;border:1px solid var(--rule);padding:6px 10px;border-radius:10px;text-decoration:none;margin-right:.45rem }
   .btn:hover{background:#f7faff;text-decoration:none;border-color:#d8e4ff}
 
-  /* Blog tile (has a border like covers) */
+  /* Blog tile */
   .cover-tile{ display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg,#f7faff,#ffffff); }
   .tile-text{ text-align:center; color:var(--accent); }
   .tile-text .soon{ font-size:1.15rem; font-weight:700; letter-spacing:.3px; }
   .tile-text .sub{ font-size:.95rem; color:var(--muted); margin-top:.25rem }
+
+  /* Ask about my work */
+  .qa{border:1px solid var(--rule);border-radius:12px;padding:12px;background:#fff}
+  .qa .ask{display:flex;gap:8px}
+  .qa input{flex:1;padding:10px 12px;border-radius:10px;border:1px solid var(--rule)}
+  .qa button{border:1px solid var(--rule);border-radius:10px;padding:8px 12px;background:#f7faff}
+  .qa .suggest{margin-top:8px;display:flex;flex-wrap:wrap;gap:8px}
+  .qa .chip{border:1px solid var(--rule);border-radius:999px;padding:4px 8px;font-size:.85rem;background:#fff;cursor:pointer}
+  .qa .chat{margin-top:12px;display:flex;flex-direction:column;gap:10px}
+  .bubble{background:#f7faff;border:1px solid #dbe3f0;padding:10px 12px;border-radius:12px}
+  .bubble.me{align-self:flex-end;background:#eef3ff}
 </style>
 </head>
 <body>
@@ -133,29 +142,19 @@
 
         <div class="row-icons">
           <a class="ico" href="resume.pdf" target="_blank" rel="noopener" title="CV">
-            <!-- file icon -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke-width="1.8"/><path d="M14 2v6h6" stroke-width="1.8"/></svg>
-            CV
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke-width="1.8"/><path d="M14 2v6h6" stroke-width="1.8"/></svg> CV
           </a>
           <a class="ico" href="https://www.linkedin.com/in/gayatri-malladi/" target="_blank" rel="me noopener" title="LinkedIn">
-            <!-- LinkedIn -->
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0 0-5zM3 9h4v12H3zM14.5 9c-2.33 0-3.5 1.27-3.5 2.72V21h4v-7.02c0-.93.67-1.73 1.86-1.73 1.13 0 1.64.8 1.64 1.73V21h4v-7.73C22.5 10.85 20.67 9 18.12 9c-1.86 0-3 .86-3.62 1.77h-.05V9h-4z"/></svg>
-            LinkedIn
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0 0-5zM3 9h4v12H3zM14.5 9c-2.33 0-3.5 1.27-3.5 2.72V21h4v-7.02c0-.93.67-1.73 1.86-1.73 1.13 0 1.64.8 1.64 1.73V21h4v-7.73C22.5 10.85 20.67 9 18.12 9c-1.86 0-3 .86-3.62 1.77h-.05V9h-4z"/></svg> LinkedIn
           </a>
           <a class="ico" href="https://github.com/mg-2321" target="_blank" rel="me noopener" title="GitHub">
-            <!-- GitHub -->
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 0 0 .5 12.3c0 5.24 3.4 9.68 8.13 11.26.6.1.82-.27.82-.58v-2.03c-3.3.73-4-1.44-4-1.44-.55-1.4-1.34-1.78-1.34-1.78-1.1-.76.08-.74.08-.74 1.2.08 1.82 1.25 1.82 1.25 1.08 1.86 2.84 1.32 3.54 1.01.1-.8.43-1.32.78-1.62-2.63-.3-5.4-1.35-5.4-6 0-1.33.47-2.42 1.24-3.27-.12-.3-.54-1.52.12-3.16 0 0 1.01-.33 3.3 1.25a11.4 11.4 0 0 1 6 0c2.29-1.58 3.3-1.25 3.3-1.25.66 1.64.24 2.86.12 3.16.77.85 1.24 1.94 1.24 3.27 0 4.67-2.78 5.7-5.42 6 .44.38.83 1.12.83 2.26v3.35c0 .32.22.69.82.58A11.5 11.5 0 0 0 23.5 12.3 11.5 11.5 0 0 0 12 .5z"/></svg>
-            GitHub
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 0 0 .5 12.3c0 5.24 3.4 9.68 8.13 11.26.6.1.82-.27.82-.58v-2.03c-3.3.73-4-1.44-4-1.44-.55-1.4-1.34-1.78-1.34-1.78-1.1-.76.08-.74.08-.74 1.2.08 1.82 1.25 1.82 1.25 1.08 1.86 2.84 1.32 3.54 1.01.1-.8.43-1.32.78-1.62-2.63-.3-5.4-1.35-5.4-6 0-1.33.47-2.42 1.24-3.27-.12-.3-.54-1.52.12-3.16 0 0 1.01-.33 3.3 1.25a11.4 11.4 0 0 1 6 0c2.29-1.58 3.3-1.25 3.3-1.25.66 1.64.24 2.86.12 3.16.77.85 1.24 1.94 1.24 3.27 0 4.67-2.78 5.7-5.42 6 .44.38.83 1.12.83 2.26v3.35c0 .32.22.69.82.58A11.5 11.5 0 0 0 23.5 12.3 11.5 11.5 0 0 0 12 .5z"/></svg> GitHub
           </a>
           <a class="ico" href="https://medium.com/@YOUR_MEDIUM_HANDLE" target="_blank" rel="me noopener" title="Medium">
-            <!-- Medium -->
-            <svg viewBox="0 0 1043.63 592.71" fill="currentColor"><path d="M588.67 296.35c0 163.69-131.33 296.36-293.33 296.36S2 460.04 2 296.35 133.33 0 295.34 0s293.33 132.66 293.33 296.35Zm316.66 0c0 155.96-65.67 282.64-146.67 282.64s-146.66-126.68-146.66-282.64S677.66 13.71 758.66 13.71 905.33 140.39 905.33 296.35Zm136.64 0c0 143.3-22.5 259.43-50.25 259.43S941.47 439.65 941.47 296.35 963.98 36.92 991.72 36.92s50.25 116.13 50.25 259.43Z"/></svg>
-            Medium
+            <svg viewBox="0 0 1043.63 592.71" fill="currentColor"><path d="M588.67 296.35c0 163.69-131.33 296.36-293.33 296.36S2 460.04 2 296.35 133.33 0 295.34 0s293.33 132.66 293.33 296.35Zm316.66 0c0 155.96-65.67 282.64-146.67 282.64s-146.66-126.68-146.66-282.64S677.66 13.71 758.66 13.71 905.33 140.39 905.33 296.35Zm136.64 0c0 143.3-22.5 259.43-50.25 259.43S941.47 439.65 941.47 296.35 963.98 36.92 991.72 36.92s50.25 116.13 50.25 259.43Z"/></svg> Medium
           </a>
           <a class="ico" href="https://twitter.com/YOUR_HANDLE" target="_blank" rel="me noopener" title="Twitter / X">
-            <!-- Twitter -->
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69a4.3 4.3 0 0 0 1.88-2.37 8.63 8.63 0 0 1-2.72 1.05A4.29 4.29 0 0 0 12 8.6c0 .34.04.67.11.98A12.18 12.18 0 0 1 3.15 5.1a4.26 4.26 0 0 0-.58 2.16 4.29 4.29 0 0 0 1.9 3.57 4.26 4.26 0 0 1-1.94-.54v.06a4.29 4.29 0 0 0 3.44 4.2 4.33 4.33 0 0 1-1.93.07 4.29 4.29 0 0 0 4 2.97A8.61 8.61 0 0 1 2 19.54a12.16 12.16 0 0 0 6.58 1.93c7.89 0 12.21-6.54 12.21-12.21v-.56A8.66 8.66 0 0 0 24 6.59a8.53 8.53 0 0 1-2.54.7Z"/></svg>
-            Twitter
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69a4.3 4.3 0 0 0 1.88-2.37 8.63 8.63 0 0 1-2.72 1.05A4.29 4.29 0 0 0 12 8.6c0 .34.04.67.11.98A12.18 12.18 0 0 1 3.15 5.1a4.26 4.26 0 0 0-.58 2.16 4.29 4.29 0 0 0 1.9 3.57 4.26 4.26 0 0 1-1.94-.54v.06a4.29 4.29 0 0 0 3.44 4.2 4.33 4.33 0 0 1-1.93.07 4.29 4.29 0 0 0 4 2.97A8.61 8.61 0 0 1 2 19.54a12.16 12.16 0 0 0 6.58 1.93c7.89 0 12.21-6.54 12.21-12.21v-.56A8.66 8.66 0 0 0 24 6.59a8.53 8.53 0 0 1-2.54.7Z"/></svg> Twitter
           </a>
         </div>
       </div>
@@ -167,20 +166,22 @@
       </aside>
     </section>
 
-    <!-- Ribbon + Playground (cleanly below intro) -->
+    <!-- Ribbon + Playground -->
     <div class="tokenribbon" aria-hidden="true">
-      <div class="track scroll">token → embedding → attention → head1 • head2 • head8 → logits → loss → update → prompt → retrieval → context → decoding → evals</div>
-      <div class="track scroll2">beam search → nucleus → sampling → temperature → perplexity → AUC → F1 · CUDA → Waymo → EEG → agents → graphs</div>
+      <div class="track scroll">head1 • head2 • head8 → logits → loss → update → prompt → retrieval → context → decoding → evals</div>
+      <div class="track scroll2">temperature → perplexity → AUC → F1 · CUDA → Waymo → EEG → agents → graphs</div>
     </div>
 
     <div class="playground">
       <label for="tokInput">Tokenizer Playground — type a sentence (illustrative only; no network calls)</label>
-      <input id="tokInput" type="text" placeholder="e.g., Planning under uncertainty with diffusion models" />
+      <div class="input-row">
+        <input id="tokInput" type="text" placeholder="e.g., Planning under uncertainty with diffusion models" />
+      </div>
       <div id="tokens" class="tokens" aria-live="polite"></div>
       <div id="tokStats" class="stats"></div>
     </div>
 
-    <!-- Projects (kept minimal here; your existing blocks can follow) -->
+    <!-- Projects -->
     <h2 id="projects">Projects</h2>
 
     <h3><span class="pill">Vision &amp; Robotics</span></h3>
@@ -200,7 +201,7 @@
 
     <div class="hr"></div>
 
-    <!-- Blogs (example) -->
+    <!-- Blogs -->
     <h2 id="blogs">Blogs</h2>
     <div class="entry">
       <div class="cover cover-tile" role="img" aria-label="Coming soon — Sept 1">
@@ -217,6 +218,25 @@
 
     <div class="hr"></div>
 
+    <!-- Ask about my work (below Blogs) -->
+    <h2 id="ask">Ask about my work</h2>
+    <div class="qa" role="region" aria-live="polite">
+      <div class="ask">
+        <input id="qaInput" type="text" placeholder="Ask about any project (e.g., What model did you use for trajectory prediction?)" />
+        <button id="qaBtn" type="button">Ask</button>
+      </div>
+      <div class="suggest">
+        <span class="chip" data-q="What did you build for Waymo trajectory forecasting?">Waymo model?</span>
+        <span class="chip" data-q="How did you optimize CUDA kernels in the LIMO project?">CUDA speedups?</span>
+        <span class="chip" data-q="What is the Knowledge-Aware Graph in your agent project?">Agent KAG?</span>
+        <span class="chip" data-q="Which datasets and models did you use for suicide ideation detection?">NLP dataset?</span>
+        <span class="chip" data-q="Do you have papers to read for each project?">Papers?</span>
+      </div>
+      <div id="qaChat" class="chat"></div>
+    </div>
+
+    <div class="hr"></div>
+
     <!-- Education -->
     <h2 id="education">Education</h2>
     <p><strong>University of Washington</strong> — M.S. in Computer Science, <span class="muted">Expected Jun 2026</span><br/>
@@ -228,19 +248,15 @@
   </main>
 
 <script>
-  // Footer year
+  // Year
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  // ===== Portrait height = intro text height (from first line through red paragraph) =====
+  // ==== Fit portrait to intro text height (desktop only) ====
   function fitPortrait(){
     const prose = document.getElementById('introText');
     const img   = document.getElementById('introPhoto');
     if(!prose || !img) return;
-
-    // Total height of the prose box
     const h = Math.ceil(prose.getBoundingClientRect().height);
-
-    // Only apply side-by-side sizing on wide screens
     if (window.matchMedia('(min-width: 861px)').matches) {
       img.style.height = h + 'px';
     } else {
@@ -251,12 +267,35 @@
   window.addEventListener('resize', ()=>{ clearTimeout(window.__rp); window.__rp=setTimeout(fitPortrait,100); });
   document.getElementById('introPhoto').addEventListener('load', fitPortrait);
 
-  // ===== Tokenizer toy (no network calls) =====
+  // ==== Tokenizer toy ====
   function isWordChar(ch){const c=ch.charCodeAt(0);return (c>=48&&c<=57)||(c>=65&&c<=90)||(c>=97&&c<=122)||ch==='_';}
   const tokInput=document.getElementById('tokInput'), tokOut=document.getElementById('tokens'), tokStats=document.getElementById('tokStats');
   function tokenize(s){const out=[];let cur='',mode=null;for(const ch of s){const w=isWordChar(ch);if(mode===null){mode=w;cur=ch}else if((w&&mode)||(!w&&!mode)){cur+=ch}else{out.push(cur);cur=ch;mode=w}}if(cur)out.push(cur);return out.map(p=>p.length>8?p.slice(0,6)+'…':p)}
   function renderTokens(){const v=tokInput.value.trim();const t=v?tokenize(v):[];tokOut.innerHTML=t.map(x=>`<span class="tok">${x}</span>`).join('');tokStats.textContent=v?`${t.length} tokens (illustrative)`:''}
   tokInput.addEventListener('input',renderTokens);renderTokens();
+
+  // ==== Ask about my work (simple matcher) ====
+  const KB=[
+    {id:'waymo',title:'Future Trajectory Prediction for Autonomous Vehicles',summary:'Diffusion-based model forecasting 5-second trajectories on the Waymo Open Dataset; models multimodal uncertainty and temporal dependencies.',tags:'diffusion trajectory forecasting waymo uncertainty driving',code:'https://github.com/mg-2321/Waymo_trajectory_prediction',paper:'papers/waymo-forecast.pdf'},
+    {id:'cuda',title:'Optimizing LIMO Pipeline with CUDA Parallelization',summary:'Shared-memory tiling, async copies, and custom conv kernels; Nsight-guided profiling with up to 60% speedup.',tags:'cuda gpu kernels convolution nsight optimization',code:'https://github.com/mg-2321',paper:'papers/limo-cuda.pdf'},
+    {id:'agents',title:'Solving Short-term Memory Limits of ADAPT Agents',summary:'Knowledge-Aware Graph for user preferences and diffusion-style drive model for uncertainty-aware planning.',tags:'agent kag planning diffusion',code:'https://github.com/mg-2321',paper:'papers/adapt-kag.pdf'},
+    {id:'eeg',title:'Stroke Rehabilitation — EEG Motor Action Classification',summary:'ICA + filtering + PCA features; DT/SVM/NN models comparing pre/post-stroke EEG.',tags:'eeg signal ica pca svm',code:'https://github.com/mg-2321/Stroke_Rehabilitation',paper:'https://github.com/mg-2321/Stroke_Rehabilitation/blob/main/Iteration%204_%20Paper-4.pdf'},
+    {id:'nlp',title:'NLP for Suicide Ideation & Attempt Detection',summary:'Preprocessed clinical & forum text; compared GloVe/Word2Vec/FastText/CBOW; trained BERT & RoBERTa vs Bi-LSTM.',tags:'nlp suicide mimic-iii suicidewatch bert roberta',code:'#',paper:'papers/nlp-suicide-risk.pdf'}
+  ];
+  const SYN={waymo:['trajectory','trajectories','forecast','forecasting','autonomous','driving'],diffusion:['score','denoise','latent'],cuda:['gpu','parallel','kernel','kernels','nsight','tiling','memory'],eeg:['brain','signal','emg','electrode'],suicide:['si','sa','ideation','attempt'],agent:['agents','adapt','kag','planning','preferences']};
+  const chat=document.getElementById('qaChat'),qa=document.getElementById('qaInput'),btn=document.getElementById('qaBtn');
+  const tokens=q=>q.toLowerCase().split(/[^a-z0-9_]+/).filter(Boolean);
+  const expand=ts=>{const out=new Set(ts);for(const t of ts){for(const[k,vals]of Object.entries(SYN)){if(t===k||vals.includes(t)){out.add(k);vals.forEach(v=>out.add(v))}}}return[...out]};
+  const score=(it,q)=>{let s=0;const title=it.title.toLowerCase(),tags=(it.tags||'').toLowerCase(),sum=(it.summary||'').toLowerCase();for(const t of q){if(title.includes(t))s+=4;if(tags.includes(t))s+=3;if(sum.includes(t))s+=2}return s};
+  function fmtLinks(it){const L=[];if(it.code&&it.code!=='#')L.push(`<a href="${it.code}" target="_blank">Code</a>`);if(it.paper)L.push(`<a href="${it.paper}" target="_blank">Paper</a>`);return L.length?` · ${L.join(' | ')}`:''}
+  function pushMsg(who,html){const b=document.createElement('div');b.className='bubble '+(who==='me'?'me':'bot');b.innerHTML=html;chat.appendChild(b);chat.scrollTop=chat.scrollHeight}
+  function ask(){const q=qa.value.trim();if(!q)return;pushMsg('me',q);qa.value='';const qts=expand(tokens(q));const ranked=KB.map(it=>({it,score:score(it,qts)})).sort((a,b)=>b.score-a.score).filter(x=>x.score>0);
+    if(!ranked.length){pushMsg('bot',"Try asking about <em>Waymo diffusion forecasting</em>, <em>CUDA speedups</em>, <em>Knowledge-Aware Graph agents</em>, or <em>NLP suicide detection</em>.");return}
+    const it=ranked[0].it;pushMsg('bot',`<strong>${it.title}</strong> — ${it.summary}${fmtLinks(it)}`);
+  }
+  btn.addEventListener('click',ask);
+  qa.addEventListener('keydown',e=>{if(e.key==='Enter')ask()});
+  document.querySelectorAll('.chip').forEach(ch=>ch.addEventListener('click',()=>{qa.value=ch.dataset.q;ask();}));
 </script>
 </body>
 </html>
