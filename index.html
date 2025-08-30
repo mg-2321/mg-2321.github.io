@@ -407,7 +407,7 @@
       let useClips=false, active=merged, idx=0;
 
       function nextSource(){ if(idx>=active.length) return false; v.src=active[idx++]; v.load(); v.play().catch(()=>{}); return true; }
-      v.addEventListener('error', ()=>{ nextSource(); });
+      v.addEventListener('error', ()=>{ nextSource(); }); 
 
       (function probeMerged(i=0){
         const t=document.createElement('video');
