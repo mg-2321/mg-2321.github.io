@@ -27,22 +27,32 @@
   p{margin:.6rem 0}
 
   /* Title + mini nav */
-  .site-title{ text-align:center; font-size:2.8rem; letter-spacing:.3px; margin:0 0 .75rem }
+  .site-title{ text-align:center; font-size:2.6rem; letter-spacing:.3px; margin:0 0 .75rem }
   .mini-nav{ text-align:center; margin:.2rem 0 1.2rem }
   .mini-nav a{ display:inline-block; font-size:.95rem; margin:0 .55rem; padding:2px 8px; border-radius:999px }
   .mini-nav a:hover{ background:var(--pill) }
 
-  /* Intro */
+  /* Intro (photo is precisely matched to text height) */
   .intro{
-    display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:24px; align-items:start;
+    display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:24px; align-items:start;
   }
   .prose{ max-width:72ch; text-align:justify; text-justify:inter-word; hyphens:auto }
   .lead{ font-size:1.06rem }
   .lead.red{ color:#c62828; hyphens:none; -webkit-hyphens:none; overflow-wrap:break-word }
-  .portrait-wrap{ align-self:start }
+
+  .portrait-wrap{
+    position:relative; align-self:start; display:flex;
+    width:100%; overflow:hidden; border-radius:16px; border:1px solid var(--rule);
+  }
   .avatar{
-    width:100%; height:auto; object-fit:cover; object-position:center 30%;
-    border-radius:16px; border:1px solid var(--rule); display:block;
+    width:100%; height:100%; object-fit:cover; object-position:center 30%;
+    display:block;
+  }
+
+  @media (max-width:860px){
+    .intro{ grid-template-columns:1fr }
+    .portrait-wrap{ height:auto !important }
+    .avatar{ height:auto }
   }
 
   /* Section headers */
@@ -54,7 +64,7 @@
   .pill{display:inline-block;font-size:.75rem;color:#244;padding:2px 8px;border-radius:999px;background:var(--pill);border:1px solid #d8e4ff;margin-bottom:.25rem}
   .title{ font-weight:600 }
 
-  /* UNIFORM media frame (perfectly aligned rounded gradient border) */
+  /* UNIFORM media frame with rounded gradient border */
   .entry{ display:grid; grid-template-columns:420px 1fr; gap:16px; align-items:start; margin:18px 0 28px }
   @media (max-width:720px){ .entry{ grid-template-columns:1fr } }
 
@@ -64,15 +74,13 @@
     box-shadow:0 4px 20px rgba(17,24,39,.08);
     overflow:hidden;
   }
-  /* the actual media */
   .cover{
     width:100%; aspect-ratio:16/9;
     display:block; background:#fff;
     border-radius:var(--inner); overflow:hidden;
-    object-fit:contain;   /* prevents cropping */
+    object-fit:contain;
   }
 
-  /* Buttons */
   .row-links a.btn{
     display:inline-block; border:1px solid var(--rule);
     padding:6px 10px; border-radius:10px; text-decoration:none;
@@ -86,7 +94,7 @@
   video.cover::-webkit-media-controls-enclosure,
   video.cover::-webkit-media-controls-panel{ display:none !important }
 
-  /* Token ribbon + tiny tokenizer toy (kept) */
+  /* Token ribbon + tiny tokenizer toy */
   .tokenribbon{border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:linear-gradient(90deg,#f7faff 0,#fff 50%,#f7faff 100%)}
   .track{display:flex;gap:2rem;white-space:nowrap;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88rem;padding:10px 12px;color:#264;opacity:.9}
   .scroll{animation:marquee 26s linear infinite}
@@ -165,34 +173,29 @@
       <!-- icons row -->
       <p class="row-links icons">
         <a class="chip" href="resume.pdf" target="_blank" rel="noopener" title="CV">
-          <!-- file icon -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
           <span>CV</span>
         </a>
         <a class="chip" href="https://www.linkedin.com/in/gayatri-malladi/" target="_blank" rel="me noopener" title="LinkedIn">
-          <!-- linkedin -->
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.82-1.95 3.75-1.95 4 0 4.75 2.63 4.75 6.05V21h-4v-5.35c0-1.28-.02-2.92-1.78-2.92-1.79 0-2.06 1.4-2.06 2.83V21h-4z"/></svg>
           <span>LinkedIn</span>
         </a>
         <a class="chip" href="https://github.com/mg-2321" target="_blank" rel="me noopener" title="GitHub">
-          <!-- github -->
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.1c-3.34.73-4.04-1.61-4.04-1.61-.55-1.4-1.35-1.77-1.35-1.77-1.1-.76.08-.75.08-.75 1.22.09 1.86 1.25 1.86 1.25 1.08 1.84 2.83 1.31 3.52 1 .11-.8.42-1.31.77-1.61-2.66-.31-5.46-1.33-5.46-5.92 0-1.31.47-2.38 1.24-3.22-.12-.31-.54-1.56.12-3.25 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.69.24 2.94.12 3.25.77.84 1.24 1.91 1.24 3.22 0 4.6-2.81 5.6-5.49 5.91.43.37.82 1.1.82 2.22v3.29c0 .32.22.7.83.58A12 12 0 0 0 12 .5Z"/></svg>
           <span>GitHub</span>
         </a>
         <a class="chip" href="https://medium.com/@YOUR_MEDIUM_HANDLE" target="_blank" rel="me noopener" title="Medium">
-          <!-- medium -->
           <svg viewBox="0 0 1043.63 592.71" fill="currentColor"><path d="M588.67 296.35c0 163.67-131.01 296.36-292.85 296.36S3 460.02 3 296.35 134.01 0 295.82 0s292.85 132.68 292.85 296.35Z"/><path d="M1027.67 296.35c0 154.3-65.5 279.46-146.31 279.46S735.05 450.65 735.05 296.35 800.54 16.89 881.36 16.89s146.31 125.16 146.31 279.46Z"/><path d="M642.43 296.35c0 138.61-57.5 251.1-128.4 251.1s-128.4-112.49-128.4-251.1S443.13 45.25 514.03 45.25s128.4 112.49 128.4 251.1Z"/></svg>
           <span>Medium</span>
         </a>
         <a class="chip" href="https://twitter.com/YOUR_TWITTER" target="_blank" rel="me noopener" title="Twitter / X">
-          <!-- twitter/x simple -->
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h3l-7.5 8.5L22 22h-6l-5-6.8L4 22H1l8-9.1L2 2h6l4.7 6.4L18 2Z"/></svg>
           <span>Twitter</span>
         </a>
       </p>
     </div>
 
-    <aside class="portrait-wrap">
+    <aside id="portraitWrap" class="portrait-wrap">
       <img id="avatar" class="avatar"
            src="https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3"
            alt="Portrait of Gayatri Malladi" loading="eager" decoding="sync">
@@ -218,7 +221,6 @@
   <h3><span class="pill">Agents &amp; Planning</span></h3>
   <div class="entry">
     <div class="cover-wrap">
-      <!-- animated “coming soon” tile -->
       <div class="cover soon-tile">
         <div class="soon-inner">
           <div class="soon-title">Coming soon</div>
@@ -239,7 +241,6 @@
   <!-- Vision & Robotics -->
   <h3><span class="pill">Vision &amp; Robotics</span></h3>
 
-  <!-- Waymo (two-clip playlist) -->
   <div class="entry">
     <div class="cover-wrap">
       <video id="waymoVid" class="cover" autoplay muted playsinline preload="auto"
@@ -255,7 +256,6 @@
     </div>
   </div>
 
-  <!-- CUDA -->
   <div class="entry">
     <div class="cover-wrap">
       <video class="cover" autoplay muted loop playsinline preload="auto"
@@ -272,7 +272,6 @@
     </div>
   </div>
 
-  <!-- Stroke -->
   <div class="entry">
     <div class="cover-wrap">
       <video class="cover" autoplay muted loop playsinline preload="auto"
@@ -292,7 +291,6 @@
     </div>
   </div>
 
-  <!-- PPE -->
   <div class="entry">
     <div class="cover-wrap">
       <video class="cover" autoplay muted loop playsinline preload="auto"
@@ -377,15 +375,26 @@
 </main>
 
 <script>
-  /* Match portrait height to intro text exactly */
-  function syncPortraitHeight(){
+  /* EXACT portrait height == intro text height (responsive & accurate) */
+  function setPortraitHeight(){
     const prose = document.getElementById('introText');
-    const avatar = document.getElementById('avatar');
-    if(!prose || !avatar) return;
-    avatar.style.height = prose.offsetHeight + 'px';
+    const wrap  = document.getElementById('portraitWrap');
+    const mq = window.matchMedia('(max-width:860px)');
+    if(!prose || !wrap) return;
+
+    if (mq.matches){
+      wrap.style.height = 'auto';
+      return;
+    }
+    // Use layout height including internal spacing (no margins)
+    const rect = prose.getBoundingClientRect();
+    // account for wrap's 1px border top+bottom (2px)
+    wrap.style.height = Math.max(200, Math.round(rect.height)) + 'px';
   }
-  window.addEventListener('load', syncPortraitHeight);
-  window.addEventListener('resize', syncPortraitHeight);
+  window.addEventListener('load', setPortraitHeight);
+  window.addEventListener('resize', setPortraitHeight);
+  // keep in sync as fonts or images finish loading
+  new ResizeObserver(setPortraitHeight).observe(document.getElementById('introText'));
 
   /* Tokenizer toy */
   function isWordChar(ch){const c=ch.charCodeAt(0);return (c>=48&&c<=57)||(c>=65&&c<=90)||(c>=97&&c<=122)||ch==='_';}
