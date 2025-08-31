@@ -25,8 +25,11 @@
   p{margin:.6rem 0}
   img,video{display:block}
 
-  /* Title + mini nav */
+  /* Title + mini nav (with typing caret) */
   .site-title{ text-align:center; font-size:2.4rem; font-weight:700; margin:0 0 .75rem }
+  .site-title.typing::after{ content:"▌"; margin-left:2px; animation:caretBlink 1s steps(1,end) infinite }
+  @keyframes caretBlink{50%{opacity:0}}
+
   .mini-nav{ text-align:center; margin:.1rem 0 1.2rem }
   .mini-nav a{ display:inline-block; font-size:.95rem; margin:0 .55rem; padding:2px 8px; border-radius:999px }
   .mini-nav a:hover{ background:var(--pill) }
@@ -95,7 +98,7 @@
   video.cover{ pointer-events:none }
   video.cover::-webkit-media-controls{ display:none !important }
 
-  /* Simple, aesthetic animated “Coming soon” tile */
+  /* Simple animated “Coming soon” tile */
   .cover-soon{
     display:flex; align-items:center; justify-content:center;
     background:
@@ -117,7 +120,7 @@
   .dots i:nth-child(2){ animation-delay:.15s } .dots i:nth-child(3){ animation-delay:.3s }
   @keyframes pulse{0%,100%{opacity:.35; transform:translateY(0)}50%{opacity:1; transform:translateY(-2px)}}
 
-  /* Buttons (Code / Paper) — classic pill look */
+  /* Buttons (Code / Paper) */
   .row-links a.btn{
     display:inline-block; border:1px solid var(--rule); padding:6px 10px;
     border-radius:10px; text-decoration:none; margin-right:.45rem; background:#fff;
@@ -142,7 +145,9 @@
 </head>
 <body>
   <main>
-    <h1 class="site-title">Gayatri Malladi</h1>
+    <!-- Animated title -->
+    <h1 id="siteTitle" class="site-title" aria-label="Gayatri Malladi"></h1>
+    <noscript><h1 class="site-title">Gayatri Malladi</h1></noscript>
 
     <p class="mini-nav">
       <a href="#projects">Projects</a>
@@ -205,7 +210,6 @@
     <!-- Agents & Planning -->
     <h3><span class="pill">Agents &amp; Planning</span></h3>
     <div class="entry">
-      <!-- Simple animated “coming soon” cover -->
       <div class="cover cover-soon" role="img" aria-label="Coming soon — short-term memory for ADAPT agents">
         <div class="soon-msg">
           <div class="soon-title">Coming soon <span class="dots"><i></i><i></i><i></i></span></div>
@@ -373,6 +377,23 @@
   // Footer year
   document.getElementById('yr').textContent = new Date().getFullYear();
 
+  // Type the title with reduced-motion fallback
+  (function typeTitle(){
+    const el = document.getElementById('siteTitle');
+    if(!el) return;
+    const text = el.getAttribute('aria-label') || 'Gayatri Malladi';
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      el.textContent = text; return;
+    }
+    el.textContent = '';
+    el.classList.add('typing');
+    let i = 0;
+    (function tick(){
+      if(i < text.length){ el.textContent += text.charAt(i++); setTimeout(tick, 80); }
+      else { el.classList.remove('typing'); }
+    })();
+  })();
+
   // Match portrait height to intro text (desktop)
   function fitPortrait(){
     const prose = document.getElementById('introText');
@@ -412,7 +433,7 @@
     nextSource();
   })();
 
-  // LLM vulnerability video: try merged first, else fall back to two alt sources, else just poster
+  // LLM vulnerability video: robust source fallbacks
   (function initVulnVideo(){
     const v = document.getElementById('vulnVid'); if(!v) return;
     const raw = p=>'https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/'+p.replace(/^\//,'');
