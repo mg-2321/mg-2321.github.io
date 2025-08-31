@@ -106,6 +106,18 @@
 
   .entry ul{ margin:.25rem 0 0 0; padding:0 0 0 1rem; }
   .entry ul li{ margin:.25rem 0; text-align:justify; text-justify:inter-word; line-height:1.65; }
+  /* Q&A — restore full-width input + pill UI */
+  .qa{border:1px solid var(--rule);border-radius:12px;padding:12px;background:#fff;margin-top:8px}
+  .qa .ask{display:flex;gap:8px;align-items:center}
+  .qa input{flex:1;min-width:0;padding:10px 12px;border-radius:10px;border:1px solid var(--rule);background:#fff}
+  .qa button{border:1px solid var(--rule);border-radius:10px;padding:8px 12px;background:#f7faff;cursor:pointer}
+  .qa button:hover{background:#eef4ff;border-color:#d8e4ff}
+  .qa .suggest{margin-top:8px;display:flex;flex-wrap:wrap;gap:8px;color:var(--muted)}
+  .qa .chip{border:1px solid var(--rule);border-radius:999px;padding:4px 8px;font-size:.85rem;background:#fff;cursor:pointer}
+  .qa .chat{margin-top:12px;display:flex;flex-direction:column;gap:10px}
+  .bubble{background:#f7faff;border:1px solid #dbe3f0;padding:10px 12px;border-radius:12px}
+  .bubble.me{align-self:flex-end;background:#eef3ff}
+
 </style>
 </head>
 <body>
