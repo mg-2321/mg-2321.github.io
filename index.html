@@ -13,8 +13,7 @@
 <style>
   :root{
     --fg:#14161a; --muted:#5b6574; --bg:#fff; --rule:#e7ebf0;
-    --accent:#0b57d0; --accent2:#8b5cf6; --pill:#f2f6ff;
-    --soft:#dfe7ff;
+    --accent:#0b57d0; --accent2:#8b5cf6; --pill:#f2f6ff; --soft:#dfe7ff;
   }
   html{font-size:16px}
   body{
@@ -95,14 +94,13 @@
   .cover{
     width:100%; aspect-ratio:16/9; object-fit:contain; background:#fff;
     border-radius:14px; border:1px solid var(--soft);
-    box-shadow:0 0 0 2px rgba(11,87,208,.10);
+    box-shadow:0 0 0 2px rgba(11,87,208,.10); /* subtle accent ring */
     display:block; overflow:hidden;
   }
   video.cover{ pointer-events:none }
   video.cover::-webkit-media-controls{ display:none !important }
-
-  .row-links a.btn{ display:inline-block;border:1px solid var(--rule);padding:6px 10px;border-radius:10px;text-decoration:none;margin-right:.45rem }
-  .btn:hover{background:#f7faff;text-decoration:none;border-color:#d8e4ff}
+  .entry ul{ margin:.25rem 0 0 0; padding:0 0 0 1rem; }
+  .entry ul li{ margin:.25rem 0; text-align:justify; text-justify:inter-word; line-height:1.65; }
 
   /* Blog tile */
   .cover-tile{ display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg,#f7faff,#ffffff); }
@@ -141,7 +139,7 @@
         <p class="lead red">I’m open to research collaborations. Please email me (gayat23 [at] uw.edu) if you are interested to explore assistive agents for day-to-day task automation, tool use, XR copilots, and self-evolving language models for curriculum generation, reflective fine-tuning, and preference optimization.</p>
 
         <div class="row-icons">
-          <a class="ico" href="rhttps://drive.google.com/file/d/1jZH0jteuhUbrC89-lrSqJUhDhwv0UxIH/view?usp=sharing" target="_blank" rel="noopener" title="CV">
+          <a class="ico" href="resume.pdf" target="_blank" rel="noopener" title="CV">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke-width="1.8"/><path d="M14 2v6h6" stroke-width="1.8"/></svg> CV
           </a>
           <a class="ico" href="https://www.linkedin.com/in/gayatri-malladi/" target="_blank" rel="me noopener" title="LinkedIn">
@@ -150,7 +148,7 @@
           <a class="ico" href="https://github.com/mg-2321" target="_blank" rel="me noopener" title="GitHub">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 0 0 .5 12.3c0 5.24 3.4 9.68 8.13 11.26.6.1.82-.27.82-.58v-2.03c-3.3.73-4-1.44-4-1.44-.55-1.4-1.34-1.78-1.34-1.78-1.1-.76.08-.74.08-.74 1.2.08 1.82 1.25 1.82 1.25 1.08 1.86 2.84 1.32 3.54 1.01.1-.8.43-1.32.78-1.62-2.63-.3-5.4-1.35-5.4-6 0-1.33.47-2.42 1.24-3.27-.12-.3-.54-1.52.12-3.16 0 0 1.01-.33 3.3 1.25a11.4 11.4 0 0 1 6 0c2.29-1.58 3.3-1.25 3.3-1.25.66 1.64.24 2.86.12 3.16.77.85 1.24 1.94 1.24 3.27 0 4.67-2.78 5.7-5.42 6 .44.38.83 1.12.83 2.26v3.35c0 .32.22.69.82.58A11.5 11.5 0 0 0 23.5 12.3 11.5 11.5 0 0 0 12 .5z"/></svg> GitHub
           </a>
-          <a class="ico" href="https://medium.com/@gayat23" target="_blank" rel="me noopener" title="Medium">
+          <a class="ico" href="https://medium.com/@YOUR_MEDIUM_HANDLE" target="_blank" rel="me noopener" title="Medium">
             <svg viewBox="0 0 1043.63 592.71" fill="currentColor"><path d="M588.67 296.35c0 163.69-131.33 296.36-293.33 296.36S2 460.04 2 296.35 133.33 0 295.34 0s293.33 132.66 293.33 296.35Zm316.66 0c0 155.96-65.67 282.64-146.67 282.64s-146.66-126.68-146.66-282.64S677.66 13.71 758.66 13.71 905.33 140.39 905.33 296.35Zm136.64 0c0 143.3-22.5 259.43-50.25 259.43S941.47 439.65 941.47 296.35 963.98 36.92 991.72 36.92s50.25 116.13 50.25 259.43Z"/></svg> Medium
           </a>
           <a class="ico" href="https://twitter.com/YOUR_HANDLE" target="_blank" rel="me noopener" title="Twitter / X">
@@ -184,18 +182,118 @@
     <!-- Projects -->
     <h2 id="projects">Projects</h2>
 
-    <h3><span class="pill">Vision &amp; Robotics</span></h3>
+    <!-- Agents & Planning -->
+    <h3><span class="pill">Agents &amp; Planning</span></h3>
     <div class="entry">
-      <video class="cover" autoplay muted loop playsinline preload="auto"
-             poster="images/waymo-forecast.jpg">
-        <source src="images/waymo_diffusion_cover%20(1)%20(2)%20(1).mp4" type="video/mp4" />
-        <source src="/images/waymo_diffusion_cover%20(1)%20(2)%20(1).mp4" type="video/mp4" />
-        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/images/waymo_diffusion_cover%20(1)%20(2)%20(1).mp4" type="video/mp4" />
-      </video>
+      <div class="cover cover-tile" role="img" aria-label="Coming soon">
+        <div class="tile-text">
+          <div class="soon">Coming soon</div>
+          <div class="sub">Short-term memory for ADAPT agents</div>
+        </div>
+      </div>
+      <div>
+        <div class="title">Solving Short-term Memory Limits of ADAPT Agents</div>
+        <p>Added a <em>Knowledge-Aware Graph</em> module for long-term user preferences and a diffusion-style drive model for smoother planning under uncertainty.</p>
+        <p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a><a class="btn" href="papers/adapt-kag.pdf" target="_blank">Paper</a></p>
+      </div>
+    </div>
+
+    <!-- Vision & Robotics -->
+    <h3><span class="pill">Vision &amp; Robotics</span></h3>
+
+    <!-- Waymo (playlist: cover + 3D plots) -->
+    <div class="entry">
+      <video id="waymoVid" class="cover" autoplay muted playsinline preload="auto" poster="images/waymo-forecast.jpg"></video>
       <div>
         <div class="title">Future Trajectory Prediction for Autonomous Vehicles</div>
         <p>Diffusion-based model predicting 5-second future trajectories in long-tail scenarios using the Waymo Open Dataset; explicitly models multimodal uncertainty.</p>
-        <p class="row-links"><a class="btn" href="https://github.com/mg-2321/Waymo_trajectory_prediction" target="_blank">Code</a><a class="btn" href="papers/waymo-forecast.pdf" target="_blank">Paper</a></p>
+        <p class="row-links">
+          <a class="btn" href="https://github.com/mg-2321/Waymo_trajectory_prediction" target="_blank">Code</a>
+          <a class="btn" href="papers/waymo-forecast.pdf" target="_blank">Paper</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- CUDA -->
+    <div class="entry">
+      <video class="cover" autoplay muted loop playsinline preload="auto"
+             poster="images/cuda-limo.jpg"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <source src="images/limo_cuda_preview_v4.mp4" type="video/mp4" />
+        <source src="/images/limo_cuda_preview_v4.mp4" type="video/mp4" />
+        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/images/limo_cuda_preview_v4.mp4" type="video/mp4" />
+      </video>
+      <img class="cover" src="images/cuda-limo.jpg" alt="CUDA optimization preview" style="display:none">
+      <div>
+        <div class="title">Optimizing LIMO Pipeline with CUDA Parallelization</div>
+        <p>Shared-memory tiling, async transfers, and custom kernels for 2D conv, keyframe selection, and pose estimation, improving kernel time by up to 60%.</p>
+        <p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a><a class="btn" href="papers/limo-cuda.pdf" target="_blank">Paper</a></p>
+      </div>
+    </div>
+
+    <!-- Stroke Rehab -->
+    <div class="entry">
+      <video class="cover" autoplay muted loop playsinline preload="auto"
+             poster="images/eeg-stroke.jpg"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <source src="cover_all_in_one_paper_exact4.mp4" type="video/mp4" />
+        <source src="/cover_all_in_one_paper_exact4.mp4" type="video/mp4" />
+        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/cover_all_in_one_paper_exact4.mp4" type="video/mp4" />
+      </video>
+      <img class="cover" src="images/eeg-stroke.jpg" alt="EEG poster" style="display:none">
+      <div>
+        <div class="title">Stroke Rehabilitation — EEG Motor Action Classification</div>
+        <p>Pre/post-stroke EEG analysis for motor actions (hand wave, clench, face rub) with ICA, band-pass filtering, and PCA; models: Decision Trees, SVMs, NNs.</p>
+        <p class="row-links">
+          <a class="btn" href="https://github.com/mg-2321/Stroke_Rehabilitation" target="_blank" rel="noopener">Code</a>
+          <a class="btn" href="https://github.com/mg-2321/Stroke_Rehabilitation/blob/main/Iteration%204_%20Paper-4.pdf" target="_blank" rel="noopener">Project paper</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- PPE (kept inside Vision & Robotics) -->
+    <div class="entry">
+      <video class="cover" autoplay muted loop playsinline preload="auto"
+             poster="images/worker-safety.jpg"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <source src="ppe_pass_fail_corrected.mp4" type="video/mp4" />
+        <source src="/ppe_pass_fail_corrected.mp4" type="video/mp4" />
+        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/ppe_pass_fail_corrected.mp4" type="video/mp4" />
+      </video>
+      <img class="cover" src="images/worker-safety.jpg" alt="PPE compliance poster" style="display:none">
+      <div>
+        <div class="title">Real-time Construction Worker Safety Inspection</div>
+        <ul>
+          <li>Built a real-time PPE compliance detection system using a CenterNet-based model to reduce manual spot-checks and mitigate on-site risk.</li>
+          <li>Benchmarked CenterNet vs Faster R-CNN and SSD on CHVG &amp; Pictor; deployed the best ResNet-50 variant in a lightweight web app that flags violations at entry and makes compliance auditable.</li>
+        </ul>
+        <p class="row-links">
+          <a class="btn" href="https://github.com/mg-2321/Safety-equipment-check-using-object-detection" target="_blank" rel="noopener">Code</a>
+          <a class="btn" href="papers/worker-safety.pdf" target="_blank" rel="noopener">Paper</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- NLP & Safety -->
+    <h3><span class="pill">NLP &amp; Safety</span></h3>
+    <div class="entry">
+      <img class="cover" src="images/nlp-si.jpg" alt="NLP cover"
+           onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 450%22><rect width=%22800%22 height=%22450%22 fill=%22%23fff%22/></svg>'">
+      <div>
+        <div class="title">NLP for Suicide Ideation &amp; Attempt Detection</div>
+        <p>Preprocessed clinical + forum text (MIMIC-III, SuicideWatch); compared GloVe/Word2Vec/FastText/CBOW; trained BERT &amp; RoBERTa vs Bi-LSTM baselines.</p>
+        <p class="row-links"><a class="btn" href="#" target="_blank">Code</a><a class="btn" href="papers/nlp-suicide-risk.pdf" target="_blank">Paper</a></p>
+      </div>
+    </div>
+
+    <!-- LLMs for Code Vulnerability Detection (moved here) -->
+    <div class="entry">
+      <video id="vulnVid" class="cover" autoplay muted playsinline preload="auto" loop
+             poster="images/llm-security.jpg"></video>
+      <div>
+        <div class="title">LLMs for Code Vulnerability Detection</div>
+        <p>Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN to flag zero-day patterns via data-flow visuals.</p>
+        <p class="row-links"><a class="btn" href="#" target="_blank">Code</a><a class="btn" href="papers/llm-code-vuln.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
 
@@ -211,14 +309,18 @@
         </div>
       </div>
       <div>
-        <div class="title"><a href="#" target="_blank" rel="noopener">YODA: Teacher-Student Progressive Learning for LMs vs R-Zero Self-Evolving Reasoning LLM</a></div>
+        <div class="title">
+          <a href="#" target="_blank" rel="noopener">
+            YODA: Teacher-Student Progressive Learning for LMs vs R-Zero Self-Evolving Reasoning LLM
+          </a>
+        </div>
         <p>Two-part series comparing progressive teacher→student learning (“YODA”) with self-evolving reasoning (R-Zero). Full post drops Sept 1.</p>
       </div>
     </div>
 
     <div class="hr"></div>
 
-    <!-- Ask about my work (below Blogs) -->
+    <!-- Ask about my work -->
     <h2 id="ask">Ask about my work</h2>
     <div class="qa" role="region" aria-live="polite">
       <div class="ask">
@@ -251,7 +353,7 @@
   // Year
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  // ==== Fit portrait to intro text height (desktop only) ====
+  // Fit portrait to intro text height (desktop only)
   function fitPortrait(){
     const prose = document.getElementById('introText');
     const img   = document.getElementById('introPhoto');
@@ -264,17 +366,60 @@
     }
   }
   window.addEventListener('load', fitPortrait);
-  window.addEventListener('resize', ()=>{ clearTimeout(window.__rp); window.__rp=setTimeout(fitPortrait,100); });
+  window.addEventListener('resize', ()=>{ clearTimeout(window.__rp); window.__rp=setTimeout(fitPortrait,120); });
   document.getElementById('introPhoto').addEventListener('load', fitPortrait);
 
-  // ==== Tokenizer toy ====
+  // Tokenizer toy
   function isWordChar(ch){const c=ch.charCodeAt(0);return (c>=48&&c<=57)||(c>=65&&c<=90)||(c>=97&&c<=122)||ch==='_';}
   const tokInput=document.getElementById('tokInput'), tokOut=document.getElementById('tokens'), tokStats=document.getElementById('tokStats');
   function tokenize(s){const out=[];let cur='',mode=null;for(const ch of s){const w=isWordChar(ch);if(mode===null){mode=w;cur=ch}else if((w&&mode)||(!w&&!mode)){cur+=ch}else{out.push(cur);cur=ch;mode=w}}if(cur)out.push(cur);return out.map(p=>p.length>8?p.slice(0,6)+'…':p)}
   function renderTokens(){const v=tokInput.value.trim();const t=v?tokenize(v):[];tokOut.innerHTML=t.map(x=>`<span class="tok">${x}</span>`).join('');tokStats.textContent=v?`${t.length} tokens (illustrative)`:''}
   tokInput.addEventListener('input',renderTokens);renderTokens();
 
-  // ==== Ask about my work (simple matcher) ====
+  // Waymo: two-clip playlist (cover + plots)
+  (function initWaymoVideo(){
+    const v = document.getElementById('waymoVid'); if(!v) return;
+    v.loop = false;
+    const raw = p => 'https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/'+p.replace(/^\//,'');
+    const Aname = 'images/waymo_diffusion_cover%20(1)%20(2)%20(1).mp4';
+    const Bname = 'images/diffusion_3d_samples_FINAL_quick.mp4';
+    const A = [Aname, '/'+Aname, raw(Aname)];
+    const B = [Bname, '/'+Bname, raw(Bname)];
+    const playlist=[A,B]; let cur=0, idx=0;
+    function nextSource(){ if(idx>=playlist[cur].length) return false; v.src=playlist[cur][idx++]; v.load(); v.play().catch(()=>{}); return true; }
+    v.addEventListener('error', ()=>{ nextSource(); });
+    v.addEventListener('ended', ()=>{ cur=(cur+1)%playlist.length; idx=0; nextSource(); });
+    nextSource();
+  })();
+
+  // Vulnerability video: try merged; else alternate two clips
+  (function initVulnVideo(){
+    const v = document.getElementById('vulnVid'); if(!v) return;
+    const raw = p=>'https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/'+p.replace(/^\//,'');
+    const merged = ['gcb_merged_v2.mp4','/gcb_merged_v2.mp4',raw('gcb_merged_v2.mp4')];
+    const clipA = ['gcb_web_demo_v10.mp4','/gcb_web_demo_v10.mp4',raw('gcb_web_demo_v10.mp4')];
+    const clipB = ['gcb_full_demo_v13.mp4','/gcb_full_demo_v13.mp4',raw('gcb_full_demo_v13.mp4')];
+    let useClips=false, active=merged, idx=0;
+
+    function nextSource(){ if(idx>=active.length) return false; v.src=active[idx++]; v.load(); v.play().catch(()=>{}); return true; }
+    v.addEventListener('error', ()=>{ nextSource(); });
+
+    (function probeMerged(i=0){
+      const t=document.createElement('video');
+      function tryOne(){
+        if(i>=merged.length){ useClips=true; active=clipA; idx=0; v.loop=false; nextSource(); return; }
+        t.src=merged[i++]; t.addEventListener('canplay',()=>{ active=merged; idx=0; v.loop=true; nextSource(); }, {once:true});
+        t.addEventListener('error', tryOne, {once:true}); t.load();
+      }
+      tryOne();
+    })();
+
+    v.addEventListener('ended', ()=>{
+      if(useClips){ active = (active===clipA)?clipB:clipA; idx=0; nextSource(); }
+    });
+  })();
+
+  // Ask about my work (simple matcher)
   const KB=[
     {id:'waymo',title:'Future Trajectory Prediction for Autonomous Vehicles',summary:'Diffusion-based model forecasting 5-second trajectories on the Waymo Open Dataset; models multimodal uncertainty and temporal dependencies.',tags:'diffusion trajectory forecasting waymo uncertainty driving',code:'https://github.com/mg-2321/Waymo_trajectory_prediction',paper:'papers/waymo-forecast.pdf'},
     {id:'cuda',title:'Optimizing LIMO Pipeline with CUDA Parallelization',summary:'Shared-memory tiling, async copies, and custom conv kernels; Nsight-guided profiling with up to 60% speedup.',tags:'cuda gpu kernels convolution nsight optimization',code:'https://github.com/mg-2321',paper:'papers/limo-cuda.pdf'},
