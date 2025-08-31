@@ -24,24 +24,26 @@
   a:hover{text-decoration:underline}
   p{margin:.6rem 0}
 
+  /* Title + mini nav */
   .site-title{ text-align:center; font-size:2.4rem; font-weight:700; margin:0 0 .75rem }
   .mini-nav{ text-align:center; margin:.1rem 0 1.2rem }
   .mini-nav a{ display:inline-block; font-size:.95rem; margin:0 .55rem; padding:2px 8px; border-radius:999px }
   .mini-nav a:hover{ background:var(--pill) }
 
   /* Intro */
-  .intro{ display:grid; grid-template-columns:minmax(0,1fr) 280px; gap:24px; align-items:start; margin-bottom:20px; }
+  .intro{ display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:24px; align-items:start; margin-bottom:20px; }
   @media (max-width:860px){ .intro{ grid-template-columns:1fr } }
   .prose{ max-width:72ch; text-align:justify; text-justify:inter-word }
   .prose p{ hyphens:none; overflow-wrap:anywhere }
   .lead.red{ color:#c62828 }
   .portrait{ display:flex; align-items:flex-start }
+  img, video{ display:block }              /* eliminate baseline gaps */
   .portrait img{
     width:100%; height:auto; object-fit:cover;
-    border-radius:16px; border:1px solid var(--rule); display:block;
+    border-radius:16px; border:1px solid var(--rule);
   }
 
-  /* Social icons */
+  /* Social icons row */
   .row-icons{ display:flex; flex-wrap:wrap; gap:10px; margin:.4rem 0 1rem }
   .ico{
     display:inline-flex; align-items:center; gap:8px;
@@ -75,11 +77,11 @@
   .pill{display:inline-block;font-size:.75rem;color:#244;padding:2px 8px;border-radius:999px;background:var(--pill);border:1px solid #d8e4ff;margin-bottom:.25rem}
   .title{ font-weight:600 }
 
-  /* Entries & COVERS */
-  .entry{ display:grid; grid-template-columns:400px 1fr; gap:16px; align-items:start; margin:18px 0 24px; }
+  /* Entries */
+  .entry{ display:grid; grid-template-columns:400px 1fr; gap:16px; align-items:start; margin:18px 0 28px; }
   @media (max-width:680px){ .entry{grid-template-columns:1fr} }
 
-  /* Gradient border that matches section underline */
+  /* Cover with gradient border (matches headings) */
   .cover{
     width:100%; aspect-ratio:16/9; object-fit:contain; background:#fff; border-radius:14px;
     border:2px solid transparent;
@@ -88,14 +90,50 @@
       linear-gradient(90deg,var(--accent),var(--accent2));
     background-origin: padding-box, border-box;
     background-clip: padding-box, border-box;
-    display:block; overflow:hidden;
+    position:relative; overflow:hidden;
   }
   video.cover{ pointer-events:none }
   video.cover::-webkit-media-controls{ display:none !important }
-  .cover-tile{ display:flex; align-items:center; justify-content:center; }
-  .tile-text{ text-align:center; color:var(--accent); }
-  .tile-text .soon{ font-size:1.15rem; font-weight:700; letter-spacing:.3px; }
-  .tile-text .sub{ font-size:.95rem; color:var(--muted); margin-top:.25rem }
+
+  /* Animated “Coming soon” tiles */
+  .cover-anim{ display:flex; align-items:center; justify-content:center; }
+  .cover-anim .animWrap{ position:absolute; inset:0; overflow:hidden }
+  .cover-anim .msg{
+    position:relative; z-index:2; text-align:center; color:#1f2a44;
+    background:rgba(255,255,255,.72); backdrop-filter:saturate(120%) blur(2px);
+    padding:10px 14px; border-radius:10px; border:1px solid #e9edff;
+  }
+  .msg .soon{ font-size:1.1rem; font-weight:700; color:#0b57d0 }
+  .msg .sub{ font-size:.95rem; color:#5b6574 }
+
+  /* Doodles */
+  .bubble{ position:absolute; border-radius:50%; opacity:.14; background:radial-gradient(#8b5cf6, #8b5cf6 40%, transparent 41%); }
+  .b1{ width:140px; height:140px; left:-20px; top:-30px; animation:float 10s ease-in-out infinite }
+  .b2{ width:180px; height:180px; right:-30px; bottom:-40px; animation:float 12s ease-in-out infinite reverse }
+
+  .star{ position:absolute; width:18px; height:18px; background:
+    conic-gradient(from 0deg at 50% 50%, #ffd54f, #ffb300, #ffd54f);
+    clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+    opacity:.8;
+  }
+  .s1{ left:18%; top:20%; animation:twinkle 1.8s linear infinite }
+  .s2{ left:76%; top:36%; animation:twinkle 1.4s .4s linear infinite }
+  .s3{ left:34%; top:70%; animation:twinkle 1.6s .8s linear infinite }
+
+  /* Tiny robot */
+  .robot{ position:absolute; left:50%; top:60%; transform:translate(-50%,-50%); width:120px; height:90px; }
+  .bot-head{ width:120px; height:70px; background:#101827; border-radius:18px; position:relative; border:2px solid #0ea5e9; box-shadow:0 0 12px rgba(14,165,233,.25) inset }
+  .eye{ position:absolute; top:26px; width:18px; height:18px; background:#67e8f9; border-radius:50%; box-shadow:0 0 12px rgba(103,232,249,.6) }
+  .e1{ left:34px; animation:blink 4s infinite }
+  .e2{ right:34px; animation:blink 3.6s .4s infinite }
+  .smile{ position:absolute; left:50%; bottom:16px; width:42px; height:22px; transform:translateX(-50%); border-bottom:3px solid #67e8f9; border-radius:0 0 30px 30px; opacity:.85; }
+  .antenna{ position:absolute; left:50%; top:-10px; width:2px; height:14px; background:#0ea5e9; transform:translateX(-50%); }
+  .blip{ position:absolute; left:50%; top:-16px; transform:translateX(-50%); width:8px; height:8px; background:#f43f5e; border-radius:50%; animation:blip 1.2s infinite }
+
+  @keyframes float{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
+  @keyframes twinkle{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(.6);opacity:.4}}
+  @keyframes blink{0%,8%,100%{height:18px}5%{height:2px}}
+  @keyframes blip{0%,100%{opacity:.9; transform:translateX(-50%) scale(1)}50%{opacity:.3; transform:translateX(-50%) scale(.7)}}
 
   /* Buttons (Code / Paper) — classic pill look */
   .row-links a.btn{
@@ -106,7 +144,8 @@
 
   .entry ul{ margin:.25rem 0 0 0; padding:0 0 0 1rem; }
   .entry ul li{ margin:.25rem 0; text-align:justify; text-justify:inter-word; line-height:1.65; }
-  /* Q&A — restore full-width input + pill UI */
+
+  /* Q&A */
   .qa{border:1px solid var(--rule);border-radius:12px;padding:12px;background:#fff;margin-top:8px}
   .qa .ask{display:flex;gap:8px;align-items:center}
   .qa input{flex:1;min-width:0;padding:10px 12px;border-radius:10px;border:1px solid var(--rule);background:#fff}
@@ -117,7 +156,6 @@
   .qa .chat{margin-top:12px;display:flex;flex-direction:column;gap:10px}
   .bubble{background:#f7faff;border:1px solid #dbe3f0;padding:10px 12px;border-radius:12px}
   .bubble.me{align-self:flex-end;background:#eef3ff}
-
 </style>
 </head>
 <body>
@@ -135,7 +173,6 @@
       <div class="prose" id="introText">
         <p>I’m a second-year M.S. student in the Computer Science department at the University of Washington. Currently, my research supervised by <a href="https://rutadesai.github.io/" target="_blank" rel="noopener">Dr. Ruta Desai</a> focuses on agentic AI: planning and teaching language models when to ask vs. when to act, with lightweight grounding via a knowledge-augmented graph (KAG) and preference-based training using SimPO and ORPO.</p>
         <p>Additionally, I’m exploring how to overcome short-term memory limitations for long horizon tasks using retrieval caches, summarization, and Reflexion-style episodic notes that are indexed and reused across tasks using Neo4j database.</p>
-        <p></p>
         <p class="lead red">I’m open to research collaborations. Please email me on gayat23[at]uw.edu if you are interested to explore assistive agents for day-to-day task automation and self-evolving language models for curriculum generation, reflective fine-tuning, and preference optimization.</p>
 
         <!-- Icons/links -->
@@ -186,8 +223,20 @@
     <!-- Agents & Planning -->
     <h3><span class="pill">Agents &amp; Planning</span></h3>
     <div class="entry">
-      <div class="cover cover-tile" role="img" aria-label="Coming soon">
-        <div class="tile-text">
+      <!-- Animated “coming soon” cover -->
+      <div class="cover cover-anim" role="img" aria-label="Coming soon — short-term memory for ADAPT agents">
+        <div class="animWrap">
+          <div class="bubble b1"></div>
+          <div class="bubble b2"></div>
+          <div class="star s1"></div><div class="star s2"></div><div class="star s3"></div>
+          <div class="robot">
+            <div class="antenna"></div><div class="blip"></div>
+            <div class="bot-head">
+              <div class="eye e1"></div><div class="eye e2"></div><div class="smile"></div>
+            </div>
+          </div>
+        </div>
+        <div class="msg">
           <div class="soon">Coming soon</div>
           <div class="sub">Short-term memory for ADAPT agents</div>
         </div>
@@ -199,10 +248,10 @@
       </div>
     </div>
 
-    <!-- Machine Learning  -->
+    <!-- Machine Learning -->
     <h3><span class="pill">Machine Learning</span></h3>
 
-    <!-- Waymo -->
+    <!-- Waymo (two-clip playlist) -->
     <div class="entry">
       <video id="waymoVid" class="cover" autoplay muted playsinline preload="auto" poster="images/waymo-forecast.jpg"></video>
       <div>
@@ -255,6 +304,7 @@
       </div>
     </div>
 
+    <!-- Stroke Rehab (in ML section) -->
     <div class="entry">
       <video class="cover" autoplay muted loop playsinline preload="auto"
              poster="images/eeg-stroke.jpg"
@@ -287,8 +337,9 @@
     </div>
 
     <div class="entry">
-      <video id="vulnVid" class="cover" autoplay muted playsinline preload="auto" loop
-             poster="images/llm-security.jpg"></video>
+      <div class="cover">
+        <img class="cover" src="images/llm-security.jpg" alt="LLM code vulnerability demo" style="position:absolute;inset:0">
+      </div>
       <div>
         <div class="title">LLMs for Code Vulnerability Detection</div>
         <p>Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN to flag zero-day patterns via data-flow visuals.</p>
@@ -301,9 +352,21 @@
     <!-- Blogs -->
     <h2 id="blogs">Blogs</h2>
     <div class="entry">
-      <div class="cover cover-tile" role="img" aria-label="Coming soon — Sept 1">
-        <div class="tile-text">
-          <div class="soon">Coming soon — Sept&nbsp;1</div>
+      <!-- Animated blog “coming soon” cover -->
+      <div class="cover cover-anim" role="img" aria-label="Blog — Coming soon, Sept 1">
+        <div class="animWrap">
+          <div class="bubble b1"></div>
+          <div class="bubble b2"></div>
+          <div class="star s1"></div><div class="star s2"></div><div class="star s3"></div>
+          <div class="robot" style="top:58%">
+            <div class="antenna"></div><div class="blip"></div>
+            <div class="bot-head">
+              <div class="eye e1"></div><div class="eye e2"></div><div class="smile"></div>
+            </div>
+          </div>
+        </div>
+        <div class="msg">
+          <div class="soon">Coming soon — Sept 1</div>
           <div class="sub">YODA vs. R-Zero (preview)</div>
         </div>
       </div>
@@ -352,7 +415,7 @@
   // Footer year
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  // Fit portrait to intro text height (desktop only)
+  // Match portrait height to intro text (desktop)
   function fitPortrait(){
     const prose = document.getElementById('introText');
     const img   = document.getElementById('introPhoto');
@@ -389,28 +452,6 @@
     v.addEventListener('error', ()=>{ nextSource(); });
     v.addEventListener('ended', ()=>{ cur=(cur+1)%playlist.length; idx=0; nextSource(); });
     nextSource();
-  })();
-
-  // Vulnerability video: try merged; else alternate two clips
-  (function initVulnVideo(){
-    const v = document.getElementById('vulnVid'); if(!v) return;
-    const raw = p=>'https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/'+p.replace(/^\//,'');
-    const merged = ['gcb_merged_v2.mp4','/gcb_merged_v2.mp4',raw('gcb_merged_v2.mp4')];
-    const clipA = ['gcb_web_demo_v10.mp4','/gcb_web_demo_v10.mp4',raw('gcb_web_demo_v10.mp4')];
-    const clipB = ['gcb_full_demo_v13.mp4','/gcb_full_demo_v13.mp4',raw('gcb_full_demo_v13.mp4')];
-    let useClips=false, active=merged, idx=0;
-    function nextSource(){ if(idx>=active.length) return false; v.src=active[idx++]; v.load(); v.play().catch(()=>{}); return true; }
-    v.addEventListener('error', ()=>{ nextSource(); });
-    (function probeMerged(i=0){
-      const t=document.createElement('video');
-      function tryOne(){
-        if(i>=merged.length){ useClips=true; active=clipA; idx=0; v.loop=false; nextSource(); return; }
-        t.src=merged[i++]; t.addEventListener('canplay',()=>{ active=merged; idx=0; v.loop=true; nextSource(); }, {once:true});
-        t.addEventListener('error', tryOne, {once:true}); t.load();
-      }
-      tryOne();
-    })();
-    v.addEventListener('ended', ()=>{ if(useClips){ active = (active===clipA)?clipB:clipA; idx=0; nextSource(); } });
   })();
 
   // Q&A mini
