@@ -4,156 +4,173 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Gayatri Malladi</title>
-<meta name="description" content="Gayatri Malladi — Agentic AI, LLMs, projects, and notes." />
+<meta name="description" content="Gayatri Malladi — Agentic AI, LLMs, projects." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
   :root{
-    --fg:#14161a; --muted:#5b6574; --bg:#ffffff; --rule:#e7ebf0;
-    --accent:#0b57d0; --accent2:#8b5cf6; --pill:#f2f6ff;
+    --fg:#12141a; --muted:#5b6574; --bg:#0b1020; --panel:#0f1528; --rule:#1e2742;
+    --accent:#5aa3ff; --accent2:#9b7bff; --pill:rgba(144,180,255,.1);
   }
-  html{font-size:16px}
   *{box-sizing:border-box}
+  html,body{height:100%}
   body{
-    margin:0 auto; max-width:920px; padding:26px 16px 96px;
-    color:var(--fg); background:var(--bg); line-height:1.75;
-    font-family:"Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-    position:relative;
+    margin:0 auto; max-width:1100px; padding:24px 18px 96px;
+    color:#eaf1ff; background:radial-gradient(1200px 800px at 20% -20%, #182347 0%, #0b1020 40%, #0b1020 100%);
+    line-height:1.75; font-family:"Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    overflow-x:hidden;
   }
-  a{color:var(--accent); text-decoration:none}
+  a{color:#b8ccff; text-decoration:none}
   a:hover{text-decoration:underline}
   p{margin:.6rem 0}
-  img,video,svg,canvas{display:block; max-width:100%}
+  img,video,canvas,svg{display:block; max-width:100%}
 
-  /* Subtle floating background blobs (inspired by reference) */
-  .blob{position:fixed; inset:auto auto 10% -120px; width:420px; height:420px;
-        background:radial-gradient(closest-side, rgba(11,87,208,.18), transparent 65%);
-        filter:blur(12px); z-index:-1; animation:blob 28s ease-in-out infinite;}
-  .blob.b2{left:auto; right:-140px; bottom:35%; width:520px; height:520px;
-           background:radial-gradient(closest-side, rgba(139,92,246,.16), transparent 65%);
-           animation-delay:-8s}
+  /* ===== background like the reference (morphing blobs + starfield + cursor glow) ===== */
+  .stars{position:fixed; inset:0; z-index:-3; pointer-events:none; background:
+    radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.35), transparent 60%),
+    radial-gradient(1.5px 1.5px at 70% 40%, rgba(255,255,255,.28), transparent 60%),
+    radial-gradient(1.5px 1.5px at 40% 80%, rgba(255,255,255,.22), transparent 60%),
+    radial-gradient(2px 2px at 85% 75%, rgba(255,255,255,.30), transparent 60%),
+    radial-gradient(1px 1px at 55% 55%, rgba(255,255,255,.2), transparent 60%)
+  }
+  .blob,.blob2,.blob3{
+    position:fixed; width:46vmax; height:46vmax; filter:blur(40px);
+    background:conic-gradient(from 90deg at 50% 50%, rgba(90,163,255,.28), rgba(155,123,255,.25), rgba(90,163,255,.28));
+    border-radius:40% 60% 55% 45%/55% 45% 55% 45%;
+    animation:blob 24s ease-in-out infinite;
+    z-index:-2; pointer-events:none; mix-blend-mode:screen;
+  }
+  .blob{ top:-18vmax; left:-18vmax }
+  .blob2{ bottom:-22vmax; right:-22vmax; animation-delay:-8s }
+  .blob3{ top:30vh; left:55vw; width:38vmax; height:38vmax; animation-delay:-16s }
   @keyframes blob{
-    0%,100%{transform:translateY(0) rotate(0deg) scale(1)}
-    50%{transform:translateY(-40px) rotate(10deg) scale(1.06)}
+    0%,100%{ transform:translate3d(0,0,0) rotate(0) scale(1) }
+    50%{ transform:translate3d(-2vmax,2vmax,0) rotate(8deg) scale(1.06) }
   }
-  @media (prefers-reduced-motion:reduce){ .blob{display:none} }
+  /* mouse-follow glow */
+  .cursor-glow{ position:fixed; width:540px; height:540px; border-radius:50%;
+    pointer-events:none; z-index:-1; filter:blur(60px); opacity:.25;
+    background:radial-gradient(circle at center, rgba(120,170,255,.9), rgba(155,123,255,.8) 35%, transparent 60%);
+    transform:translate(-50%, -50%); transition:opacity .2s ease;
+  }
+  @media (prefers-reduced-motion:reduce){ .blob,.blob2,.blob3{display:none} .cursor-glow{display:none} }
 
-  /* Title + mini nav (typing) */
-  .site-title{ text-align:center; font-size:2.6rem; font-weight:700; margin:0 0 .75rem }
-  .site-title.typing::after{ content:"▌"; margin-left:2px; animation:caret 1s steps(1,end) infinite }
+  /* ===== header & nav ===== */
+  .site-title{ text-align:center; font-size:2.9rem; font-weight:800; margin:0 0 .6rem;
+               background:linear-gradient(90deg,#eaf1ff,#a6b8ff,#dcd1ff);
+               -webkit-background-clip:text;background-clip:text;color:transparent; letter-spacing:.4px }
+  .site-title.typing::after{ content:"▌"; margin-left:2px; animation:caret 1s steps(1,end) infinite; color:#b8ccff }
   @keyframes caret{50%{opacity:0}}
-  .mini-nav{ text-align:center; margin:.1rem 0 1rem }
-  .mini-nav a{ display:inline-block; font-size:.95rem; margin:0 .55rem; padding:6px 10px; border-radius:999px }
-  .mini-nav a:hover{ background:var(--pill) }
+  .mini-nav{ text-align:center; margin:.2rem 0 1.1rem }
+  .mini-nav a{ display:inline-block; font-size:.95rem; margin:0 .55rem; padding:6px 12px; border-radius:999px; color:#d9e6ff }
+  .mini-nav a:hover{ background:rgba(144,180,255,.12) }
 
-  /* Section underline */
+  /* section underline */
   h2{ font-size:1.55rem; line-height:1.25; margin:1.7rem 0 .6rem; position:relative }
-  h2::after{ content:""; display:block; width:64px; height:3px;
-             background:linear-gradient(90deg,var(--accent),var(--accent2));
-             border-radius:3px; margin-top:8px; opacity:.95 }
+  h2::after{ content:""; display:block; width:68px; height:3px; border-radius:3px; margin-top:8px;
+             background:linear-gradient(90deg,var(--accent),var(--accent2)) }
 
-  /* Intro */
-  .intro{ display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:24px; align-items:start; margin-bottom:18px; }
-  @media (max-width:860px){ .intro{ grid-template-columns:1fr } }
+  /* ===== intro ===== */
+  .intro{ display:grid; grid-template-columns:minmax(0,1fr) 280px; gap:24px; align-items:start; margin-bottom:20px; }
+  @media (max-width:900px){ .intro{ grid-template-columns:1fr } }
   .prose{ max-width:72ch; text-align:justify; text-justify:inter-word }
-  .prose p{ hyphens:none; overflow-wrap:anywhere }
-  .lead.red{ color:#c62828 }
+  .lead.red{ color:#ff8a8a }
   .portrait img{
-    width:100%; height:auto; object-fit:cover;
-    border-radius:16px; border:1px solid var(--rule);
-    box-shadow:0 8px 28px rgba(2,8,20,.06);
+    width:100%; height:auto; object-fit:cover; border-radius:16px; border:1px solid var(--rule);
+    box-shadow:0 10px 30px rgba(10,15,40,.45)
   }
 
-  /* Social icons */
-  .row-icons{ display:flex; flex-wrap:wrap; gap:10px; margin:.7rem 0 1.1rem }
-  .ico{ display:inline-flex; align-items:center; gap:8px; border:1px solid var(--rule);
-        border-radius:12px; padding:8px 12px; background:#fff; box-shadow:0 1px 0 rgba(17,24,39,.02) }
-  .ico svg{ width:18px; height:18px }
-  .ico:hover{ background:#f7faff; border-color:#d8e4ff; text-decoration:none }
+  /* social buttons */
+  .row-icons{ display:flex; flex-wrap:wrap; gap:10px; margin:.8rem 0 1.2rem }
+  .ico{ display:inline-flex; align-items:center; gap:8px; border:1px solid #2a355a; background:linear-gradient(180deg,#0f162e,#0c1328);
+        color:#eaf1ff; border-radius:12px; padding:8px 12px; box-shadow:0 2px 0 rgba(255,255,255,.03) inset }
+  .ico svg{ width:18px; height:18px; fill:#cfe0ff }
+  .ico:hover{ border-color:#3b4a78; background:#121b36; text-decoration:none }
 
-  /* Ribbon + playground */
-  .tokenribbon{ margin-top:8px; border:1px solid var(--rule); border-radius:12px; overflow:hidden;
-                background:linear-gradient(90deg,#f7faff 0,#fff 50%,#f7faff 100%); }
-  .track{display:flex;gap:2rem;white-space:nowrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;padding:10px 12px;color:#264;opacity:.9}
+  /* ribbon + playground */
+  .tokenribbon{ margin-top:8px; border:1px solid var(--rule); border-radius:14px; overflow:hidden;
+                background:linear-gradient(90deg,#0f162e, #0b1020 50%, #0f162e 100%); box-shadow:0 6px 18px rgba(8,12,28,.5) }
+  .track{display:flex;gap:2rem;white-space:nowrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;padding:10px 12px;color:#9fb4ff;opacity:.9}
   .scroll{animation:marquee 26s linear infinite}
   .scroll2{animation:marquee 34s linear infinite reverse}
   @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
   @media (prefers-reduced-motion: reduce){.scroll,.scroll2{animation:none}}
 
-  .playground{ border:1px solid var(--rule); border-radius:12px; padding:14px; margin-top:12px; background:#fff; }
-  .playground label{ font-size:.9rem; color:#3b4758 }
-  .playground input{width:100%; margin-top:8px; padding:10px 12px; border-radius:10px; border:1px solid var(--rule)}
-  .tokens{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-  .tok{font:600 .8rem ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:4px 8px;border-radius:8px;background:#f1f4fb;border:1px solid #dbe3f3}
-  .stats{font-size:.85rem;color:var(--muted);margin-top:6px}
+  .playground{ border:1px solid var(--rule); border-radius:14px; padding:14px; margin-top:12px;
+               background:linear-gradient(180deg,#0f162e,#0c1429); box-shadow:0 6px 18px rgba(8,12,28,.5) }
+  .playground label{ font-size:.9rem; color:#b8c6ff }
+  .playground input{width:100%; margin-top:8px; padding:10px 12px; border-radius:10px; border:1px solid #253155;
+                    background:#0b1226; color:#dfe6ff}
+  .tok{font:600 .8rem ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:4px 8px;border-radius:8px;background:#152046;border:1px solid #283665;color:#d6e1ff;margin:4px 6px 0 0}
+  .stats{font-size:.85rem;color:#a6b2d8;margin-top:6px}
 
-  .pill{display:inline-block;font-size:.75rem;color:#244;padding:2px 8px;border-radius:999px;background:var(--pill);border:1px solid #d8e4ff;margin-bottom:.25rem}
-  .title{ font-weight:600 }
-  .hr{ height:1px; background:var(--rule); margin:24px 0 }
+  .pill{display:inline-block;font-size:.75rem;color:#cfe0ff;padding:2px 8px;border-radius:999px;background:rgba(144,180,255,.12);border:1px solid #31406b;margin-bottom:.25rem}
+  .title{ font-weight:700; color:#eaf1ff }
+  .hr{ height:1px; background:linear-gradient(90deg, transparent, #26325a 20%, #26325a 80%, transparent); margin:28px 0 }
 
-  /* Entries */
-  .entry{ display:grid; grid-template-columns:400px 1fr; gap:16px; align-items:start; margin:18px 0 28px; }
-  @media (max-width:680px){ .entry{grid-template-columns:1fr} }
+  /* entries grid */
+  .entry{ display:grid; grid-template-columns:460px 1fr; gap:18px; align-items:start; margin:20px 0 32px; }
+  @media (max-width:900px){ .entry{ grid-template-columns:1fr } }
 
-  /* Uniform cover with gradient border (works for img/video/div) */
+  /* unified cover with gradient border + glare + tilt (exact same shell for img/video/canvas) */
   .cover{
-    width:100%; aspect-ratio:16/9; border-radius:16px;
-    border:2px solid transparent; background:#fff;
+    width:100%; aspect-ratio:16/9; border-radius:16px; position:relative; overflow:hidden;
+    border:2px solid transparent;
     background-image:
-      linear-gradient(#fff,#fff),
+      linear-gradient(#0d142b,#0d142b),
       linear-gradient(90deg,var(--accent),var(--accent2));
     background-origin: padding-box, border-box;
     background-clip: padding-box, border-box;
-    overflow:hidden; display:block; object-fit:cover;
-    box-shadow:0 6px 22px rgba(2,8,20,.06);
+    box-shadow: 0 12px 30px rgba(3,8,28,.55);
     transform:translateZ(0);
-    transition:transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s ease;
+    transition: transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s ease;
   }
-  .tilt:hover{ transform:perspective(900px) rotateX(2deg) rotateY(-2deg) translateY(-2px) }
-  video.cover{ pointer-events:none }
+  /* glare */
+  .cover::after{
+    content:""; position:absolute; inset:-40% -20% auto -20%; height:160%;
+    background:linear-gradient(105deg, rgba(255,255,255,.22), rgba(255,255,255,.04) 30%, rgba(255,255,255,0) 60%);
+    transform:translateY(-50%) rotate(12deg); transition:transform .25s ease, opacity .25s ease; opacity:.2; pointer-events:none;
+  }
+  .tilt:hover{ transform:perspective(1100px) rotateX(2.1deg) rotateY(-2.1deg) translateY(-2px) }
+  .tilt:hover::after{ transform:translateY(-40%) rotate(12deg); opacity:.28 }
+  video.cover{ pointer-events:none; object-fit:cover }
   video.cover::-webkit-media-controls{ display:none !important }
 
-  /* Animated KAG graph cover */
-  .graph-wrap{ position:relative }
-  .graph-svg{ position:absolute; inset:0 }
-  .g-node{ fill:#0b57d0; opacity:.35 }
-  .g-node.core{ opacity:.9 }
-  .g-edge{ stroke:#8b5cf6; stroke-dasharray:4 4; opacity:.5; stroke-width:2 }
-  .pulse{ animation:pulse 2.3s ease-in-out infinite }
-  .float{ animation:float 6s ease-in-out infinite }
-  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.22)}}
-  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-  @media (prefers-reduced-motion:reduce){ .pulse,.float{animation:none} }
+  /* graph canvas sits inside .cover */
+  .graph-canvas{ width:100%; height:100% }
 
-  /* Buttons */
+  /* buttons */
   .row-links a.btn{
-    display:inline-block; border:1px solid var(--rule); padding:8px 12px;
-    border-radius:12px; text-decoration:none; margin-right:.5rem; background:#fff;
+    display:inline-block; border:1px solid #2b3964; padding:8px 12px; border-radius:12px; text-decoration:none; margin-right:.5rem;
+    background:linear-gradient(180deg,#0f162e,#0c1429); color:#e6efff;
+    box-shadow:0 1px 0 rgba(255,255,255,.04) inset;
   }
-  .row-links a.btn:hover{ background:#f7faff; border-color:#d8e4ff; text-decoration:none }
+  .row-links a.btn:hover{ background:#131c37; border-color:#3a4b7b; text-decoration:none }
 
-  /* Quick look */
-  .peek{ border:1px solid var(--rule); border-radius:14px; padding:12px; background:#fff }
+  /* quick look */
+  .peek{ border:1px solid var(--rule); border-radius:14px; padding:12px; background:linear-gradient(180deg,#0f162e,#0c1429); box-shadow:0 6px 18px rgba(8,12,28,.5) }
   .peek .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:6px }
-  .peek .chip{ border:1px solid var(--rule); border-radius:999px; padding:8px 12px; font-size:.9rem; cursor:pointer; background:#fff }
-  .peek .chip.active{ background:#f7faff; border-color:#d8e4ff }
-  .peek .card{ margin-top:12px; border:1px solid var(--rule); border-radius:12px; padding:12px; background:#fff }
-  .muted{ color:var(--muted) }
+  .peek .chip{ border:1px solid #2b3964; border-radius:999px; padding:8px 12px; font-size:.9rem; cursor:pointer; background:#0b1226; color:#dfe6ff }
+  .peek .chip.active{ background:#131c37; border-color:#3a4b7b }
+  .peek .card{ margin-top:12px; border:1px solid #2b3964; border-radius:12px; padding:12px; background:#0b1226; color:#cfe0ff }
 
-  /* Reveal-on-scroll */
-  .reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease}
+  .muted{ color:#9fb0d8 }
+
+  /* reveal on scroll */
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .7s ease, transform .7s ease}
   .reveal.on{opacity:1; transform:translateY(0)}
   @media (prefers-reduced-motion:reduce){ .reveal{opacity:1; transform:none} }
 </style>
 </head>
 <body>
-  <!-- background blobs -->
-  <div class="blob"></div><div class="blob b2"></div>
+  <!-- background layers -->
+  <div class="stars"></div>
+  <div class="blob"></div><div class="blob2"></div><div class="blob3"></div>
+  <div id="cursorGlow" class="cursor-glow"></div>
 
   <main>
-    <!-- Animated title -->
     <h1 id="siteTitle" class="site-title" aria-label="Gayatri Malladi"></h1>
     <noscript><h1 class="site-title">Gayatri Malladi</h1></noscript>
 
@@ -163,10 +180,10 @@
     </p>
 
     <!-- INTRO -->
-    <section class="intro reveal" id="top">
+    <section class="intro reveal" id="intro">
       <div class="prose" id="introText">
         <p>I’m a second-year M.S. student in the Computer Science department at the University of Washington. Currently, my research supervised by <a href="https://rutadesai.github.io/" target="_blank" rel="noopener">Dr. Ruta Desai</a> focuses on agentic AI: planning and teaching language models when to ask vs. when to act, with lightweight grounding via a knowledge-augmented graph (KAG) and preference-based training using SimPO and ORPO.</p>
-        <p>Additionally, I’m exploring how to overcome short-term memory limits for long-horizon tasks using retrieval caches, summarization/compression, and Reflexion-style episodic notes that are indexed and reused across tasks with a Neo4j-backed KAG.</p>
+        <p>I’m exploring how to overcome short-term memory limits for long-horizon tasks using retrieval caches, summarization/compression, and Reflexion-style episodic notes that are indexed and reused across tasks with a Neo4j-backed KAG.</p>
         <p class="lead red">I’m open to research collaborations. Please email me on gayat23[at]uw.edu if you’re interested in assistive agents for day-to-day automation and self-evolving language models for curriculum generation, reflective fine-tuning, and preference optimization.</p>
 
         <div class="row-icons">
@@ -174,16 +191,16 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke-width="1.8"/><path d="M14 2v6h6" stroke-width="1.8"/></svg> CV
           </a>
           <a class="ico" href="https://www.linkedin.com/in/gayatri-malladi/" target="_blank" rel="me noopener" title="LinkedIn">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0 0-5zM3 9h4v12H3zM14.5 9c-2.33 0-3.5 1.27-3.5 2.72V21h4v-7.02c0-.93.67-1.73 1.86-1.73 1.13 0 1.64.8 1.64 1.73V21h4v-7.73C22.5 10.85 20.67 9 18.12 9c-1.86 0-3 .86-3.62 1.77h-.05V9h-4z"/></svg> LinkedIn
+            <svg viewBox="0 0 24 24" fill="#cfe0ff"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0 0-5zM3 9h4v12H3zM14.5 9c-2.33 0-3.5 1.27-3.5 2.72V21h4v-7.02c0-.93.67-1.73 1.86-1.73 1.13 0 1.64.8 1.64 1.73V21h4v-7.73C22.5 10.85 20.67 9 18.12 9c-1.86 0-3 .86-3.62 1.77h-.05V9h-4z"/></svg> LinkedIn
           </a>
           <a class="ico" href="https://github.com/mg-2321" target="_blank" rel="me noopener" title="GitHub">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 0 0 .5 12.3c0 5.24 3.4 9.68 8.13 11.26.6.1.82-.27.82-.58v-2.03c-3.3.73-4-1.44-4-1.44-.55-1.4-1.34-1.78-1.34-1.78-1.1-.76.08-.74.08-.74 1.2.08 1.82 1.25 1.82 1.25 1.08 1.86 2.84 1.32 3.54 1.01.1-.8.43-1.32.78-1.62-2.63-.3-5.4-1.35-5.4-6 0-1.33.47-2.42 1.24-3.27-.12-.3-.54-1.52.12-3.16 0 0 1.01-.33 3.3 1.25a11.4 11.4 0 0 1 6 0c2.29-1.58 3.3-1.25 3.3-1.25.66 1.64.24 2.86.12 3.16.77.85 1.24 1.94 1.24 3.27 0 4.67-2.78 5.7-5.42 6 .44.38.83 1.12.83 2.26v3.35c0 .32.22.69.82.58A11.5 11.5 0 0 0 23.5 12.3 11.5 11.5 0 0 0 12 .5z"/></svg> GitHub
+            <svg viewBox="0 0 24 24" fill="#cfe0ff"><path d="M12 .5A11.5 11.5 0 0 0 .5 12.3c0 5.24 3.4 9.68 8.13 11.26.6.1.82-.27.82-.58v-2.03c-3.3.73-4-1.44-4-1.44-.55-1.4-1.34-1.78-1.34-1.78-1.1-.76.08-.74.08-.74 1.2.08 1.82 1.25 1.82 1.25 1.08 1.86 2.84 1.32 3.54 1.01.1-.8.43-1.32.78-1.62-2.63-.3-5.4-1.35-5.4-6 0-1.33.47-2.42 1.24-3.27-.12-.3-.54-1.52.12-3.16 0 0 1.01-.33 3.3 1.25a11.4 11.4 0 0 1 6 0c2.29-1.58 3.3-1.25 3.3-1.25.66 1.64.24 2.86.12 3.16.77.85 1.24 1.94 1.24 3.27 0 4.67-2.78 5.7-5.42 6 .44.38.83 1.12.83 2.26v3.35c0 .32.22.69.82.58A11.5 11.5 0 0 0 23.5 12.3 11.5 11.5 0 0 0 12 .5z"/></svg> GitHub
           </a>
           <a class="ico" href="https://medium.com/@gayat23" target="_blank" rel="me noopener" title="Medium">
-            <svg viewBox="0 0 1043.63 592.71" fill="currentColor"><path d="M588.67 296.35c0 163.69-131.33 296.36-293.33 296.36S2 460.04 2 296.35 133.33 0 295.34 0s293.33 132.66 293.33 296.35Zm316.66 0c0 155.96-65.67 282.64-146.67 282.64s-146.66-126.68-146.66-282.64S677.66 13.71 758.66 13.71 905.33 140.39 905.33 296.35Zm136.64 0c0 143.3-22.5 259.43-50.25 259.43S941.47 439.65 941.47 296.35 963.98 36.92 991.72 36.92s50.25 116.13 50.25 259.43Z"/></svg> Medium
+            <svg viewBox="0 0 1043.63 592.71" fill="#cfe0ff"><path d="M588.67 296.35c0 163.69-131.33 296.36-293.33 296.36S2 460.04 2 296.35 133.33 0 295.34 0s293.33 132.66 293.33 296.35Zm316.66 0c0 155.96-65.67 282.64-146.67 282.64s-146.66-126.68-146.66-282.64S677.66 13.71 758.66 13.71 905.33 140.39 905.33 296.35Zm136.64 0c0 143.3-22.5 259.43-50.25 259.43S941.47 439.65 941.47 296.35 963.98 36.92 991.72 36.92s50.25 116.13 50.25 259.43Z"/></svg> Medium
           </a>
           <a class="ico" href="https://x.com/home" target="_blank" rel="me noopener" title="Twitter / X">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69a4.3 4.3 0 0 0 1.88-2.37 8.63 8.63 0 0 1-2.72 1.05A4.29 4.29 0 0 0 12 8.6c0 .34.04.67.11.98A12.18 12.18 0 0 1 3.15 5.1a4.26 4.26 0 0 0-.58 2.16 4.29 4.29 0 0 0 1.9 3.57 4.26 4.26 0 0 1-1.94-.54v.06a4.29 4.29 0 0 0 3.44 4.2 4.33 4.33 0 0 1-1.93.07 4.29 4.29 0 0 0 4 2.97A8.61 8.61 0 0 1 2 19.54a12.16 12.16 0 0 0 6.58 1.93c7.89 0 12.21-6.54 12.21-12.21v-.56A8.66 8.66 0 0 0 24 6.59a8.53 8.53 0 0 1-2.54.7Z"/></svg> Twitter
+            <svg viewBox="0 0 24 24" fill="#cfe0ff"><path d="M22.46 6c-.77.35-1.6.58-2.46.69a4.3 4.3 0 0 0 1.88-2.37 8.63 8.63 0 0 1-2.72 1.05A4.29 4.29 0 0 0 12 8.6c0 .34.04.67.11.98A12.18 12.18 0 0 1 3.15 5.1a4.26 4.26 0 0 0-.58 2.16 4.29 4.29 0 0 0 1.9 3.57 4.26 4.26 0 0 1-1.94-.54v.06a4.29 4.29 0 0 0 3.44 4.2 4.33 4.33 0 0 1-1.93.07 4.29 4.29 0 0 0 4 2.97A8.61 8.61 0 0 1 2 19.54a12.16 12.16 0 0 0 6.58 1.93c7.89 0 12.21-6.54 12.21-12.21v-.56A8.66 8.66 0 0 0 24 6.59a8.53 8.53 0 0 1-2.54.7Z"/></svg> Twitter
           </a>
         </div>
       </div>
@@ -211,45 +228,15 @@
     <!-- Projects -->
     <h2 id="projects" class="reveal">Projects</h2>
 
-    <!-- Agents & Planning -->
+    <!-- Agents & Planning: animated Neo4j-style cover -->
     <h3 class="reveal"><span class="pill">Agents &amp; Planning</span></h3>
     <div class="entry reveal">
-      <!-- Animated graph cover -->
-      <div class="cover graph-wrap tilt" aria-label="Short-term memory — animated KAG">
-        <svg class="graph-svg" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="2.5" result="c"/><feMerge><feMergeNode in="c"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-          </defs>
-          <!-- edges -->
-          <g stroke-width="2" filter="url(#glow)">
-            <line class="g-edge" x1="400" y1="225" x2="200" y2="120"/>
-            <line class="g-edge" x1="400" y1="225" x2="620" y2="140"/>
-            <line class="g-edge" x1="400" y1="225" x2="650" y2="300"/>
-            <line class="g-edge" x1="400" y1="225" x2="180" y2="300"/>
-            <line class="g-edge" x1="200" y1="120" x2="130" y2="70"/>
-            <line class="g-edge" x1="620" y1="140" x2="720" y2="90"/>
-            <line class="g-edge" x1="650" y1="300" x2="730" y2="360"/>
-            <line class="g-edge" x1="180" y1="300" x2="90" y2="350"/>
-          </g>
-          <!-- nodes -->
-          <g>
-            <circle class="g-node core pulse" cx="400" cy="225" r="10"/>
-            <circle class="g-node float" cx="200" cy="120" r="7"/>
-            <circle class="g-node float" cx="620" cy="140" r="7" style="animation-delay:.2s"/>
-            <circle class="g-node float" cx="650" cy="300" r="7" style="animation-delay:.4s"/>
-            <circle class="g-node float" cx="180" cy="300" r="7" style="animation-delay:.6s"/>
-            <circle class="g-node" cx="130" cy="70" r="5"/>
-            <circle class="g-node" cx="720" cy="90" r="5"/>
-            <circle class="g-node" cx="730" cy="360" r="5"/>
-            <circle class="g-node" cx="90" cy="350" r="5"/>
-          </g>
-        </svg>
+      <div class="cover tilt" aria-label="Short-term memory — animated KAG">
+        <canvas id="kagCanvas" class="graph-canvas"></canvas>
       </div>
       <div>
         <div class="title">Solving Short-term Memory Limits of ADAPT Agents</div>
-        <p>Knowledge-Augmented Graph for long-term user preferences + a diffusion-style drive model for smoother planning under uncertainty.</p>
+        <p>Neo4j-backed Knowledge-Augmented Graph for user preferences + a diffusion-style drive model for uncertainty-aware planning.</p>
         <p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a><a class="btn" href="papers/adapt-kag.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
@@ -261,7 +248,7 @@
       <video id="waymoVid" class="cover tilt" autoplay muted playsinline preload="auto" poster="images/waymo-forecast.jpg"></video>
       <div>
         <div class="title">Future Trajectory Prediction for Autonomous Vehicles</div>
-        <p>Diffusion-based model predicting 5-second future trajectories in long-tail scenarios using the Waymo Open Dataset; explicitly models multimodal uncertainty.</p>
+        <p>Diffusion-based model predicting 5-second future trajectories in long-tail scenarios using the Waymo Open Dataset; models multimodal uncertainty.</p>
         <p class="row-links">
           <a class="btn" href="https://github.com/mg-2321/Waymo_trajectory_prediction" target="_blank">Code</a>
           <a class="btn" href="papers/waymo-forecast.pdf" target="_blank">Paper</a>
@@ -280,7 +267,7 @@
       <img class="cover tilt" src="images/cuda-limo.jpg" alt="CUDA optimization preview" style="display:none">
       <div>
         <div class="title">Optimizing LIMO Pipeline with CUDA Parallelization</div>
-        <p>Shared-memory tiling, async transfers, and custom kernels for 2D conv, keyframe selection, and pose estimation, improving kernel time by up to 60%.</p>
+        <p>Shared-memory tiling, async transfers, custom conv kernels; Nsight-guided profiling improves kernel time by up to 60%.</p>
         <p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank">Code</a><a class="btn" href="papers/limo-cuda.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
@@ -301,8 +288,8 @@
           <li>Benchmarked CenterNet vs Faster R-CNN/SSD on CHVG &amp; Pictor; deployed best ResNet-50 variant in a lightweight web app.</li>
         </ul>
         <p class="row-links">
-          <a class="btn" href="https://github.com/mg-2321/Safety-equipment-check-using-object-detection" target="_blank" rel="noopener">Code</a>
-          <a class="btn" href="papers/worker-safety.pdf" target="_blank" rel="noopener">Paper</a>
+          <a class="btn" href="https://github.com/mg-2321/Safety-equipment-check-using-object-detection" target="_blank">Code</a>
+          <a class="btn" href="papers/worker-safety.pdf" target="_blank">Paper</a>
         </p>
       </div>
     </div>
@@ -318,10 +305,10 @@
       <img class="cover tilt" src="images/eeg-stroke.jpg" alt="EEG poster" style="display:none">
       <div>
         <div class="title">Stroke Rehabilitation — EEG Motor Action Classification</div>
-        <p>Pre/post-stroke EEG analysis for motor actions (hand wave, clench, face rub) with ICA, band-pass filtering, and PCA; models: Decision Trees, SVMs, NNs.</p>
+        <p>Pre/post-stroke EEG analysis for motor actions with ICA, band-pass filtering, PCA; models: Decision Trees, SVMs, NNs.</p>
         <p class="row-links">
-          <a class="btn" href="https://github.com/mg-2321/Stroke_Rehabilitation" target="_blank" rel="noopener">Code</a>
-          <a class="btn" href="https://github.com/mg-2321/Stroke_Rehabilitation/blob/main/Iteration%204_%20Paper-4.pdf" target="_blank" rel="noopener">Project paper</a>
+          <a class="btn" href="https://github.com/mg-2321/Stroke_Rehabilitation" target="_blank">Code</a>
+          <a class="btn" href="https://github.com/mg-2321/Stroke_Rehabilitation/blob/main/Iteration%204_%20Paper-4.pdf" target="_blank">Project paper</a>
         </p>
       </div>
     </div>
@@ -331,16 +318,16 @@
 
     <div class="entry reveal">
       <img class="cover tilt" src="images/nlp-si.jpg" alt="NLP cover"
-           onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 450%22><rect width=%22800%22 height=%22450%22 rx=%2216%22 ry=%2216%22 fill=%22%23fff%22/></svg>'">
+           onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 450%22><rect width=%22800%22 height=%22450%22 rx=%2216%22 ry=%2216%22 fill=%22%230d142b%22/></svg>'">
       <div>
         <div class="title">NLP for Suicide Ideation &amp; Attempt Detection</div>
-        <p>Preprocessed clinical + forum text (MIMIC-III, SuicideWatch); compared GloVe/Word2Vec/FastText/CBOW; trained BERT &amp; RoBERTa vs Bi-LSTM baselines.</p>
+        <p>MIMIC-III & SuicideWatch; GloVe/Word2Vec/FastText/CBOW; BERT &amp; RoBERTa vs Bi-LSTM baselines.</p>
         <p class="row-links"><a class="btn" href="#" target="_blank">Code</a><a class="btn" href="papers/nlp-suicide-risk.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
 
     <div class="entry reveal">
-      <!-- Fix: .cover used for video so border is perfectly aligned -->
+      <!-- exact same .cover shell so borders align perfectly -->
       <video id="vulnVid" class="cover tilt" autoplay muted playsinline preload="auto" loop
              poster="images/llm-security.jpg"></video>
       <div>
@@ -352,7 +339,7 @@
 
     <div class="hr reveal"></div>
 
-    <!-- Project quick look (replaces “Ask about my work”) -->
+    <!-- Quick look (replaces ask-me) -->
     <h2 id="peek" class="reveal">Project quick look</h2>
     <div class="peek reveal">
       <div class="chips">
@@ -373,16 +360,29 @@
   // Footer year
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  // Title typing
+  // Title typing (like ref)
   (function typeTitle(){
     const el = document.getElementById('siteTitle');
     const text = el.getAttribute('aria-label') || 'Gayatri Malladi';
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){ el.textContent = text; return; }
     el.textContent = ''; el.classList.add('typing');
-    let i = 0; (function tick(){ if(i<text.length){ el.textContent += text.charAt(i++); setTimeout(tick,80); } else { el.classList.remove('typing'); } })();
+    let i = 0; (function tick(){ if(i<text.length){ el.textContent += text.charAt(i++); setTimeout(tick,75); } else { el.classList.remove('typing'); } })();
   })();
 
-  // Reveal-on-scroll (IntersectionObserver)
+  // Cursor glow
+  (function cursorGlow(){
+    const g = document.getElementById('cursorGlow');
+    if (!g) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){ g.style.display='none'; return; }
+    window.addEventListener('mousemove', (e)=> {
+      g.style.left = e.clientX + 'px';
+      g.style.top  = e.clientY + 'px';
+      g.style.opacity = .35;
+    });
+    window.addEventListener('mouseleave', ()=> g.style.opacity = 0);
+  })();
+
+  // Reveal-on-scroll
   (function revealOnScroll(){
     const els=[...document.querySelectorAll('.reveal')];
     const show=el=>el.classList.add('on');
@@ -391,21 +391,18 @@
     els.forEach(el=>io.observe(el));
   })();
 
-  // Fit portrait to intro text
+  // Fit portrait height to intro text (desktop)
   function fitPortrait(){
     const prose = document.getElementById('introText');
     const img   = document.getElementById('introPhoto');
     if(!prose || !img) return;
     const h = Math.ceil(prose.getBoundingClientRect().height);
-    if (window.matchMedia('(min-width: 861px)').matches) {
-      img.style.height = h + 'px';
-    } else {
-      img.style.height = 'auto';
-    }
+    if (window.matchMedia('(min-width: 901px)').matches) img.style.height = h + 'px';
+    else img.style.height = 'auto';
   }
   window.addEventListener('load', fitPortrait);
   window.addEventListener('resize', ()=>{ clearTimeout(window.__rp); window.__rp=setTimeout(fitPortrait,120); });
-  document.getElementById('introPhoto').addEventListener('load', fitPortrait);
+  document.getElementById('introPhoto')?.addEventListener('load', fitPortrait);
 
   // Tokenizer toy
   function isWordChar(ch){const c=ch.charCodeAt(0);return (c>=48&&c<=57)||(c>=65&&c<=90)||(c>=97&&c<=122)||ch==='_';}
@@ -414,7 +411,7 @@
   function renderTokens(){const v=tokInput.value.trim();const t=v?tokenize(v):[];tokOut.innerHTML=t.map(x=>`<span class="tok">${x}</span>`).join('');tokStats.textContent=v?`${t.length} tokens (illustrative)`:''}
   tokInput.addEventListener('input',renderTokens);renderTokens();
 
-  // Waymo two-clip playlist (cover + plots)
+  // Waymo playlist (cover + plots)
   (function initWaymoVideo(){
     const v = document.getElementById('waymoVid'); if(!v) return;
     v.loop = false;
@@ -430,7 +427,7 @@
     nextSource();
   })();
 
-  // LLM vulnerability video: robust fallbacks (keeps gradient border)
+  // LLM vulnerability video fallbacks (keeps .cover shell)
   (function initVulnVideo(){
     const v = document.getElementById('vulnVid'); if(!v) return;
     const raw = p=>'https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/'+p.replace(/^\//,'');
@@ -443,7 +440,7 @@
     v.addEventListener('error', tryNext); tryNext();
   })();
 
-  /* Project quick look content */
+  // Quick look
   const KB={
     waymo:{t:'Future Trajectory Prediction for Autonomous Vehicles',d:'Diffusion-based forecasting on Waymo; models multimodal uncertainty and temporal dependencies.',code:'https://github.com/mg-2321/Waymo_trajectory_prediction',paper:'papers/waymo-forecast.pdf'},
     cuda:{t:'Optimizing LIMO Pipeline with CUDA Parallelization',d:'Shared-memory tiling, async copies, custom conv kernels; Nsight-guided speedups up to 60%.',code:'https://github.com/mg-2321',paper:'papers/limo-cuda.pdf'},
@@ -464,6 +461,60 @@
       ch.classList.add('active'); renderPeek(ch.dataset.id);
     });
   });
+
+  // ===== animated graph canvas (neo4j-ish constellation) =====
+  (function graph(){
+    const canvas = document.getElementById('kagCanvas'); if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const DPR = Math.min(window.devicePixelRatio||1, 2);
+    let w, h, nodes;
+    function resize(){
+      const r = canvas.getBoundingClientRect();
+      w = Math.floor(r.width*DPR); h = Math.floor(r.height*DPR);
+      canvas.width = w; canvas.height = h; canvas.style.width = r.width+'px'; canvas.style.height = r.height+'px';
+      make();
+    }
+    function make(){
+      const N = 34;
+      nodes = Array.from({length:N}, (_,i)=>({
+        x: (w*0.25) + Math.random()*w*0.5,
+        y: (h*0.25) + Math.random()*h*0.5,
+        vx: (Math.random()-.5)*0.35*DPR,
+        vy: (Math.random()-.5)*0.35*DPR,
+        r: i%9===0? 5*DPR : (2+Math.random()*2)*DPR,
+        core: i%9===0
+      }));
+    }
+    function step(){
+      ctx.clearRect(0,0,w,h);
+      // edges
+      ctx.lineWidth = 1.6*DPR; ctx.setLineDash([4*DPR, 4*DPR]); ctx.strokeStyle = 'rgba(155,123,255,.55)';
+      for(let i=0;i<nodes.length;i++){
+        for(let j=i+1;j<nodes.length;j++){
+          const a=nodes[i], b=nodes[j];
+          const dx=a.x-b.x, dy=a.y-b.y, d=dx*dx+dy*dy;
+          if(d < (150*DPR)*(150*DPR)){
+            ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+          }
+        }
+      }
+      ctx.setLineDash([]);
+      // nodes
+      for(const n of nodes){
+        ctx.beginPath();
+        ctx.fillStyle = n.core ? 'rgba(90,163,255,.95)' : 'rgba(90,163,255,.45)';
+        ctx.shadowColor = 'rgba(90,163,255,.35)'; ctx.shadowBlur = n.core? 18*DPR : 8*DPR;
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI*2); ctx.fill(); ctx.shadowBlur = 0;
+        // motion
+        n.x += n.vx; n.y += n.vy;
+        if(n.x<10*DPR||n.x>w-10*DPR) n.vx*=-1;
+        if(n.y<10*DPR||n.y>h-10*DPR) n.vy*=-1;
+      }
+      requestAnimationFrame(step);
+    }
+    resize(); step();
+    window.addEventListener('resize', ()=>{ clearTimeout(window.__kagR); window.__kagR=setTimeout(resize,120); });
+  })();
 </script>
 </body>
 </html>
