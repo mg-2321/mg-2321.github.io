@@ -1,368 +1,476 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Gayatri Malladi</title>
-<meta name="description" content="Gayatri Malladi — Agentic AI, LLMs, projects."/>
+<meta name="description" content="Gayatri Malladi — Agentic AI, LLMs, CUDA, Waymo, EEG, and more." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0b0b11; --card:#171824; --card2:#212335;
-  --ink:#eef1ff; --muted:#a9b2cc; --rule:#2a2e44;
-  --accent:#7c84ff; --accent2:#4ad7c1; --glow:#6e70ff55;
+  --bg:#0b0d12; --card:#11141b; --ink:#e8ecf5; --muted:#a9b2c3;
+  --rule:#242a36; --mint:#c6f3e1; --vio:#a796ff; --vio2:#7a66ff; --accent:#7f8cff;
+  --ring:0 10px 40px rgba(160,130,255,.25);
 }
 *{box-sizing:border-box}
-html,body{height:100%}
+html,body{margin:0;padding:0}
 body{
-  margin:0; background:#0b0b11; color:var(--ink);
   font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-  line-height:1.7;
-  background:
-    radial-gradient(1400px 600px at -10% 0%, #15182a 0%, transparent 55%),
-    radial-gradient(900px 400px at 120% -10%, #121528 0%, transparent 55%),
-    #0b0b11;
+  color:var(--ink); background:
+    radial-gradient(1200px 800px at 10% -10%, #1a2030 0, transparent 60%),
+    radial-gradient(1000px 700px at 95% 10%, #151a28 0, transparent 65%),
+    var(--bg);
+  line-height:1.65;
 }
-.container{max-width:1200px; margin:0 auto; padding:26px 18px 90px}
-h1{margin:0 0 8px; font-weight:800; font-size:3.2rem; letter-spacing:.3px}
-.smallnav{margin:0 0 28px; color:var(--muted)}
-.smallnav a{color:var(--muted); text-decoration:none; margin-right:1rem}
-.smallnav a:hover{color:#fff}
+a{color:#9bb2ff;text-decoration:none}
+a:hover{text-decoration:underline}
+main{max-width:1180px;margin:0 auto;padding:28px 18px 80px}
 
-/* ====== HERO (reference-like) ====== */
-.hero{
-  display:grid; grid-template-columns:1.1fr 1.2fr; gap:24px; align-items:stretch;
+/* Header */
+.site-title{font-size:2.6rem;font-weight:800;text-align:center;margin:6px 0 6px;letter-spacing:.5px}
+.mini-nav{display:flex;gap:18px;justify-content:center;margin:6px 0 32px}
+.mini-nav a{padding:8px 12px;border:1px solid var(--rule);border-radius:999px;background:#0e1220}
+.mini-nav a:hover{background:#12182a;text-decoration:none}
+.mini-nav a[data-scroll]{cursor:pointer}
+
+/* Hero (replicates reference) */
+.hero{display:grid;grid-template-columns:minmax(0,560px) 1fr;gap:26px;align-items:start}
+@media (max-width:980px){.hero{grid-template-columns:1fr}}
+.card{
+  background:linear-gradient(180deg,#6f68ff 0%, #7f73ff 100%);
+  border-radius:28px; padding:22px; position:relative; box-shadow:var(--ring);
 }
-@media (max-width:1040px){ .hero{grid-template-columns:1fr} }
-
-.cardAbout{
-  background:linear-gradient(180deg,#6e70ff 0%, #7c84ff 100%);
-  border-radius:28px; padding:28px; position:relative; box-shadow:0 24px 70px #0008;
-  animation:fadeUp .6s ease-out both;
+.card::before{
+  content:"• About Me"; position:absolute; top:-14px; left:22px;
+  font-size:.85rem; color:#eaf; background:#1a1730; padding:6px 10px; border-radius:12px;
+  border:1px solid #2e2a46;
 }
-.badge{position:absolute; top:-14px; left:18px; background:#0e0f16; color:#fff; padding:10px 14px; border-radius:16px 16px 16px 6px; font-weight:700; font-size:.88rem}
-.portrait{
-  width:190px; height:190px; border-radius:50%; border:6px solid #eef1ff;
-  object-fit:cover; display:block; margin:6px 0 20px; background:#cdd3ff;
+.profile{
+  display:flex; align-items:center; gap:16px; margin-top:4px; margin-bottom:18px;
 }
-.cardAbout h2{font-size:2.7rem; line-height:1.12; margin:8px 0 10px; color:#fff}
-.cardAbout p{max-width:42ch; color:#f7f7ff; margin:.3rem 0}
-.social{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
-.ico{display:inline-flex; align-items:center; gap:8px; background:#fff; color:#151828; font-weight:700; padding:7px 11px; border-radius:12px}
-.ico svg{width:18px;height:18px}
-.ico:hover{filter:brightness(.96)}
-
-/* Right column */
-.right{display:grid; grid-template-columns:1.2fr .8fr; grid-template-rows:auto auto auto; gap:18px}
-@media (max-width:1040px){ .right{grid-template-columns:1fr} }
-.big{grid-column:1/-1; font-size:3.4rem; font-weight:800; letter-spacing:.5px; margin:0}
-.stat{
-  border-radius:20px; padding:18px; box-shadow:0 10px 34px #0007; border:1px solid #0002; animation:fadeUp .6s ease-out both .08s
+.avatar{
+  width:116px;height:116px;border-radius:50%;border:6px solid rgba(255,255,255,.25);
+  background:#111; overflow:hidden; flex:0 0 auto;
 }
-.mint{background:#c8f5e5; color:#0e3c2f}
-.lav{background:#beb6ff; color:#1d1444}
-.num{font-size:3.2rem; font-weight:800; line-height:1}
-.lbl{font-weight:700}
-
-.cta{grid-column:1/-1; background:#212335; border:1px solid #31365a; border-radius:20px; padding:16px 18px; display:flex; align-items:center; justify-content:space-between; gap:12px}
-.cta strong{font-weight:800}
-.cta button{border:1px solid #3d4570; background:#2b304a; color:#e9ecff; padding:10px 14px; border-radius:12px; cursor:pointer}
-.cta button:hover{background:#343b5b}
-
-/* ====== PROJECTS ====== */
-h3{font-size:1rem; letter-spacing:.08em; text-transform:uppercase; color:#b8bff0; margin:34px 0 6px}
-.entry{display:grid;grid-template-columns:520px 1fr;gap:18px;align-items:start;margin:18px 0 30px}
-@media (max-width:1000px){.entry{grid-template-columns:1fr}}
-.title{font-weight:800}
-.desc{color:var(--muted)}
-
-/* Consistent framed cover (fixes misaligned borders) */
-.coverFrame{
-  width:100%; aspect-ratio:16/9; border-radius:16px; position:relative;
-  background:linear-gradient(#0f1220,#0f1220) padding-box, linear-gradient(90deg,var(--accent),var(--accent2)) border-box;
-  border:2px solid transparent; box-shadow:0 16px 60px #0008, 0 0 100px var(--glow);
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-name{font-size:2.2rem; font-weight:800; line-height:1.1}
+.hero-sub{opacity:.95}
+.hero-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.chip{
+  display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.25); background:rgba(12,16,32,.35); color:#fff;
 }
-.coverMedia{position:absolute; inset:8px; width:calc(100% - 16px); height:calc(100% - 16px); border-radius:12px; overflow:hidden; background:#0e1220}
-.coverMedia>*{width:100%;height:100%;object-fit:cover;display:block}
-video::-webkit-media-controls{display:none !important}
-.coverFrame:hover{transform:translateY(-2px); transition:transform .25s}
+.chip svg{width:18px;height:18px;display:block;fill:#fff}
 
-/* Animated graph for short-term memory */
-.graphWrap{position:absolute; inset:8px; border-radius:12px; background:#0f1324}
-.node{transform-origin:center; animation:pop 3s ease-in-out infinite}
-.node2{animation-delay:.6s}.node3{animation-delay:1.2s}.node4{animation-delay:1.8s}
-@keyframes pop{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
-.link{stroke:#7aa2ff; stroke-width:2; stroke-dasharray:6 8; animation:dash 7s linear infinite}
-@keyframes dash{to{stroke-dashoffset:-160}}
+/* Overview stack on the right */
+.overview h2{font-size:2.6rem;margin:4px 0 14px}
+.gridR{display:grid;gap:16px;grid-template-columns:1fr 260px}
+@media (max-width:1200px){.gridR{grid-template-columns:1fr}}
+.box{background:var(--card); border:1px solid var(--rule); border-radius:16px; padding:14px}
+.metric{
+  background:linear-gradient(180deg,var(--mint),#a5e7d5); color:#16211f;
+  border:none; border-radius:18px; padding:18px 20px; box-shadow:0 6px 28px rgba(95,255,210,.12);
+}
+.metric .num{font-size:3rem;font-weight:800;line-height:1}
+.metric .lbl{opacity:.75}
 
-.hr{height:1px;background:#20243a;margin:30px 0}
-.muted{color:#98a3c6}
+/* Concierge preview (fake chat) */
+.preview{border-radius:18px;background:#121724;border:1px solid #242b3a;padding:12px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+.preview .titlebar{height:14px;width:100%;border:1px solid #242b3a;border-radius:10px;margin-bottom:10px;opacity:.7}
+.bubble{max-width:460px;border-radius:12px;padding:10px 12px}
+.b1{background:#0f1b2e;border:1px solid #24324b}
+.b2{background:#161d2b;border:1px solid #2a364e;margin-left:30px}
 
-@keyframes fadeUp{from{opacity:0; transform:translateY(24px)} to{opacity:1; transform:translateY(0)}}
+/* Concierge CTA */
+.cta{
+  background:#1a1f2a;border:1px solid #2c3345;border-radius:16px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center
+}
+.cta .btn{border:1px solid #3b4461;border-radius:10px;padding:8px 12px;background:#12182a;color:#dbe4ff;text-decoration:none}
+.cta .btn:hover{background:#0f1424}
+
+/* Intro prose under hero */
+.intro{margin:28px 0 12px;display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:24px;align-items:start}
+@media (max-width:980px){.intro{grid-template-columns:1fr}}
+.portrait{border-radius:18px;overflow:hidden;border:1px solid var(--rule)}
+.portrait img{display:block;width:100%;height:auto}
+
+/* Token ribbon + toy */
+.ribbon{margin-top:12px;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:#0f1422}
+.rtrack{display:flex;gap:2rem;white-space:nowrap;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9rem;padding:10px 12px;color:#bcd;opacity:.9}
+.scroll{animation:marq 26s linear infinite}
+.scroll2{animation:marq 34s linear infinite reverse}
+@keyframes marq{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.scroll,.scroll2{animation:none}}
+
+.play{border:1px solid var(--rule);border-radius:12px;padding:14px;margin-top:12px;background:#0f1422}
+.play input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #283149;background:#0a1122;color:#dbe7ff}
+.tokens{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tok{font:600 .8rem ui-monospace,Menlo,Consolas,monospace;padding:4px 8px;border-radius:8px;background:#141c30;border:1px solid #27324f;color:#cfe2ff}
+
+/* Section heading */
+h3.section{font-size:1.8rem;margin:30px 0 8px;position:relative}
+h3.section::after{content:"";display:block;width:72px;height:4px;border-radius:4px;
+  background:linear-gradient(90deg,#7c92ff,#a88bff);margin-top:8px}
+
+/* Projects list */
+.tag{display:inline-block;font-size:.75rem;padding:2px 8px;border-radius:999px;border:1px solid #2f3650;background:#12182a;color:#cbd6ff;margin-bottom:8px}
+.entry{display:grid;grid-template-columns:minmax(0,520px) 1fr;gap:18px;align-items:start;margin:18px 0 28px}
+@media (max-width:980px){.entry{grid-template-columns:1fr}}
+/* Perfectly aligned bordered covers */
+.coverWrap{
+  border:2px solid transparent;border-radius:18px;padding:10px;background:
+    linear-gradient(#0f1422,#0f1422) padding-box,
+    linear-gradient(90deg,#7c92ff,#a88bff) border-box;
+  box-shadow:0 12px 40px rgba(120,100,255,.15);
+}
+.aspect{position:relative;width:100%;padding-top:56.25%;overflow:hidden;border-radius:12px}
+.aspect > *{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border:0}
+.entry .title{font-weight:700;font-size:1.05rem}
+.links a{margin-right:.6rem}
+
+/* “Coming soon” network animation */
+.soonCanvas{background:#0d1222}
+.dot{position:absolute;width:8px;height:8px;border-radius:50%;background:#79c3ff}
+.link{position:absolute;border-top:2px dashed #5270ff; transform-origin:0 0; opacity:.8}
+
+/* Concierge modal (quick look) */
+.modal{position:fixed;inset:0;background:rgba(6,8,14,.65);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px;z-index:10}
+.modal .panel{width:min(900px,92vw);background:#0f1420;border:1px solid #26304a;border-radius:16px;padding:16px}
+.modal .bar{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.modal .bar input{flex:1;padding:10px 12px;border-radius:10px;border:1px solid #2a3553;background:#0a1226;color:#dfe8ff}
+.modal .bar button{border:1px solid #3a466b;border-radius:10px;padding:8px 12px;background:#131b30;color:#cfe0ff;cursor:pointer}
+.modal .chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.modal .chip{border:1px solid #334066;border-radius:999px;padding:6px 10px;background:#0f1630;color:#d9e4ff}
+.modal .chat{display:flex;flex-direction:column;gap:10px;max-height:50vh;overflow:auto}
+.modal .close{margin-left:auto}
+
+/* Footer */
+.footer{margin:36px 0 0;color:#8ea0c7}
 </style>
 </head>
 <body>
-  <div class="container">
+<main>
+  <h1 class="site-title">Gayatri Malladi</h1>
+  <nav class="mini-nav">
+    <a data-scroll="#projects">Projects</a>
+    <a id="openConcierge" href="javascript:void(0)">Quick look</a>
+  </nav>
 
-    <!-- HERO -->
-    <section class="hero">
-      <div class="cardAbout">
-        <div class="badge">✺ About Me</div>
-        <img class="portrait" src="https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3" alt="Gayatri portrait"/>
-        <h2>I am,<br/>Gayatri<br/>Malladi</h2>
-        <p>Agentic AI • LLM tooling • planning &amp; preference graphs.</p>
-        <p>For more info, open the concierge below to chat about my work.</p>
-
-        <div class="social">
-          <a class="ico" href="https://drive.google.com/file/d/1jZH0jteuhUbrC89-lrSqJUhDhwv0UxIH/view?usp=sharing" target="_blank" title="CV">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke-width="1.8"/><path d="M14 2v6h6" stroke-width="1.8"/></svg> CV
-          </a>
-          <a class="ico" href="https://medium.com/@gayat23" target="_blank" title="Medium">
-            <svg viewBox="0 0 1043.63 592.71" fill="currentColor"><path d="M588.67 296.35c0 163.69-131.33 296.36-293.33 296.36S2 460.04 2 296.35 133.33 0 295.34 0s293.33 132.66 293.33 296.35Zm316.66 0c0 155.96-65.67 282.64-146.67 282.64s-146.66-126.68-146.66-282.64S677.66 13.71 758.66 13.71 905.33 140.39 905.33 296.35Zm136.64 0c0 143.3-22.5 259.43-50.25 259.43S941.47 439.65 941.47 296.35 963.98 36.92 991.72 36.92s50.25 116.13 50.25 259.43Z"/></svg> Medium
-          </a>
-          <a class="ico" href="https://x.com/home" target="_blank" title="Twitter / X">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69a4.3 4.3 0 0 0 1.88-2.37 8.63 8.63 0 0 1-2.72 1.05A4.29 4.29 0 0 0 12 8.6c0 .34.04.67.11.98A12.18 12.18 0 0 1 3.15 5.1a4.26 4.26 0 0 0-.58 2.16 4.29 4.29 0 0 0 1.9 3.57 4.26 4.26 0 0 1-1.94-.54v.06a4.29 4.29 0 0 0 3.44 4.2 4.33 4.33 0 0 1-1.93.07 4.29 4.29 0 0 0 4 2.97A8.61 8.61 0 0 1 2 19.54a12.16 12.16 0 0 0 6.58 1.93c7.89 0 12.21-6.54 12.21-12.21v-.56A8.66 8.66 0 0 0 24 6.59a8.53 8.53 0 0 1-2.54.7Z"/></svg> Twitter
-          </a>
-          <a class="ico" href="https://github.com/mg-2321" target="_blank" title="GitHub">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 0 0 .5 12.3c0 5.24 3.4 9.68 8.13 11.26.6.1.82-.27.82-.58v-2.03c-3.3.73-4-1.44-4-1.44-.55-1.4-1.34-1.78-1.34-1.78-1.1-.76.08-.74.08-.74 1.2.08 1.82 1.25 1.82 1.25 1.08 1.86 2.84 1.32 3.54 1.01.1-.8.43-1.32.78-1.62-2.63-.3-5.4-1.35-5.4-6 0-1.33.47-2.42 1.24-3.27-.12-.3-.54-1.52.12-3.16 0 0 1.01-.33 3.3 1.25a11.4 11.4 0 0 1 6 0c2.29-1.58 3.3-1.25 3.3-1.25.66 1.64.24 2.86.12 3.16.77.85 1.24 1.94 1.24 3.27 0 4.67-2.78 5.7-5.42 6 .44.38.83 1.12.83 2.26v3.35c0 .32.22.69.82.58A11.5 11.5 0 0 0 23.5 12.3 11.5 11.5 0 0 0 12 .5z"/></svg> GitHub
-          </a>
-        </div>
+  <!-- HERO -->
+  <section class="hero" aria-label="Overview">
+    <!-- Left card -->
+    <div class="card">
+      <div class="profile">
+        <span class="avatar">
+          <img src="https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=4" alt="Gayatri photo">
+        </span>
+        <div class="hero-name">I am,<br/>Gayatri Malladi</div>
       </div>
+      <p class="hero-sub">For more info, open the concierge below to ask about projects, models, datasets, or code.</p>
+      <div class="hero-links">
+        <a class="chip" href="https://drive.google.com/file/d/1jZH0jteuhUbrC89-lrSqJUhDhwv0UxIH/view?usp=sharing" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg> CV
+        </a>
+        <a class="chip" href="https://medium.com/@gayat23" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="4"/><circle cx="14" cy="12" r="6"/><circle cx="21" cy="12" r="2"/></svg> Medium
+        </a>
+        <a class="chip" href="https://x.com/home" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M3 3l18 18M21 3 3 21"/></svg> Twitter
+        </a>
+        <a class="chip" href="https://github.com/mg-2321" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 .5A11.5 11.5 0 0 0 .5 12.3c0 5.24 3.4 9.68 8.13 11.26.6.1.82-.27.82-.58v-2.03c-3.3.73-4-1.44-4-1.44-.55-1.4-1.34-1.78-1.34-1.78-1.1-.76.08-.74.08-.74 1.2.08 1.82 1.25 1.82 1.25 1.08 1.86 2.84 1.32 3.54 1.01.1-.8.43-1.32.78-1.62-2.63-.3-5.4-1.35-5.4-6 0-1.33.47-2.42 1.24-3.27-.12-.3-.54-1.52.12-3.16 0 0 1.01-.33 3.3 1.25a11.4 11.4 0 0 1 6 0c2.29-1.58 3.3-1.25 3.3-1.25.66 1.64.24 2.86.12 3.16.77.85 1.24 1.94 1.24 3.27 0 4.67-2.78 5.7-5.42 6 .44.38.83 1.12.83 2.26v3.35c0 .32.22.69.82.58A11.5 11.5 0 0 0 23.5 12.3 11.5 11.5 0 0 0 12 .5z"/></svg> GitHub
+        </a>
+      </div>
+    </div>
 
-      <div class="right">
-        <h1 class="big">Overview</h1>
-
-        <div class="stat mint">
-          <div class="num" data-count="6">0</div>
+    <!-- Right overview -->
+    <div class="overview">
+      <h2>Overview</h2>
+      <div class="gridR">
+        <div class="preview">
+          <div class="titlebar"></div>
+          <div class="bubble b1">Hi! I’m an assistant for Gayatri’s portfolio. What can I help you find?</div>
+          <div class="bubble b2">Tell me about the Waymo trajectory project.</div>
+          <div class="bubble b1">Diffusion-based forecasting on the Waymo Open Dataset; models multimodal uncertainty and long-tail events. Want the code or paper?</div>
+        </div>
+        <div class="metric">
+          <div class="num">6</div>
           <div class="lbl">Projects</div>
         </div>
-        <div class="stat lav">
-          <div class="num" data-count="2">0</div>
-          <div class="lbl">Papers</div>
+        <div class="cta" style="grid-column:1/-1">
+          <div><strong>Portfolio Concierge</strong><br/><span style="color:var(--muted)">Click to ask about projects, models, datasets.</span></div>
+          <a class="btn" id="openConcierge2" href="#">Open</a>
         </div>
-
-        <div class="cta">
-          <strong>Portfolio Concierge</strong>
-          <span>Ask about projects, models, datasets.</span>
-          <button id="openConcierge">Open</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== PROJECTS ===== -->
-    <h3>Agents & Planning</h3>
-    <div class="entry">
-      <div class="coverFrame">
-        <div class="graphWrap">
-          <svg viewBox="0 0 800 450" width="100%" height="100%">
-            <line class="link" x1="400" y1="220" x2="220" y2="90"/>
-            <line class="link" x1="400" y1="220" x2="620" y2="110"/>
-            <line class="link" x1="400" y1="220" x2="680" y2="280"/>
-            <line class="link" x1="400" y1="220" x2="150" y2="300"/>
-            <line class="link" x1="220" y1="90"  x2="120" y2="180"/>
-            <line class="link" x1="150" y1="300" x2="250" y2="360"/>
-            <circle class="node" cx="400" cy="220" r="18" fill="#7c84ff"/>
-            <circle class="node node2" cx="220" cy="90" r="12" fill="#38bdf8"/>
-            <circle class="node node3" cx="620" cy="110" r="12" fill="#38bdf8"/>
-            <circle class="node node4" cx="680" cy="280" r="12" fill="#38bdf8"/>
-            <circle class="node node2" cx="150" cy="300" r="12" fill="#60a5fa"/>
-            <circle class="node node3" cx="120" cy="180" r="10" fill="#60a5fa"/>
-            <circle class="node node4" cx="250" cy="360" r="10" fill="#60a5fa"/>
-            <rect x="260" y="16" rx="10" ry="10" width="280" height="38" fill="#0f1220" opacity=".9" stroke="#233"/>
-            <text x="400" y="42" text-anchor="middle" fill="#bfc7ff" font-weight="800" font-family="Plus Jakarta Sans, sans-serif">Coming soon — Short-term Memory</text>
-          </svg>
-        </div>
-      </div>
-      <div>
-        <div class="title">Solving Short-term Memory Limits of ADAPT Agents</div>
-        <p class="desc">Knowledge-Augmented Graph for long-term user preferences + diffusion-style drive model for smoother planning under uncertainty.</p>
-        <p><a href="https://github.com/mg-2321" target="_blank">Code</a> · <a href="papers/adapt-kag.pdf" target="_blank">Paper</a></p>
       </div>
     </div>
+  </section>
 
-    <h3>Machine Learning</h3>
-    <div class="entry">
-      <div class="coverFrame">
-        <div class="coverMedia">
-          <video id="waymoVid" autoplay muted playsinline preload="auto" poster="images/waymo-forecast.jpg"></video>
-        </div>
-      </div>
-      <div>
-        <div class="title">Future Trajectory Prediction for Autonomous Vehicles</div>
-        <p class="desc">Diffusion forecasting on Waymo; handles long-tail scenarios and multimodal uncertainty.</p>
-        <p><a href="https://github.com/mg-2321/Waymo_trajectory_prediction" target="_blank">Code</a> · <a href="papers/waymo-forecast.pdf" target="_blank">Paper</a></p>
-      </div>
+  <!-- Your original intro text -->
+  <section class="intro">
+    <div>
+      <p>I’m a second-year M.S. student in the Computer Science department at the University of Washington. Currently, my research supervised by <a href="https://rutadesai.github.io/" target="_blank" rel="noopener">Dr. Ruta Desai</a> focuses on agentic AI: planning and teaching language models when to ask vs. when to act, with lightweight grounding via a knowledge-augmented graph (KAG) and preference-based training using SimPO and ORPO.</p>
+      <p>I’m exploring how to overcome short-term memory limits for long-horizon tasks using retrieval caches, summarization/compression, and Reflexion-style episodic notes that are indexed and reused across tasks with a Neo4j-backed KAG.</p>
+      <p style="color:#ffb3b3">I’m open to research collaborations. Please email me on gayat23[at]uw.edu if you are interested to explore assistive agents for day-to-day task automation and self-evolving language models for curriculum generation, reflective fine-tuning, and preference optimization.</p>
     </div>
+    <aside class="portrait">
+      <img src="https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=4" alt="Portrait wide">
+    </aside>
+  </section>
 
-    <div class="entry">
-      <div class="coverFrame">
-        <div class="coverMedia">
-          <video autoplay muted loop playsinline preload="auto" poster="images/cuda-limo.jpg"
-            onerror="this.parentElement.replaceWith(Object.assign(document.createElement('img'),{src:'images/cuda-limo.jpg',style:'width:100%;height:100%;objectFit:'+'cover',className:''}))">
-            <source src="images/limo_cuda_preview_v4.mp4" type="video/mp4"/>
-            <source src="/images/limo_cuda_preview_v4.mp4" type="video/mp4"/>
-            <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/images/limo_cuda_preview_v4.mp4" type="video/mp4"/>
-          </video>
-        </div>
-      </div>
-      <div>
-        <div class="title">Optimizing LIMO Pipeline with CUDA Parallelization</div>
-        <p class="desc">Shared-memory tiling, async transfers, custom kernels — up to 60% kernel speedup.</p>
-        <p><a href="https://github.com/mg-2321" target="_blank">Code</a> · <a href="papers/limo-cuda.pdf" target="_blank">Paper</a></p>
-      </div>
-    </div>
-
-    <div class="entry">
-      <div class="coverFrame">
-        <div class="coverMedia">
-          <video autoplay muted loop playsinline preload="auto" poster="images/worker-safety.jpg"
-            onerror="this.parentElement.replaceWith(Object.assign(document.createElement('img'),{src:'images/worker-safety.jpg',style:'width:100%;height:100%;objectFit:'+'cover'}))">
-            <source src="ppe_pass_fail_corrected.mp4" type="video/mp4"/>
-            <source src="/ppe_pass_fail_corrected.mp4" type="video/mp4"/>
-            <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/ppe_pass_fail_corrected.mp4" type="video/mp4"/>
-          </video>
-        </div>
-      </div>
-      <div>
-        <div class="title">Real-time Construction Worker Safety Inspection</div>
-        <p class="desc">CenterNet PPE compliance detector with gate alerts; CHVG &amp; Pictor benchmarks.</p>
-        <p><a href="https://github.com/mg-2321/Safety-equipment-check-using-object-detection" target="_blank">Code</a> · <a href="papers/worker-safety.pdf" target="_blank">Paper</a></p>
-      </div>
-    </div>
-
-    <div class="entry">
-      <div class="coverFrame">
-        <div class="coverMedia">
-          <video autoplay muted loop playsinline preload="auto" poster="images/eeg-stroke.jpg"
-            onerror="this.parentElement.replaceWith(Object.assign(document.createElement('img'),{src:'images/eeg-stroke.jpg',style:'width:100%;height:100%;objectFit:'+'cover'}))">
-            <source src="cover_all_in_one_paper_exact4.mp4" type="video/mp4"/>
-            <source src="/cover_all_in_one_paper_exact4.mp4" type="video/mp4"/>
-            <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/cover_all_in_one_paper_exact4.mp4" type="video/mp4"/>
-          </video>
-        </div>
-      </div>
-      <div>
-        <div class="title">Stroke Rehabilitation — EEG Motor Action Classification</div>
-        <p class="desc">Pre/post-stroke EEG actions + ICA, filters, PCA; DT/SVM/NN models.</p>
-        <p><a href="https://github.com/mg-2321/Stroke_Rehabilitation" target="_blank">Code</a> · <a href="https://github.com/mg-2321/Stroke_Rehabilitation/blob/main/Iteration%204_%20Paper-4.pdf" target="_blank">Project paper</a></p>
-      </div>
-    </div>
-
-    <h3>NLP & Safety</h3>
-    <div class="entry">
-      <div class="coverFrame">
-        <div class="coverMedia">
-          <img src="images/nlp-si.jpg" alt="NLP cover"
-               onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 450%22><rect width=%22800%22 height=%22450%22 rx=%2212%22 ry=%2212%22 fill=%22%230f1220%22/></svg>'">
-        </div>
-      </div>
-      <div>
-        <div class="title">NLP for Suicide Ideation &amp; Attempt Detection</div>
-        <p class="desc">MIMIC-III + SuicideWatch; classic embeddings vs BERT/RoBERTa &amp; Bi-LSTM.</p>
-        <p><a href="#" target="_blank">Code</a> · <a href="papers/nlp-suicide-risk.pdf" target="_blank">Paper</a></p>
-      </div>
-    </div>
-
-    <div class="entry">
-      <div class="coverFrame">
-        <div class="coverMedia">
-          <!-- FIXED: same frame so borders align exactly -->
-          <video id="vulnVid" autoplay muted playsinline preload="auto" loop poster="images/llm-security.jpg"></video>
-        </div>
-      </div>
-      <div>
-        <div class="title">LLMs for Code Vulnerability Detection</div>
-        <p class="desc">Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN to surface data-flow risks.</p>
-        <p><a href="#" target="_blank">Code</a> · <a href="papers/llm-code-vuln.pdf" target="_blank">Paper</a></p>
-      </div>
-    </div>
-
-    <div class="hr"></div>
-    <p class="muted">© <span id="yr"></span> Gayatri Malladi</p>
+  <!-- Token ribbon + toy -->
+  <div class="ribbon" aria-hidden="true">
+    <div class="rtrack scroll">attention → heads → logits → loss → update → prompt → retrieval → context → decoding → evals</div>
+    <div class="rtrack scroll2">temperature → perplexity → AUC → F1 · CUDA → Waymo → EEG → agents → graphs</div>
+  </div>
+  <div class="play">
+    <label for="tok">Tokenizer Playground — type a sentence (illustrative only; no network calls)</label>
+    <input id="tok" placeholder="e.g., Planning under uncertainty with diffusion models">
+    <div id="tokOut" class="tokens"></div>
   </div>
 
-  <!-- Concierge Modal -->
-  <div id="modalBack" style="position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;z-index:50">
-    <div style="width:min(920px,94vw);max-height:88vh;background:#101321;color:#e9ecff;border:1px solid #2b2f44;border-radius:16px;overflow:hidden;display:flex;flex-direction:column">
-      <header style="padding:12px 16px;border-bottom:1px solid #2b2f44;display:flex;justify-content:space-between;align-items:center">
-        <strong>Portfolio Concierge</strong>
-        <button id="closeConcierge" style="border:1px solid #3b4470;background:#1a1e31;color:#eaf;padding:6px 10px;border-radius:10px;cursor:pointer">Close</button>
-      </header>
-      <div style="padding:14px">
-        <div style="display:flex;gap:8px;align-items:center">
-          <input id="qaInput" type="text" placeholder="Ask about any project (e.g., What model did you use for trajectory prediction?)"
-            style="flex:1;min-width:0;padding:10px 12px;border-radius:10px;border:1px solid #2b2f44;background:#0f1426;color:#eaf">
-          <button id="qaBtn" style="border:1px solid #3b4470;border-radius:10px;padding:8px 12px;background:#1a1e31;color:#eaf;cursor:pointer">Ask</button>
-        </div>
-        <div class="suggest" style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;color:#c3c9e6">
-          <span class="chip" data-q="What did you build for Waymo trajectory forecasting?" style="border:1px solid #334;border-radius:999px;padding:4px 8px;background:#171b2c;cursor:pointer">Waymo model?</span>
-          <span class="chip" data-q="How did you optimize CUDA kernels in the LIMO project?" style="border:1px solid #334;border-radius:999px;padding:4px 8px;background:#171b2c;cursor:pointer">CUDA speedups?</span>
-          <span class="chip" data-q="What is the Knowledge-Aware Graph in your agent project?" style="border:1px solid #334;border-radius:999px;padding:4px 8px;background:#171b2c;cursor:pointer">Agent KAG?</span>
-          <span class="chip" data-q="Which datasets and models did you use for suicide ideation detection?" style="border:1px solid #334;border-radius:999px;padding:4px 8px;background:#171b2c;cursor:pointer">NLP dataset?</span>
-          <span class="chip" data-q="Do you have papers to read for each project?" style="border:1px solid #334;border-radius:999px;padding:4px 8px;background:#171b2c;cursor:pointer">Papers?</span>
-        </div>
-        <div id="qaChat" style="margin-top:12px;display:flex;flex-direction:column;gap:10px"></div>
+  <!-- Projects -->
+  <h3 id="projects" class="section">Projects</h3>
+
+  <span class="tag">Agents &amp; Planning</span>
+  <article class="entry">
+    <div class="coverWrap">
+      <div class="aspect">
+        <!-- simple network animation using CSS/JS -->
+        <canvas id="soonNet" class="soonCanvas"></canvas>
       </div>
     </div>
+    <div>
+      <div class="title">Solving Short-term Memory Limits of ADAPT Agents</div>
+      <p>Knowledge-Augmented Graph for long-term user preferences + diffusion-style drive model for smoother planning under uncertainty.</p>
+      <p class="links"><a href="https://github.com/mg-2321" target="_blank">Code</a> · <a href="papers/adapt-kag.pdf" target="_blank">Paper</a></p>
+    </div>
+  </article>
+
+  <span class="tag">Machine Learning</span>
+
+  <article class="entry">
+    <div class="coverWrap">
+      <div class="aspect">
+        <video id="waymoVid" autoplay muted playsinline preload="auto" poster="images/waymo-forecast.jpg"></video>
+      </div>
+    </div>
+    <div>
+      <div class="title">Future Trajectory Prediction for Autonomous Vehicles</div>
+      <p>Diffusion-based model predicting 5-second future trajectories in long-tail scenarios using the Waymo Open Dataset; explicitly models multimodal uncertainty.</p>
+      <p class="links">
+        <a href="https://github.com/mg-2321/Waymo_trajectory_prediction" target="_blank">Code</a> ·
+        <a href="papers/waymo-forecast.pdf" target="_blank">Paper</a>
+      </p>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="coverWrap">
+      <div class="aspect">
+        <video autoplay muted loop playsinline preload="auto" poster="images/cuda-limo.jpg"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+          <source src="images/limo_cuda_preview_v4.mp4" type="video/mp4">
+          <source src="/images/limo_cuda_preview_v4.mp4" type="video/mp4">
+          <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/images/limo_cuda_preview_v4.mp4" type="video/mp4">
+        </video>
+        <img src="images/cuda-limo.jpg" alt="CUDA" style="display:none">
+      </div>
+    </div>
+    <div>
+      <div class="title">Optimizing LIMO Pipeline with CUDA Parallelization</div>
+      <p>Shared-memory tiling, async transfers, and custom kernels for 2D conv, keyframe selection, and pose estimation — up to 60% kernel speedup.</p>
+      <p class="links"><a href="https://github.com/mg-2321" target="_blank">Code</a> · <a href="papers/limo-cuda.pdf" target="_blank">Paper</a></p>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="coverWrap">
+      <div class="aspect">
+        <video autoplay muted loop playsinline preload="auto" poster="images/worker-safety.jpg"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+          <source src="ppe_pass_fail_corrected.mp4" type="video/mp4">
+          <source src="/ppe_pass_fail_corrected.mp4" type="video/mp4">
+          <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/ppe_pass_fail_corrected.mp4" type="video/mp4">
+        </video>
+        <img src="images/worker-safety.jpg" alt="PPE" style="display:none">
+      </div>
+    </div>
+    <div>
+      <div class="title">Real-time Construction Worker Safety Inspection</div>
+      <p>CenterNet-based PPE compliance detector with entry-gate flagging; benchmarks on CHVG &amp; Pictor; deployable lightweight web app.</p>
+      <p class="links"><a href="https://github.com/mg-2321/Safety-equipment-check-using-object-detection" target="_blank">Code</a> ·
+        <a href="papers/worker-safety.pdf" target="_blank">Paper</a></p>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="coverWrap">
+      <div class="aspect">
+        <video autoplay muted loop playsinline preload="auto" poster="images/eeg-stroke.jpg"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+          <source src="cover_all_in_one_paper_exact4.mp4" type="video/mp4">
+          <source src="/cover_all_in_one_paper_exact4.mp4" type="video/mp4">
+          <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/cover_all_in_one_paper_exact4.mp4" type="video/mp4">
+        </video>
+        <img src="images/eeg-stroke.jpg" alt="EEG" style="display:none">
+      </div>
+    </div>
+    <div>
+      <div class="title">Stroke Rehabilitation — EEG Motor Action Classification</div>
+      <p>Pre/post-stroke EEG analysis for motor actions with ICA, band-pass filtering, and PCA; models: Decision Trees, SVMs, NNs.</p>
+      <p class="links"><a href="https://github.com/mg-2321/Stroke_Rehabilitation" target="_blank">Code</a> ·
+        <a href="https://github.com/mg-2321/Stroke_Rehabilitation/blob/main/Iteration%204_%20Paper-4.pdf" target="_blank">Project paper</a></p>
+    </div>
+  </article>
+
+  <span class="tag">NLP &amp; Safety</span>
+
+  <article class="entry">
+    <div class="coverWrap">
+      <div class="aspect">
+        <img src="images/nlp-si.jpg" alt="NLP cover"
+             onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 450%22><rect width=%22800%22 height=%22450%22 rx=%2212%22 ry=%2212%22 fill=%22%230f1422%22/><text x=%2250%25%22 y=%2250%25%22 fill=%22%23a9b2c3%22 font-family=%22sans-serif%22 font-size=%2220%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22>NLP cover</text></svg>'">
+      </div>
+    </div>
+    <div>
+      <div class="title">NLP for Suicide Ideation &amp; Attempt Detection</div>
+      <p>MIMIC-III + SuicideWatch; GloVe/Word2Vec/FastText/CBOW vs BERT/RoBERTa &amp; Bi-LSTM.</p>
+      <p class="links"><a href="#" target="_blank">Code</a> · <a href="papers/nlp-suicide-risk.pdf" target="_blank">Paper</a></p>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="coverWrap">
+      <div class="aspect">
+        <video id="vulnVid" autoplay muted playsinline preload="auto" loop poster="images/llm-security.jpg"></video>
+      </div>
+    </div>
+    <div>
+      <div class="title">LLMs for Code Vulnerability Detection</div>
+      <p>Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN highlighting data-flow risks and zero-day patterns.</p>
+      <p class="links"><a href="#" target="_blank">Code</a> · <a href="papers/llm-code-vuln.pdf" target="_blank">Paper</a></p>
+    </div>
+  </article>
+
+  <p class="footer">© <span id="yr"></span> Gayatri Malladi</p>
+</main>
+
+<!-- Concierge modal -->
+<div id="concierge" class="modal" role="dialog" aria-modal="true" aria-label="Portfolio Concierge">
+  <div class="panel">
+    <div class="bar">
+      <strong>Portfolio Concierge</strong>
+      <button class="close" id="closeCon">Close</button>
+    </div>
+    <div class="bar">
+      <input id="ask" placeholder="Ask about any project (e.g., What model did you use for trajectory prediction?)">
+      <button id="askBtn">Ask</button>
+    </div>
+    <div class="chips">
+      <span class="chip" data-q="What did you build for Waymo trajectory forecasting?">Waymo model?</span>
+      <span class="chip" data-q="How did you optimize CUDA kernels in the LIMO project?">CUDA speedups?</span>
+      <span class="chip" data-q="What is the Knowledge-Aware Graph in your agent project?">Agent KAG?</span>
+      <span class="chip" data-q="Which datasets and models did you use for suicide ideation detection?">NLP dataset?</span>
+      <span class="chip" data-q="Do you have papers to read for each project?">Papers?</span>
+    </div>
+    <div id="chat" class="chat"></div>
   </div>
+</div>
 
 <script>
-document.getElementById('yr').textContent=new Date().getFullYear();
+document.getElementById('yr').textContent = new Date().getFullYear();
 
-/* Count-up when visible */
-const IO=new IntersectionObserver(es=>es.forEach(e=>{
-  if(e.isIntersecting){const el=e.target; const end=+el.dataset.count; let cur=0; const step=Math.max(1,Math.round(end/60));
-    const t=setInterval(()=>{cur+=step; if(cur>=end){cur=end; clearInterval(t);} el.textContent=cur;},16);
-    IO.unobserve(el);
-  }
-}),{threshold:.6});
-document.querySelectorAll('.num[data-count]').forEach(n=>IO.observe(n));
+/* Smooth scroll */
+document.querySelectorAll('[data-scroll]').forEach(a=>{
+  a.addEventListener('click', e=>{
+    const sel = a.getAttribute('data-scroll');
+    const el = document.querySelector(sel);
+    if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+  });
+});
 
-/* Waymo playlist */
-(function initWaymo(){const v=document.getElementById('waymoVid'); if(!v) return; v.loop=false;
-  const raw=p=>'https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/'+p.replace(/^\//,'');
-  const A='images/waymo_diffusion_cover%20(1)%20(2)%20(1).mp4', B='images/diffusion_3d_samples_FINAL_quick.mp4';
-  const list=[[A,'/'+A,raw(A)],[B,'/'+B,raw(B)]]; let cur=0,i=0;
-  function next(){ if(i>=list[cur].length) return; v.src=list[cur][i++]; v.load(); v.play().catch(()=>{}); }
-  v.addEventListener('error', next); v.addEventListener('ended', ()=>{cur=(cur+1)%list.length;i=0;next();}); next();
+/* Concierge open/close */
+const modal = document.getElementById('concierge');
+document.getElementById('openConcierge').onclick =
+document.getElementById('openConcierge2').onclick = (e)=>{e.preventDefault(); modal.style.display='flex';};
+document.getElementById('closeCon').onclick = ()=>{modal.style.display='none'};
+
+/* Token toy */
+const tokIn = document.getElementById('tok'), out = document.getElementById('tokOut');
+function toks(s){const r=[];let w='';for(const ch of s){const A=/[A-Za-z0-9_]/.test(ch);if(!w){w=ch;var m=A}else if(A===m){w+=ch}else{r.push(w);w=ch;m=A}}if(w)r.push(w);return r.map(t=>t.length>10?t.slice(0,8)+'…':t)}
+function render(){const v=tokIn.value.trim();out.innerHTML=v?toks(v).map(t=>`<span class="tok">${t}</span>`).join(''):''}
+tokIn.addEventListener('input',render); render();
+
+/* Waymo: alternate two clips with robust fallbacks */
+(function(){
+  const v = document.getElementById('waymoVid'); if(!v) return;
+  v.loop=false;
+  const raw = p=>'https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/'+p.replace(/^\//,'');
+  const A='images/waymo_diffusion_cover%20(1)%20(2)%20(1).mp4';
+  const B='images/diffusion_3d_samples_FINAL_quick.mp4';
+  const srcs=[[A,'/'+A,raw(A)],[B,'/'+B,raw(B)]];
+  let i=0,j=0;
+  function playNext(){ if(j>=srcs[i].length) return false; v.src=srcs[i][j++]; v.load(); v.play().catch(()=>{}); return true; }
+  v.addEventListener('error', playNext);
+  v.addEventListener('ended', ()=>{ i=(i+1)%srcs.length; j=0; playNext(); });
+  playNext();
 })();
 
-/* LLM vuln fallbacks */
-(function initV(){const v=document.getElementById('vulnVid'); if(!v) return;
-  const raw=p=>'https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/'+p.replace(/^\//,'');
-  const S=['gcb_merged_v2.mp4','/gcb_merged_v2.mp4',raw('gcb_merged_v2.mp4'),'gcb_web_demo_v10.mp4','/gcb_web_demo_v10.mp4',raw('gcb_web_demo_v10.mp4'),'gcb_full_demo_v13.mp4','/gcb_full_demo_v13.mp4',raw('gcb_full_demo_v13.mp4')];
-  let i=0; function tryNext(){ if(i>=S.length){ v.removeAttribute('src'); v.load(); return; } v.src=S[i++]; v.load(); v.play().catch(()=>{}); }
-  v.addEventListener('error', tryNext); tryNext();
+/* Vuln video fallbacks */
+(function(){
+  const v = document.getElementById('vulnVid'); if(!v) return;
+  const raw = p=>'https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/'+p.replace(/^\//,'');
+  const L=['gcb_merged_v2.mp4','/gcb_merged_v2.mp4',raw('gcb_merged_v2.mp4'),
+           'gcb_web_demo_v10.mp4','/gcb_web_demo_v10.mp4',raw('gcb_web_demo_v10.mp4'),
+           'gcb_full_demo_v13.mp4','/gcb_full_demo_v13.mp4',raw('gcb_full_demo_v13.mp4')];
+  let i=0; function N(){ if(i>=L.length){ v.removeAttribute('src'); v.load(); return; } v.src=L[i++]; v.load(); v.play().catch(()=>{}); }
+  v.addEventListener('error',N); N();
 })();
 
-/* Concierge modal + tiny QA */
-const back=document.getElementById('modalBack');
-document.getElementById('openConcierge').addEventListener('click',()=>back.style.display='flex');
-document.getElementById('closeConcierge').addEventListener('click',()=>back.style.display='none');
-
+/* Concierge mini-KB */
 const KB=[
-  {id:'waymo',title:'Future Trajectory Prediction for Autonomous Vehicles',summary:'Diffusion-based forecasting on the Waymo Open Dataset; models multimodal uncertainty and temporal dependencies.',tags:'diffusion trajectory forecasting waymo uncertainty driving',code:'https://github.com/mg-2321/Waymo_trajectory_prediction',paper:'papers/waymo-forecast.pdf'},
-  {id:'cuda',title:'Optimizing LIMO Pipeline with CUDA Parallelization',summary:'Shared-memory tiling, async copies, and custom conv kernels; Nsight-guided profiling with up to 60% speedup.',tags:'cuda gpu kernels convolution nsight optimization',code:'https://github.com/mg-2321',paper:'papers/limo-cuda.pdf'},
-  {id:'agents',title:'Solving Short-term Memory Limits of ADAPT Agents',summary:'Knowledge-Augmented Graph for preferences + diffusion-style drive model for uncertainty-aware planning.',tags:'agent kag planning diffusion',code:'https://github.com/mg-2321',paper:'papers/adapt-kag.pdf'},
-  {id:'eeg',title:'Stroke Rehabilitation — EEG Motor Action Classification',summary:'ICA + filtering + PCA; DT/SVM/NN comparing pre/post-stroke EEG.',tags:'eeg signal ica pca svm',code:'https://github.com/mg-2321/Stroke_Rehabilitation',paper:'https://github.com/mg-2321/Stroke_Rehabilitation/blob/main/Iteration%204_%20Paper-4.pdf'},
-  {id:'nlp',title:'NLP for Suicide Ideation & Attempt Detection',summary:'MIMIC-III + SuicideWatch; classic embeddings vs BERT/RoBERTa and Bi-LSTM.',tags:'nlp suicide mimic-iii suicidewatch bert roberta',code:'#',paper:'papers/nlp-suicide-risk.pdf'}
+  {id:'waymo',title:'Future Trajectory Prediction for Autonomous Vehicles',summary:'Diffusion-based model forecasting 5-second trajectories on the Waymo Open Dataset; multimodal uncertainty and temporal dependencies.', code:'https://github.com/mg-2321/Waymo_trajectory_prediction', paper:'papers/waymo-forecast.pdf'},
+  {id:'cuda',title:'Optimizing LIMO Pipeline with CUDA Parallelization',summary:'Shared-memory tiling, async copies, and custom conv kernels; Nsight-guided profiling with up to 60% speedup.', code:'https://github.com/mg-2321', paper:'papers/limo-cuda.pdf'},
+  {id:'agents',title:'Solving Short-term Memory Limits of ADAPT Agents',summary:'Knowledge-Aware Graph for user preferences and diffusion-style drive model for uncertainty-aware planning.', code:'https://github.com/mg-2321', paper:'papers/adapt-kag.pdf'},
+  {id:'eeg',title:'Stroke Rehabilitation — EEG Motor Action Classification',summary:'ICA + filtering + PCA features; DT/SVM/NN comparing pre/post-stroke EEG.', code:'https://github.com/mg-2321/Stroke_Rehabilitation', paper:'https://github.com/mg-2321/Stroke_Rehabilitation/blob/main/Iteration%204_%20Paper-4.pdf'},
+  {id:'nlp',title:'NLP for Suicide Ideation & Attempt Detection',summary:'MIMIC-III + SuicideWatch; classic embeddings vs BERT / RoBERTa; Bi-LSTM baseline comparisons.', code:'#', paper:'papers/nlp-suicide-risk.pdf'}
 ];
-const SYN={waymo:['trajectory','trajectories','forecast','forecasting','autonomous','driving'],diffusion:['score','denoise','latent'],cuda:['gpu','parallel','kernel','kernels','nsight','tiling','memory'],eeg:['brain','signal','emg','electrode'],suicide:['si','sa','ideation','attempt'],agent:['agents','adapt','kag','planning','preferences']};
-const chat=document.getElementById('qaChat'),qa=document.getElementById('qaInput'),btn=document.getElementById('qaBtn');
-const toks=q=>q.toLowerCase().split(/[^a-z0-9_]+/).filter(Boolean);
-const expand=ts=>{const out=new Set(ts);for(const t of ts){for(const[k,v]of Object.entries(SYN)){if(t===k||v.includes(t)){out.add(k);v.forEach(x=>out.add(x))}}}return[...out]};
-const score=(it,q)=>{let s=0;const T=it.title.toLowerCase(),G=(it.tags||'').toLowerCase(),S=(it.summary||'').toLowerCase();for(const t of q){if(T.includes(t))s+=4;if(G.includes(t))s+=3;if(S.includes(t))s+=2}return s};
-const fmt=it=>{const L=[];if(it.code&&it.code!=='#')L.push(`<a href="${it.code}" target="_blank">Code</a>`);if(it.paper)L.push(`<a href="${it.paper}" target="_blank">Paper</a>`);return L.length?` · ${L.join(' | ')}`:''}
-function push(w,html){const b=document.createElement('div');b.style.cssText='background:#151a2e;border:1px solid #2a3555;padding:10px 12px;border-radius:12px'; if(w==='me'){b.style.alignSelf='flex-end'; b.style.background='#1a2242'} b.innerHTML=html; chat.appendChild(b); chat.scrollTop=chat.scrollHeight}
-function ask(){const q=qa.value.trim();if(!q)return;push('me',q);qa.value='';const qts=expand(toks(q));const ranked=KB.map(it=>({it,score:score(it,qts)})).sort((a,b)=>b.score-a.score).filter(x=>x.score>0);
-  if(!ranked.length){push('bot','Try asking about <em>Waymo diffusion forecasting</em>, <em>CUDA speedups</em>, <em>Knowledge-Aware Graph agents</em>, or <em>NLP suicide detection</em>.');return}
-  const it=ranked[0].it;push('bot',`<strong>${it.title}</strong> — ${it.summary}${fmt(it)}`);
+const chat = document.getElementById('chat'), ask = document.getElementById('ask'), askBtn = document.getElementById('askBtn');
+function push(w,html){const d=document.createElement('div');d.className='bubble '+(w==='me'?'b2':'b1');d.innerHTML=html;chat.appendChild(d);chat.scrollTop=chat.scrollHeight}
+function best(q){q=q.toLowerCase();let top=null,sc=-1;for(const it of KB){let s=0;for(const t of q.split(/\W+/)){if(!t) continue; if(it.title.toLowerCase().includes(t)) s+=3; if((it.summary||'').toLowerCase().includes(t)) s+=2;} if(s>sc){sc=s;top=it;}}return top;}
+function askNow(){
+  const q=ask.value.trim(); if(!q) return; push('me',q); ask.value='';
+  const it=best(q);
+  if(!it){ push('bot',"Try asking about <em>Waymo diffusion forecasting</em>, <em>CUDA speedups</em>, <em>KAG agents</em>, or <em>NLP suicide detection</em>."); return; }
+  const links = `${it.code&&it.code!=='#'?` · <a href="${it.code}" target="_blank">Code</a>`:''}${it.paper?` · <a href="${it.paper}" target="_blank">Paper</a>`:''}`;
+  push('bot',`<strong>${it.title}</strong> — ${it.summary}${links}`);
 }
-btn.addEventListener('click',ask);
-qa.addEventListener('keydown',e=>{if(e.key==='Enter')ask()});
-document.querySelectorAll('.chip').forEach(ch=>ch.addEventListener('click',()=>{qa.value=ch.dataset.q;ask();}));
+askBtn.onclick = askNow; ask.addEventListener('keydown',e=>{if(e.key==='Enter') askNow()});
+document.querySelectorAll('.chip[data-q]').forEach(c=>c.addEventListener('click',()=>{ask.value=c.dataset.q;askNow()}));
+
+/* Simple “coming soon” network animation (subtle) */
+(function(){
+  const cv = document.getElementById('soonNet'); if(!cv) return;
+  function fit(){ const p=cv.parentElement.getBoundingClientRect(); cv.width=p.width; cv.height=p.height; }
+  fit(); addEventListener('resize',()=>{clearTimeout(window.__rs); window.__rs=setTimeout(fit,120);});
+  const ctx=cv.getContext('2d'); const N=8; const pts=[...Array(N)].map(()=>({x:Math.random()*cv.width,y:Math.random()*cv.height, vx:(Math.random()-.5)*0.35, vy:(Math.random()-.5)*0.35}));
+  function step(){
+    ctx.fillStyle='#0d1222'; ctx.fillRect(0,0,cv.width,cv.height);
+    // links
+    ctx.strokeStyle='rgba(124,146,255,.7)'; ctx.setLineDash([6,6]); ctx.lineWidth=2;
+    for(let i=0;i<N;i++){ for(let j=i+1;j<N;j++){ const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.hypot(dx,dy); if(d<190){ ctx.beginPath(); ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y); ctx.stroke(); } } }
+    // nodes
+    ctx.setLineDash([]); for(const p of pts){ ctx.fillStyle='#79c3ff'; ctx.beginPath(); ctx.arc(p.x,p.y,5,0,Math.PI*2); ctx.fill();
+      p.x+=p.vx; p.y+=p.vy; if(p.x<10||p.x>cv.width-10) p.vx*=-1; if(p.y<10||p.y>cv.height-10) p.vy*=-1; }
+    // label
+    ctx.fillStyle='#a9b2c3'; ctx.font='600 14px "Plus Jakarta Sans"'; ctx.textAlign='center';
+    ctx.fillText('Coming soon — Short-term Memory', cv.width/2, 22);
+    requestAnimationFrame(step);
+  }
+  step();
+})();
 </script>
 </body>
 </html>
