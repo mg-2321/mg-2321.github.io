@@ -13,10 +13,10 @@
 :root{
   --fg:#14161a;
   --muted:#5b6574;
-  --link:#0b57d0;           /* keep default, but we override where needed */
+  --link:#0b57d0;
   --bg:#ffffff;
   --rule:#dee5ef;
-  --accent:#8b5cf6;         /* underline + media border + social chips + accent links */
+  --accent:#8b5cf6;         /* underline + media border */
   --accent-2:#6c8cff;       /* gradient buddy for animations */
   --pill:#f2f6ff;
 }
@@ -40,14 +40,16 @@ a:hover{text-decoration:underline}
 p{margin:.6rem 0}
 
 /* ==============================
-   Header + progress bar
+   Header + typing + progress bar
    ============================== */
 .site-title{ text-align:center; font-size:2.9rem; margin:0 0 .75rem; white-space:nowrap; letter-spacing:.3px }
+.typewrap{ display:inline-flex; align-items:center; gap:.25rem }
+.caret{ width:1ch; display:inline-block; color:var(--accent); animation:blink 1s steps(1,end) infinite }
+@keyframes blink{ 0%,49%{opacity:1} 50%,100%{opacity:0} }
+@media (prefers-reduced-motion:reduce){ .caret{animation:none} }
+
 .mini-nav{ text-align:center; margin:.2rem 0 1.2rem }
-.mini-nav a{
-  display:inline-block; font-size:.95rem; margin:0 .55rem; padding:2px 8px; border-radius:999px;
-  color:var(--accent);                           /* accent color for "Projects/Blogs" */
-}
+.mini-nav a{ display:inline-block; font-size:.95rem; margin:0 .55rem; padding:2px 8px; border-radius:999px }
 .mini-nav a:hover{ background:var(--pill) }
 
 /* scroll progress */
@@ -65,13 +67,10 @@ p{margin:.6rem 0}
   margin-bottom:8px;
 }
 .prose{ max-width:72ch; text-align:justify; text-justify:inter-word; hyphens:auto }
-/* Accent color for links in the intro copy (e.g., Dr. Ruta Desai) */
-.prose a{ color:var(--accent) }
-
 .lead{ font-size:1.06rem } .lead.red{ color:#c62828 }
 
 /* headshot container with floating blob */
-.aside{position:relative; display:flex; flex-direction:column; align-items:center; gap:18px; margin-top:6px}
+.aside{position:relative; display:flex; flex-direction:column; align-items:center; gap:14px; margin-top:6px}
 .blob{
   position:absolute; inset:auto; width:400px; height:400px; top:-10px; z-index:-1;
   filter:blur(26px) saturate(1.2); opacity:.6; border-radius:50%;
@@ -88,9 +87,9 @@ p{margin:.6rem 0}
 
 /* BIGGER, SHARPER avatar */
 .avatar{
-  width:380px;
+  width:380px;                   /* increased from 360 → 380 */
   aspect-ratio:1 / 1; border-radius:50%;
-  object-fit:cover; object-position:50% 60%;
+  object-fit:cover; object-position:50% 60%;   /* center you; tweak second value if needed */
   display:block; image-rendering:-webkit-optimize-contrast; image-rendering:crisp-edges;
   backface-visibility:hidden; transform:translateZ(0);
   box-shadow:0 2px 18px rgba(17,24,39,.06);
@@ -106,23 +105,21 @@ p{margin:.6rem 0}
 
 .profile-links{
   display:flex; flex-wrap:nowrap; justify-content:center; align-items:center; gap:8px;
-  width:100%; margin-top:6px;                   /* small extra gap below the photo */
+  width:100%;
 }
 .chip{
   position:relative;
   display:inline-flex; align-items:center; gap:6px;
-  padding:6px 9px; border:1.6px solid var(--accent); border-radius:999px; /* accent border */
-  color:var(--accent);                           /* accent text & icon color */
+  padding:6px 9px; border:1.25px solid var(--rule); border-radius:999px;
   background:#fff; text-decoration:none; font-weight:600; font-size:.78rem;
-  white-space:nowrap; line-height:1.2; transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+  white-space:nowrap; line-height:1.2; transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;
   overflow:hidden;
 }
-.chip:hover{ background:#f7f2ff; transform:translateY(-1px); box-shadow:0 4px 10px rgba(139,92,246,.15) }
-.chip:active{ transform:translateY(0) }
+.chip:hover{ background:#f7faff; border-color:#cfdaf0; transform:translateY(-1px); box-shadow:0 4px 10px rgba(17,24,39,.05) }
 /* ripple micro-animation */
 .chip::after{
   content:""; position:absolute; inset:auto; left:50%; top:50%; width:0; height:0; border-radius:9999px;
-  background:radial-gradient(circle closest-side, rgba(139,92,246,.2), transparent 70%);
+  background:radial-gradient(circle closest-side, rgba(139,92,246,.25), transparent 70%);
   transform:translate(-50%,-50%); opacity:0; transition:opacity .2s ease, width .35s ease, height .35s ease;
 }
 .chip:hover::after{ opacity:1; width:180%; height:180% }
@@ -219,11 +216,11 @@ h2::after{
 
 <main>
   <!-- Title -->
-  <h1 class="site-title">
-    <span id="typeTarget" aria-label="Gayatri Malladi"></span>
+  <h1 class="site-title reveal in">
+    <span class="typewrap"><span id="typeTarget" aria-label="Gayatri Malladi"></span><span class="caret">|</span></span>
   </h1>
 
-  <p class="mini-nav">
+  <p class="mini-nav reveal in">
     <a href="#projects">Projects</a>
     <a href="#blogs">Blogs</a>
   </p>
@@ -438,14 +435,10 @@ h2::after{
 
 <script>
 (function(){
-  /* === Typing header (no caret) === */
+  /* === Typing header === */
   const full='Gayatri Malladi', el=document.getElementById('typeTarget');
   const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  (function type(i=0){
-    if(!el) return;
-    el.textContent = reduce ? full : full.slice(0,i);
-    if(!reduce && i<full.length){ setTimeout(()=>type(i+1),70); }
-  })();
+  (function type(i=0){ if(!el) return; el.textContent=reduce?full:full.slice(0,i); if(!reduce&&i<full.length){ setTimeout(()=>type(i+1),70); } })();
 
   /* === Scroll progress bar === */
   const bar=document.getElementById('scrollbar');
