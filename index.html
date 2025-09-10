@@ -7,33 +7,24 @@
 <meta name="description" content="Gayatri Malladi — Agentic AI, LLMs, projects, and blogs." />
 <style>
   :root{
-    --fg:#14161a;
-    --muted:#5b6574;
-    --link:#0b57d0;
-    --bg:#ffffff;
-    --rule:#dee5ef;
-    --accent:#8b5cf6;   /* underline + media border */
-    --pill:#f2f6ff;
+    --fg:#14161a; --muted:#5b6574; --link:#0b57d0; --bg:#fff;
+    --rule:#dee5ef; --accent:#8b5cf6; --pill:#f2f6ff;
   }
   html{font-size:16px}
   body{
     margin:0 auto; max-width:980px; padding:26px 16px 64px;
     color:var(--fg); background:var(--bg); line-height:1.75;
     font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-    /* Page enter animation */
-    opacity:0; transform:translateY(12px);
-    animation:pageIn .6s cubic-bezier(.2,.7,.2,1) forwards;
+    opacity:0; transform:translateY(12px); animation:pageIn .6s cubic-bezier(.2,.7,.2,1) forwards;
   }
   @keyframes pageIn{to{opacity:1; transform:none}}
-  @media (prefers-reduced-motion:reduce){
-    body{animation:none; opacity:1; transform:none}
-  }
+  @media (prefers-reduced-motion:reduce){ body{animation:none; opacity:1; transform:none} }
 
   a{color:var(--link); text-decoration:none}
   a:hover{text-decoration:underline}
   p{margin:.6rem 0}
 
-  /* Title + typing */
+  /* Header + typing */
   .site-title{ text-align:center; font-size:2.8rem; margin:0 0 .75rem; white-space:nowrap }
   .typewrap{ display:inline-flex; align-items:center; gap:.25rem }
   .caret{ width:1ch; display:inline-block; color:var(--accent); animation:blink 1s steps(1,end) infinite }
@@ -56,53 +47,35 @@
   .avatar{
     width:340px; height:340px; border-radius:50%;
     object-fit:cover; object-position:center 30%;
-    display:block;
-    box-shadow:0 2px 18px rgba(17,24,39,.06);
+    display:block; box-shadow:0 2px 18px rgba(17,24,39,.06);
   }
-  .profile-links{
-    display:flex; flex-wrap:nowrap; justify-content:center; align-items:center; gap:8px;
-    width:100%; margin-bottom:2px; overflow:visible;
-  }
+  .profile-links{ display:flex; flex-wrap:nowrap; justify-content:center; align-items:center; gap:8px; width:100% }
   .chip{
     display:inline-flex; align-items:center; gap:6px;
     padding:6px 9px; border:1.25px solid var(--rule); border-radius:999px;
-    background:#fff; text-decoration:none; font-weight:600; font-size:.78rem;
-    white-space:nowrap; line-height:1.2;
+    background:#fff; text-decoration:none; font-weight:600; font-size:.78rem; white-space:nowrap; line-height:1.2;
   }
   .chip:hover{ background:#f7faff; border-color:#cfdaf0 }
   .ico{ width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.8; }
 
   /* Sections */
   h2{ font-size:1.55rem; line-height:1.25; margin:1.6rem 0 .6rem; position:relative }
-  h2::after{ content:""; display:block; width:56px; height:3px;
-    background:linear-gradient(90deg,#0b57d0,var(--accent)); border-radius:3px; margin-top:6px; opacity:.9 }
+  h2::after{ content:""; display:block; width:56px; height:3px; background:linear-gradient(90deg,#0b57d0,var(--accent)); border-radius:3px; margin-top:6px; opacity:.9 }
   .hr{ height:1px; background:var(--rule); margin:24px 0 }
   .pill{display:inline-block;font-size:.75rem;color:#244;padding:2px 8px;border-radius:999px;background:var(--pill);border:1px solid #d8e4ff;margin-bottom:.25rem}
   .title{ font-weight:600 }
 
-  /* Projects + cross-browser media frames */
+  /* Project entries + media frames */
   .entry{ display:grid; grid-template-columns:480px 1fr; gap:16px; align-items:start; margin:18px 0 24px }
-  .frame16{
-    position:relative; width:100%;
-    border:2px solid var(--accent); border-radius:14px; overflow:hidden; background:#fff;
-    box-shadow:0 1px 10px rgba(17,24,39,.04);
-  }
-  .frame16::before{ content:""; display:block; padding-top:56.25%; } /* 16:9 */
-  .media{
-    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
-  }
+  .frame16{ position:relative; width:100%; border:2px solid var(--accent); border-radius:14px; overflow:hidden; background:#fff; box-shadow:0 1px 10px rgba(17,24,39,.04) }
+  .frame16::before{ content:""; display:block; padding-top:56.25% } /* 16:9 lock */
+  .media{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
   .frame16.contain .media{ object-fit:contain; background:#fff }
+  .placeholder{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-weight:600; color:#5b6574;
+    background:repeating-linear-gradient(-45deg,#faf8ff,#faf8ff 10px,#f2edff 10px,#f2edff 20px) }
 
-  .placeholder{
-    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-    font-weight:600; color:#5b6574; text-align:center;
-    background:repeating-linear-gradient(-45deg,#faf8ff,#faf8ff 10px,#f2edff 10px,#f2edff 20px);
-  }
   .row-links a.btn{ display:inline-block;border:1px solid var(--rule);padding:6px 10px;border-radius:10px;text-decoration:none;margin-right:.45rem;font-weight:600 }
   .btn:hover{background:#f7faff;border-color:#cfdaf0}
-
-  .entry ul{ margin:.25rem 0 0 0; padding:0 0 0 1rem }
-  .entry ul li{ margin:.25rem 0; text-align:justify; hyphens:auto; line-height:1.65 }
 
   /* Skills ribbon */
   .tokenribbon{border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:linear-gradient(90deg,#f7faff 0,#fff 50%,#f7faff 100%)}
@@ -111,45 +84,26 @@
   @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
   @media (prefers-reduced-motion: reduce){.scroll,.scroll2{animation:none}}
 
-  /* Scroll reveal (AOS-like, no library) */
+  /* Scroll reveal */
   .reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease }
   .reveal.in{ opacity:1; transform:none }
   .reveal.right{ transform:translateX(24px) }
   .reveal.right.in{ transform:none }
-  @media (prefers-reduced-motion:reduce){
-    .reveal{opacity:1; transform:none}
-  }
+  @media (prefers-reduced-motion:reduce){ .reveal{opacity:1; transform:none} }
 
   /* Responsive */
-  @media (max-width:1100px){
-    .intro{grid-template-columns:minmax(0,1fr) 360px}
-    .avatar{width:320px;height:320px}
-  }
-  @media (max-width:940px){
-    .intro{grid-template-columns:1fr}
-    .avatar{width:260px;height:260px}
-    .profile-links{flex-wrap:wrap; gap:6px}
-    .chip{font-size:.8rem}
-    .entry{grid-template-columns:1fr}
-  }
-  @media (max-width:520px){
-    .chip{font-size:.78rem; padding:6px 8px}
-    .avatar{width:220px;height:220px}
-    .track{font-size:.85rem}
-  }
+  @media (max-width:1100px){ .intro{grid-template-columns:minmax(0,1fr) 360px} .avatar{width:320px;height:320px} }
+  @media (max-width:940px){ .intro{grid-template-columns:1fr} .avatar{width:260px;height:260px} .profile-links{flex-wrap:wrap; gap:6px} .chip{font-size:.8rem} .entry{grid-template-columns:1fr} }
+  @media (max-width:520px){ .chip{font-size:.78rem; padding:6px 8px} .avatar{width:220px;height:220px} .track{font-size:.85rem} }
 </style>
 </head>
 <body>
 <main>
-  <!-- Typing header -->
+  <!-- Title -->
   <h1 class="site-title reveal in">
     <span class="typewrap"><span id="typeTarget" aria-label="Gayatri Malladi"></span><span class="caret">|</span></span>
   </h1>
-
-  <p class="mini-nav reveal in">
-    <a href="#projects">Projects</a>
-    <a href="#blogs">Blogs</a>
-  </p>
+  <p class="mini-nav reveal in"><a href="#projects">Projects</a><a href="#blogs">Blogs</a></p>
 
   <!-- Intro -->
   <section class="intro reveal">
@@ -163,42 +117,25 @@
       <p class="lead">Additionally, I'm exploring how to overcome memory context-window limits using short- and long-term retrieval caches, summarization/compression, and Reflexion-style episodic notes that are indexed and reused across tasks.</p>
       <p class="lead red">I’m open to research collaborations. Please email me (gayat23 [at] uw.edu) if you are interested to explore assistive agents for day-to-day task automation, tool use, XR copilots, and self-evolving language models for curriculum generation, reflective fine-tuning, and preference optimization.</p>
     </div>
-
     <aside class="aside" aria-label="Profile">
-      <img class="avatar" src="https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3"
-           width="340" height="340" alt="Portrait of Gayatri Malladi"
-           loading="eager" decoding="async" fetchpriority="high">
+      <img class="avatar" src="https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3" alt="Portrait of Gayatri Malladi" loading="eager" decoding="async" fetchpriority="high" width="340" height="340">
       <nav class="profile-links">
         <a class="chip" href="https://drive.google.com/file/d/1jZH0jteuhUbrC89-lrSqJUhDhwv0UxIH/view" target="_blank" rel="noopener">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9z"/><path d="M14 2v7h7"/></svg>
-          <span>CV</span>
-        </a>
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9z"/><path d="M14 2v7h7"/></svg><span>CV</span></a>
         <a class="chip" href="https://www.linkedin.com/in/gayatri-malladi/" target="_blank" rel="me noopener">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="4" height="12" rx="1"/><circle cx="5" cy="5" r="2"/><path d="M10 21v-8a4 4 0 0 1 8 0v8"/></svg>
-          <span>LinkedIn</span>
-        </a>
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="4" height="12" rx="1"/><circle cx="5" cy="5" r="2"/><path d="M10 21v-8a4 4 0 0 1 8 0v8"/></svg><span>LinkedIn</span></a>
         <a class="chip" href="https://github.com/mg-2321" target="_blank" rel="me noopener">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a9.5 9.5 0 0 0-3 18.5c.5.1.7-.2.7-.5v-1.8c-2.9.7-3.5-1.2-3.5-1.2-.5-1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.6 1 1.6 1 1 .9 2.5.6 3.1.3.1-.6.4-1.1.7-1.3-2.4-.3-5-1.2-5-5.2 0-1.1.4-2 1.1-2.8-.1-.3-.5-1.3.1-2.7 0 0 .9-.3 2.9 1.1a9.6 9.6 0 0 1 5 0c2-1.4 2.9-1.1 2.9-1.1.6 1.4.2 2.4.1 2.7.7.8 1.1 1.7 1.1 2.8 0 4-2.6 4.9-5.1 5.2.4.3.8 1 .8 2.1v2.5c0 .3.2.6.7.5A9.5 9.5 0 0 0 12 2z"/></svg>
-          <span>GitHub</span>
-        </a>
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a9.5 9.5 0 0 0-3 18.5c.5.1.7-.2.7-.5v-1.8c-2.9.7-3.5-1.2-3.5-1.2-.5-1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.6 1 1.6 1 1 .9 2.5.6 3.1.3.1-.6.4-1.1.7-1.3-2.4-.3-5-1.2-5-5.2 0-1.1.4-2 1.1-2.8-.1-.3-.5-1.3.1-2.7 0 0 .9-.3 2.9 1.1a9.6 9.6 0 0 1 5 0c2-1.4 2.9-1.1 2.9-1.1.6 1.4.2 2.4.1 2.7.7.8 1.1 1.7 1.1 2.8 0 4-2.6 4.9-5.1 5.2.4.3.8 1 .8 2.1v2.5c0 .3.2.6.7.5A9.5 9.5 0 0 0 12 2z"/></svg><span>GitHub</span></a>
         <a class="chip" href="https://medium.com/@gayat23" target="_blank" rel="me noopener">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="12" r="6"/><ellipse cx="17" cy="12" rx="3.5" ry="6"/><ellipse cx="22" cy="12" rx="1.2" ry="6"/></svg>
-          <span>Medium</span>
-        </a>
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="12" r="6"/><ellipse cx="17" cy="12" rx="3.5" ry="6"/><ellipse cx="22" cy="12" rx="1.2" ry="6"/></svg><span>Medium</span></a>
       </nav>
     </aside>
   </section>
 
   <!-- Skills -->
   <div class="tokenribbon reveal" aria-hidden="true" style="margin-top:8px">
-    <div class="track scroll">
-      Programming: Python • C++ • SQL · Tools: PyTorch • MATLAB • Apache Spark ·
-      Data Mining: Data Visualization • Statistical Analysis • Predictive Modeling • Pattern Recognition • Feature Engineering • Dimensionality Reduction (PCA • t-SNE)
-    </div>
-    <div class="track scroll2">
-      Machine Learning: Linear Models • Decision Trees • SVMs • Clustering (K-Means • DBSCAN) • Time Series Analysis ·
-      Deep Learning: CNNs • RNNs • Autoencoders • GANs
-    </div>
+    <div class="track scroll">Programming: Python • C++ • SQL · Tools: PyTorch • MATLAB • Apache Spark · Data Mining: Data Visualization • Statistical Analysis • Predictive Modeling • Pattern Recognition • Feature Engineering • Dimensionality Reduction (PCA • t-SNE)</div>
+    <div class="track scroll2">Machine Learning: Linear Models • Decision Trees • SVMs • Clustering (K-Means • DBSCAN) • Time Series Analysis · Deep Learning: CNNs • RNNs • Autoencoders • GANs</div>
   </div>
 
   <!-- Projects -->
@@ -207,23 +144,24 @@
   <h3 class="reveal"><span class="pill">Agents &amp; Planning</span></h3>
   <div class="entry reveal">
     <div class="frame16 contain">
-      <!-- Replace with your actual GIF path if different -->
       <img class="media" src="images/wip_cartoon.gif" alt="Work in progress — short-term memory project" decoding="async">
       <div class="placeholder" aria-hidden="true">Work in progress</div>
     </div>
     <div>
       <div class="title">Solving Short-term Memory Limits of ADAPT Agents</div>
       <p>Added a <em>Knowledge-Aware Graph</em> module for long-term user preferences and a diffusion-style drive model for smoother planning under uncertainty.</p>
-      <p class="row-links">
-        <a class="btn" href="https://github.com/mg-2321/Adapt" target="_blank" rel="noopener">Code</a>
-      </p>
+      <p class="row-links"><a class="btn" href="https://github.com/mg-2321/Adapt" target="_blank" rel="noopener">Code</a></p>
     </div>
   </div>
 
   <h3 class="reveal"><span class="pill">Vision &amp; Robotics</span></h3>
+
+  <!-- Waymo -->
   <div class="entry reveal">
     <div class="frame16">
-      <video class="media covervid" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/waymo-forecast.jpg"></video>
+      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="auto" poster="images/waymo-forecast.jpg">
+        <source src="images/waymo_diffusion_cover%20(1)%20(2)%20(1).mp4" type="video/mp4">
+      </video>
       <div class="placeholder" aria-hidden="true">Video preview</div>
     </div>
     <div>
@@ -236,9 +174,12 @@
     </div>
   </div>
 
+  <!-- LIMO -->
   <div class="entry reveal right">
     <div class="frame16">
-      <video class="media covervid" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/cuda-limo.jpg"></video>
+      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="auto" poster="images/cuda-limo.jpg">
+        <source src="images/limo_cuda_preview_v4.mp4" type="video/mp4">
+      </video>
       <div class="placeholder" aria-hidden="true">Video preview</div>
     </div>
     <div>
@@ -251,9 +192,12 @@
     </div>
   </div>
 
+  <!-- Stroke Rehab -->
   <div class="entry reveal">
     <div class="frame16 contain">
-      <video class="media covervid" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/eeg-stroke.jpg"></video>
+      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="auto" poster="images/eeg-stroke.jpg">
+        <source src="cover_all_in_one_paper_exact4.mp4" type="video/mp4">
+      </video>
       <div class="placeholder" aria-hidden="true">EEG demo</div>
     </div>
     <div>
@@ -266,6 +210,7 @@
     </div>
   </div>
 
+  <!-- Multimodal Emotion Recognition -->
   <div class="entry reveal right">
     <div class="frame16">
       <img class="media" src="images/emotion.jpg" alt="Multimodal Emotion Recognition" decoding="async" loading="lazy">
@@ -281,9 +226,13 @@
   </div>
 
   <h3 class="reveal"><span class="pill">NLP &amp; Safety</span></h3>
+
+  <!-- Suicide NLP -->
   <div class="entry reveal">
     <div class="frame16">
-      <video class="media covervid" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/nlp-si.jpg"></video>
+      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="auto" poster="images/nlp-si.jpg">
+        <source src="videos/suicide_ideation_demo.mp4" type="video/mp4">
+      </video>
       <div class="placeholder" aria-hidden="true">NLP demo</div>
     </div>
     <div>
@@ -296,11 +245,10 @@
     </div>
   </div>
 
-  <!-- LLMs for Vulnerability Detection — plays from your EXACT RAW GitHub links -->
+  <!-- LLMs for Vulnerability Detection (your RAW links) -->
   <div class="entry reveal right">
     <div class="frame16">
-      <video id="vulnVid" class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata"
-             poster="images/llm-security.jpg" crossorigin="anonymous">
+      <video class="media" id="vulnVid" muted loop autoplay playsinline webkit-playsinline preload="auto" poster="images/llm-security.jpg" crossorigin="anonymous">
         <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/gcb_full_demo_v13.mp4" type="video/mp4">
         <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/gcb_web_demo_v10.mp4" type="video/mp4">
       </video>
@@ -309,58 +257,60 @@
     <div>
       <div class="title">LLMs for Code Vulnerability Detection</div>
       <p>Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN to flag zero-day patterns via data-flow visuals.</p>
-      <p class="row-links">
-        <a class="btn" href="https://github.com/mg-2321/Vulnerability-Detection-using-Image-Processing" target="_blank">Code</a>
-      </p>
+      <p class="row-links"><a class="btn" href="https://github.com/mg-2321/Vulnerability-Detection-using-Image-Processing" target="_blank">Code</a></p>
     </div>
   </div>
 
   <div class="hr reveal"></div>
 
-  <!-- Blogs (no titles) -->
+  <!-- Blogs -->
   <h2 id="blogs" class="reveal">Blogs</h2>
   <div class="entry reveal">
-    <div class="frame16">
-      <img class="media" src="images/blog-agents.jpg" alt="Blog cover" decoding="async" loading="lazy">
-      <div class="placeholder" aria-hidden="true">Blog cover</div>
-    </div>
-    <div>
-      <p class="row-links"><a class="btn" href="https://medium.com/@gayat23" target="_blank">Read on Medium →</a></p>
-    </div>
+    <div class="frame16"><img class="media" src="images/blog-agents.jpg" alt="Blog cover" decoding="async" loading="lazy"></div>
+    <div><p class="row-links"><a class="btn" href="https://medium.com/@gayat23" target="_blank">Read on Medium →</a></p></div>
   </div>
   <div class="entry reveal right">
-    <div class="frame16">
-      <img class="media" src="images/blog-cuda.jpg" alt="Blog cover" decoding="async" loading="lazy">
-      <div class="placeholder" aria-hidden="true">Blog cover</div>
-    </div>
-    <div>
-      <p class="row-links"><a class="btn" href="https://medium.com/@gayat23" target="_blank">Read on Medium →</a></p>
-    </div>
+    <div class="frame16"><img class="media" src="images/blog-cuda.jpg" alt="Blog cover" decoding="async" loading="lazy"></div>
+    <div><p class="row-links"><a class="btn" href="https://medium.com/@gayat23" target="_blank">Read on Medium →</a></p></div>
   </div>
 
   <div class="hr reveal"></div>
   <p class="muted">© <script>document.write(new Date().getFullYear())</script> Gayatri Malladi</p>
 </main>
 
-<!-- Lightweight JS: typing, scroll-reveal, and pausing videos off-screen -->
 <script>
 (function(){
-  /* Typing effect */
+  /* Typing */
   const full='Gayatri Malladi', el=document.getElementById('typeTarget');
   const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   (function type(i=0){ if(!el) return; el.textContent=reduce?full:full.slice(0,i); if(!reduce&&i<full.length) setTimeout(()=>type(i+1),70); })();
 
   /* Scroll reveal */
   if('IntersectionObserver' in window && !reduce){
-    const io=new IntersectionObserver(es=>es.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-    }),{root:null, rootMargin:'0px 0px -10% 0px', threshold:.15});
+    const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }),{root:null, rootMargin:'0px 0px -10% 0px', threshold:.15});
     document.querySelectorAll('.reveal').forEach(n=>io.observe(n));
-  }else{
+  } else {
     document.querySelectorAll('.reveal').forEach(n=>n.classList.add('in'));
   }
 
-  /* Pause videos when off-screen (save battery) */
+  /* Hide placeholders once a video or image is ready + keep looping */
+  document.querySelectorAll('.frame16').forEach(frame=>{
+    const v=frame.querySelector('video.media'); const img=frame.querySelector('img.media'); const ph=frame.querySelector('.placeholder');
+    if(v){
+      const hide=()=>{ if(ph) ph.style.display='none'; };
+      v.addEventListener('loadeddata', hide, {once:true});
+      v.addEventListener('canplay', ()=>v.play().catch(()=>{}));
+      v.addEventListener('ended', ()=>v.play().catch(()=>{}));
+      // On error, just show placeholder
+      v.addEventListener('error', ()=>{ if(ph) ph.style.display='flex'; });
+    }
+    if(img){
+      img.addEventListener('load', ()=>{ if(ph) ph.style.display='none'; }, {once:true});
+      img.addEventListener('error', ()=>{ if(ph) ph.style.display='flex'; }, {once:true});
+    }
+  });
+
+  /* Pause videos off-screen, resume when visible */
   if('IntersectionObserver' in window){
     const vio=new IntersectionObserver(items=>{
       items.forEach(it=>{
@@ -371,22 +321,6 @@
     },{root:null, threshold:0});
     document.querySelectorAll('video.media').forEach(v=>vio.observe(v));
   }
-
-  /* Optional: wire cover video sources if you’d like to host locally later
-     (Currently the LLM video uses your RAW GitHub links in <source> above.) */
-  const coverSources = {
-    "images/waymo-forecast.jpg": ["images/waymo_diffusion_cover%20(1)%20(2)%20(1).mp4"],
-    "images/cuda-limo.jpg": ["images/limo_cuda_preview_v4.mp4"],
-    "images/eeg-stroke.jpg": ["cover_all_in_one_paper_exact4.mp4"],
-    "images/nlp-si.jpg": ["videos/suicide_ideation_demo.mp4"]
-  };
-  document.querySelectorAll('video.covervid').forEach(v=>{
-    const poster=v.getAttribute('poster');
-    const list=coverSources[poster]||[];
-    list.forEach(src=>{
-      const s=document.createElement('source'); s.src=src; s.type='video/mp4'; v.appendChild(s);
-    });
-  });
 })();
 </script>
 </body>
