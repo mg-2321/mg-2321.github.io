@@ -71,18 +71,19 @@
   .pill{display:inline-block;font-size:.75rem;color:#244;padding:2px 8px;border-radius:999px;background:var(--pill);border:1px solid #d8e4ff;margin-bottom:.25rem}
   .title{ font-weight:600 }
 
-  /* Project grid + MEDIA FRAMES (identical across browsers) */
+  /* Projects + cross-browser media frames */
   .entry{ display:grid; grid-template-columns:480px 1fr; gap:16px; align-items:start; margin:18px 0 24px }
   .frame16{
     position:relative; width:100%;
     border:2px solid var(--accent); border-radius:14px; overflow:hidden; background:#fff;
     box-shadow:0 1px 10px rgba(17,24,39,.04);
   }
-  .frame16::before{ content:""; display:block; padding-top:56.25%; } /* 16:9 lock */
+  .frame16::before{ content:""; display:block; padding-top:56.25%; } /* 16:9 */
   .media{
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
   }
   .frame16.contain .media{ object-fit:contain; background:#fff }
+
   .placeholder{
     position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
     font-weight:600; color:#5b6574; text-align:center;
@@ -188,7 +189,7 @@
   <h3><span class="pill">Agents &amp; Planning</span></h3>
   <div class="entry">
     <div class="frame16 contain" data-eager="true">
-      <!-- WIP GIF loads immediately so the animation shows -->
+      <!-- Eager so the animation shows instantly -->
       <img class="media lazyimg" data-src="images/wip_cartoon.gif" alt="Work in progress — short-term memory project" decoding="async">
       <div class="placeholder">Work in progress</div>
     </div>
@@ -204,7 +205,7 @@
   <h3><span class="pill">Vision &amp; Robotics</span></h3>
   <div class="entry">
     <div class="frame16">
-      <video class="media lazyvid" muted playsinline webkit-playsinline preload="none" poster="images/waymo-forecast.jpg">
+      <video class="media lazyvid" muted loop playsinline webkit-playsinline preload="none" poster="images/waymo-forecast.jpg">
         <source data-src="images/waymo_diffusion_cover%20(1)%20(2)%20(1).mp4" type="video/mp4">
       </video>
       <div class="placeholder">Video preview</div>
@@ -221,7 +222,7 @@
 
   <div class="entry">
     <div class="frame16">
-      <video class="media lazyvid" muted playsinline webkit-playsinline preload="none" poster="images/cuda-limo.jpg">
+      <video class="media lazyvid" muted loop playsinline webkit-playsinline preload="none" poster="images/cuda-limo.jpg">
         <source data-src="images/limo_cuda_preview_v4.mp4" type="video/mp4">
       </video>
       <div class="placeholder">Video preview</div>
@@ -239,7 +240,7 @@
   <!-- Stroke Rehab (no cropping) -->
   <div class="entry">
     <div class="frame16 contain">
-      <video class="media lazyvid" muted playsinline webkit-playsinline preload="none" poster="images/eeg-stroke.jpg">
+      <video class="media lazyvid" muted loop playsinline webkit-playsinline preload="none" poster="images/eeg-stroke.jpg">
         <source data-src="cover_all_in_one_paper_exact4.mp4" type="video/mp4">
       </video>
       <div class="placeholder">EEG demo</div>
@@ -254,7 +255,7 @@
     </div>
   </div>
 
-  <!-- Multimodal Emotion Recognition (moved into Vision & Robotics) -->
+  <!-- Multimodal Emotion Recognition (Vision & Robotics) -->
   <div class="entry">
     <div class="frame16">
       <img class="media lazyimg" data-src="images/emotion.jpg" alt="Multimodal Emotion Recognition" decoding="async">
@@ -272,7 +273,7 @@
   <h3><span class="pill">NLP &amp; Safety</span></h3>
   <div class="entry">
     <div class="frame16">
-      <video class="media lazyvid" muted playsinline webkit-playsinline preload="none" poster="images/nlp-si.jpg">
+      <video class="media lazyvid" muted loop playsinline webkit-playsinline preload="none" poster="images/nlp-si.jpg">
         <source data-src="videos/suicide_ideation_demo.mp4" type="video/mp4">
       </video>
       <div class="placeholder">NLP demo</div>
@@ -287,10 +288,10 @@
     </div>
   </div>
 
-  <!-- ✅ LLMs for Vulnerability Detection — restored cover video with robust playlist -->
+  <!-- LLMs for Vulnerability Detection — cover video with looping playlist -->
   <div class="entry">
     <div class="frame16" data-eager="true">
-      <video id="vulnVid" class="media" muted playsinline webkit-playsinline preload="metadata" poster="images/llm-security.jpg"></video>
+      <video id="vulnVid" class="media" muted loop playsinline webkit-playsinline preload="metadata" poster="images/llm-security.jpg"></video>
       <div class="placeholder">Security demo</div>
     </div>
     <div>
@@ -329,90 +330,100 @@
   <p class="muted">© <script>document.write(new Date().getFullYear())</script> Gayatri Malladi</p>
 </main>
 
-<!-- Tiny, fast JS: typing header + lazy/eager media + Safari-proof playlist for vulnerability video -->
+<!-- Tiny, fast JS: typing + lazy/eager media + looping playlist for LLM video -->
 <script>
 (function(){
   /* Typing effect */
-  const full = 'Gayatri Malladi';
-  const el = document.getElementById('typeTarget');
-  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  (function type(i=0){ if(!el) return; el.textContent = reduce ? full : full.slice(0,i);
-    if(!reduce && i<full.length) setTimeout(()=>type(i+1),70);
-  })();
+  const full='Gayatri Malladi', el=document.getElementById('typeTarget');
+  const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  (function type(i=0){ if(!el) return; el.textContent=reduce?full:full.slice(0,i); if(!reduce&&i<full.length) setTimeout(()=>type(i+1),70); })();
 
   const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function hydrate(el){ if(el && el.dataset && el.dataset.src){ el.src = el.dataset.src; el.removeAttribute('data-src'); } }
-  function showPlaceholder(frame){ const ph=frame.querySelector('.placeholder'); if(ph) ph.style.display='flex';
-    const media=frame.querySelector('.media'); if(media) media.style.display='none'; }
-  function hidePlaceholder(frame){ const ph=frame.querySelector('.placeholder'); if(ph) ph.style.display='none'; }
-
-  /* Generic lazy loader for images/videos that are NOT playlist-controlled */
-  function loadFrame(frame){
-    const v = frame.querySelector('video.media');
-    const img = frame.querySelector('img.media');
-    if(v && !frame.querySelector('#vulnVid')){
-      v.querySelectorAll('source[data-src]').forEach(hydrate);
-      if(!v.src && v.querySelector('source')) v.load();
-      v.addEventListener('loadeddata', ()=>hidePlaceholder(frame), {once:true});
-      v.addEventListener('error', ()=>showPlaceholder(frame), {once:true});
-      if(!prefersReduced){ v.play().catch(()=>{}); }
-    }
-    if(img){
-      if(!img.src) hydrate(img);
-      img.addEventListener('load', ()=>hidePlaceholder(frame), {once:true});
-      img.addEventListener('error', ()=>showPlaceholder(frame), {once:true});
-    }
-  }
-
-  /* Eager vs lazy observe */
   const io = 'IntersectionObserver' in window ? new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{ if(entry.isIntersecting){ loadFrame(entry.target); io.unobserve(entry.target); } });
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting) return;
+      const frame=entry.target, v=frame.querySelector('video.media'), img=frame.querySelector('img.media');
+      if(v && !frame.querySelector('#vulnVid')){ // generic lazy videos
+        v.querySelectorAll('source[data-src]').forEach(s=>{ if(s.dataset.src){ s.src=s.dataset.src; s.removeAttribute('data-src'); }});
+        if(!v.src && v.querySelector('source')) v.load();
+        v.addEventListener('loadeddata', ()=>{ const ph=frame.querySelector('.placeholder'); if(ph) ph.style.display='none'; }, {once:true});
+        v.addEventListener('error', ()=>{ const ph=frame.querySelector('.placeholder'); if(ph) ph.style.display='flex'; }, {once:true});
+        if(!prefersReduced){ v.play().catch(()=>{}); }
+      }
+      if(img){
+        if(img.dataset.src){ img.src=img.dataset.src; img.removeAttribute('data-src'); }
+        img.addEventListener('load', ()=>{ const ph=frame.querySelector('.placeholder'); if(ph) ph.style.display='none'; }, {once:true});
+        img.addEventListener('error', ()=>{ const ph=frame.querySelector('.placeholder'); if(ph) ph.style.display='flex'; }, {once:true});
+      }
+      io.unobserve(frame);
+    });
   }, {root:null, rootMargin:'180px 0px', threshold:0.15}) : null;
 
   document.querySelectorAll('.frame16').forEach(frame=>{
-    if(frame.dataset.eager === 'true'){
-      loadFrame(frame);
+    if(frame.dataset.eager==='true'){ // eager load (WIP GIF + LLM video)
+      const v=frame.querySelector('video.media');
+      const img=frame.querySelector('img.media');
+      if(img && img.dataset.src){ img.src=img.dataset.src; img.removeAttribute('data-src'); const ph=frame.querySelector('.placeholder'); img.addEventListener('load',()=>{ if(ph) ph.style.display='none'; }, {once:true}); }
+      if(!v || frame.querySelector('#vulnVid')) return; // vuln handled below
+      v.querySelectorAll('source[data-src]').forEach(s=>{ s.src=s.dataset.src; s.removeAttribute('data-src'); });
+      if(!v.src && v.querySelector('source')) v.load();
+      if(!prefersReduced){ v.play().catch(()=>{}); }
     } else if(io){ io.observe(frame); }
-      else { loadFrame(frame); }
   });
 
-  /* Pause videos when off-screen */
+  // Pause generic videos off-screen
   if('IntersectionObserver' in window){
     const vio = new IntersectionObserver((items)=>{
-      items.forEach(it=>{ const v=it.target; if(!it.isIntersecting){ v.pause && v.pause(); } });
+      items.forEach(it=>{ const v=it.target; if(!it.isIntersecting){ v.pause && v.pause(); } else if(!prefersReduced){ v.play && v.play().catch(()=>{}); } });
     }, {root:null, threshold:0});
-    document.querySelectorAll('video.media').forEach(v=>vio.observe(v));
+    document.querySelectorAll('video.media').forEach(v=>!v.id&&vio.observe(v));
   }
 
-  /* === Vulnerability video: robust playlist loader (restores your previous behavior) === */
+  /* === LLM Vulnerability video: robust looping playlist === */
   (function initVuln(){
     const v = document.getElementById('vulnVid'); if(!v) return;
     const frame = v.closest('.frame16');
+    const ph = frame.querySelector('.placeholder');
 
-    // Candidate filenames you used before + a generic name
-    const list = [
+    // Update this list if your filename/path is different
+    const candidates = [
       'videos/vuln_demo.mp4','/videos/vuln_demo.mp4',
-      'gcb_merged_v2.mp4','/gcb_merged_v2.mp4','videos/gcb_merged_v2.mp4','/videos/gcb_merged_v2.mp4',
-      'gcb_web_demo_v10.mp4','/gcb_web_demo_v10.mp4','videos/gcb_web_demo_v10.mp4','/videos/gcb_web_demo_v10.mp4',
-      'gcb_full_demo_v13.mp4','/gcb_full_demo_v13.mp4','videos/gcb_full_demo_v13.mp4','/videos/gcb_full_demo_v13.mp4',
+      'videos/gcb_merged_v2.mp4','/videos/gcb_merged_v2.mp4',
+      'videos/gcb_web_demo_v10.mp4','/videos/gcb_web_demo_v10.mp4',
+      'videos/gcb_full_demo_v13.mp4','/videos/gcb_full_demo_v13.mp4',
+      'gcb_merged_v2.mp4','/gcb_merged_v2.mp4',
+      'gcb_web_demo_v10.mp4','/gcb_web_demo_v10.mp4',
+      'gcb_full_demo_v13.mp4','/gcb_full_demo_v13.mp4',
       'https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/videos/vuln_demo.mp4',
-      'https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/gcb_merged_v2.mp4'
+      'https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/videos/gcb_merged_v2.mp4'
     ];
 
     let i = 0;
     function tryNext(){
-      if(i >= list.length){ showPlaceholder(frame); return; }
-      v.src = list[i++]; v.load();
+      if(i >= candidates.length){ if(ph) ph.style.display='flex'; return; }
+      v.src = candidates[i++]; v.load();
       if(!prefersReduced){ v.play().catch(()=>{}); }
     }
-    v.addEventListener('loadeddata', ()=>hidePlaceholder(frame), {once:true});
+    v.loop = true;
+    v.muted = true;
+    v.playsInline = true;
+
+    v.addEventListener('loadeddata', ()=>{ if(ph) ph.style.display='none'; }, {once:true});
     v.addEventListener('error', tryNext);
     v.addEventListener('stalled', tryNext);
     v.addEventListener('emptied', tryNext);
+    v.addEventListener('ended', ()=>{ /* loop is set; this is a safety */ v.play().catch(()=>{}); });
 
-    // Start immediately (eager)
+    // eager start
     tryNext();
+
+    // pause/resume off-screen
+    if('IntersectionObserver' in window){
+      const vio = new IntersectionObserver((items)=>{
+        items.forEach(it=>{ if(!it.isIntersecting){ v.pause(); } else if(!prefersReduced){ v.play().catch(()=>{}); } });
+      }, {root:null, threshold:0});
+      vio.observe(v);
+    }
   })();
 })();
 </script>
