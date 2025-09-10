@@ -1,10 +1,11 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Gayatri Malladi</title>
 
+<!-- Font -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -39,42 +40,43 @@
   a:hover{text-decoration:underline}
   img,video{max-width:100%; display:block}
 
-  .wrap{max-width:1220px; margin:0 auto; padding:28px 20px 80px}
+  .wrap{max-width:1180px; margin:0 auto; padding:28px 18px 80px}
 
-  /* ===== LAYOUT (no animations) ===== */
+  /* ===== LAYOUT (no animation) ===== */
   .hero{
     display:grid;
-    grid-template-columns: 400px 1fr;   /* standard, modest width */
-    gap:32px; align-items:start;
+    grid-template-columns: 340px 1fr;  /* smaller, standard left column */
+    gap:40px;                          /* extra breathing room */
+    align-items:start;
   }
-  @media (max-width:1200px){ .hero{grid-template-columns:1fr} }
+  @media (max-width:1100px){ .hero{grid-template-columns:1fr} }
 
-  /* ===== LEFT: ABOUT ===== */
+  /* ===== ABOUT (purple) ===== */
   .about{
     background:linear-gradient(180deg, var(--vio-soft), rgba(123,119,255,.88));
     border-radius:18px;
     padding:16px;
-    /* smaller and tidy */
-    min-height: 0;
   }
   .chip{
-    position:relative; display:inline-block; margin-top:-8px; margin-left:2px; margin-bottom:10px;
+    display:inline-block; margin:-6px 0 10px 2px;
     background:#0f141c; color:#cadaf1; border:1px solid var(--stroke);
     padding:6px 11px; border-radius:18px; font-size:.84rem;
   }
-  .about-inner{display:grid; grid-template-columns: 220px 1fr; gap:16px}
+
+  /* TRUE smaller card: tighter type + narrower inner layout */
+  .about-inner{display:grid; grid-template-columns: 200px 1fr; gap:14px}
   @media (max-width:560px){ .about-inner{grid-template-columns:1fr} }
 
   .avatar{
-    width:220px; height:220px; border-radius:50%; overflow:hidden;
+    width:200px; height:200px; border-radius:50%; overflow:hidden;
     border:8px solid rgba(255,255,255,.30); background:#111;
   }
   .avatar img{width:100%; height:100%; object-fit:cover}
 
-  .about h1{margin:.25rem 0 .25rem; font-size:2.6rem; line-height:1.06}
-  .about p{margin:.55rem 0; color:#f5f7ff}
+  .about h1{margin:.25rem 0 .25rem; font-size:2.05rem; line-height:1.1; letter-spacing:.2px}
+  .about p{margin:.45rem 0; color:#f5f7ff; font-size:.96rem; line-height:1.5}
 
-  .social{display:flex; gap:8px; margin-top:12px; flex-wrap:wrap}
+  .social{display:flex; gap:8px; margin-top:10px; flex-wrap:wrap}
   .btn{
     display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border-radius:12px;
     border:1px solid rgba(255,255,255,.22); background:rgba(15,15,20,.14); color:#fff; font-weight:700;
@@ -82,9 +84,8 @@
   .btn svg{width:18px; height:18px}
 
   /* ===== RIGHT: OVERVIEW ===== */
-  .overview-head{font-size:4.8rem; font-weight:800; line-height:1; margin:0 8px 12px}
-  @media (max-width:1200px){ .overview-head{font-size:3.6rem} }
-  .col{display:flex; flex-direction:column; gap:16px}
+  .overview-head{font-size:4.4rem; font-weight:800; line-height:1; margin:0 6px 10px}
+  @media (max-width:1100px){ .overview-head{font-size:3.4rem} }
 
   .card{
     background:linear-gradient(180deg,var(--panel),var(--panel-2));
@@ -101,15 +102,15 @@
   }
   .from-me{margin-left:auto; background:#0f1723}
 
-  .stats-row{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  .stats-row{display:grid; grid-template-columns:1fr 1fr; gap:16px}
   @media (max-width:640px){ .stats-row{grid-template-columns:1fr} }
 
   .stat{
-    border-radius:16px; padding:16px 18px; height:132px; display:flex; flex-direction:column; justify-content:center;
+    border-radius:16px; padding:16px 18px; min-height:122px; display:flex; flex-direction:column; justify-content:center;
     border:1px solid rgba(0,0,0,.08); color:#112;
     background:linear-gradient(180deg,var(--mint),var(--mint-2));
   }
-  .stat .n{font-size:2.5rem; font-weight:800; line-height:1}
+  .stat .n{font-size:2.3rem; font-weight:800; line-height:1}
   .stat .k{font-weight:700; opacity:.75; margin-top:8px}
   .stat.vio{
     background:linear-gradient(180deg, rgba(123,119,255,.95), rgba(123,119,255,.90));
@@ -126,8 +127,8 @@
             background:linear-gradient(90deg, var(--vio), var(--mint-2))}
   .tag{display:inline-block; font-size:.78rem; color:#b7c3d6; padding:3px 10px; border-radius:999px; border:1px solid #2b3950; margin:0 0 12px 6px}
 
-  .entry{display:grid; grid-template-columns: 500px 1fr; gap:16px; align-items:start; margin:16px 6px 24px}
-  @media (max-width:1200px){ .entry{grid-template-columns:1fr} }
+  .entry{display:grid; grid-template-columns: 480px 1fr; gap:16px; align-items:start; margin:16px 6px 24px}
+  @media (max-width:1100px){ .entry{grid-template-columns:1fr} }
 
   .cover{
     width:100%; aspect-ratio:16/9; border-radius:16px; overflow:hidden; display:block;
@@ -144,7 +145,7 @@
 <body>
   <main class="wrap">
     <section class="hero">
-      <!-- LEFT: About (smaller, tidy purple card) -->
+      <!-- LEFT: About (smaller purple card) -->
       <div class="about">
         <span class="chip">• About Me</span>
         <div class="about-inner">
@@ -188,8 +189,8 @@
         </div>
       </div>
 
-      <!-- RIGHT: simple, no animation -->
-      <div class="col">
+      <!-- RIGHT: simple (no animations) -->
+      <div>
         <div class="overview-head">Overview</div>
 
         <div class="card chatbox" aria-hidden="true">
@@ -210,7 +211,7 @@
           </div>
         </div>
 
-        <div class="card concierge">
+        <div class="card concierge" style="margin-top:10px">
           <div>
             <strong>Portfolio Concierge</strong>
             <div class="sub">Click to chat with AI to learn more about my work</div>
@@ -321,7 +322,7 @@
     <footer>© <span id="yr"></span> Gayatri Malladi</footer>
   </main>
 
-  <!-- Minimal JS: counts + concierge only (no animations) -->
+  <!-- Minimal JS: counts + concierge only -->
   <div id="concierge" style="position:fixed;inset:0;display:none;place-items:center;background:rgba(6,8,12,.6);z-index:50">
     <div style="width:min(920px,90vw);background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid var(--stroke);border-radius:16px;padding:16px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
@@ -347,7 +348,7 @@
     document.getElementById('projects')?.scrollIntoView({behavior:'smooth', block:'start'});
   });
 
-  // Concierge (no AI here; just a basic modal shell)
+  // Concierge (simple modal shell)
   const modal = document.getElementById('concierge');
   document.getElementById('openConcierge').onclick = ()=> modal.style.display='grid';
   document.getElementById('closeConcierge').onclick = ()=> modal.style.display='none';
