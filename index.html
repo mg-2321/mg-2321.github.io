@@ -91,9 +91,11 @@ p{margin:.6rem 0}
   backface-visibility:hidden; transform:translateZ(0);
   box-shadow:0 2px 18px rgba(17,24,39,.06);
 }
+/* Added a bit more space between photo and links */
 .profile-links{
   display:flex; flex-wrap:nowrap; justify-content:center; align-items:center; gap:8px;
   width:100%;
+  margin-top:12px;  /* NEW */
 }
 .chip{
   display:inline-flex; align-items:center; gap:6px;
@@ -269,10 +271,10 @@ h2::after{ content:""; display:block; width:56px; height:3px;
   <h3 class="reveal"><span class="pill">Agents &amp; Planning</span></h3>
   <div class="entry reveal">
     <div class="frame16">
-      <!-- UPDATED: short-term memory cover video -->
+      <!-- UPDATED: short-term memory cover video (correct link) -->
       <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata"
              poster="images/wip_cartoon_placeholder.jpg">
-        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/images/po_architectures_clean_final_4slides_1080p.mp4" type="video/mp4">
+        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/images/po_architectures_steps_clean_4slides_1080p.mp4" type="video/mp4">
       </video>
       <div class="placeholder" aria-hidden="true">Video</div>
     </div>
@@ -421,8 +423,11 @@ h2::after{ content:""; display:block; width:56px; height:3px;
   const caret=document.getElementById('caret');
   const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ensure no pre-filled text so typing always starts from "Gayatri"
-  if(el) el.textContent = '';
+  if(el){
+    // Hard reset to guarantee the typing begins at 'G' in every browser/restore case
+    while (el.firstChild) el.removeChild(el.firstChild);
+    el.textContent = '';
+  }
 
   (function type(i=0){
     if(!el) return;
