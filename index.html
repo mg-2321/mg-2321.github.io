@@ -20,7 +20,15 @@
     margin:0 auto; max-width:980px; padding:26px 16px 64px;
     color:var(--fg); background:var(--bg); line-height:1.75;
     font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    /* Page enter animation */
+    opacity:0; transform:translateY(12px);
+    animation:pageIn .6s cubic-bezier(.2,.7,.2,1) forwards;
   }
+  @keyframes pageIn{to{opacity:1; transform:none}}
+  @media (prefers-reduced-motion:reduce){
+    body{animation:none; opacity:1; transform:none}
+  }
+
   a{color:var(--link); text-decoration:none}
   a:hover{text-decoration:underline}
   p{margin:.6rem 0}
@@ -49,6 +57,7 @@
     width:340px; height:340px; border-radius:50%;
     object-fit:cover; object-position:center 30%;
     display:block;
+    box-shadow:0 2px 18px rgba(17,24,39,.06);
   }
   .profile-links{
     display:flex; flex-wrap:nowrap; justify-content:center; align-items:center; gap:8px;
@@ -102,6 +111,15 @@
   @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
   @media (prefers-reduced-motion: reduce){.scroll,.scroll2{animation:none}}
 
+  /* Scroll reveal (AOS-like, no library) */
+  .reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease }
+  .reveal.in{ opacity:1; transform:none }
+  .reveal.right{ transform:translateX(24px) }
+  .reveal.right.in{ transform:none }
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1; transform:none}
+  }
+
   /* Responsive */
   @media (max-width:1100px){
     .intro{grid-template-columns:minmax(0,1fr) 360px}
@@ -124,17 +142,17 @@
 <body>
 <main>
   <!-- Typing header -->
-  <h1 class="site-title">
+  <h1 class="site-title reveal in">
     <span class="typewrap"><span id="typeTarget" aria-label="Gayatri Malladi"></span><span class="caret">|</span></span>
   </h1>
 
-  <p class="mini-nav">
+  <p class="mini-nav reveal in">
     <a href="#projects">Projects</a>
     <a href="#blogs">Blogs</a>
   </p>
 
   <!-- Intro -->
-  <section class="intro">
+  <section class="intro reveal">
     <div class="prose">
       <p class="lead">
         I’m a second-year M.S. student in the Computer Science department at the University of Washington. Currently, my research supervised by
@@ -150,7 +168,7 @@
       <img class="avatar" src="https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3"
            width="340" height="340" alt="Portrait of Gayatri Malladi"
            loading="eager" decoding="async" fetchpriority="high">
-      <nav class="profile-links" aria-label="Links">
+      <nav class="profile-links">
         <a class="chip" href="https://drive.google.com/file/d/1jZH0jteuhUbrC89-lrSqJUhDhwv0UxIH/view" target="_blank" rel="noopener">
           <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9z"/><path d="M14 2v7h7"/></svg>
           <span>CV</span>
@@ -172,7 +190,7 @@
   </section>
 
   <!-- Skills -->
-  <div class="tokenribbon" aria-hidden="true" style="margin-top:8px">
+  <div class="tokenribbon reveal" aria-hidden="true" style="margin-top:8px">
     <div class="track scroll">
       Programming: Python • C++ • SQL · Tools: PyTorch • MATLAB • Apache Spark ·
       Data Mining: Data Visualization • Statistical Analysis • Predictive Modeling • Pattern Recognition • Feature Engineering • Dimensionality Reduction (PCA • t-SNE)
@@ -184,14 +202,14 @@
   </div>
 
   <!-- Projects -->
-  <h2 id="projects">Projects</h2>
+  <h2 id="projects" class="reveal">Projects</h2>
 
-  <h3><span class="pill">Agents &amp; Planning</span></h3>
-  <div class="entry">
-    <div class="frame16 contain" data-eager="true">
-      <!-- Eager so the animation shows instantly -->
-      <img class="media lazyimg" data-src="images/wip_cartoon.gif" alt="Work in progress — short-term memory project" decoding="async">
-      <div class="placeholder">Work in progress</div>
+  <h3 class="reveal"><span class="pill">Agents &amp; Planning</span></h3>
+  <div class="entry reveal">
+    <div class="frame16 contain">
+      <!-- Replace with your actual GIF path if different -->
+      <img class="media" src="images/wip_cartoon.gif" alt="Work in progress — short-term memory project" decoding="async">
+      <div class="placeholder" aria-hidden="true">Work in progress</div>
     </div>
     <div>
       <div class="title">Solving Short-term Memory Limits of ADAPT Agents</div>
@@ -202,13 +220,11 @@
     </div>
   </div>
 
-  <h3><span class="pill">Vision &amp; Robotics</span></h3>
-  <div class="entry">
+  <h3 class="reveal"><span class="pill">Vision &amp; Robotics</span></h3>
+  <div class="entry reveal">
     <div class="frame16">
-      <video class="media lazyvid" muted loop playsinline webkit-playsinline preload="none" poster="images/waymo-forecast.jpg">
-        <source data-src="images/waymo_diffusion_cover%20(1)%20(2)%20(1).mp4" type="video/mp4">
-      </video>
-      <div class="placeholder">Video preview</div>
+      <video class="media covervid" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/waymo-forecast.jpg"></video>
+      <div class="placeholder" aria-hidden="true">Video preview</div>
     </div>
     <div>
       <div class="title">Future Trajectory Prediction for Autonomous Vehicles</div>
@@ -220,12 +236,10 @@
     </div>
   </div>
 
-  <div class="entry">
+  <div class="entry reveal right">
     <div class="frame16">
-      <video class="media lazyvid" muted loop playsinline webkit-playsinline preload="none" poster="images/cuda-limo.jpg">
-        <source data-src="images/limo_cuda_preview_v4.mp4" type="video/mp4">
-      </video>
-      <div class="placeholder">Video preview</div>
+      <video class="media covervid" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/cuda-limo.jpg"></video>
+      <div class="placeholder" aria-hidden="true">Video preview</div>
     </div>
     <div>
       <div class="title">Optimizing LIMO Pipeline with CUDA Parallelization</div>
@@ -237,13 +251,10 @@
     </div>
   </div>
 
-  <!-- Stroke Rehab (no cropping) -->
-  <div class="entry">
+  <div class="entry reveal">
     <div class="frame16 contain">
-      <video class="media lazyvid" muted loop playsinline webkit-playsinline preload="none" poster="images/eeg-stroke.jpg">
-        <source data-src="cover_all_in_one_paper_exact4.mp4" type="video/mp4">
-      </video>
-      <div class="placeholder">EEG demo</div>
+      <video class="media covervid" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/eeg-stroke.jpg"></video>
+      <div class="placeholder" aria-hidden="true">EEG demo</div>
     </div>
     <div>
       <div class="title">Stroke Rehabilitation — EEG Motor Action Classification</div>
@@ -255,11 +266,10 @@
     </div>
   </div>
 
-  <!-- Multimodal Emotion Recognition (Vision & Robotics) -->
-  <div class="entry">
+  <div class="entry reveal right">
     <div class="frame16">
-      <img class="media lazyimg" data-src="images/emotion.jpg" alt="Multimodal Emotion Recognition" decoding="async">
-      <div class="placeholder">Project cover</div>
+      <img class="media" src="images/emotion.jpg" alt="Multimodal Emotion Recognition" decoding="async" loading="lazy">
+      <div class="placeholder" aria-hidden="true">Project cover</div>
     </div>
     <div>
       <div class="title">Multimodal Emotion Recognition using Deep Learning</div>
@@ -270,13 +280,11 @@
     </div>
   </div>
 
-  <h3><span class="pill">NLP &amp; Safety</span></h3>
-  <div class="entry">
+  <h3 class="reveal"><span class="pill">NLP &amp; Safety</span></h3>
+  <div class="entry reveal">
     <div class="frame16">
-      <video class="media lazyvid" muted loop playsinline webkit-playsinline preload="none" poster="images/nlp-si.jpg">
-        <source data-src="videos/suicide_ideation_demo.mp4" type="video/mp4">
-      </video>
-      <div class="placeholder">NLP demo</div>
+      <video class="media covervid" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/nlp-si.jpg"></video>
+      <div class="placeholder" aria-hidden="true">NLP demo</div>
     </div>
     <div>
       <div class="title">NLP for Suicide Ideation &amp; Attempt Detection</div>
@@ -288,11 +296,15 @@
     </div>
   </div>
 
-  <!-- LLMs for Vulnerability Detection — cover video with looping playlist -->
-  <div class="entry">
-    <div class="frame16" data-eager="true">
-      <video id="vulnVid" class="media" muted loop playsinline webkit-playsinline preload="metadata" poster="images/llm-security.jpg"></video>
-      <div class="placeholder">Security demo</div>
+  <!-- LLMs for Vulnerability Detection — plays from your EXACT RAW GitHub links -->
+  <div class="entry reveal right">
+    <div class="frame16">
+      <video id="vulnVid" class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata"
+             poster="images/llm-security.jpg" crossorigin="anonymous">
+        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/gcb_full_demo_v13.mp4" type="video/mp4">
+        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/gcb_web_demo_v10.mp4" type="video/mp4">
+      </video>
+      <div class="placeholder" aria-hidden="true">Security demo</div>
     </div>
     <div>
       <div class="title">LLMs for Code Vulnerability Detection</div>
@@ -303,34 +315,34 @@
     </div>
   </div>
 
-  <div class="hr"></div>
+  <div class="hr reveal"></div>
 
-  <!-- Blogs -->
-  <h2 id="blogs">Blogs</h2>
-  <div class="entry">
+  <!-- Blogs (no titles) -->
+  <h2 id="blogs" class="reveal">Blogs</h2>
+  <div class="entry reveal">
     <div class="frame16">
-      <img class="media lazyimg" data-src="images/blog-agents.jpg" alt="Blog cover" decoding="async">
-      <div class="placeholder">Blog cover</div>
+      <img class="media" src="images/blog-agents.jpg" alt="Blog cover" decoding="async" loading="lazy">
+      <div class="placeholder" aria-hidden="true">Blog cover</div>
     </div>
     <div>
       <p class="row-links"><a class="btn" href="https://medium.com/@gayat23" target="_blank">Read on Medium →</a></p>
     </div>
   </div>
-  <div class="entry">
+  <div class="entry reveal right">
     <div class="frame16">
-      <img class="media lazyimg" data-src="images/blog-cuda.jpg" alt="Blog cover" decoding="async">
-      <div class="placeholder">Blog cover</div>
+      <img class="media" src="images/blog-cuda.jpg" alt="Blog cover" decoding="async" loading="lazy">
+      <div class="placeholder" aria-hidden="true">Blog cover</div>
     </div>
     <div>
       <p class="row-links"><a class="btn" href="https://medium.com/@gayat23" target="_blank">Read on Medium →</a></p>
     </div>
   </div>
 
-  <div class="hr"></div>
+  <div class="hr reveal"></div>
   <p class="muted">© <script>document.write(new Date().getFullYear())</script> Gayatri Malladi</p>
 </main>
 
-<!-- Tiny, fast JS: typing + lazy/eager media + looping playlist for LLM video -->
+<!-- Lightweight JS: typing, scroll-reveal, and pausing videos off-screen -->
 <script>
 (function(){
   /* Typing effect */
@@ -338,93 +350,43 @@
   const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   (function type(i=0){ if(!el) return; el.textContent=reduce?full:full.slice(0,i); if(!reduce&&i<full.length) setTimeout(()=>type(i+1),70); })();
 
-  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const io = 'IntersectionObserver' in window ? new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(!entry.isIntersecting) return;
-      const frame=entry.target, v=frame.querySelector('video.media'), img=frame.querySelector('img.media');
-      if(v && !frame.querySelector('#vulnVid')){ // generic lazy videos
-        v.querySelectorAll('source[data-src]').forEach(s=>{ if(s.dataset.src){ s.src=s.dataset.src; s.removeAttribute('data-src'); }});
-        if(!v.src && v.querySelector('source')) v.load();
-        v.addEventListener('loadeddata', ()=>{ const ph=frame.querySelector('.placeholder'); if(ph) ph.style.display='none'; }, {once:true});
-        v.addEventListener('error', ()=>{ const ph=frame.querySelector('.placeholder'); if(ph) ph.style.display='flex'; }, {once:true});
-        if(!prefersReduced){ v.play().catch(()=>{}); }
-      }
-      if(img){
-        if(img.dataset.src){ img.src=img.dataset.src; img.removeAttribute('data-src'); }
-        img.addEventListener('load', ()=>{ const ph=frame.querySelector('.placeholder'); if(ph) ph.style.display='none'; }, {once:true});
-        img.addEventListener('error', ()=>{ const ph=frame.querySelector('.placeholder'); if(ph) ph.style.display='flex'; }, {once:true});
-      }
-      io.unobserve(frame);
-    });
-  }, {root:null, rootMargin:'180px 0px', threshold:0.15}) : null;
-
-  document.querySelectorAll('.frame16').forEach(frame=>{
-    if(frame.dataset.eager==='true'){ // eager load (WIP GIF + LLM video)
-      const v=frame.querySelector('video.media');
-      const img=frame.querySelector('img.media');
-      if(img && img.dataset.src){ img.src=img.dataset.src; img.removeAttribute('data-src'); const ph=frame.querySelector('.placeholder'); img.addEventListener('load',()=>{ if(ph) ph.style.display='none'; }, {once:true}); }
-      if(!v || frame.querySelector('#vulnVid')) return; // vuln handled below
-      v.querySelectorAll('source[data-src]').forEach(s=>{ s.src=s.dataset.src; s.removeAttribute('data-src'); });
-      if(!v.src && v.querySelector('source')) v.load();
-      if(!prefersReduced){ v.play().catch(()=>{}); }
-    } else if(io){ io.observe(frame); }
-  });
-
-  // Pause generic videos off-screen
-  if('IntersectionObserver' in window){
-    const vio = new IntersectionObserver((items)=>{
-      items.forEach(it=>{ const v=it.target; if(!it.isIntersecting){ v.pause && v.pause(); } else if(!prefersReduced){ v.play && v.play().catch(()=>{}); } });
-    }, {root:null, threshold:0});
-    document.querySelectorAll('video.media').forEach(v=>!v.id&&vio.observe(v));
+  /* Scroll reveal */
+  if('IntersectionObserver' in window && !reduce){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    }),{root:null, rootMargin:'0px 0px -10% 0px', threshold:.15});
+    document.querySelectorAll('.reveal').forEach(n=>io.observe(n));
+  }else{
+    document.querySelectorAll('.reveal').forEach(n=>n.classList.add('in'));
   }
 
-  /* === LLM Vulnerability video: robust looping playlist === */
-  (function initVuln(){
-    const v = document.getElementById('vulnVid'); if(!v) return;
-    const frame = v.closest('.frame16');
-    const ph = frame.querySelector('.placeholder');
+  /* Pause videos when off-screen (save battery) */
+  if('IntersectionObserver' in window){
+    const vio=new IntersectionObserver(items=>{
+      items.forEach(it=>{
+        const v=it.target;
+        if(!it.isIntersecting){ v.pause && v.pause(); }
+        else { v.play && v.play().catch(()=>{}); }
+      });
+    },{root:null, threshold:0});
+    document.querySelectorAll('video.media').forEach(v=>vio.observe(v));
+  }
 
-    // Update this list if your filename/path is different
-    const candidates = [
-      'videos/vuln_demo.mp4','/videos/vuln_demo.mp4',
-      'videos/gcb_merged_v2.mp4','/videos/gcb_merged_v2.mp4',
-      'videos/gcb_web_demo_v10.mp4','/videos/gcb_web_demo_v10.mp4',
-      'videos/gcb_full_demo_v13.mp4','/videos/gcb_full_demo_v13.mp4',
-      'gcb_merged_v2.mp4','/gcb_merged_v2.mp4',
-      'gcb_web_demo_v10.mp4','/gcb_web_demo_v10.mp4',
-      'gcb_full_demo_v13.mp4','/gcb_full_demo_v13.mp4',
-      'https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/videos/vuln_demo.mp4',
-      'https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/videos/gcb_merged_v2.mp4'
-    ];
-
-    let i = 0;
-    function tryNext(){
-      if(i >= candidates.length){ if(ph) ph.style.display='flex'; return; }
-      v.src = candidates[i++]; v.load();
-      if(!prefersReduced){ v.play().catch(()=>{}); }
-    }
-    v.loop = true;
-    v.muted = true;
-    v.playsInline = true;
-
-    v.addEventListener('loadeddata', ()=>{ if(ph) ph.style.display='none'; }, {once:true});
-    v.addEventListener('error', tryNext);
-    v.addEventListener('stalled', tryNext);
-    v.addEventListener('emptied', tryNext);
-    v.addEventListener('ended', ()=>{ /* loop is set; this is a safety */ v.play().catch(()=>{}); });
-
-    // eager start
-    tryNext();
-
-    // pause/resume off-screen
-    if('IntersectionObserver' in window){
-      const vio = new IntersectionObserver((items)=>{
-        items.forEach(it=>{ if(!it.isIntersecting){ v.pause(); } else if(!prefersReduced){ v.play().catch(()=>{}); } });
-      }, {root:null, threshold:0});
-      vio.observe(v);
-    }
-  })();
+  /* Optional: wire cover video sources if you’d like to host locally later
+     (Currently the LLM video uses your RAW GitHub links in <source> above.) */
+  const coverSources = {
+    "images/waymo-forecast.jpg": ["images/waymo_diffusion_cover%20(1)%20(2)%20(1).mp4"],
+    "images/cuda-limo.jpg": ["images/limo_cuda_preview_v4.mp4"],
+    "images/eeg-stroke.jpg": ["cover_all_in_one_paper_exact4.mp4"],
+    "images/nlp-si.jpg": ["videos/suicide_ideation_demo.mp4"]
+  };
+  document.querySelectorAll('video.covervid').forEach(v=>{
+    const poster=v.getAttribute('poster');
+    const list=coverSources[poster]||[];
+    list.forEach(src=>{
+      const s=document.createElement('source'); s.src=src; s.type='video/mp4'; v.appendChild(s);
+    });
+  });
 })();
 </script>
 </body>
