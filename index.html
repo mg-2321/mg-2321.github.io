@@ -26,29 +26,31 @@
     .mini-nav a{ display:inline-block; font-size:.95rem; margin:0 .55rem; padding:2px 8px; border-radius:999px }
     .mini-nav a:hover{ background:var(--pill) }
 
-    .intro{ display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:28px; align-items:start; }
-    .prose{ max-width:72ch; text-align:justify; text-justify:inter-word; hyphens:auto; padding-top:16px } /* push text down */
+    .intro{ display:grid; grid-template-columns:minmax(0,1fr) 360px; gap:28px; align-items:start; }
+    .prose{ max-width:72ch; text-align:justify; text-justify:inter-word; hyphens:auto; padding-top:10px }
     .lead{ font-size:1.06rem } .lead.red{ color:#c62828 }
 
-    /* photo + horizontal profile links */
-    .aside{display:flex; flex-direction:column; align-items:center; gap:14px}
+    /* photo + single-line profile links */
+    .aside{display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:18px;} /* push the whole photo block down a bit */
     .avatar{
-      width:240px; height:240px; border-radius:50%;
+      width:280px; height:280px; border-radius:50%;
       object-fit:cover; object-position:center 30%;
-      display:block; /* no border around image */
+      display:block;
     }
     .profile-links{
-      display:flex; flex-wrap:wrap; justify-content:center; gap:10px; width:100%; margin-top:2px;
+      display:flex; flex-wrap:nowrap; justify-content:center; align-items:center; gap:8px;
+      width:100%; overflow:hidden;
     }
     .chip{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 12px; border:1.5px solid var(--rule); border-radius:999px;
-      background:#fff; text-decoration:none; font-weight:600;
+      display:inline-flex; align-items:center; gap:6px;
+      padding:6px 10px; border:1.25px solid var(--rule); border-radius:999px;
+      background:#fff; text-decoration:none; font-weight:600; font-size:.85rem; /* smaller text so all fit on one line */
+      white-space:nowrap;
     }
     .chip:hover{ background:#f7faff; text-decoration:none; border-color:#cfdaf0 }
     .ico{ width:16px; height:16px; display:inline-block }
 
-    @media (max-width:900px){ .intro{grid-template-columns:1fr} .avatar{width:210px;height:210px} }
+    @media (max-width:980px){ .intro{grid-template-columns:1fr} .aside{margin-top:10px} .avatar{width:240px;height:240px} .profile-links{flex-wrap:wrap} }
 
     h2{ font-size:1.55rem; line-height:1.25; margin:1.6rem 0 .6rem; position:relative }
     h2::after{ content:""; display:block; width:56px; height:3px; background:linear-gradient(90deg,#0b57d0,#8b5cf6); border-radius:3px; margin-top:6px; opacity:.9 }
@@ -56,16 +58,17 @@
     .pill{display:inline-block;font-size:.75rem;color:#244;padding:2px 8px;border-radius:999px;background:var(--pill);border:1px solid #d8e4ff;margin-bottom:.25rem}
     .title{ font-weight:600 }
 
-    /* Project media (images & videos) — stronger borders */
-    .entry{ display:grid; grid-template-columns:420px 1fr; gap:16px; align-items:start; margin:18px 0 24px; }
+    /* Project media (images & videos) with borders */
+    .entry{ display:grid; grid-template-columns:440px 1fr; gap:16px; align-items:start; margin:18px 0 24px; }
     .cover{
-      width:100%; aspect-ratio:16/9; object-fit:cover;
+      width:100%; aspect-ratio:16/9; object-fit:cover; /* default: cover */
       background:#fff; border:2px solid var(--rule); border-radius:14px; overflow:hidden;
       box-shadow:0 1px 10px rgba(17,24,39,.04);
     }
+    .cover.contain{ object-fit:contain; background:#fff; } /* use when we don't want any cropping */
     .row-links a.btn{ display:inline-block;border:1px solid var(--rule);padding:6px 10px;border-radius:10px;text-decoration:none;margin-right:.45rem;font-weight:600 }
     .btn:hover{background:#f7faff;text-decoration:none;border-color:#cfdaf0}
-    @media (max-width:780px){ .entry{grid-template-columns:1fr} .cover{width:100%} }
+    @media (max-width:820px){ .entry{grid-template-columns:1fr} .cover{width:100%} }
 
     .entry ul{ margin:.25rem 0 0 0; padding:0 0 0 1rem; }
     .entry ul li{ margin:.25rem 0; text-align:justify; text-justify:inter-word; hyphens:auto; line-height:1.65; }
@@ -99,7 +102,7 @@
       <a href="#ask">Ask</a>
     </p>
 
-    <!-- Intro + circular photo with horizontal links beneath -->
+    <!-- Intro + circular photo aligned with text start -->
     <section class="intro">
       <div class="prose">
         <p class="lead">
@@ -115,7 +118,7 @@
       <aside class="aside" aria-label="Profile">
         <img class="avatar" src="https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3" alt="Portrait of Gayatri Malladi" loading="eager" decoding="sync">
 
-        <!-- Side-by-side professional icon links -->
+        <!-- SINGLE-LINE professional icon links -->
         <nav class="profile-links" aria-label="Links">
           <a class="chip" href="https://drive.google.com/file/d/1jZH0jteuhUbrC89-lrSqJUhDhwv0UxIH/view" target="_blank" rel="noopener">
             <!-- Document icon -->
@@ -141,7 +144,7 @@
       </aside>
     </section>
 
-    <!-- Skills marquee (from résumé) -->
+    <!-- Skills marquee -->
     <div class="tokenribbon" aria-hidden="true" style="margin-top:16px">
       <div class="track scroll">
         Programming: Python • C++ • SQL · Tools: PyTorch • MATLAB • Apache Spark ·
@@ -164,7 +167,6 @@
         <p>Added a <em>Knowledge-Aware Graph</em> module for long-term user preferences and a diffusion-style drive model for smoother planning under uncertainty.</p>
         <p class="row-links">
           <a class="btn" href="https://github.com/mg-2321/Adapt" target="_blank" rel="noopener">Code</a>
-          <!-- paper removed as requested -->
         </p>
       </div>
     </div>
@@ -198,7 +200,8 @@
     </div>
 
     <div class="entry">
-      <video class="cover" autoplay muted loop playsinline preload="auto"
+      <!-- Use 'contain' so nothing is cropped on this one -->
+      <video class="cover contain" autoplay muted loop playsinline preload="auto"
              poster="images/eeg-stroke.jpg">
         <source src="cover_all_in_one_paper_exact4.mp4" type="video/mp4" />
       </video>
@@ -207,7 +210,7 @@
         <p>Pre/post-stroke EEG analysis for motor actions (hand wave, clench, face rub) with ICA, band-pass filtering, and PCA; models: Decision Trees, SVMs, NNs.</p>
         <p class="row-links">
           <a class="btn" href="https://github.com/mg-2321/Stroke_Rehabilitation" target="_blank" rel="noopener">Code</a>
-          <!-- paper removed for this project per request -->
+          <a class="btn" href="https://github.com/mg-2321/Stroke_Rehabilitation/blob/main/Iteration%204_%20Paper-4.pdf" target="_blank" rel="noopener">Project paper</a>
         </p>
       </div>
     </div>
@@ -232,7 +235,6 @@
         <p>Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN to flag zero-day patterns via data-flow visuals.</p>
         <p class="row-links">
           <a class="btn" href="https://github.com/mg-2321/Vulnerability-Detection-using-Image-Processing" target="_blank">Code</a>
-          <!-- remove paper for this project -->
         </p>
       </div>
     </div>
@@ -257,22 +259,17 @@
 
     <div class="hr"></div>
 
-    <!-- Blogs (new) -->
+    <!-- Blogs (no article names) -->
     <h2 id="blogs">Blogs</h2>
-    <p class="muted">Recent posts &amp; drafts (link out to Medium):</p>
     <div class="entry">
-      <img class="cover" src="images/blog-agents.jpg" alt="Blog cover (agents)">
+      <img class="cover" src="images/blog-agents.jpg" alt="Blog cover">
       <div>
-        <div class="title">Teaching Agents When to Ask vs Act</div>
-        <p>Design sketches for a lightweight KAG and reward-based evaluation across synthetic personas.</p>
         <p class="row-links"><a class="btn" href="https://medium.com/@gayat23" target="_blank">Read on Medium →</a></p>
       </div>
     </div>
     <div class="entry">
-      <img class="cover" src="images/blog-cuda.jpg" alt="Blog cover (CUDA)">
+      <img class="cover" src="images/blog-cuda.jpg" alt="Blog cover">
       <div>
-        <div class="title">From Nsight to 60% Faster Kernels</div>
-        <p>Warps, occupancy, and a few small changes (coalescing + loop unroll + in-kernel activations) that added up.</p>
         <p class="row-links"><a class="btn" href="https://medium.com/@gayat23" target="_blank">Read on Medium →</a></p>
       </div>
     </div>
@@ -327,7 +324,7 @@
       {id:'waymo',title:'Future Trajectory Prediction for Autonomous Vehicles',summary:'Diffusion-based model forecasting 5-second trajectories on the Waymo Open Dataset; models multimodal uncertainty and temporal dependencies.',tags:'diffusion trajectory forecasting waymo uncertainty driving',code:'https://github.com/mg-2321/Waymo_trajectory_prediction',paper:'papers/waymo-forecast.pdf'},
       {id:'agents',title:'Solving Short-term Memory Limits of ADAPT Agents',summary:'Added a Knowledge-Aware Graph for long-term user preferences and a diffusion-style drive model for smoother planning.',tags:'agent adapt kag graph planning diffusion',code:'https://github.com/mg-2321/Adapt'},
       {id:'cuda',title:'Optimizing LIMO Pipeline with CUDA Parallelization',summary:'Shared-memory tiling, async copies, and custom conv kernels; Nsight-guided profiling with up to 60% speedup.',tags:'cuda gpu kernels convolution nsight optimization',code:'https://github.com/mg-2321/LIMO',paper:'https://drive.google.com/file/d/13EWTlsrXvigKUrIcd1SeBJhdUc7h2sX4/view?usp=sharing'},
-      {id:'eeg',title:'Stroke Rehabilitation — EEG Motor Action Classification',summary:'ICA + filtering + PCA features; DT/SVM/NN models comparing pre/post-stroke EEG.',tags:'eeg signal ica pca svm',code:'https://github.com/mg-2321/Stroke_Rehabilitation'},
+      {id:'eeg',title:'Stroke Rehabilitation — EEG Motor Action Classification',summary:'ICA + filtering + PCA features; DT/SVM/NN models comparing pre/post-stroke EEG.',tags:'eeg signal ica pca svm',code:'https://github.com/mg-2321/Stroke_Rehabilitation',paper:'https://github.com/mg-2321/Stroke_Rehabilitation/blob/main/Iteration%204_%20Paper-4.pdf'},
       {id:'nlp',title:'NLP for Suicide Ideation & Attempt Detection',summary:'Preprocessed clinical & forum text; compared GloVe/Word2Vec, FastText, CBOW; trained BERT & RoBERTa vs Bi-LSTM.',tags:'nlp suicide mimic-iii suicidewatch bert roberta',code:'https://github.com/mg-2321/Suicide-Attempt-and-Suicide-Ideation-detector',paper:'https://github.com/mg-2321/Suicide-Attempt-and-Suicide-Ideation-detector/blob/main/Review%20Paper%20Suicide%20Ideation%20Detector%20(1).pdf'},
       {id:'vuln',title:'LLMs for Code Vulnerability Detection',summary:'Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN for code-flow patterns.',tags:'security code vulnerability llm rag graphcodebert',code:'https://github.com/mg-2321/Vulnerability-Detection-using-Image-Processing'}
     ];
