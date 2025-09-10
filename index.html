@@ -63,7 +63,7 @@ p{margin:.6rem 0}
    Intro area
    ============================== */
 .intro{
-  display:grid; grid-template-columns:minmax(0,1fr) 420px; gap:28px; align-items:start;
+  display:grid; grid-template-columns:minmax(0,1fr) 440px; gap:28px; align-items:start;
   margin-bottom:8px;
 }
 .prose{ max-width:72ch; text-align:justify; text-justify:inter-word; hyphens:auto }
@@ -72,7 +72,7 @@ p{margin:.6rem 0}
 /* headshot container with floating blob */
 .aside{position:relative; display:flex; flex-direction:column; align-items:center; gap:14px; margin-top:6px}
 .blob{
-  position:absolute; inset:auto; width:380px; height:380px; top:-10px; z-index:-1;
+  position:absolute; inset:auto; width:400px; height:400px; top:-10px; z-index:-1;
   filter:blur(26px) saturate(1.2); opacity:.6; border-radius:50%;
   background: radial-gradient(70% 70% at 30% 30%, rgba(139,92,246,.45), transparent 70%),
               radial-gradient(70% 70% at 70% 60%, rgba(108,140,255,.45), transparent 70%);
@@ -85,24 +85,44 @@ p{margin:.6rem 0}
 }
 @media (prefers-reduced-motion:reduce){ .blob{animation:none; opacity:.25} }
 
+/* BIGGER, SHARPER avatar */
 .avatar{
-  width:360px; aspect-ratio:1 / 1; border-radius:50%;
+  width:380px;                   /* increased from 360 → 380 */
+  aspect-ratio:1 / 1; border-radius:50%;
   object-fit:cover; object-position:50% 60%;   /* center you; tweak second value if needed */
   display:block; image-rendering:-webkit-optimize-contrast; image-rendering:crisp-edges;
   backface-visibility:hidden; transform:translateZ(0);
   box-shadow:0 2px 18px rgba(17,24,39,.06);
+  /* halo pulse */
+  --halo: rgba(139,92,246,.35);
+  animation:halo 5.6s ease-in-out infinite;
 }
+@keyframes halo{
+  0%,100%{ box-shadow:0 2px 18px rgba(17,24,39,.06), 0 0 0 0 var(--halo) }
+  50%   { box-shadow:0 2px 18px rgba(17,24,39,.08), 0 0 0 18px rgba(139,92,246,0) }
+}
+@media (prefers-reduced-motion:reduce){ .avatar{animation:none} }
+
 .profile-links{
   display:flex; flex-wrap:nowrap; justify-content:center; align-items:center; gap:8px;
   width:100%;
 }
 .chip{
+  position:relative;
   display:inline-flex; align-items:center; gap:6px;
   padding:6px 9px; border:1.25px solid var(--rule); border-radius:999px;
   background:#fff; text-decoration:none; font-weight:600; font-size:.78rem;
   white-space:nowrap; line-height:1.2; transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+  overflow:hidden;
 }
 .chip:hover{ background:#f7faff; border-color:#cfdaf0; transform:translateY(-1px); box-shadow:0 4px 10px rgba(17,24,39,.05) }
+/* ripple micro-animation */
+.chip::after{
+  content:""; position:absolute; inset:auto; left:50%; top:50%; width:0; height:0; border-radius:9999px;
+  background:radial-gradient(circle closest-side, rgba(139,92,246,.25), transparent 70%);
+  transform:translate(-50%,-50%); opacity:0; transition:opacity .2s ease, width .35s ease, height .35s ease;
+}
+.chip:hover::after{ opacity:1; width:180%; height:180% }
 .ico{ width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.8; }
 
 /* parallax nudge for the whole aside */
@@ -112,8 +132,11 @@ p{margin:.6rem 0}
    Sections
    ============================== */
 h2{ font-size:1.55rem; line-height:1.25; margin:1.6rem 0 .6rem; position:relative }
-h2::after{ content:""; display:block; width:56px; height:3px;
-  background:linear-gradient(90deg,#0b57d0,var(--accent)); border-radius:3px; margin-top:6px; opacity:.9 }
+h2::after{
+  content:""; display:block; width:56px; height:3px; transform:scaleX(0); transform-origin:left;
+  background:linear-gradient(90deg,#0b57d0,var(--accent)); border-radius:3px; margin-top:6px; opacity:.9; transition:transform .5s ease .05s
+}
+.reveal.in#projects::after, .reveal.in#blogs::after, h2.reveal.in::after{ transform:scaleX(1) }
 .hr{ height:1px; background:var(--rule); margin:24px 0 }
 .pill{display:inline-block;font-size:.75rem;color:#244;padding:2px 8px;border-radius:999px;background:var(--pill);border:1px solid #d8e4ff;margin-bottom:.25rem}
 .title{ font-weight:600 }
@@ -169,13 +192,13 @@ h2::after{ content:""; display:block; width:56px; height:3px;
    Responsive
    ============================== */
 @media (max-width:1100px){
-  .intro{grid-template-columns:minmax(0,1fr) 360px}
-  .avatar{width:320px}
-  .blob{width:340px;height:340px}
+  .intro{grid-template-columns:minmax(0,1fr) 380px}
+  .avatar{width:340px}
+  .blob{width:360px;height:360px}
 }
 @media (max-width:940px){
   .intro{grid-template-columns:1fr}
-  .avatar{width:260px}
+  .avatar{width:280px}
   .blob{display:none}
   .profile-links{flex-wrap:wrap; gap:6px}
   .chip{font-size:.8rem}
@@ -183,7 +206,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 }
 @media (max-width:520px){
   .chip{font-size:.78rem; padding:6px 8px}
-  .avatar{width:220px}
+  .avatar{width:230px}
   .track{font-size:.85rem}
 }
 </style>
@@ -225,7 +248,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
             https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3 1x,
             https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3 2x,
             https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3 3x"
-          sizes="(max-width:520px) 220px, (max-width:940px) 260px, (max-width:1100px) 320px, 360px"
+          sizes="(max-width:520px) 230px, (max-width:940px) 280px, (max-width:1100px) 340px, 380px"
           alt="Portrait of Gayatri Malladi"
           loading="eager" decoding="sync" fetchpriority="high"
         />
@@ -440,7 +463,6 @@ h2::after{ content:""; display:block; width:56px; height:3px;
   }
 
   /* === Media quality & battery === */
-  // Hide placeholders when ready, loop safeguard, and pause videos off-screen.
   document.querySelectorAll('.frame16').forEach(frame=>{
     const v=frame.querySelector('video.media'); const img=frame.querySelector('img.media'); const ph=frame.querySelector('.placeholder');
     if(v){
