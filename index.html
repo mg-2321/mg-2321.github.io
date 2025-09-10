@@ -1,231 +1,487 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Gayatri Malladi</title>
+<meta name="description" content="Gayatri Malladi — Agentic AI, LLMs, projects, and blogs." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
-  :root{
-    --bg0:#0c0f13; --bg1:#141922; --ring:#2b3350;
-    --card:#6f6cf1; /* purple tile */
-    --text:#f2f5fb; --muted:#aeb6c8; --accent:#92f2cf; /* mint for stat */
-    --link:#b8ccff;
-    --rule:#253047;
-    --pill-bg:#1a2130; --pill-br:#2a344d;
-    --blog-grad1:#5be5d1; --blog-grad2:#6e74ff; /* new blog colors */
-    --avatar:120px; /* tweak size only here */
-  }
+/* ---------- Theme ---------- */
+:root{
+  --bg: #0b0f14;          /* page background */
+  --bg2:#0c1118;          /* slight vignette */
+  --card:#2c2f47;         /* not used directly; kept for future */
+  --panel:#121826;        /* dark panels */
+  --fg:#e9eef7;
+  --muted:#a3b0c2;
+  --rule:#223043;
+  --accent:#8b5cf6;       /* purple */
+  --accent2:#9fdcc3;      /* mint */
+  --mint:#bff5de;
+  --link:#7fb1ff;
+  --pill:#1a2233;
+  --glow: 0 12px 40px rgba(139,92,246,.25);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--fg);
+  font-family:"Plus Jakarta Sans",ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  line-height:1.7;
+  background:
+    radial-gradient(1200px 700px at 20% 10%, #121828 0%, transparent 60%),
+    radial-gradient(1200px 700px at 90% 5%, #101724 0%, transparent 60%),
+    linear-gradient(#0b0f14, #0b0f14);  /* single base to avoid band */
+}
 
-  html,body{height:100%}
-  body{
-    margin:0; color:var(--text); font-family:"Plus Jakarta Sans",ui-sans-serif,system-ui;
-    background:
-      radial-gradient(1200px 800px at 15% 0%, #18202e 0%, var(--bg0) 60%),
-      radial-gradient(1200px 900px at 85% 20%, #121826 10%, var(--bg0) 70%),
-      linear-gradient(180deg, var(--bg0), var(--bg0));
-    background-attachment: fixed; /* avoids visible bands when scrolling */
-  }
+/* ---------- Layout ---------- */
+main{max-width:1200px; margin:56px auto 80px; padding:0 20px}
+.grid-hero{
+  display:grid;
+  grid-template-columns: 480px 1fr;
+  gap:28px;
+  align-items:start;
+}
+@media (max-width:1080px){ .grid-hero{grid-template-columns:1fr} }
 
-  main{ max-width:1180px; margin:56px auto 80px; padding:0 20px; }
+/* ---------- Intro card ---------- */
+.intro{
+  position:relative;
+  background:linear-gradient(180deg, rgba(139,92,246,.28), rgba(139,92,246,.22));
+  border:1px solid rgba(139,92,246,.35);
+  border-radius:22px;
+  padding:22px 20px 18px 20px;
+  box-shadow: var(--glow);
+}
+.badge{
+  position:absolute; left:18px; top:-14px;
+  background:#0e1420; border:1px solid #253247; color:#cfd8e6;
+  border-radius:999px; padding:6px 12px; font-size:.85rem;
+}
+.pfp{
+  width:88px; height:88px; border-radius:999px; object-fit:cover;
+  border:4px solid rgba(255,255,255,.25);
+  box-shadow: 0 6px 20px rgba(0,0,0,.25);
+}
+.title-line{
+  display:flex; gap:14px; align-items:center; margin-bottom:8px;
+}
+.typing{font-size:1.6rem; font-weight:700; letter-spacing:.2px}
+.typing.caret::after{
+  content:"▌"; margin-left:2px; animation:blink 1s steps(1,end) infinite
+}
+@keyframes blink{50%{opacity:0}}
 
-  /* GRID HERO */
-  .hero{ display:grid; grid-template-columns: 540px 1fr; gap:28px; align-items:start; }
-  @media (max-width: 980px){ .hero{ grid-template-columns:1fr; } }
+.intro p{margin:.55rem 0; text-align:justify; color:#e6ecf8}
+.strong{font-weight:700; color:#eaf2ff}
 
-  /* Left card */
-  .about{
-    background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.08)) padding-box,
-                var(--card) border-box;
-    border:1px solid transparent;
-    border-radius:28px;
-    padding:22px 22px 18px;
-    box-shadow: 0 12px 40px rgba(82,76,255,.20);
-    position:relative;
-  }
-  .chip-abt{
-    position:absolute; top:-14px; left:18px;
-    background:#0f1522; border:1px solid #24314c; color:#d9def0;
-    border-radius:999px; padding:6px 12px; font-size:.86rem;
-  }
-  .row{
-    display:flex; align-items:center; gap:14px; margin-bottom:10px;
-  }
-  .avatar{
-    width:var(--avatar); height:var(--avatar); border-radius:999px; flex:0 0 auto;
-    border:4px solid rgba(255,255,255,.55);
-    box-shadow: 0 6px 24px rgba(0,0,0,.35);
-    object-fit:cover;
-  }
-  .typed{
-    font-size:1.65rem; font-weight:700; letter-spacing:.2px; white-space:nowrap;
-    position:relative;
-  }
-  /* typing caret */
-  .typed span{ border-right:2px solid rgba(255,255,255,.75); animation:blink .8s steps(1,end) infinite; }
-  @keyframes blink{50%{border-color:transparent}}
+/* Social row */
+.srow{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:8px 12px; border-radius:12px;
+  border:1px solid #2a3750; background:#0f1724; color:#dfe8f7;
+  text-decoration:none; font-weight:600; font-size:.95rem;
+}
+.btn:hover{background:#162033; border-color:#3a4a68; text-decoration:none}
+.btn svg{width:18px; height:18px; display:block; fill:currentColor}
 
-  .about p{ margin:.5rem 0; color:var(--text); text-align:justify; }
-  .about a{ color:var(--link); text-decoration:none }
-  .about a:hover{text-decoration:underline}
+/* ---------- Overview column ---------- */
+.h2{font-size:2.2rem; font-weight:800; margin:0 0 12px}
+.stack{display:flex; flex-direction:column; gap:18px}
 
-  /* Social pills */
-  .pills{ display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 2px }
-  .pill{
-    display:inline-flex; align-items:center; gap:8px;
-    padding:8px 12px; border-radius:12px; font-weight:500; color:#dfe6ff;
-    background:var(--pill-bg); border:1px solid var(--pill-br);
-    text-decoration:none;
-  }
-  .pill:hover{ border-color:#3a4a6f; background:#1b2434 }
+/* cards */
+.card{
+  background: #0e1524;
+  border:1px solid #29354c;
+  border-radius:18px;
+  padding:14px; 
+  box-shadow: 0 10px 40px rgba(0,0,0,.25);
+}
 
-  /* Overview column */
-  h2{ font-size:2.2rem; margin:2px 0 8px }
-  .card{
-    border:1px solid #22304b; border-radius:18px; padding:14px;
-    background:rgba(13,18,28,.65);
-    box-shadow: 0 10px 28px rgba(0,0,0,.35) inset, 0 4px 18px rgba(0,0,0,.25);
-  }
+/* stat cards (Projects / Blogs) */
+.stat{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:14px; padding:16px 18px;
+  background:linear-gradient(180deg, rgba(159,220,195,.22), rgba(159,220,195,.16));
+  border-color: rgba(159,220,195,.35);
+  cursor:pointer; transition:transform .12s ease, box-shadow .12s ease;
+}
+.stat:hover{transform:translateY(-2px)}
+.stat .num{font-size:2rem; font-weight:800}
+.stat .label{font-size:1rem; color:#d6efe4}
+.stat .arrow{width:22px; height:22px; border-radius:999px; display:grid; place-items:center; border:1px solid rgba(255,255,255,.18)}
+/* blog stat different color */
+.stat.blog{
+  background:linear-gradient(180deg, rgba(139,92,246,.25), rgba(139,92,246,.18));
+  border-color: rgba(139,92,246,.38);
+}
 
-  .blog{
-    padding:0; overflow:hidden;
-    background:linear-gradient(135deg, rgba(0,0,0,.0), rgba(0,0,0,.0)) padding-box;
-    border:1px solid #2a3a6a;
-  }
-  .blog a{
-    display:block; padding:18px 20px; border-radius:16px; color:#0b1320; text-decoration:none;
-    background:linear-gradient(135deg, var(--blog-grad1), var(--blog-grad2));
-  }
-  .blog .t{ font-weight:700 }
-  .blog .sub{ color:#0b1320; opacity:.85; margin-top:8px }
-  .blog .badge{
-    float:right; margin-top:-4px; background:rgba(255,255,255,.85); color:#0b1320;
-    padding:6px 10px; border-radius:999px; font-weight:600; font-size:.9rem;
-  }
+/* concierge */
+.concierge{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:16px 18px}
 
-  .stat{
-    background:linear-gradient(180deg, #c7ffe9, #aaf7df);
-    color:#0b2e1f; border:1px solid #96e8ce;
-    display:flex; align-items:center; justify-content:space-between; padding:16px 18px; cursor:pointer;
-  }
-  .stat .n{ font-size:2rem; font-weight:800 }
-  .stat .lbl{ margin-left:10px; font-weight:600; opacity:.85 }
+/* ---------- Skills ribbon ---------- */
+.ribbon{
+  margin:18px 0 34px; border:1px solid #27344a; border-radius:14px; overflow:hidden;
+  background:#0e1522;
+}
+.marquee{display:flex; gap:2.25rem; white-space:nowrap; padding:10px 14px; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color:#a9bfd8; opacity:.95}
+.scroll{animation:mar 26s linear infinite}
+.scroll2{animation:mar 34s linear infinite reverse}
+@keyframes mar{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@media (prefers-reduced-motion: reduce){ .scroll,.scroll2{animation:none} }
 
-  .conc{ display:flex; align-items:center; justify-content:space-between; }
+/* ---------- Sections ---------- */
+.section-title{
+  font-size:2.1rem; font-weight:800; margin:28px 0 8px;
+}
+.pill{display:inline-block; font-size:.8rem; color:#cfe4ff; padding:6px 10px; border-radius:999px; background:#151f32; border:1px solid #2a3a57}
 
-  /* Moving skills ticker */
-  .ticker{
-    margin:14px 0 26px; border:1px solid #233149; border-radius:14px; overflow:hidden;
-    background:rgba(10,14,22,.75);
-  }
-  .tick-row{ display:flex; gap:2rem; white-space:nowrap; padding:10px 14px; color:#c7d3f5; opacity:.9;
-             font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:.92rem;
-             animation:marq 28s linear infinite; }
-  @keyframes marq{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-  @media (prefers-reduced-motion: reduce){ .tick-row{ animation:none } }
+/* Project / Blog entries */
+.entry{
+  display:grid; grid-template-columns: 520px 1fr; gap:20px; align-items:start;
+  margin:18px 0 28px;
+}
+@media (max-width:1000px){ .entry{grid-template-columns:1fr} }
 
-  /* Projects header anchor target */
-  #projects{ scroll-margin-top:84px }
+/* Gradient border frame (fixes border alignment everywhere) */
+.cover-frame{
+  position:relative; border-radius:18px; padding:2px; background:
+    linear-gradient(90deg, var(--accent), var(--accent2));
+}
+.cover-inner{
+  border-radius:16px; overflow:hidden;
+  background:#0b111a; display:block;
+}
+.cover-media{display:block; width:100%; height:auto; aspect-ratio:16/9; object-fit:cover}
+.cover-placeholder{
+  display:grid; place-items:center; width:100%; aspect-ratio:16/9;
+  color:#9ab; font-size:.95rem;
+}
+
+/* Code/Paper buttons under each entry */
+.links a{
+  display:inline-block; margin-right:.6rem; padding:.5rem .8rem;
+  border:1px solid #2a3750; border-radius:12px; background:#0f1724; color:#cfe0fa; text-decoration:none; font-weight:600
+}
+.links a:hover{background:#18243a}
+
+/* ---------- Reveal on scroll ---------- */
+.reveal{opacity:0; transform:translateY(18px); transition:opacity .5s ease, transform .5s ease}
+.reveal.show{opacity:1; transform:none}
+
+/* ---------- Utility ---------- */
+a{color:var(--link); text-decoration:none}
+a:hover{text-decoration:underline}
+.muted{color:var(--muted)}
+hr{border:none; height:1px; background:#1b2232; margin:26px 0}
 </style>
 </head>
 <body>
-  <main>
-    <section class="hero">
-      <!-- LEFT: About -->
-      <div class="about" id="about">
-        <div class="chip-abt">• About Me</div>
-        <div class="row">
-          <img class="avatar" src="https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3" alt="Gayatri headshot"/>
-          <div class="typed" aria-label="I am, Gayatri Malladi"><span id="typeName">I am, Gayatri Malladi</span></div>
-        </div>
-
-        <p>I’m a second-year M.S. student in the Computer Science department at the University of Washington. Currently, my research supervised by <a href="https://rutadesai.github.io/" target="_blank" rel="noopener">Dr. Ruta Desai</a> focuses on agentic AI: planning and teaching language models when to ask vs. when to act, with lightweight grounding via a knowledge-augmented graph (KAG) and preference-based training using SimPO and ORPO.</p>
-
-        <p>I’m exploring how to overcome short-term memory limits for long-horizon tasks using retrieval caches, summarization/compression, and Reflexion-style episodic notes that are indexed and reused across tasks with a Neo4j-backed KAG.</p>
-
-        <p><strong>I’m open to research collaborations.</strong> Please email me on gayat23[at]uw.edu if you are interested to explore assistive agents for day-to-day task automation and self-evolving language models for curriculum generation, reflective fine-tuning, and preference optimization.</p>
-
-        <!-- Social -->
-        <div class="pills">
-          <a class="pill" href="https://drive.google.com/file/d/1jZH0jteuhUbrC89-lrSqJUhDhwv0UxIH/view?usp=sharing" target="_blank" rel="noopener">📄 CV</a>
-          <a class="pill" href="https://www.linkedin.com/in/gayatri-malladi/" target="_blank" rel="noopener">in LinkedIn</a>
-          <a class="pill" href="https://medium.com/@gayat23" target="_blank" rel="noopener">◉ Medium</a>
-          <a class="pill" href="https://x.com/home" target="_blank" rel="noopener">🐦 Twitter</a>
-          <a class="pill" href="https://github.com/mg-2321" target="_blank" rel="noopener">🐙 GitHub</a>
-        </div>
+<main>
+  <div class="grid-hero">
+    <!-- Intro card -->
+    <section class="intro reveal" id="about">
+      <div class="badge">• About Me</div>
+      <div class="title-line">
+        <img class="pfp" src="https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3" alt="Gayatri Malladi">
+        <div class="typing caret" id="typeTitle" aria-label="I am, Gayatri Malladi">I am, Gayatri Malladi</div>
       </div>
 
-      <!-- RIGHT: Overview -->
-      <div>
-        <h2>Overview</h2>
+      <p>I’m a second-year M.S. student in the Computer Science department at the University of Washington. Currently, my research supervised by <a href="https://rutadesai.github.io/" target="_blank" rel="noopener">Dr. Ruta Desai</a> focuses on agentic AI: planning and teaching language models when to ask vs. when to act, with lightweight grounding via a knowledge-augmented graph (KAG) and preference-based training using SimPO and ORPO.</p>
 
-        <!-- Upcoming Blog (clickable card) -->
-        <div class="card blog">
-          <a href="https://medium.com/@gayat23" target="_blank" rel="noopener">
-            <span class="badge">Sep&nbsp;15</span>
-            <div class="t">Upcoming Blog — <em>SimPO vs DPO</em></div>
-            <div class="sub">Preference Optimization for LLMs — friendly deep-dive: when math meets intuition, what SimPO optimizes, where DPO shines, trade-offs, toy examples, and when to pick each.</div>
-          </a>
-        </div>
+      <p>I’m exploring how to overcome short-term memory limits for long-horizon tasks using retrieval caches, summarization/compression, and Reflexion-style episodic notes that are indexed and reused across tasks with a Neo4j-backed KAG.</p>
 
-        <!-- Projects stat -->
-        <div id="projectsStat" class="card stat" style="margin-top:16px;">
-          <div><span class="n">6</span><span class="lbl"> Projects</span></div>
-          <div aria-hidden="true">➜</div>
-        </div>
+      <p class="strong">I’m open to research collaborations.</p>
+      <p>Please email me on gayat23[at]uw.edu if you are interested to explore assistive agents for day-to-day task automation and self-evolving language models for curriculum generation, reflective fine-tuning, and preference optimization.</p>
 
-        <!-- Concierge (kept simple) -->
-        <div class="card conc" style="margin-top:14px;">
-          <div>
-            <div style="font-weight:700">Portfolio Concierge</div>
-            <div style="color:var(--muted); margin-top:2px">Click to ask about projects, models, datasets.</div>
-          </div>
-          <a href="#projects" class="pill" style="padding:8px 14px;">Open</a>
-        </div>
+      <!-- Socials (original simple style) -->
+      <div class="srow">
+        <a class="btn" href="https://drive.google.com/file/d/1jZH0jteuhUbrC89-lrSqJUhDhwv0UxIH/view?usp=sharing" target="_blank" rel="noopener">
+          <!-- document icon -->
+          <svg viewBox="0 0 24 24"><path d="M6 2h8l6 6v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm8 1v6h6"/></svg>
+          CV
+        </a>
+        <a class="btn" href="https://www.linkedin.com/in/gayatri-malladi/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0 0-5zM3 9h4v12H3zM14.5 9c-2.33 0-3.5 1.27-3.5 2.72V21h4v-7.02c0-.93.67-1.73 1.86-1.73 1.13 0 1.64.8 1.64 1.73V21h4v-7.73C22.5 10.85 20.67 9 18.12 9c-1.86 0-3 .86-3.62 1.77h-.05V9h-4z"/></svg>
+          LinkedIn
+        </a>
+        <a class="btn" href="https://medium.com/@gayat23" target="_blank" rel="noopener">
+          <svg viewBox="0 0 1043.63 592.71"><path d="M588.67 296.35c0 163.69-131.33 296.36-293.33 296.36S2 460.04 2 296.35 133.33 0 295.34 0s293.33 132.66 293.33 296.35Zm316.66 0c0 155.96-65.67 282.64-146.67 282.64s-146.66-126.68-146.66-282.64S677.66 13.71 758.66 13.71 905.33 140.39 905.33 296.35Zm136.64 0c0 143.3-22.5 259.43-50.25 259.43S941.47 439.65 941.47 296.35 963.98 36.92 991.72 36.92s50.25 116.13 50.25 259.43Z"/></svg>
+          Medium
+        </a>
+        <a class="btn" href="https://x.com/home" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M3 3h4l5 7 5-7h4l-7.5 10L21 21h-4l-5-7-5 7H3l7.5-10z"/></svg>
+          Twitter
+        </a>
+        <a class="btn" href="https://github.com/mg-2321" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 .5A11.5 11.5 0 0 0 .5 12.3c0 5.24 3.4 9.68 8.13 11.26.6.1.82-.27.82-.58v-2.03c-3.3.73-4-1.44-4-1.44-.55-1.4-1.34-1.78-1.34-1.78-1.1-.76.08-.74.08-.74 1.2.08 1.82 1.25 1.82 1.25 1.08 1.86 2.84 1.32 3.54 1.01.1-.8.43-1.32.78-1.62-2.63-.3-5.4-1.35-5.4-6 0-1.33.47-2.42 1.24-3.27-.12-.3-.54-1.52.12-3.16 0 0 1.01-.33 3.3 1.25a11.4 11.4 0 0 1 6 0c2.29-1.58 3.3-1.25 3.3-1.25.66 1.64.24 2.86.12 3.16.77.85 1.24 1.94 1.24 3.27 0 4.67-2.78 5.7-5.42 6 .44.38.83 1.12.83 2.26v3.35c0 .32.22.69.82.58A11.5 11.5 0 0 0 23.5 12.3 11.5 11.5 0 0 0 12 .5z"/></svg>
+          GitHub
+        </a>
       </div>
     </section>
 
-    <!-- Skills ticker -->
-    <div class="ticker" aria-hidden="true">
-      <div class="tick-row">
-        Linear Models • Decision Trees • SVMs • K-Means • DBSCAN • Time Series • GANs • CNNs • RNNs • Autoencoders • Data Visualization •
-        Python • C++ • SQL • PyTorch • MATLAB • Apache Spark • Neo4j • CUDA • Agents • Graphs •
-        Linear Models • Decision Trees • SVMs • K-Means • DBSCAN • Time Series • GANs • CNNs • RNNs • Autoencoders • Data Visualization •
-        Python • C++ • SQL • PyTorch • MATLAB • Apache Spark • Neo4j • CUDA • Agents • Graphs •
+    <!-- Overview -->
+    <section class="stack reveal">
+      <h2 class="h2">Overview</h2>
+
+      <!-- Upcoming blog mini (card style, no "follow" text) -->
+      <div class="card reveal" style="background:linear-gradient(180deg, rgba(139,92,246,.2), rgba(139,92,246,.12)); border-color:rgba(139,92,246,.35)">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin:2px 4px 6px">
+          <div style="font-weight:800">Upcoming Blog — <em>SimPO vs DPO</em></div>
+          <div class="pill" style="background:#1a1e33">Sep 15</div>
+        </div>
+        <div class="muted" style="margin:2px 4px 10px">
+          Preference Optimization for LLMs — when math meets intuition, what SimPO optimizes, where DPO shines, trade-offs, toy examples, and when to pick each.
+        </div>
+        <a href="https://medium.com/@gayat23" target="_blank" rel="noopener" class="btn" style="margin:4px 4px 2px 4px">Read on Medium</a>
+      </div>
+
+      <!-- Projects stat (click to jump) -->
+      <div class="card stat reveal" id="statProjects" role="button" aria-label="Go to Projects">
+        <div style="display:flex; align-items:baseline; gap:14px">
+          <div class="num">6</div><div class="label">Projects</div>
+        </div>
+        <div class="arrow">➜</div>
+      </div>
+
+      <!-- Blogs stat (click to blogs) -->
+      <div class="card stat blog reveal" id="statBlogs" role="button" aria-label="Go to Blogs">
+        <div style="display:flex; align-items:baseline; gap:14px">
+          <div class="num">1</div><div class="label">Blog (upcoming)</div>
+        </div>
+        <div class="arrow">➜</div>
+      </div>
+
+      <!-- Concierge pointer -->
+      <div class="card concierge reveal">
+        <div>
+          <div style="font-weight:700">Portfolio Concierge</div>
+          <div class="muted">Click to ask about projects, models, datasets.</div>
+        </div>
+        <a class="btn" href="#projects">Open</a>
+      </div>
+    </section>
+  </div>
+
+  <!-- Skills ribbon (outside the intro box) -->
+  <div class="ribbon reveal" aria-hidden="true">
+    <div class="marquee scroll">
+      Python • C++ • SQL • PyTorch • MATLAB • Apache Spark • Linear Models • Decision Trees • SVMs • K-Means • DBSCAN • Time Series • GANs • CNNs • RNNs • Autoencoders • Data Visualization
+      &nbsp;&nbsp;&nbsp;Python • C++ • SQL • PyTorch • MATLAB • Apache Spark • Linear Models • Decision Trees • SVMs • K-Means • DBSCAN • Time Series • GANs • CNNs • RNNs • Autoencoders • Data Visualization
+    </div>
+    <div class="marquee scroll2" style="opacity:.6">
+      Python • C++ • SQL • PyTorch • MATLAB • Apache Spark • Linear Models • Decision Trees • SVMs • K-Means • DBSCAN • Time Series • GANs • CNNs • RNNs • Autoencoders • Data Visualization
+      &nbsp;&nbsp;&nbsp;Python • C++ • SQL • PyTorch • MATLAB • Apache Spark • Linear Models • Decision Trees • SVMs • K-Means • DBSCAN • Time Series • GANs • CNNs • RNNs • Autoencoders • Data Visualization
+    </div>
+  </div>
+
+  <!-- Projects -->
+  <h2 id="projects" class="section-title reveal">Projects</h2>
+
+  <h3 class="pill reveal">Agents &amp; Planning</h3>
+  <article class="entry reveal">
+    <div class="cover-frame">
+      <div class="cover-inner">
+        <!-- placeholder "coming soon" simple graph -->
+        <svg class="cover-media" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+          <rect width="800" height="450" fill="#0e1623"/>
+          <g stroke="#87d7ff" stroke-width="2" fill="#66b6ff">
+            <circle cx="130" cy="260" r="7"/><circle cx="190" cy="210" r="7"/><circle cx="260" cy="300" r="7"/>
+            <circle cx="320" cy="230" r="7"/><circle cx="400" cy="260" r="9"/><circle cx="520" cy="200" r="7"/>
+            <circle cx="620" cy="320" r="7"/><circle cx="700" cy="260" r="7"/>
+            <line x1="130" y1="260" x2="190" y2="210" stroke-dasharray="6 6"/>
+            <line x1="190" y1="210" x2="320" y2="230" stroke-dasharray="6 6"/>
+            <line x1="260" y1="300" x2="400" y2="260" stroke-dasharray="6 6"/>
+            <line x1="400" y1="260" x2="520" y2="200" stroke-dasharray="6 6"/>
+            <line x1="400" y1="260" x2="620" y2="320" stroke-dasharray="6 6"/>
+            <line x1="520" y1="200" x2="700" y2="260" stroke-dasharray="6 6"/>
+          </g>
+          <text x="36" y="44" fill="#cfe0ff" font-size="18" font-family="sans-serif">Coming soon — Short-term Memory</text>
+        </svg>
       </div>
     </div>
+    <div>
+      <strong>Solving Short-term Memory Limits of ADAPT Agents</strong>
+      <p>Knowledge-Aware Graph for long-term user preferences + diffusion-style drive model for smoother planning under uncertainty.</p>
+      <p class="links">
+        <a href="https://github.com/mg-2321" target="_blank">Code</a>
+        <a href="papers/adapt-kag.pdf" target="_blank">Paper</a>
+      </p>
+    </div>
+  </article>
 
-    <!-- ===== Projects (your existing section can remain below) ===== -->
-    <h2 id="projects">Projects</h2>
-    <!-- Keep your current project entries below this line -->
-    <!-- … your existing project markup … -->
+  <h3 class="pill reveal">Machine Learning</h3>
+  <article class="entry reveal">
+    <div class="cover-frame">
+      <div class="cover-inner">
+        <video class="cover-media" autoplay muted playsinline loop preload="auto" poster="images/waymo-forecast.jpg">
+          <source src="images/waymo_diffusion_cover%20(1)%20(2)%20(1).mp4" type="video/mp4"/>
+          <source src="images/diffusion_3d_samples_FINAL_quick.mp4" type="video/mp4"/>
+        </video>
+      </div>
+    </div>
+    <div>
+      <strong>Future Trajectory Prediction for Autonomous Vehicles</strong>
+      <p>Diffusion-based model predicting 5-second future trajectories in long-tail scenarios on the Waymo Open Dataset; explicitly models multimodal uncertainty.</p>
+      <p class="links">
+        <a href="https://github.com/mg-2321/Waymo_trajectory_prediction" target="_blank">Code</a>
+        <a href="papers/waymo-forecast.pdf" target="_blank">Paper</a>
+      </p>
+    </div>
+  </article>
 
-  </main>
+  <article class="entry reveal">
+    <div class="cover-frame">
+      <div class="cover-inner">
+        <video class="cover-media" autoplay muted playsinline loop preload="auto" poster="images/cuda-limo.jpg">
+          <source src="images/limo_cuda_preview_v4.mp4" type="video/mp4"/>
+        </video>
+      </div>
+    </div>
+    <div>
+      <strong>Optimizing LIMO Pipeline with CUDA Parallelization</strong>
+      <p>Shared-memory tiling, async transfers, and custom kernels for 2D conv, keyframe selection, and pose estimation — up to 60% kernel speedup.</p>
+      <p class="links">
+        <a href="https://github.com/mg-2321" target="_blank">Code</a>
+        <a href="papers/limo-cuda.pdf" target="_blank">Paper</a>
+      </p>
+    </div>
+  </article>
+
+  <article class="entry reveal">
+    <div class="cover-frame">
+      <div class="cover-inner">
+        <video class="cover-media" autoplay muted playsinline loop preload="auto" poster="images/worker-safety.jpg">
+          <source src="ppe_pass_fail_corrected.mp4" type="video/mp4"/>
+        </video>
+      </div>
+    </div>
+    <div>
+      <strong>Real-time Construction Worker Safety Inspection</strong>
+      <p>CenterNet-based PPE compliance detector with entry-gate flagging; benchmarks on CHVG &amp; Pictor; deployable lightweight web app.</p>
+      <p class="links">
+        <a href="https://github.com/mg-2321/Safety-equipment-check-using-object-detection" target="_blank">Code</a>
+        <a href="papers/worker-safety.pdf" target="_blank">Paper</a>
+      </p>
+    </div>
+  </article>
+
+  <article class="entry reveal">
+    <div class="cover-frame">
+      <div class="cover-inner">
+        <video class="cover-media" autoplay muted playsinline loop preload="auto" poster="images/eeg-stroke.jpg">
+          <source src="cover_all_in_one_paper_exact4.mp4" type="video/mp4"/>
+        </video>
+      </div>
+    </div>
+    <div>
+      <strong>Stroke Rehabilitation — EEG Motor Action Classification</strong>
+      <p>Pre/post-stroke EEG analysis for motor actions (hand wave, clench, face rub) with ICA, band-pass filtering, and PCA; models: Decision Trees, SVMs, NNs.</p>
+      <p class="links">
+        <a href="https://github.com/mg-2321/Stroke_Rehabilitation" target="_blank">Code</a>
+        <a href="https://github.com/mg-2321/Stroke_Rehabilitation/blob/main/Iteration%204_%20Paper-4.pdf" target="_blank">Project paper</a>
+      </p>
+    </div>
+  </article>
+
+  <h3 class="pill reveal">NLP &amp; Safety</h3>
+  <article class="entry reveal">
+    <div class="cover-frame">
+      <div class="cover-inner">
+        <img class="cover-media" src="images/nlp-si.jpg"
+             onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 450%22&gt;&lt;rect width=%22800%22 height=%22450%22 fill=%22%230e1623%22/&gt;&lt;text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23cfe0ff%22 font-family=%22sans-serif%22 font-size=%2220%22&gt;NLP cover&lt;/text&gt;&lt;/svg&gt;'"
+             alt="NLP cover">
+      </div>
+    </div>
+    <div>
+      <strong>NLP for Suicide Ideation &amp; Attempt Detection</strong>
+      <p>MIMIC-III + SuicideWatch; GloVe/Word2Vec/FastText/CBOW vs BERT/RoBERTa &amp; Bi-LSTM.</p>
+      <p class="links">
+        <a href="#" target="_blank">Code</a>
+        <a href="papers/nlp-suicide-risk.pdf" target="_blank">Paper</a>
+      </p>
+    </div>
+  </article>
+
+  <article class="entry reveal">
+    <div class="cover-frame">
+      <div class="cover-inner">
+        <video class="cover-media" autoplay muted playsinline loop preload="auto" poster="images/llm-security.jpg">
+          <source src="gcb_merged_v2.mp4" type="video/mp4"/>
+        </video>
+      </div>
+    </div>
+    <div>
+      <strong>LLMs for Code Vulnerability Detection</strong>
+      <p>Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN highlighting data-flow risks and zero-day patterns.</p>
+      <p class="links">
+        <a href="#" target="_blank">Code</a>
+        <a href="papers/llm-code-vuln.pdf" target="_blank">Paper</a>
+      </p>
+    </div>
+  </article>
+
+  <hr/>
+
+  <!-- Blogs section built like projects -->
+  <h2 id="blogs" class="section-title reveal">Blogs</h2>
+  <article class="entry reveal">
+    <div class="cover-frame" style="background:linear-gradient(90deg, var(--accent2), var(--accent))">
+      <a class="cover-inner" href="https://medium.com/@gayat23" target="_blank" rel="noopener" style="display:block; text-decoration:none">
+        <div class="cover-placeholder" style="background:linear-gradient(135deg, rgba(130,215,191,.2), rgba(139,92,246,.24))">
+          <div>
+            <div style="font-weight:800; font-size:1.2rem; margin-bottom:6px">Upcoming — SimPO vs DPO</div>
+            <div class="muted">Preference Optimization for LLMs • Sep 15</div>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div>
+      <strong>SimPO vs DPO — Preference Optimization for LLMs</strong>
+      <p>A friendly deep-dive: what each optimizes, where DPO shines, trade-offs, toy examples, and when to pick each.</p>
+      <p class="links">
+        <a href="https://medium.com/@gayat23" target="_blank">Open on Medium</a>
+      </p>
+    </div>
+  </article>
+
+  <p class="muted">© <span id="yr"></span> Gayatri Malladi</p>
+</main>
 
 <script>
-  /* Typing effect for "I am, Gayatri Malladi" in the left card */
-  (function(){
-    const el = document.getElementById('typeName');
-    if(!el) return;
-    const txt = el.textContent.trim();
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){ return; }
-    el.textContent = '';
-    let i=0;
-    (function step(){
-      if(i<=txt.length){
-        el.textContent = txt.slice(0,i) + '\u200A'; /* keep width for caret */
-        i++; setTimeout(step, 55);
-      }
-    })();
-  })();
+/* year */
+document.getElementById('yr').textContent = new Date().getFullYear();
 
-  /* Projects stat -> scroll to projects */
-  document.getElementById('projectsStat').addEventListener('click', function(){
-    const t = document.getElementById('projects');
-    if(t){ t.scrollIntoView({behavior:'smooth', block:'start'}); }
-  });
+/* typing title (keeps your “I am, Gayatri Malladi” animation) */
+(function(){
+  const el = document.getElementById('typeTitle');
+  if(!el) return;
+  const full = el.getAttribute('aria-label') || el.textContent.trim();
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){ el.textContent = full; el.classList.remove('caret'); return; }
+  el.textContent = '';
+  let i=0;
+  (function tick(){
+    if(i < full.length){ el.textContent += full.charAt(i++); setTimeout(tick, 60); }
+    else { el.classList.remove('caret'); }
+  })();
+})();
+
+/* stat clicks -> anchors */
+document.getElementById('statProjects').addEventListener('click', ()=>location.hash='#projects');
+document.getElementById('statBlogs').addEventListener('click', ()=>location.hash='#blogs');
+
+/* reveal on scroll */
+const obs = new IntersectionObserver((ents)=>{
+  ents.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); obs.unobserve(e.target); } });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(n=>obs.observe(n));
 </script>
 </body>
 </html>
