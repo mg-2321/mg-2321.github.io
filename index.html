@@ -16,7 +16,7 @@
       --link:#0b57d0;
       --bg:#ffffff;
       --rule:#dee5ef;
-      --accent:#8b5cf6; /* matches right side of the underline gradient */
+      --accent:#8b5cf6;           /* same hue as the underline gradient */
       --pill:#f2f6ff;
     }
     html{font-size:16px}
@@ -35,26 +35,28 @@
     .mini-nav a:hover{ background:var(--pill) }
 
     /* Intro layout */
-    .intro{ display:grid; grid-template-columns:minmax(0,1fr) 380px; gap:28px; align-items:start; }
-    .prose{ max-width:72ch; text-align:justify; text-justify:inter-word; hyphens:auto; padding-top:0 } /* start at same height */
+    .intro{
+      display:grid; grid-template-columns:minmax(0,1fr) 400px; gap:28px; align-items:start;
+      margin-bottom:8px; /* pull the next section closer to remove the “gap” feel */
+    }
+    .prose{ max-width:72ch; text-align:justify; text-justify:inter-word; hyphens:auto; padding-top:0 }
     .lead{ font-size:1.06rem } .lead.red{ color:#c62828 }
 
     /* Photo + single-row profile links */
-    .aside{display:flex; flex-direction:column; align-items:center; gap:14px; margin-top:8px;} /* slight nudge down */
+    .aside{display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:6px;}
     .avatar{
-      width:320px; height:320px; border-radius:50%;
+      width:340px; height:340px; border-radius:50%;
       object-fit:cover; object-position:center 30%;
       display:block;
     }
     .profile-links{
       display:flex; flex-wrap:nowrap; justify-content:center; align-items:center; gap:8px;
-      width:100%;
-      overflow:visible; /* never clip */
+      width:100%; overflow:visible; margin-bottom:2px; /* minimizes visual gap below chips */
     }
     .chip{
       display:inline-flex; align-items:center; gap:6px;
       padding:6px 9px; border:1.25px solid var(--rule); border-radius:999px;
-      background:#fff; text-decoration:none; font-weight:600; font-size:.8rem; /* smaller so one line */
+      background:#fff; text-decoration:none; font-weight:600; font-size:.78rem; /* smaller so one line without clipping */
       white-space:nowrap; line-height:1.2;
     }
     .chip:hover{ background:#f7faff; text-decoration:none; border-color:#cfdaf0 }
@@ -70,10 +72,10 @@
     .title{ font-weight:600 }
 
     /* Project cards/media */
-    .entry{ display:grid; grid-template-columns:460px 1fr; gap:16px; align-items:start; margin:18px 0 24px; }
+    .entry{ display:grid; grid-template-columns:480px 1fr; gap:16px; align-items:start; margin:18px 0 24px; }
     .cover{
       width:100%; aspect-ratio:16/9; object-fit:cover;
-      background:#fff; border:2px solid var(--accent); /* same color as underline accent */
+      background:#fff; border:2px solid var(--accent);   /* borders match accent */
       border-radius:14px; overflow:hidden; box-shadow:0 1px 10px rgba(17,24,39,.04);
     }
     .cover.contain{ object-fit:contain; background:#fff; }
@@ -92,16 +94,16 @@
     @media (prefers-reduced-motion: reduce){.scroll,.scroll2{animation:none}}
 
     /* RESPONSIVE */
-    @media (max-width:1040px){
-      .intro{grid-template-columns:minmax(0,1fr) 340px}
-      .avatar{width:300px;height:300px}
+    @media (max-width:1100px){
+      .intro{grid-template-columns:minmax(0,1fr) 360px}
+      .avatar{width:320px;height:320px}
     }
-    @media (max-width:900px){
+    @media (max-width:940px){
       .intro{grid-template-columns:1fr}
       .aside{margin-top:6px}
-      .avatar{width:240px;height:240px}
+      .avatar{width:260px;height:260px}
       .profile-links{flex-wrap:wrap; gap:6px}
-      .chip{font-size:.82rem}
+      .chip{font-size:.8rem}
       .entry{grid-template-columns:1fr}
     }
     @media (max-width:520px){
@@ -118,7 +120,6 @@
     <p class="mini-nav">
       <a href="#projects">Projects</a>
       <a href="#blogs">Blogs</a>
-      <a href="#ask">Ask</a>
     </p>
 
     <!-- Intro + circular photo aligned with text start -->
@@ -137,25 +138,25 @@
       <aside class="aside" aria-label="Profile">
         <img class="avatar" src="https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3" alt="Portrait of Gayatri Malladi" loading="eager" decoding="sync">
 
-        <!-- One-line professional icon links -->
+        <!-- One-line minimalist icon links -->
         <nav class="profile-links" aria-label="Links">
           <a class="chip" href="https://drive.google.com/file/d/1jZH0jteuhUbrC89-lrSqJUhDhwv0UxIH/view" target="_blank" rel="noopener">
-            <!-- Doc icon -->
+            <!-- Document -->
             <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9z"/><path d="M14 2v7h7"/></svg>
             <span>CV</span>
           </a>
           <a class="chip" href="https://www.linkedin.com/in/gayatri-malladi/" target="_blank" rel="me noopener">
-            <!-- LinkedIn icon -->
+            <!-- LinkedIn -->
             <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="4" height="12" rx="1"/><circle cx="5" cy="5" r="2"/><path d="M10 21v-8a4 4 0 0 1 8 0v8"/></svg>
             <span>LinkedIn</span>
           </a>
           <a class="chip" href="https://github.com/mg-2321" target="_blank" rel="me noopener">
-            <!-- GitHub (minimal) -->
+            <!-- GitHub -->
             <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a9.5 9.5 0 0 0-3 18.5c.5.1.7-.2.7-.5v-1.8c-2.9.7-3.5-1.2-3.5-1.2-.5-1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.6 1 1.6 1 1 .9 2.5.6 3.1.3.1-.6.4-1.1.7-1.3-2.4-.3-5-1.2-5-5.2 0-1.1.4-2 1.1-2.8-.1-.3-.5-1.3.1-2.7 0 0 .9-.3 2.9 1.1a9.6 9.6 0 0 1 5 0c2-1.4 2.9-1.1 2.9-1.1.6 1.4.2 2.4.1 2.7.7.8 1.1 1.7 1.1 2.8 0 4-2.6 4.9-5.1 5.2.4.3.8 1 .8 2.1v2.5c0 .3.2.6.7.5A9.5 9.5 0 0 0 12 2z"/></svg>
             <span>GitHub</span>
           </a>
           <a class="chip" href="https://medium.com/@gayat23" target="_blank" rel="me noopener">
-            <!-- Medium icon -->
+            <!-- Medium -->
             <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="12" r="6"/><ellipse cx="17" cy="12" rx="3.5" ry="6"/><ellipse cx="22" cy="12" rx="1.2" ry="6"/></svg>
             <span>Medium</span>
           </a>
@@ -163,8 +164,8 @@
       </aside>
     </section>
 
-    <!-- Skills marquee -->
-    <div class="tokenribbon" aria-hidden="true" style="margin-top:16px">
+    <!-- Skills marquee (skills pulled from résumé) -->
+    <div class="tokenribbon" aria-hidden="true" style="margin-top:8px">
       <div class="track scroll">
         Programming: Python • C++ • SQL · Tools: PyTorch • MATLAB • Apache Spark ·
         Data Mining: Data Visualization • Statistical Analysis • Predictive Modeling • Pattern Recognition • Feature Engineering • Dimensionality Reduction (PCA • t-SNE)
@@ -180,7 +181,8 @@
 
     <h3><span class="pill">Agents &amp; Planning</span></h3>
     <div class="entry">
-      <img class="cover" src="images/agents-kag.jpg" alt="Knowledge-aware agent">
+      <!-- Work-in-progress GIF as requested -->
+      <img class="cover contain" src="images/wip_cartoon.gif" alt="Work in progress — short-term memory project">
       <div>
         <div class="title">Solving Short-term Memory Limits of ADAPT Agents</div>
         <p>Added a <em>Knowledge-Aware Graph</em> module for long-term user preferences and a diffusion-style drive model for smoother planning under uncertainty.</p>
@@ -217,9 +219,9 @@
       </div>
     </div>
 
+    <!-- Stroke Rehab: no cropping -->
     <div class="entry">
-      <!-- 'contain' prevents any cropping for this media -->
-      <video class="cover contain" autoplay muted loop playsinline preload="auto" poster="images/eeg-stroke.jpg">
+      <video class="cover contain" autoplay muted loop playsinline preload="auto" poster="images/eeg-stroke.jpg" data-fallback="images/eeg-stroke.jpg">
         <source src="cover_all_in_one_paper_exact4.mp4" type="video/mp4" />
       </video>
       <div>
@@ -233,8 +235,12 @@
     </div>
 
     <h3><span class="pill">NLP &amp; Safety</span></h3>
-    <div class="entry"> 
-      <img class="cover" src="images/nlp-si.jpg" alt="NLP cover">
+    <!-- Suicide Ideation/Attempt with cover video + fallback -->
+    <div class="entry">
+      <video class="cover" autoplay muted loop playsinline preload="auto" poster="images/nlp-si.jpg" data-fallback="images/nlp-si.jpg">
+        <source src="videos/suicide_ideation_demo.mp4" type="video/mp4" />
+        <source src="/videos/suicide_ideation_demo.mp4" type="video/mp4" />
+      </video>
       <div>
         <div class="title">NLP for Suicide Ideation &amp; Attempt Detection</div>
         <p>Preprocessed clinical + forum text (MIMIC-III, SuicideWatch); compared GloVe/Word2Vec/FastText/CBOW; trained BERT &amp; RoBERTa vs Bi-LSTM baselines.</p>
@@ -245,33 +251,16 @@
       </div>
     </div>
 
+    <!-- NEW: Multimodal Emotion Recognition -->
     <div class="entry">
-      <video id="vulnVid" class="cover" autoplay muted playsinline preload="auto" poster="images/llm-security.jpg"></video>
+      <img class="cover" src="images/emotion.jpg" alt="Multimodal Emotion Recognition">
       <div>
-        <div class="title">LLMs for Code Vulnerability Detection</div>
-        <p>Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN to flag zero-day patterns via data-flow visuals.</p>
+        <div class="title">Multimodal Emotion Recognition using Deep Learning</div>
+        <p>Fusion of audio-visual cues with deep representations; experiments across speaker-independent splits and noisy conditions.</p>
         <p class="row-links">
-          <a class="btn" href="https://github.com/mg-2321/Vulnerability-Detection-using-Image-Processing" target="_blank">Code</a>
+          <a class="btn" href="https://drive.google.com/drive/search?q=gayatriMultimodal%20Emotion%20Recognition%20using%20Deep" target="_blank" rel="noopener">Project paper</a>
         </p>
       </div>
-    </div>
-
-    <div class="hr"></div>
-
-    <!-- Ask about my work -->
-    <h2 id="ask">Ask about my work</h2>
-    <div class="qa" role="region" aria-live="polite">
-      <div class="ask">
-        <input id="qaInput" type="text" placeholder="Ask about any project (e.g., What model did you use for trajectory prediction?)" />
-        <button id="qaBtn" type="button">Ask</button>
-      </div>
-      <div class="suggest">
-        <span class="chip" style="border-radius:10px" data-q="What did you build for Waymo trajectory forecasting?">Waymo model?</span>
-        <span class="chip" style="border-radius:10px" data-q="How did you optimize CUDA kernels in the LIMO project?">CUDA speedups?</span>
-        <span class="chip" style="border-radius:10px" data-q="What is the Knowledge-Aware Graph in your agent project?">Agent KAG?</span>
-        <span class="chip" style="border-radius:10px" data-q="Which datasets and models did you use for suicide ideation detection?">NLP dataset?</span>
-      </div>
-      <div id="qaChat" class="chat" aria-live="polite"></div>
     </div>
 
     <div class="hr"></div>
@@ -312,46 +301,19 @@
       nextSource();
     })();
 
-    /* Vulnerability video (fallback rotation) */
-    (function initVulnVideo(){
-      const v = document.getElementById('vulnVid'); if(!v) return;
-      const raw = p=>'https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/'+p.replace(/^\//,'');
-      const merged = ['gcb_merged_v2.mp4','/gcb_merged_v2.mp4',raw('gcb_merged_v2.mp4')];
-      const clipA = ['gcb_web_demo_v10.mp4','/gcb_web_demo_v10.mp4',raw('gcb_web_demo_v10.mp4')];
-      const clipB = ['gcb_full_demo_v13.mp4','/gcb_full_demo_v13.mp4',raw('gcb_full_demo_v13.mp4')];
-      let useClips=false, active=merged, idx=0;
-      function nextSource(){ if(idx>=active.length) return false; v.src=active[idx++]; v.load(); v.play().catch(()=>{}); return true; }
-      v.addEventListener('error', ()=>{ nextSource(); });
-      (function probeMerged(i=0){
-        const t=document.createElement('video');
-        function tryOne(){
-          if(i>=merged.length){ useClips=true; active=clipA; idx=0; v.loop=false; nextSource(); return; }
-          t.src=merged[i++]; t.addEventListener('canplay',()=>{ active=merged; idx=0; v.loop=true; nextSource(); }, {once:true});
-          t.addEventListener('error', tryOne, {once:true}); t.load();
-        }
-        tryOne();
-      })();
-      v.addEventListener('ended', ()=>{
-        if(useClips){ active = (active===clipA)?clipB:clipA; idx=0; nextSource(); }
+    /* Simple video -> image fallback for any element with data-fallback */
+    (function fallbackVideos(){
+      document.querySelectorAll('video[data-fallback]').forEach(function(v){
+        const img = document.createElement('img');
+        img.src = v.getAttribute('data-fallback');
+        img.alt = v.getAttribute('alt') || 'preview';
+        img.className = 'cover';
+        img.style.display = 'none';
+        v.parentNode.insertBefore(img, v.nextSibling);
+        function showFallback(){ v.remove(); img.style.display='block'; }
+        v.addEventListener('error', showFallback);
       });
     })();
-
-    /* Tiny Q&A */
-    const KB=[
-      {id:'waymo',title:'Future Trajectory Prediction for Autonomous Vehicles',summary:'Diffusion-based model forecasting 5-second trajectories on the Waymo Open Dataset; models multimodal uncertainty and temporal dependencies.',tags:'diffusion trajectory forecasting waymo uncertainty driving',code:'https://github.com/mg-2321/Waymo_trajectory_prediction',paper:'papers/waymo-forecast.pdf'},
-      {id:'agents',title:'Solving Short-term Memory Limits of ADAPT Agents',summary:'Added a Knowledge-Aware Graph for long-term user preferences and a diffusion-style drive model for smoother planning.',tags:'agent adapt kag graph planning diffusion',code:'https://github.com/mg-2321/Adapt'},
-      {id:'cuda',title:'Optimizing LIMO Pipeline with CUDA Parallelization',summary:'Shared-memory tiling, async copies, and custom conv kernels; Nsight-guided profiling with up to 60% speedup.',tags:'cuda gpu kernels convolution nsight optimization',code:'https://github.com/mg-2321/LIMO',paper:'https://drive.google.com/file/d/13EWTlsrXvigKUrIcd1SeBJhdUc7h2sX4/view?usp=sharing'},
-      {id:'eeg',title:'Stroke Rehabilitation — EEG Motor Action Classification',summary:'ICA + filtering + PCA features; DT/SVM/NN models comparing pre/post-stroke EEG.',tags:'eeg signal ica pca svm',code:'https://github.com/mg-2321/Stroke_Rehabilitation',paper:'https://github.com/mg-2321/Stroke_Rehabilitation/blob/main/Iteration%204_%20Paper-4.pdf'},
-      {id:'nlp',title:'NLP for Suicide Ideation & Attempt Detection',summary:'Preprocessed clinical & forum text; compared GloVe/Word2Vec, FastText, CBOW; trained BERT & RoBERTa vs Bi-LSTM.',tags:'nlp suicide mimic-iii suicidewatch bert roberta',code:'https://github.com/mg-2321/Suicide-Attempt-and-Suicide-Ideation-detector',paper:'https://github.com/mg-2321/Suicide-Attempt-and-Suicide-Ideation-detector/blob/main/Review%20Paper%20Suicide%20Ideation%20Detector%20(1).pdf'},
-      {id:'vuln',title:'LLMs for Code Vulnerability Detection',summary:'Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN for code-flow patterns.',tags:'security code vulnerability llm rag graphcodebert',code:'https://github.com/mg-2321/Vulnerability-Detection-using-Image-Processing'}
-    ];
-    const chat=document.getElementById('qaChat'),qa=document.getElementById('qaInput');
-    function push(who,html){const b=document.createElement('div');b.className='bubble '+(who==='me'?'me':'bot');b.innerHTML=html;chat.appendChild(b);chat.scrollTop=chat.scrollHeight}
-    function fmtLinks(it){const L=[];if(it.code&&it.code!=='#')L.push(`<a href="${it.code}" target="_blank">Code</a>`);if(it.paper)L.push(`<a href="${it.paper}" target="_blank">Paper</a>`);return L.length?` · ${L.join(' | ')}`:''}
-    function score(it,q){let s=0;const text=(it.title+' '+it.summary+' '+(it.tags||'')).toLowerCase();for(const t of q){if(text.includes(t))s+=1}return s}
-    function ask(){const qv=qa.value.trim();if(!qv)return;push('me',qv);qa.value='';const q=qv.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);const top=[...KB].map(it=>({it,score:score(it,q)})).sort((a,b)=>b.score-a.score).filter(x=>x.score>0);if(!top.length){push('bot','Try asking about <em>Waymo diffusion forecasting</em>, <em>CUDA speedups</em>, or <em>Knowledge-Aware Graph agents</em>.');return}const it=top[0].it;push('bot',`<strong>${it.title}</strong> — ${it.summary}${fmtLinks(it)}`)}
-    document.getElementById('qaBtn').addEventListener('click',ask);
-    qa.addEventListener('keydown',e=>{if(e.key==='Enter')ask()});
   </script>
 </body>
 </html>
