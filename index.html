@@ -1,202 +1,335 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gayatri Malladi</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Gayatri Malladi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ---------- THEME ---------- */
+:root{
+  --bg-1:#0b0e12; --bg-2:#111723;
+  --card:#141a24; --card-2:#171e29;
+  --text:#e9eef8; --muted:#a7b1c2;
+  --purple:#7d6bff; --mint:#c9f5e4;
+  --outline:rgba(255,255,255,.06); --shadow:0 10px 30px rgba(0,0,0,.35);
+  --radius:28px;
+}
+*{box-sizing:border-box} html,body{height:100%}
+body{
+  margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:var(--text);
+  background:
+    radial-gradient(1200px 800px at 20% -10%, #1a2230 0%, transparent 60%),
+    radial-gradient(1200px 900px at 120% 10%, #0f1420 0%, transparent 65%),
+    linear-gradient(180deg,var(--bg-1),var(--bg-2));
+  background-attachment:fixed,fixed,fixed;     /* removes the mid-page band */
+}
+a{color:#bcd2ff;text-decoration:none} a:hover{text-decoration:underline}
+.page-wrap{padding:56px 24px 80px; max-width:1280px; margin:0 auto}
+
+/* ---------- GRID ---------- */
+.grid{display:grid; grid-template-columns:560px 1fr; gap:36px}
+@media (max-width:1050px){ .grid{grid-template-columns:1fr} }
+
+/* ---------- CARDS ---------- */
+.card{
+  background:linear-gradient(180deg,var(--card),var(--card-2));
+  border:1px solid var(--outline); border-radius:var(--radius); box-shadow:var(--shadow);
+}
+
+/* ---------- ABOUT ---------- */
+.about{padding:22px 22px 20px; position:relative}
+.about-ribbon{position:absolute; top:-18px; left:20px; background:#0f1420; border:1px solid var(--outline);
+  border-radius:999px; padding:6px 12px; font-size:12px; color:#cbd7ea}
+.about-top{display:flex; align-items:center; gap:18px; margin-bottom:8px}
+.avatar{width:146px; height:146px; border-radius:50%; border:6px solid rgba(255,255,255,.18); object-fit:cover; flex:0 0 auto}
+h1{margin:0; font-size:32px; line-height:1.15; letter-spacing:.2px}
+.caret{color:#b6c3ff; animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.about-body{margin-top:10px; display:grid; gap:14px}
+.justify{text-align:justify} .strong{font-weight:600}
+.social-row{margin-top:18px; display:flex; gap:10px; align-items:center}
+.nowrap{flex-wrap:nowrap; overflow:auto; padding-bottom:2px}
+.chip{display:inline-flex; align-items:center; gap:8px; border:1px solid var(--outline);
+  background:#0f1420; padding:8px 14px; border-radius:14px; white-space:nowrap; color:var(--text)}
+.chip:hover{background:#121a27}
+.quick-links{display:flex; gap:10px; margin-top:16px}
+.pill{padding:10px 14px; border-radius:999px; border:1px solid var(--outline); background:#0f1420; color:var(--text); cursor:pointer}
+.pill:hover{background:#121a27}
+
+/* ---------- OVERVIEW ---------- */
+.overview .title{margin:6px 0 18px; font-size:40px}
+.blog-callout{position:relative; overflow:hidden; padding:18px;
+  background:linear-gradient(90deg,#6aa0ff 0%,#6d7ffd 40%,#6e6bff 100%)}
+.blog-callout .ghost-link{position:absolute; inset:0}
+.blog-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px}
+.label{font-weight:600} .date-pill{background:#0f1420aa; border:1px solid var(--outline); padding:6px 10px; border-radius:14px}
+.muted{margin:0; color:#e8eefc}
+.stats-row{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:14px 0 16px}
+.stat{position:relative; text-align:left; padding:16px 18px; cursor:pointer; display:flex; align-items:center; gap:14px}
+.stat .stat-num{font-size:40px; font-weight:800} .stat .stat-label{font-weight:600} .stat .arrow{margin-left:auto; opacity:.8}
+.stat.mint{background:linear-gradient(180deg,#d2f9ea,#baf2df); color:#0b1b16}
+.stat.purple{background:linear-gradient(180deg,#bfb5ff,#a69aff); color:#101226}
+.concierge{display:flex; align-items:center; justify-content:space-between; padding:16px}
+.conc-title{font-weight:700} .conc-sub{color:var(--muted)}
+.btn{border:1px solid var(--outline); background:#0f1420; color:var(--text); padding:10px 14px; border-radius:12px; cursor:pointer}
+.btn:hover{background:#121a27}
+
+/* ---------- TICKER ---------- */
+.skills-ticker{margin:26px 0 10px; border:1px solid var(--outline); border-radius:18px; background:#0f1420; overflow:hidden}
+.marquee{display:flex; gap:40px; padding:10px 16px; animation:scroll 20s linear infinite; white-space:nowrap; color:#cdd7ea; font-weight:500; opacity:.9}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ---------- SECTIONS ---------- */
+.section{padding:34px 0 12px} .section-title{font-size:36px; margin:0 0 18px}
+.project{display:grid; grid-template-columns:520px 1fr; gap:20px; border:1px solid var(--outline);
+  border-radius:22px; padding:16px; margin:16px 0; background:linear-gradient(180deg,#0e1219,#0f141d)}
+@media (max-width:1050px){.project{grid-template-columns:1fr}}
+.media img,.media video{width:100%; height:100%; object-fit:cover; border-radius:16px; border:1px solid var(--outline); background:#0b0f16}
+.project .content h3{margin:4px 0 10px}
+.links{display:flex; gap:10px; margin-top:10px}
+
+/* ---------- FOOTER ---------- */
+.footer{opacity:.6; text-align:center; padding:28px 0}
+
+/* ---------- REVEAL (scroll animations) ---------- */
+.reveal,.reveal-delay-0,.reveal-delay-1,.reveal-delay-2,.reveal-delay-3,.reveal-delay-4{
+  opacity:0; transform:translateY(18px); filter:blur(6px); transition:all .7s ease}
+.reveal.in,.reveal-delay-0.in,.reveal-delay-1.in,.reveal-delay-2.in,.reveal-delay-3.in,.reveal-delay-4.in{
+  opacity:1; transform:none; filter:none}
+.reveal-delay-0{transition-delay:.05s} .reveal-delay-1{transition-delay:.12s}
+.reveal-delay-2{transition-delay:.18s} .reveal-delay-3{transition-delay:.24s}
+.reveal-delay-4{transition-delay:.30s}
+
+/* ---------- MODAL ---------- */
+dialog{border:none; padding:0; background:transparent}
+.modal{width:min(860px,92vw); background:#0f1420; border:1px solid var(--outline); border-radius:18px; box-shadow:var(--shadow); overflow:hidden}
+.modal-head{display:flex; justify-content:space-between; align-items:center; padding:10px 12px; border-bottom:1px solid var(--outline)}
+.dots span{display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:6px; background:#f56f6f}
+.dots span:nth-child(2){background:#f0c157} .dots span:nth-child(3){background:#62d26f}
+#closeConcierge{background:#121a27; border:1px solid var(--outline); color:#cfe2ff; border-radius:8px; padding:6px 10px; cursor:pointer}
+.chat{max-height:50vh; overflow:auto; padding:16px; display:grid; gap:10px}
+.bubble{padding:10px 14px; border-radius:14px; max-width:76%}
+.bubble.ai{background:#141b26; border:1px solid var(--outline)}
+.bubble.user{background:#21304a; border:1px solid rgba(131,176,255,.2); justify-self:end}
+.chat-input{display:flex; gap:10px; padding:12px; border-top:1px solid var(--outline); background:#0d131d}
+.chat-input input{flex:1; background:#0a111a; border:1px solid var(--outline); border-radius:10px; padding:10px 12px; color:var(--text)}
+.chat-input button{background:#1a2440; border:1px solid rgba(120,160,255,.25); color:#dce7ff; padding:10px 14px; border-radius:10px; cursor:pointer}
+</style>
 </head>
 <body>
-  <div class="page-wrap">
-    <!-- Hero / Intro + Overview -->
-    <section class="hero grid">
-      <!-- About card -->
-      <article class="card about reveal" id="about">
-        <div class="about-ribbon">● About Me</div>
+<div class="page-wrap">
 
-        <div class="about-top">
-          <img class="avatar" src="assets/profile.jpg" alt="Gayatri Malladi" />
-          <h1 class="typed">
-            <span>I am,&nbsp;</span><span id="typed-target">Gayatri Malladi</span><span class="caret">|</span>
-          </h1>
-        </div>
+  <section class="hero grid">
+    <!-- ABOUT -->
+    <article class="card about reveal" id="about">
+      <div class="about-ribbon">● About Me</div>
 
-        <div class="about-body">
-          <p class="justify">
-            I’m a second-year M.S. student in the Computer Science department at the University of Washington. Currently, my research supervised by <a href="https://rutadesai.github.io" target="_blank" rel="noreferrer">Dr. Ruta Desai</a> focuses on agentic AI: planning and teaching language models when to ask vs. when to act, with lightweight grounding via a knowledge-augmented graph (KAG) and preference-based training using SimPO and ORPO.
-          </p>
-          <p class="justify">
-            I’m exploring how to overcome short-term memory limits for long-horizon tasks using retrieval caches, summarization/compression, and Reflexion-style episodic notes that are indexed and reused across tasks with a Neo4j-backed KAG.
-          </p>
-          <p class="justify strong">
-            I’m open to research collaborations. Please email me on <a href="mailto:gayat23@uw.edu">gayat23[at]uw.edu</a> if you are interested to explore assistive agents for day-to-day task automation and self-evolving language models for curriculum generation, reflective fine-tuning, and preference optimization.
-          </p>
-        </div>
-
-        <!-- Socials one line -->
-        <div class="social-row nowrap">
-          <a class="chip" href="assets/Gayatri_Malladi_CV.pdf" target="_blank" rel="noreferrer">📄 CV</a>
-          <a class="chip" href="https://github.com/mg-2321" target="_blank" rel="noreferrer">🐙 GitHub</a>
-          <a class="chip" href="https://www.linkedin.com/in/gayatri-malladi" target="_blank" rel="noreferrer">🔗 LinkedIn</a>
-          <a class="chip" href="https://medium.com/@gayatri-malladi" target="_blank" rel="noreferrer">◎ Medium</a>
-          <a class="chip" href="https://twitter.com/your_handle" target="_blank" rel="noreferrer">🐦 Twitter</a>
-        </div>
-
-        <div class="quick-links">
-          <button class="pill" data-scroll="#projects">Projects</button>
-          <button class="pill" data-scroll="#blogs">Blogs</button>
-        </div>
-      </article>
-
-      <!-- Overview (right) -->
-      <aside class="overview">
-        <h2 class="title reveal-delay-0">Overview</h2>
-
-        <!-- Upcoming blog gradient card -->
-        <div class="card blog-callout reveal-delay-1">
-          <div class="blog-top">
-            <span class="label">Upcoming Blog — <strong>SimPO vs DPO</strong></span>
-            <span class="date-pill">Sep 15</span>
-          </div>
-          <p class="muted">
-            Preference Optimization for LLMs—what SimPO optimizes, where DPO shines, trade-offs,
-            toy examples, and when to pick each.
-          </p>
-          <!-- No "Follow" button per your request; the card itself links -->
-          <a class="ghost-link" href="https://medium.com/@gayatri-malladi" target="_blank" rel="noreferrer" aria-label="Open on Medium"></a>
-        </div>
-
-        <!-- Stat cards row -->
-        <div class="stats-row">
-          <button class="card stat mint reveal-delay-2" data-scroll="#projects">
-            <div class="stat-num" aria-hidden="true">6</div>
-            <div class="stat-label">Projects</div>
-            <div class="arrow">➜</div>
-          </button>
-
-          <button class="card stat purple reveal-delay-3" data-scroll="#blogs">
-            <div class="stat-num" aria-hidden="true">1</div>
-            <div class="stat-label">Blog (upcoming)</div>
-            <div class="arrow">➜</div>
-          </button>
-        </div>
-
-        <!-- Concierge CTA -->
-        <div class="card concierge reveal-delay-4">
-          <div>
-            <div class="conc-title">Portfolio Concierge</div>
-            <div class="conc-sub">Click to ask about projects, models, datasets.</div>
-          </div>
-          <button id="openConcierge" class="btn">Open</button>
-        </div>
-      </aside>
-    </section>
-
-    <!-- Skills ticker -->
-    <div class="skills-ticker reveal" aria-hidden="true">
-      <div class="marquee">
-        <span>
-          Linear Models • Decision Trees • SVMs • K-Means • DBSCAN • Time Series • GANs • CNNs • RNNs •
-          Autoencoders • Data Visualization • Python • C++ • SQL • PyTorch • MATLAB • Apache Spark
-        </span>
-        <span aria-hidden="true">
-          Linear Models • Decision Trees • SVMs • K-Means • DBSCAN • Time Series • GANs • CNNs • RNNs •
-          Autoencoders • Data Visualization • Python • C++ • SQL • PyTorch • MATLAB • Apache Spark
-        </span>
+      <div class="about-top">
+        <!-- Replace with your real headshot -->
+        <img class="avatar" src="assets/profile.jpg" alt="Gayatri Malladi" />
+        <h1 class="typed"><span>I am,&nbsp;</span><span id="typed-target">Gayatri Malladi</span><span class="caret">|</span></h1>
       </div>
+
+      <div class="about-body">
+        <p class="justify">
+          I’m a second-year M.S. student in the Computer Science department at the University of Washington.
+          Currently, my research supervised by <a href="https://rutadesai.github.io" target="_blank" rel="noreferrer">Dr. Ruta Desai</a>
+          focuses on agentic AI: planning and teaching language models when to ask vs. when to act, with lightweight
+          grounding via a knowledge-augmented graph (KAG) and preference-based training using SimPO and ORPO.
+        </p>
+        <p class="justify">
+          I’m exploring how to overcome short-term memory limits for long-horizon tasks using retrieval caches,
+          summarization/compression, and Reflexion-style episodic notes that are indexed and reused across tasks
+          with a Neo4j-backed KAG.
+        </p>
+        <p class="justify strong">
+          I’m open to research collaborations. Please email me on
+          <a href="mailto:gayat23@uw.edu">gayat23[at]uw.edu</a> if you are interested to explore assistive agents for
+          day-to-day task automation and self-evolving language models for curriculum generation, reflective fine-tuning,
+          and preference optimization.
+        </p>
+      </div>
+
+      <!-- Socials (one line) -->
+      <div class="social-row nowrap">
+        <a class="chip" href="assets/Gayatri_Malladi_CV.pdf" target="_blank">📄 CV</a>
+        <a class="chip" href="https://github.com/mg-2321" target="_blank">🐙 GitHub</a>
+        <a class="chip" href="https://www.linkedin.com/in/gayatri-malladi" target="_blank">🔗 LinkedIn</a>
+        <a class="chip" href="https://medium.com/@gayatri-malladi" target="_blank">◎ Medium</a>
+        <a class="chip" href="https://twitter.com/your_handle" target="_blank">🐦 Twitter</a>
+      </div>
+
+      <div class="quick-links">
+        <button class="pill" data-scroll="#projects">Projects</button>
+        <button class="pill" data-scroll="#blogs">Blogs</button>
+      </div>
+    </article>
+
+    <!-- OVERVIEW -->
+    <aside class="overview">
+      <h2 class="title reveal-delay-0">Overview</h2>
+
+      <div class="card blog-callout reveal-delay-1">
+        <div class="blog-top">
+          <span class="label">Upcoming Blog — <strong>SimPO vs DPO</strong></span>
+          <span class="date-pill">Sep 15</span>
+        </div>
+        <p class="muted">
+          Preference Optimization for LLMs—what SimPO optimizes, where DPO shines, trade-offs, toy examples,
+          and when to pick each.
+        </p>
+        <a class="ghost-link" href="https://medium.com/@gayatri-malladi" target="_blank" aria-label="Open on Medium"></a>
+      </div>
+
+      <div class="stats-row">
+        <button class="card stat mint reveal-delay-2" data-scroll="#projects">
+          <div class="stat-num">6</div><div class="stat-label">Projects</div><div class="arrow">➜</div>
+        </button>
+        <button class="card stat purple reveal-delay-3" data-scroll="#blogs">
+          <div class="stat-num">1</div><div class="stat-label">Blog (upcoming)</div><div class="arrow">➜</div>
+        </button>
+      </div>
+
+      <div class="card concierge reveal-delay-4">
+        <div><div class="conc-title">Portfolio Concierge</div><div class="conc-sub">Click to ask about projects, models, datasets.</div></div>
+        <button id="openConcierge" class="btn">Open</button>
+      </div>
+    </aside>
+  </section>
+
+  <!-- Skills ticker -->
+  <div class="skills-ticker reveal" aria-hidden="true">
+    <div class="marquee">
+      <span>
+        Linear Models • Decision Trees • SVMs • K-Means • DBSCAN • Time Series • GANs • CNNs • RNNs •
+        Autoencoders • Data Visualization • Python • C++ • SQL • PyTorch • MATLAB • Apache Spark
+      </span>
+      <span aria-hidden="true">
+        Linear Models • Decision Trees • SVMs • K-Means • DBSCAN • Time Series • GANs • CNNs • RNNs •
+        Autoencoders • Data Visualization • Python • C++ • SQL • PyTorch • MATLAB • Apache Spark
+      </span>
     </div>
-
-    <!-- Projects -->
-    <section id="projects" class="section">
-      <h2 class="section-title reveal">Projects</h2>
-
-      <!-- Project 1 (example) -->
-      <article class="project reveal">
-        <div class="media">
-          <img src="assets/agents-cover.png" alt="KAG Agents cover" />
-        </div>
-        <div class="content">
-          <h3>Solving Short-term Memory Limits of ADAPT Agents</h3>
-          <p>
-            Knowledge-Aware Graph for long-term user preferences + diffusion-style drive model for smoother planning under uncertainty.
-          </p>
-          <div class="links">
-            <a class="chip" href="https://github.com/your/code" target="_blank" rel="noreferrer">Code</a>
-            <a class="chip" href="https://paper.link" target="_blank" rel="noreferrer">Paper</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Project 2 (LLM vulnerabilities with video) -->
-      <article class="project reveal">
-        <div class="media">
-          <video src="assets/llm-vuln.mp4" controls preload="metadata" poster="assets/llm-vuln-poster.jpg"></video>
-        </div>
-        <div class="content">
-          <h3>LLMs for Code Vulnerability Detection</h3>
-          <p>
-            Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN highlighting data-flow risks and zero-day patterns.
-          </p>
-          <div class="links">
-            <a class="chip" href="https://github.com/your/llm-vuln-code" target="_blank" rel="noreferrer">Code</a>
-            <a class="chip" href="https://paper.link" target="_blank" rel="noreferrer">Paper</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Add more projects similarly -->
-    </section>
-
-    <!-- Blogs -->
-    <section id="blogs" class="section">
-      <h2 class="section-title reveal">Blogs</h2>
-
-      <article class="project reveal">
-        <div class="media">
-          <img src="assets/simpo-vs-dpo-cover.png" alt="SimPO vs DPO cover" />
-        </div>
-        <div class="content">
-          <h3>SimPO vs DPO: Preference Optimization for LLMs</h3>
-          <p>
-            TL;DR what SimPO optimizes, where DPO shines, trade-offs, toy examples, and when to pick each.
-            <em>(Publishing Sep 15)</em>
-          </p>
-          <div class="links">
-            <a class="chip" href="https://medium.com/@gayatri-malladi" target="_blank" rel="noreferrer">Open on Medium</a>
-          </div>
-        </div>
-      </article>
-    </section>
-
-    <footer class="footer">
-      <span>© <span id="year"></span> Gayatri Malladi</span>
-    </footer>
   </div>
 
-  <!-- Concierge modal -->
-  <dialog id="concierge">
-    <div class="modal">
-      <div class="modal-head">
-        <div class="dots"><span></span><span></span><span></span></div>
-        <button id="closeConcierge" aria-label="Close">✕</button>
+  <!-- Projects -->
+  <section id="projects" class="section">
+    <h2 class="section-title reveal">Projects</h2>
+
+    <article class="project reveal">
+      <div class="media">
+        <img src="assets/agents-cover.png" alt="KAG Agents cover"/>
       </div>
-      <div class="chat">
-        <div class="bubble ai">Hi! I’m an assistant for Gayatri’s portfolio. What can I help you find?</div>
-        <div class="bubble user">Tell me about the Waymo trajectory project.</div>
-        <div class="bubble ai">
-          Diffusion-based forecasting on the Waymo Open Dataset; models multimodal uncertainty and long-tail events.
-          Want the code or paper?
+      <div class="content">
+        <h3>Solving Short-term Memory Limits of ADAPT Agents</h3>
+        <p>Knowledge-Aware Graph for long-term user preferences + diffusion-style drive model for smoother planning under uncertainty.</p>
+        <div class="links">
+          <a class="chip" href="#" target="_blank">Code</a>
+          <a class="chip" href="#" target="_blank">Paper</a>
         </div>
       </div>
-      <form class="chat-input" onsubmit="return false;">
-        <input id="ask" type="text" placeholder="Ask about projects, models, datasets…" />
-        <button id="send">Ask</button>
-      </form>
-    </div>
-  </dialog>
+    </article>
 
-  <script src="app.js"></script>
+    <article class="project reveal">
+      <div class="media">
+        <video src="assets/llm-vuln.mp4" controls preload="metadata" poster="assets/llm-vuln-poster.jpg"></video>
+      </div>
+      <div class="content">
+        <h3>LLMs for Code Vulnerability Detection</h3>
+        <p>Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN highlighting data-flow risks and zero-day patterns.</p>
+        <div class="links">
+          <a class="chip" href="#" target="_blank">Code</a>
+          <a class="chip" href="#" target="_blank">Paper</a>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- Blogs -->
+  <section id="blogs" class="section">
+    <h2 class="section-title reveal">Blogs</h2>
+    <article class="project reveal">
+      <div class="media">
+        <img src="assets/simpo-vs-dpo-cover.png" alt="SimPO vs DPO cover"/>
+      </div>
+      <div class="content">
+        <h3>SimPO vs DPO: Preference Optimization for LLMs</h3>
+        <p>TL;DR what SimPO optimizes, where DPO shines, trade-offs, toy examples, and when to pick each.
+          <em>(Publishing Sep 15)</em></p>
+        <div class="links">
+          <a class="chip" href="https://medium.com/@gayatri-malladi" target="_blank">Open on Medium</a>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <footer class="footer">© <span id="year"></span> Gayatri Malladi</footer>
+</div>
+
+<!-- Concierge modal -->
+<dialog id="concierge">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <button id="closeConcierge" aria-label="Close">✕</button>
+    </div>
+    <div class="chat">
+      <div class="bubble ai">Hi! I’m an assistant for Gayatri’s portfolio. What can I help you find?</div>
+      <div class="bubble user">Tell me about the Waymo trajectory project.</div>
+      <div class="bubble ai">Diffusion-based forecasting on the Waymo Open Dataset; models multimodal uncertainty and long-tail events. Want the code or paper?</div>
+    </div>
+    <form class="chat-input" onsubmit="return false;">
+      <input id="ask" type="text" placeholder="Ask about projects, models, datasets…"/>
+      <button id="send">Ask</button>
+    </form>
+  </div>
+</dialog>
+
+<script>
+/* YEAR */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* SMOOTH SCROLL */
+document.querySelectorAll('[data-scroll]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const sel = btn.getAttribute('data-scroll');
+    const el = document.querySelector(sel);
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+
+/* REVEAL ANIMS */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+},{threshold:.18});
+document.querySelectorAll('.reveal, .reveal-delay-0, .reveal-delay-1, .reveal-delay-2, .reveal-delay-3, .reveal-delay-4')
+  .forEach(el=>io.observe(el));
+
+/* TYPED */
+(function typeIt(){
+  const target = document.getElementById('typed-target');
+  const full = 'Gayatri Malladi';
+  target.textContent = '';
+  let i = 0;
+  const tick=()=>{ target.textContent = full.slice(0, i++); if(i<=full.length) setTimeout(tick,55); };
+  tick();
+})();
+
+/* MODAL */
+const dlg = document.getElementById('concierge');
+document.getElementById('openConcierge').addEventListener('click', ()=>dlg.showModal());
+document.getElementById('closeConcierge').addEventListener('click', ()=>dlg.close());
+document.getElementById('send').addEventListener('click', ()=>{
+  const input = document.getElementById('ask'); const v = input.value.trim(); if(!v) return;
+  const u = Object.assign(document.createElement('div'), {className:'bubble user', textContent:v});
+  document.querySelector('.chat').appendChild(u);
+  const a = Object.assign(document.createElement('div'), {className:'bubble ai', textContent:'Here’s a short answer about that project. Want the code or the paper?'});
+  setTimeout(()=>document.querySelector('.chat').appendChild(a), 350);
+  input.value='';
+});
+</script>
 </body>
 </html>
