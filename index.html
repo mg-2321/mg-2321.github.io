@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Gayatri Malladi</title>
 
+<!-- Font -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -13,7 +14,7 @@
   :root{
     --bg:#0b0f15;
     --ink:#eef4ff;
-    --muted:#a8b8cc;
+    --muted:#a9b8cc;
 
     --panel:#141a23;
     --panel-2:#0f1520;
@@ -23,6 +24,12 @@
     --vio-soft:rgba(123,119,255,.92);
     --mint:#c9ffe9;
     --mint-2:#baf5dd;
+
+    /* animation tuning */
+    --wipe-duration: 900ms;
+    --reveal-duration: 620ms;
+    --reveal-ease: cubic-bezier(.2,.8,.2,1);
+    --stagger: 90ms;
   }
 
   *{box-sizing:border-box}
@@ -37,13 +44,14 @@
   }
   a{color:#cfe0ff; text-decoration:none}
   a:hover{text-decoration:underline}
+  img,video{max-width:100%; display:block}
 
   .wrap{max-width:1220px; margin:0 auto; padding:28px 20px 80px}
 
   /* =================== LAYOUT =================== */
   .hero{
     display:grid;
-    grid-template-columns: 440px 1fr;   /* SMALLER left card */
+    grid-template-columns: 420px 1fr;      /* smaller, standard left column */
     gap:32px; align-items:start;
   }
   @media (max-width:1200px){ .hero{grid-template-columns:1fr} }
@@ -52,30 +60,31 @@
   .about{
     position:relative;
     background:linear-gradient(180deg, var(--vio-soft), rgba(123,119,255,.88));
-    border-radius:20px; padding:18px; min-height:430px;   /* smaller/standard */
-    box-shadow:0 22px 56px rgba(91,102,255,.22), inset 0 0 0 1px rgba(255,255,255,.12);
+    border-radius:18px; padding:16px; min-height:410px;   /* smaller */
+    box-shadow:0 20px 52px rgba(91,102,255,.22), inset 0 0 0 1px rgba(255,255,255,.12);
   }
   .chip{
-    position:absolute; left:14px; top:-15px;
+    position:absolute; left:12px; top:-14px;
     background:#0f141c; color:#cadaf1; border:1px solid var(--stroke);
-    padding:7px 12px; border-radius:18px; font-size:.86rem; box-shadow:0 10px 24px rgba(0,0,0,.28);
+    padding:6px 11px; border-radius:18px; font-size:.84rem; box-shadow:0 10px 24px rgba(0,0,0,.28);
   }
-  .about-inner{display:grid; grid-template-columns: 220px 1fr; gap:18px}
+  .about-inner{display:grid; grid-template-columns: 210px 1fr; gap:16px}
   @media (max-width:560px){ .about-inner{grid-template-columns:1fr} }
 
   .avatar{
-    width:220px; height:220px; border-radius:50%; overflow:hidden;
+    width:210px; height:210px; border-radius:50%; overflow:hidden;
     border:8px solid rgba(255,255,255,.3); background:#111;
-    box-shadow:0 16px 36px rgba(0,0,0,.35);
+    box-shadow:0 14px 34px rgba(0,0,0,.35);
   }
-  .avatar img{width:100%; height:100%; object-fit:cover; display:block}
+  .avatar img{width:100%; height:100%; object-fit:cover}
 
-  .about h1{margin:.25rem 0 .25rem; font-size:2.6rem; line-height:1.05; letter-spacing:.2px}
-  .about p{margin:.6rem 0; color:#f5f7ff}
-  /* professional icon buttons */
-  .social{display:flex; gap:10px; margin-top:12px; flex-wrap:wrap}
+  .about h1{margin:.25rem 0 .25rem; font-size:2.4rem; line-height:1.06; letter-spacing:.2px}
+  .about p{margin:.55rem 0; color:#f5f7ff}
+
+  /* Professional icon buttons */
+  .social{display:flex; gap:8px; margin-top:12px; flex-wrap:wrap}
   .btn{
-    display:inline-flex; align-items:center; gap:10px; padding:9px 12px; border-radius:14px;
+    display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border-radius:12px;
     border:1px solid rgba(255,255,255,.22); background:rgba(15,15,20,.14); color:#fff;
     font-weight:700; transition:transform .18s ease, background .18s ease;
   }
@@ -83,7 +92,7 @@
   .btn svg{width:18px; height:18px; display:block}
 
   /* =================== OVERVIEW PANEL =================== */
-  .overview-head{font-size:4.6rem; font-weight:800; line-height:1; margin:2px 8px 14px}
+  .overview-head{font-size:4.8rem; font-weight:800; line-height:1; margin:2px 8px 14px}
   @media (max-width:1200px){ .overview-head{font-size:3.6rem} }
   .col{display:flex; flex-direction:column; gap:18px}
 
@@ -97,7 +106,7 @@
   .bubble{
     max-width:560px; padding:10px 12px; border-radius:12px; margin:8px 6px;
     border:1px solid #2b3749; background:#101720; box-shadow:0 8px 20px rgba(0,0,0,.22);
-    opacity:.22; transition:opacity .4s ease;
+    opacity:.2; transition:opacity .4s ease;
   }
   .bubble.live{opacity:1}
   .from-me{margin-left:auto; background:#0f1723}
@@ -106,13 +115,13 @@
   @media (max-width:640px){ .stats-row{grid-template-columns:1fr} }
 
   .stat{
-    border-radius:18px; padding:16px 18px; height:138px; display:flex; flex-direction:column; justify-content:center;
+    border-radius:16px; padding:16px 18px; height:132px; display:flex; flex-direction:column; justify-content:center;
     border:1px solid rgba(0,0,0,.08); cursor:pointer; color:#112;
     background:linear-gradient(180deg,var(--mint),var(--mint-2)); box-shadow:0 18px 40px rgba(67,255,183,.18);
     transition:transform .18s ease;
   }
   .stat:hover{transform:translateY(-2px)}
-  .stat .n{font-size:2.6rem; font-weight:800; line-height:1}
+  .stat .n{font-size:2.5rem; font-weight:800; line-height:1}
   .stat .k{font-weight:700; opacity:.75; margin-top:8px}
   .stat.vio{
     background:linear-gradient(180deg, rgba(123,119,255,.95), rgba(123,119,255,.90));
@@ -154,7 +163,7 @@
             background:linear-gradient(90deg, var(--vio), var(--mint-2))}
   .tag{display:inline-block; font-size:.78rem; color:#b7c3d6; padding:3px 10px; border-radius:999px; border:1px solid #2b3950; margin:0 0 12px 6px}
 
-  .entry{display:grid; grid-template-columns: 520px 1fr; gap:18px; align-items:start; margin:18px 6px 26px}
+  .entry{display:grid; grid-template-columns: 500px 1fr; gap:18px; align-items:start; margin:18px 6px 26px}
   @media (max-width:1200px){ .entry{grid-template-columns:1fr} }
 
   .cover{
@@ -164,13 +173,38 @@
       linear-gradient(#0f141c, #0f141c) padding-box,
       linear-gradient(90deg, var(--vio), var(--mint-2)) border-box;
   }
-  .cover > img, .cover > video{width:100%; height:100%; object-fit:cover; display:block}
+  .cover > img, .cover > video{width:100%; height:100%; object-fit:cover}
 
-  /* =================== SCROLL REVEAL (CLIP-PATH WIPE) =================== */
-  .reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease}
-  .reveal.wipe{clip-path: inset(0 100% 0 0); transition:opacity .7s ease, transform .7s ease, clip-path 1s cubic-bezier(.2,.8,.2,1)}
-  .reveal.in{opacity:1; transform:none}
-  .reveal.wipe.in{clip-path: inset(0 0 0 0)}
+  /* =================== TRUE WIPE REVEAL =================== */
+  /* Every .reveal element starts blurred, slightly translated, and fully masked by clip-path.
+     When .in is added, the mask slides off (wipe), opacity rises, blur clears, and Y offset relaxes. */
+  .reveal{
+    opacity:0;
+    transform:translateY(14px);
+    filter:blur(8px);
+    clip-path:inset(0 100% 0 0);           /* mask fully covers (left->right wipe) */
+  }
+  .reveal.in{
+    opacity:1;
+    transform:none;
+    filter:blur(0);
+    clip-path:inset(0 0 0 0);
+    transition:
+      opacity var(--reveal-duration) var(--reveal-ease),
+      transform var(--reveal-duration) var(--reveal-ease),
+      filter var(--reveal-duration) var(--reveal-ease),
+      clip-path var(--wipe-duration) var(--reveal-ease);
+  }
+
+  /* Optional: top->bottom wipe variant (uncomment if you prefer)
+     .reveal{clip-path:inset(100% 0 0 0)}
+  */
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion:reduce){
+    .reveal,.reveal.in{clip-path:none; filter:none; transform:none; opacity:1; transition:none}
+    .scroll,.scroll2{animation:none}
+  }
 
   footer{margin:36px 6px 0; color:#8696aa; border-top:1px solid #263246; padding-top:12px}
 </style>
@@ -179,13 +213,13 @@
   <main class="wrap">
     <section class="hero">
       <!-- LEFT: ABOUT -->
-      <div class="about reveal wipe">
+      <div class="about reveal" style="--delay:0ms">
         <span class="chip">• About Me</span>
         <div class="about-inner">
-          <div class="avatar">
+          <div class="avatar reveal" style="--delay:120ms">
             <img src="https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=4" alt="Gayatri Malladi">
           </div>
-          <div>
+          <div class="reveal" style="--delay:180ms">
             <h1>I am,<br/>Gayatri Malladi</h1>
             <p>
               I’m a second-year M.S. student in the Computer Science department at the University of Washington.
@@ -200,7 +234,7 @@
             <p>If you’d like to collaborate, email: <strong>gayat23[at]uw.edu</strong>.</p>
 
             <!-- Professional icon buttons -->
-            <div class="social">
+            <div class="social reveal" style="--delay:240ms">
               <a class="btn" href="https://drive.google.com/file/d/1jZH0jteuhUbrC89-lrSqJUhDhwv0UxIH/view?usp=sharing" target="_blank" rel="noopener" aria-label="CV">
                 <!-- file-text icon -->
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -234,10 +268,10 @@
 
       <!-- RIGHT: OVERVIEW -->
       <div class="col">
-        <div class="overview-head reveal wipe">Overview</div>
+        <div class="overview-head reveal" style="--delay:0ms">Overview</div>
 
         <!-- Chat preview -->
-        <div class="chatbox reveal wipe" aria-hidden="true">
+        <div class="chatbox reveal" style="--delay:60ms" aria-hidden="true">
           <div class="chrome"></div>
           <div id="c1" class="bubble">Hi! I’m an assistant for Gayatri’s portfolio. What can I help you find?</div>
           <div id="c2" class="bubble from-me">Tell me about the Waymo trajectory project.</div>
@@ -246,18 +280,18 @@
 
         <!-- Stats -->
         <div class="stats-row">
-          <div id="statProjects" class="stat reveal wipe" role="button" title="Go to Projects">
+          <div id="statProjects" class="stat reveal" style="--delay:120ms" role="button" title="Go to Projects">
             <div class="n" id="projCount">6</div>
             <div class="k">Projects</div>
           </div>
-          <div class="stat vio reveal wipe">
+          <div class="stat vio reveal" style="--delay:180ms">
             <div class="n" id="blogCount">1</div>
             <div class="k">Blogs</div>
           </div>
         </div>
 
         <!-- Concierge -->
-        <div class="concierge reveal wipe">
+        <div class="concierge reveal" style="--delay:240ms">
           <div>
             <strong>Portfolio Concierge</strong>
             <div class="sub">Click to chat with AI to learn more about my work</div>
@@ -268,13 +302,13 @@
     </section>
 
     <!-- Ribbons -->
-    <div class="tokenribbon reveal wipe" aria-hidden="true">
+    <div class="tokenribbon reveal" style="--delay:180ms" aria-hidden="true">
       <div class="track scroll">attention → heads → logits → loss → update → prompt → retrieval → context → decoding → evals</div>
       <div class="track scroll2">EEG → agents → graphs → CUDA → Waymo → AUC → F1 → perplexity → temperature</div>
     </div>
 
     <!-- Playground -->
-    <div class="playground reveal wipe">
+    <div class="playground reveal" style="--delay:220ms">
       <label for="tok">Tokenizer Playground — type a sentence (illustrative only; no network calls)</label>
       <input id="tok" placeholder="e.g., Planning under uncertainty with diffusion models"/>
       <div id="tokOut" class="tokens"></div>
@@ -282,10 +316,10 @@
     </div>
 
     <!-- PROJECTS -->
-    <h2 id="projects" class="reveal wipe">Projects</h2>
+    <h2 id="projects" class="reveal" style="--delay:0ms">Projects</h2>
 
     <div class="tag">Agents &amp; Planning</div>
-    <div class="entry reveal wipe">
+    <div class="entry reveal" style="--delay:60ms">
       <div class="cover">
         <img src="images/agents-cover.jpg" alt="Agents / KAG" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 450%22><rect width=%22800%22 height=%22450%22 rx=%2216%22 fill=%22%2311161f%22/></svg>'">
       </div>
@@ -298,7 +332,7 @@
 
     <div class="tag">Machine Learning</div>
 
-    <div class="entry reveal wipe">
+    <div class="entry reveal" style="--delay:120ms">
       <div class="cover">
         <video id="waymoVid" autoplay muted playsinline preload="auto" poster="images/waymo-forecast.jpg" style="width:100%;height:100%;object-fit:cover"></video>
       </div>
@@ -309,7 +343,7 @@
       </div>
     </div>
 
-    <div class="entry reveal wipe">
+    <div class="entry reveal" style="--delay:180ms">
       <div class="cover">
         <video autoplay muted loop playsinline preload="auto" poster="images/cuda-limo.jpg" style="width:100%;height:100%;object-fit:cover"
                onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
@@ -326,7 +360,7 @@
       </div>
     </div>
 
-    <div class="entry reveal wipe">
+    <div class="entry reveal" style="--delay:240ms">
       <div class="cover">
         <video autoplay muted loop playsinline preload="auto" poster="images/worker-safety.jpg" style="width:100%;height:100%;object-fit:cover"
                onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
@@ -343,7 +377,7 @@
       </div>
     </div>
 
-    <div class="entry reveal wipe">
+    <div class="entry reveal" style="--delay:300ms">
       <div class="cover">
         <video autoplay muted loop playsinline preload="auto" poster="images/eeg-stroke.jpg" style="width:100%;height:100%;object-fit:cover"
                onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
@@ -363,7 +397,7 @@
 
     <div class="tag">NLP &amp; Safety</div>
 
-    <div class="entry reveal wipe">
+    <div class="entry reveal" style="--delay:360ms">
       <div class="cover">
         <img src="images/nlp-si.jpg" alt="NLP cover" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 450%22><rect width=%22800%22 height=%22450%22 rx=%2216%22 fill=%22%2311161f%22/></svg>'">
       </div>
@@ -374,7 +408,7 @@
       </div>
     </div>
 
-    <div class="entry reveal wipe">
+    <div class="entry reveal" style="--delay:420ms">
       <div class="cover">
         <video id="vulnVid" autoplay muted loop playsinline preload="auto" poster="images/llm-security.jpg" style="width:100%;height:100%;object-fit:cover"></video>
       </div>
@@ -421,15 +455,13 @@
   function isWordChar(ch){const c=ch.charCodeAt(0);return (c>=48&&c<=57)||(c>=65&&c<=90)||(c>=97&&c<=122)||ch==='_';}
   function tokenize(s){const a=[];let cur='',m=null;for(const ch of s){const w=isWordChar(ch); if(m===null){m=w;cur=ch}
     else if((w&&m)||(!w&&!m)){cur+=ch}else{a.push(cur);cur=ch;m=w}} if(cur)a.push(cur); return a.map(p=>p.length>10?p.slice(0,8)+'…':p)}
-  function render(){const v=tok.value?.trim()||""; const t=v?tokenize(v):[]; out.innerHTML=t.map(x=>`<span class="tok">${x}</span>`).join(''); ts.textContent=v?`${t.length} tokens (illustrative)`:''}
+  function render(){const v=tok?.value?.trim()||""; const t=v?tokenize(v):[]; out.innerHTML=t.map(x=>`<span class="tok">${x}</span>`).join(''); ts.textContent=v?`${t.length} tokens (illustrative)`:''}
   if(tok){ tok.addEventListener('input', render); render(); }
 
   // Concierge modal
   const modal = document.getElementById('concierge');
-  const openBtn = document.getElementById('openConcierge');
-  const closeBtn = document.getElementById('closeConcierge');
-  if(openBtn){ openBtn.onclick = ()=>{ modal.style.display='grid'; } }
-  if(closeBtn){ closeBtn.onclick = ()=>{ modal.style.display='none'; } }
+  document.getElementById('openConcierge')?.addEventListener('click', ()=> modal.style.display='grid');
+  document.getElementById('closeConcierge')?.addEventListener('click', ()=> modal.style.display='none');
   const chat = document.getElementById('chat');
   function push(html,me){const b=document.createElement('div'); b.className='bubble'+(me?' from-me':''); b.style.opacity=1; b.innerHTML=html; chat.appendChild(b); chat.scrollTop=chat.scrollHeight}
   document.getElementById('askBtn')?.addEventListener('click', ()=>{
@@ -438,7 +470,7 @@
     push("I'll fetch a short summary and links for that project.");
   });
 
-  // Chat preview staging (no opacity artifacts)
+  // Chat preview staging to match your demo: top two dimmed, last one highlighted, looping.
   (function staged(){
     const bubbles=[...document.querySelectorAll('.chatbox .bubble')];
     let i=0; function cycle(){ bubbles.forEach(b=>b.classList.remove('live')); bubbles[i%bubbles.length].classList.add('live'); i++; setTimeout(cycle, 2000); }
@@ -458,12 +490,15 @@
     next();
   })();
 
-  // ===== Scroll Reveal (clip-path wipe) =====
+  // ===== TRUE CLIP-PATH WIPE ON SCROLL =====
+  // Adds .in with a slight stagger based on --delay for each element
   const io=new IntersectionObserver((entries)=>{
     entries.forEach(en=>{
       if(en.isIntersecting){
-        en.target.classList.add('in');
-        io.unobserve(en.target);
+        const el=en.target;
+        const delay=parseInt(getComputedStyle(el).getPropertyValue('--delay')||'0',10);
+        setTimeout(()=> el.classList.add('in'), delay);
+        io.unobserve(el);
       }
     });
   }, {root:null, threshold:0.18});
