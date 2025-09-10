@@ -25,7 +25,6 @@ body{
   margin:0 auto; max-width:980px; padding:26px 16px 64px;
   color:var(--fg); background:var(--bg); line-height:1.75;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-  /* page intro curtain */
   --clipY: 100%;
   animation:reveal .9s cubic-bezier(.2,.7,.2,1) forwards;
   background:
@@ -269,9 +268,13 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 
   <h3 class="reveal"><span class="pill">Agents &amp; Planning</span></h3>
   <div class="entry reveal">
-    <div class="frame16 contain">
-      <img class="media" src="images/wip_cartoon.gif" alt="Work in progress — short-term memory project" decoding="async">
-      <div class="placeholder" aria-hidden="true">Work in progress</div>
+    <div class="frame16">
+      <!-- UPDATED: short-term memory cover video -->
+      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata"
+             poster="images/wip_cartoon_placeholder.jpg">
+        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/images/po_architectures_clean_final_4slides_1080p.mp4" type="video/mp4">
+      </video>
+      <div class="placeholder" aria-hidden="true">Video</div>
     </div>
     <div>
       <div class="title">Solving Short-term Memory Limits of ADAPT Agents</div>
@@ -366,7 +369,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
     </div>
   </div>
 
-  <!-- LLMs for Vulnerability Detection — your RAW GitHub links -->
+  <!-- LLMs for Vulnerability Detection -->
   <div class="entry reveal right">
     <div class="frame16">
       <video class="media" id="vulnVid" muted loop autoplay playsinline webkit-playsinline preload="metadata"
@@ -412,18 +415,22 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 
 <script>
 (function(){
-  /* === Typing header (hide caret when done) === */
+  /* === Typing header (force start from 'G' and hide caret when done) === */
   const full='Gayatri Malladi';
   const el=document.getElementById('typeTarget');
   const caret=document.getElementById('caret');
   const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ensure no pre-filled text so typing always starts from "Gayatri"
+  if(el) el.textContent = '';
+
   (function type(i=0){
     if(!el) return;
     el.textContent = reduce ? full : full.slice(0,i);
     if(!reduce && i<full.length){
       setTimeout(()=>type(i+1),70);
     } else if (caret){
-      caret.style.display='none';   // <-- caret disappears after typing finishes
+      caret.style.display='none';
     }
   })();
 
@@ -449,7 +456,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
     addEventListener('scroll', p, {passive:true}); p();
   }
 
-  /* === Media quality & battery === */
+  /* === Media placeholders + looping === */
   document.querySelectorAll('.frame16').forEach(frame=>{
     const v=frame.querySelector('video.media'); const img=frame.querySelector('img.media'); const ph=frame.querySelector('.placeholder');
     if(v){
@@ -464,6 +471,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
     }
   });
 
+  /* Pause videos when off-screen for perf */
   if('IntersectionObserver' in window){
     const vio=new IntersectionObserver(items=>{
       items.forEach(it=>{
