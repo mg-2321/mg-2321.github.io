@@ -1,292 +1,470 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Gayatri Malladi</title>
-<style>
-:root{
-  --bg-0:#0e0f13; --bg-1:#111319; --bg-2:#161a22;
-  --text-0:#f5f7ff; --text-1:#c9d1ff; --muted:#8a93a6;
-  --lavender:#7f6cff; --lavender-b:#a48dff;
-  --mint:#c9ffe7; --chip:#212534;
-  --border:#23283a;
-}
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0; color:var(--text-0);
-  background:
-    radial-gradient(1100px 700px at 14% 6%,#1a1f2c 0%,transparent 60%),
-    radial-gradient(1000px 700px at 86% 0%,#15202b 0%,transparent 55%),
-    linear-gradient(#0e0f13,#0e0f13);
-  font:16px/1.6 system-ui,-apple-system,Segoe UI,Inter,Roboto,Helvetica,Arial,sans-serif;
-  scroll-behavior:smooth;
-}
-a{color:#98b6ff;text-decoration:none}
-.container{max-width:1200px;margin:56px auto;padding:0 24px}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gayatri Malladi — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      /* === Theme (tuned to your screenshot) === */
+      --bg-1:#0b0e14;
+      --bg-2:#0f131c;
+      --card:#7b6cf4;           /* purple card */
+      --card-ink:#ffffff;
+      --chip:#10151f;
+      --mint:#c8f4df;           /* projects tile */
+      --mint-ink:#0f3528;
+      --blog-grad-1:#6aa5ff;    /* blog pill gradient (blue → purple) */
+      --blog-grad-2:#7b6cf4;
+      --ring:#e6e9ff;
+      --ring-inner:#bfc6ff33;
+      --ink-1:#e8ecf3;
+      --ink-2:#aab4c3;
+      --ink-3:#7f8aa1;
+      --shadow-lg: 0 18px 50px rgba(0,0,0,.45);
+      --shadow-md: 0 10px 28px rgba(0,0,0,.35);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+      --gap: 28px;
+      --speed: 520ms;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--ink-1);
+      background:
+        radial-gradient(1200px 800px at 15% 10%, #151a24 0%, transparent 60%),
+        radial-gradient(1200px 900px at 85% -10%, #161a26 0%, transparent 60%),
+        linear-gradient(180deg,var(--bg-2),var(--bg-1));
+      background-attachment: fixed;
+      letter-spacing:.2px;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1150px;margin:70px auto;padding:0 24px}
 
-/* grid */
-.grid{display:grid;grid-template-columns:1.05fr 1fr;gap:36px}
-@media (max-width:980px){.grid{grid-template-columns:1fr;gap:28px}}
+    /* ===== Layout ===== */
+    .grid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: clamp(26px,3vw,40px);
+      align-items:start;
+    }
+    @media (max-width:980px){
+      .grid{grid-template-columns:1fr}
+    }
 
-/* cards */
-.card{background:var(--bg-1);border:1px solid var(--border);border-radius:24px;box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.03)}
-.pad{padding:28px}
+    /* ===== Left: About Card ===== */
+    .about{
+      background: linear-gradient(180deg, #7b6cf4 0%, #7063e8 100%);
+      color:var(--card-ink);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      padding: 28px 28px 24px 28px;
+      position: relative;
+      overflow:hidden;
+    }
+    .about::after{
+      content:"";
+      position:absolute;inset:0;
+      background: radial-gradient(500px 260px at -5% -10%, #ffffff18, transparent 55%);
+      pointer-events:none;
+    }
+    .tag{
+      position:absolute; left:18px; top:-14px;
+      background: #0a0f18;
+      color:#cfd8ff;
+      border-radius: 999px;
+      font-size:12px; padding:6px 10px;
+      border:1px solid #1f2634;
+      box-shadow:0 6px 14px rgba(0,0,0,.45);
+    }
 
-/* hero */
-.hero{background:linear-gradient(180deg,rgba(127,108,255,.22),rgba(127,108,255,.14));border-color:rgba(127,108,255,.35);position:relative}
-.badge{position:absolute;top:-12px;left:18px;background:#10131c;border:1px solid #20263a;color:#d6dcff;padding:6px 12px;border-radius:14px;font-size:12px}
-.hero-head{display:flex;align-items:center;gap:18px;margin-bottom:12px}
-.avatar{width:150px;height:150px;border-radius:50%;object-fit:cover;border:4px solid rgba(255,255,255,.08);box-shadow:0 10px 24px rgba(127,108,255,.25)}
-@media(min-width:981px){.avatar{width:164px;height:164px}}
+    .about-header{
+      display:flex; align-items:center; gap:18px;
+      margin-bottom: 6px;
+    }
+    .avatar{
+      width:120px; height:120px;             /* bigger face */
+      border-radius:50%;
+      background:#000 center/cover no-repeat;
+      border:4px solid var(--ring);
+      box-shadow: 0 0 0 8px var(--ring-inner);
+      flex: 0 0 auto;
+    }
+    /* Put your photo here */
+    .avatar[data-src]{ background-image: var(--photo-url); }
 
-.typed{font-weight:800;font-size:28px;letter-spacing:.2px;white-space:nowrap;border-right:2px solid rgba(255,255,255,.85);overflow:hidden;width:0}
-@keyframes typing{to{width:20ch}}
-@keyframes caret{50%{border-color:transparent}}
-.typed.run{animation:typing 2.2s steps(20,end) forwards,caret 1s step-end infinite}
+    .title{
+      font-size: clamp(22px,2.2vw,28px);
+      font-weight:800; line-height:1.1;
+      white-space:nowrap;
+      display:flex; align-items:center; gap:8px;
+    }
+    .caret{width:2px;height:1.1em;background:#fff;animation:blink 1s steps(2,end) infinite}
+    @keyframes blink{50%{opacity:0}}
 
-.hero p{margin:12px 0;color:var(--text-1)}
-.hero strong{color:var(--text-0)}
+    .about p{
+      margin: 10px 2px;
+      color:#f4f6ff;
+      opacity:.95;
+      text-align: justify;                    /* justified intro */
+    }
+    .about p em{font-style:normal;color:#ffffff;opacity:1}
 
-/* social one-line pills */
-.social{display:flex;gap:10px;flex-wrap:nowrap;overflow:auto;padding-bottom:4px;margin-top:16px}
-.pill{padding:10px 14px;border-radius:12px;background:var(--chip);color:var(--text-0);border:1px solid #2b3247;white-space:nowrap;font-weight:700}
-.pill:hover{border-color:#394161;transform:translateY(-1px)}
-.pill:active{transform:none}
+    .cta-row{
+      margin-top:16px; display:flex; gap:12px; flex-wrap:nowrap; overflow-x:auto;
+      padding-bottom:4px;
+    }
+    .chip{
+      display:inline-flex; align-items:center; gap:10px;
+      background: #0f1420;
+      color:#dbe5ff;
+      border: 1px solid #2a3350;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-weight:600; letter-spacing:.1px;
+      white-space:nowrap;
+      box-shadow: var(--shadow-md);
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
+    }
+    .chip:hover{ transform: translateY(-1px); border-color:#5261ff; background:#101731 }
+    .chip .icon{opacity:.9}
 
-/* overview */
-h1,h2{margin:0 0 14px}
-.title{font-size:38px;font-weight:900;letter-spacing:.3px}
-.overview .stack{display:flex;flex-direction:column;gap:16px}
+    .jump-row{ display:flex; gap:12px; margin-top:16px }
+    .jump{ background:#0f1420; border:1px solid #2a3350; color:#dbe5ff; padding:10px 14px; border-radius:12px }
+    .jump:hover{background:#141b2a}
 
-.blog-card{padding:18px 20px;border-radius:16px;border:1px solid rgba(130,150,255,.35);
-  background:linear-gradient(90deg,#6760f7,#3aa0ff);color:#fff}
-.blog-card small{opacity:.9}
-.pill-lite{padding:4px 10px;border-radius:999px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.35);font-weight:800}
+    /* ===== Right: Overview ===== */
+    .h1{
+      font-size: clamp(28px, 3.6vw, 40px);
+      font-weight: 800;
+      margin: 6px 0 14px;
+    }
 
-.count{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(180deg,rgba(201,255,231,.25),rgba(201,255,231,.12));border:1px solid rgba(201,255,231,.45);padding:18px 20px;border-radius:16px}
-.count .n{font-size:28px;font-weight:900}
-.count .label{color:#a9d5c2;font-weight:700}
-.count .go{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;background:#10131c;border:1px solid #243042;color:#a9d5c2}
+    .panel{
+      background: radial-gradient(100% 120% at 10% 0%, #141b27 0%, #0f1420 60%);
+      border:1px solid #1c2333;
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      box-shadow: var(--shadow-md);
+    }
+    .blog-card{
+      background: linear-gradient(135deg, var(--blog-grad-1), var(--blog-grad-2));
+      border:1px solid #3a4df0;
+      color:#0c1428;
+    }
+    .blog-card .blog-meta{
+      display:flex; justify-content:space-between; align-items:center; gap:10px;
+      color:#071124; font-weight:700; background: #ffffff33;
+      border:1px solid #ffffff55; border-radius: 12px; padding:10px 12px; margin-bottom:12px;
+      backdrop-filter: blur(6px);
+    }
+    .pill{background:#0a1227; color:#cfe7ff; padding:6px 10px; border-radius:999px; border:1px solid #1b3160}
 
-.concierge{padding:16px 20px;border-radius:16px;border:1px solid #263046;background:var(--bg-2)}
+    .count-tile{
+      display:flex; align-items:center; justify-content:space-between;
+      background: linear-gradient(180deg, #d5f7e8, var(--mint));
+      color: var(--mint-ink);
+      border: 1px solid #7ac2a3;
+      border-radius: var(--radius-lg);
+      padding: 16px 18px; font-weight:700;
+    }
+    .count-tile .qty{font-size:30px}
+    .count-tile .go{background:#0f3528;color:#dff8ee;border-radius:10px;border:none;width:34px;height:34px;display:grid;place-items:center}
 
-/* sections */
-section{margin-top:64px}
-.section-title{font-size:34px;font-weight:900;letter-spacing:.3px;margin-bottom:18px}
-.project{display:grid;grid-template-columns:1fr 1.1fr;gap:22px;align-items:center;border:1px solid #272e43;border-radius:18px;padding:18px;background:#141822}
-.project+.project{margin-top:18px}
-.cover{border:1px solid #3a3f62;border-radius:16px;padding:10px;background:#0f1320;min-height:220px;display:grid;place-items:center;color:#7fa2ff}
-.actions{display:flex;gap:10px;margin-top:10px}
-.action{background:#0f1320;border:1px solid #334166;color:#cfe1ff;padding:8px 12px;border-radius:10px;font-weight:800}
+    .concierge{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px; color:#b6c3d6;
+    }
+    .open-btn{
+      background:#0b1324; color:#d9e5ff; border:1px solid #223052;
+      padding:8px 14px; border-radius:12px; font-weight:700;
+    }
 
-/* reveal */
-.reveal{opacity:0;transform:translateY(18px) scale(.985);filter:blur(2px)}
-.reveal.in{opacity:1;transform:none;filter:none;transition:opacity .6s ease,transform .6s ease,filter .6s ease}
+    /* ===== Sections ===== */
+    section{margin-top: 34px}
+    .section-title{font-size:32px;font-weight:800;margin:0 0 18px}
+    .cards{display:grid; gap:16px}
+    .proj{
+      display:grid; grid-template-columns: 1.15fr .95fr; gap:18px;
+      background:#0f1420; border:1px solid #1c2333; border-radius: var(--radius-lg); padding:14px;
+    }
+    .proj .media{
+      background:#0a0f18; border:1px solid #343a50; border-radius: 12px; min-height:220px;
+      display:grid;place-items:center;color:#8ea0c5;
+    }
+    .btns{display:flex; gap:10px; margin-top:10px}
+    .btn{
+      background:#0a1227; color:#cfe7ff; padding:8px 12px; border-radius:10px; border:1px solid #223052; font-weight:600;
+    }
 
-/* concierge modal */
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;place-items:center;padding:24px;z-index:50}
-.modal.open{display:grid}
-.chat{width:min(920px,96vw);max-height:86vh;overflow:hidden;background:#0f121a;border:1px solid #2a3250;border-radius:18px;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,.6)}
-.chat-h{padding:14px 16px;border-bottom:1px solid #252c44;display:flex;align-items:center;justify-content:space-between}
-.chat-b{padding:16px;overflow:auto;display:flex;flex-direction:column;gap:10px}
-.msg{max-width:78%;padding:10px 12px;border-radius:14px;line-height:1.5}
-.ai{background:#12172a;border:1px solid #2d365b;color:#dbe5ff;align-self:flex-start}
-.me{background:#0e6b3a;border:1px solid #2a7a51;color:#e9fff4;align-self:flex-end}
-.chat-f{padding:12px 16px;border-top:1px solid #252c44;display:flex;gap:10px}
-.chat-f input{flex:1;background:#0b0f19;color:#eaf2ff;border:1px solid #2a3250;border-radius:12px;padding:12px}
-.ghost{background:#0b0f19;border:1px solid #2a3250;color:#cfe0ff;padding:10px 12px;border-radius:12px}
-</style>
+    /* ===== Concierge modal (simple QA) ===== */
+    .modal{
+      position:fixed; inset:0; display:none; place-items:center; background:#0008; z-index:30;
+    }
+    .modal.on{display:grid}
+    .dialog{
+      width:min(900px,92vw); max-height:80vh; overflow:hidden;
+      background:#0f1420; border:1px solid #1c2333; border-radius:16px; box-shadow:var(--shadow-lg);
+    }
+    .dialog header{display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid #1c2333}
+    .dialog header h3{margin:0}
+    .dialog .chat{padding:14px; overflow:auto; height:56vh; display:flex; flex-direction:column; gap:10px}
+    .bubble{
+      max-width:75%;
+      padding:10px 12px; border-radius:14px; line-height:1.35; border:1px solid #233049;
+    }
+    .ai{ background:#121a2b; color:#d9e3f7; align-self:flex-start }
+    .me{ background:#162239; color:#e9f2ff; align-self:flex-end }
+    .composer{display:flex; gap:10px; padding:14px; border-top:1px solid #1c2333}
+    .composer input{flex:1;background:#0b1324;border:1px solid #223052;color:#d9e5ff;border-radius:12px;padding:10px 12px}
+    .composer button{background:#2c39e9;color:#fff;border:none;border-radius:12px;padding:10px 14px;font-weight:700}
+
+    /* ===== Reveal on scroll ===== */
+    .reveal{opacity:0; transform: translateY(18px); transition: opacity var(--speed) ease, transform var(--speed) ease}
+    .reveal.show{opacity:1; transform:none}
+  </style>
 </head>
 <body>
-  <div class="container">
+  <div class="wrap">
     <div class="grid">
-      <!-- HERO -->
-      <div id="hero" class="card pad hero reveal">
-        <div class="badge">● About Me</div>
-        <div class="hero-head">
-          <img class="avatar" src="YOUR_HEADSHOT.jpg" alt="Gayatri Malladi">
-          <div id="typed" class="typed">I am, Gayatri Malladi</div>
-        </div>
-
-        <p style="text-align:justify">
-          I’m a second-year M.S. student in the Computer Science department at the University of Washington.
-          Currently, my research supervised by <a href="https://rutadesai.github.io" target="_blank">Dr. Ruta Desai</a> focuses on agentic AI:
-          planning and teaching language models when to ask vs. when to act, with lightweight grounding via a knowledge-augmented graph (KAG) and
-          preference-based training using SimPO and ORPO.
-        </p>
-        <p style="text-align:justify">
-          I’m exploring how to overcome short-term memory limits for long-horizon tasks using retrieval caches, summarization/compression, and
-          Reflexion-style episodic notes that are indexed and reused across tasks with a Neo4j-backed KAG.
-        </p>
-
-        <p class="hero-strong" style="text-align:justify">
-          I’m open to research collaborations. Please email me on <a href="mailto:gayat23@uw.edu">gayat23[at]uw.edu</a> if you are interested to
-          explore assistive agents for day-to-day task automation and self-evolving language models for curriculum generation, reflective
-          fine-tuning, and preference optimization.
-        </p>
-
-        <!-- Social (one line) -->
-        <div class="social">
-          <a class="pill" href="YOUR_CV.pdf" target="_blank">CV</a>
-          <a class="pill" href="https://github.com/yourhandle" target="_blank">GitHub</a>
-          <a class="pill" href="https://www.linkedin.com/in/yourhandle" target="_blank">LinkedIn</a>
-          <a class="pill" href="https://medium.com/@yourhandle" target="_blank">Medium</a>
-          <a class="pill" href="https://twitter.com/yourhandle" target="_blank">Twitter</a>
-        </div>
-
-        <div class="social" style="margin-top:12px">
-          <a class="pill" href="#projects">Projects</a>
-          <a class="pill" href="#blogs">Blogs</a>
-        </div>
-      </div>
-
-      <!-- OVERVIEW -->
-      <div class="overview reveal">
-        <h1 class="title">Overview</h1>
-        <div class="stack">
-          <div class="blog-card">
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
-              <small>Upcoming Blog — <strong>SimPO vs DPO</strong></small>
-              <span class="pill-lite">Sep 15</span>
-            </div>
-            <div style="margin-top:8px;opacity:.95">
-              Preference Optimization for LLMs—what SimPO optimizes, where DPO shines, trade-offs, toy examples, and when to pick each.
-            </div>
-          </div>
-
-          <div class="count">
-            <div>
-              <div class="n">6</div>
-              <div class="label">Projects</div>
-            </div>
-            <a class="go" href="#projects" title="Go to Projects">➜</a>
-          </div>
-
-          <div class="concierge">
-            <div style="display:flex;justify-content:space-between;align-items:center">
-              <div>
-                <div style="font-weight:900">Portfolio Concierge</div>
-                <div style="color:var(--muted)">Click to ask about projects, models, datasets.</div>
-              </div>
-              <button id="openConcierge" class="pill" type="button">Open</button>
-            </div>
+      <!-- LEFT: ABOUT -->
+      <aside class="about reveal" id="about">
+        <span class="tag">● About Me</span>
+        <div class="about-header">
+          <div class="avatar" id="avatar"></div>
+          <div class="title">
+            <span>I am,&nbsp;Gayatri Malladi</span>
+            <span class="caret"></span>
           </div>
         </div>
-      </div>
+
+        <!-- Intro (keep your exact text here) -->
+        <p>I’m a second-year M.S. student in the Computer Science department at the University of Washington. Currently, my research supervised by <a href="https://rutadesai.github.io" target="_blank">Dr. Ruta Desai</a> focuses on agentic AI: planning and teaching language models when to ask vs. when to act, with lightweight grounding via a knowledge-augmented graph (KAG) and preference-based training using SimPO and ORPO.</p>
+        <p>I’m exploring how to overcome short-term memory limits for long-horizon tasks using retrieval caches, summarization/compression, and Reflexion-style episodic notes that are indexed and reused across tasks with a Neo4j-backed KAG.</p>
+        <p><em>I’m open to research collaborations.</em> Please email me on <a href="mailto:gayat23@uw.edu">gayat23[at]uw.edu</a> if you are interested to explore assistive agents for day-to-day task automation and self-evolving language models for curriculum generation, reflective fine-tuning, and preference optimization.</p>
+
+        <!-- ONE LINE social row in your requested order -->
+        <div class="cta-row">
+          <a class="chip" href="/cv.pdf" target="_blank"><span class="icon">📄</span>CV</a>
+          <a class="chip" href="https://github.com/mg-2321" target="_blank"><span class="icon">🐙</span>GitHub</a>
+          <a class="chip" href="https://www.linkedin.com/in/gayatri-malladi" target="_blank"><span class="icon">🔗</span>LinkedIn</a>
+          <a class="chip" href="https://medium.com/@gayatri-malladi" target="_blank"><span class="icon">✍️</span>Medium</a>
+          <a class="chip" href="https://twitter.com/" target="_blank"><span class="icon">🐦</span>Twitter</a>
+        </div>
+
+        <!-- Quick jumps -->
+        <div class="jump-row">
+          <a class="jump" href="#projects">Projects</a>
+          <a class="jump" href="#blogs">Blogs</a>
+        </div>
+      </aside>
+
+      <!-- RIGHT: OVERVIEW -->
+      <main>
+        <h1 class="h1 reveal">Overview</h1>
+
+        <!-- Upcoming blog card -->
+        <div class="panel blog-card reveal">
+          <div class="blog-meta">
+            <div>Upcoming Blog — <strong>SimPO vs DPO</strong></div>
+            <span class="pill">Sep 15</span>
+          </div>
+          <div style="color:#061022;font-weight:600;background:#ffffff3a;border:1px solid #ffffff66;padding:10px 12px;border-radius:10px">
+            Preference Optimization for LLMs — what SimPO optimizes, where DPO shines, trade-offs, toy examples, and when to pick each.
+          </div>
+          <div style="margin-top:12px">
+            <a class="pill" href="https://medium.com/" target="_blank">Open on Medium</a>
+          </div>
+        </div>
+
+        <!-- Counters -->
+        <div class="count-tile reveal" role="button" onclick="document.querySelector('#projects').scrollIntoView({behavior:'smooth'})">
+          <div>
+            <div class="qty" id="projectQty">6</div>
+            Projects
+          </div>
+          <button class="go" aria-label="Go to projects">➜</button>
+        </div>
+
+        <div class="panel concierge reveal" style="margin-top:14px">
+          <div>
+            <div style="font-weight:800;color:#e5eeff">Portfolio Concierge</div>
+            <div style="color:#9fb0c9">Click to ask about projects, models, datasets.</div>
+          </div>
+          <button class="open-btn" onclick="toggleModal(true)">Open</button>
+        </div>
+      </main>
     </div>
 
-    <!-- PROJECTS -->
+    <!-- Projects -->
     <section id="projects" class="reveal">
       <h2 class="section-title">Projects</h2>
+      <div class="cards">
 
-      <div class="project">
-        <div class="cover">Coming soon — Short-term Memory</div>
-        <div>
-          <h3>Solving Short-term Memory Limits of ADAPT Agents</h3>
-          <div style="color:var(--text-1)">Knowledge-Aware Graph for long-term user preferences + diffusion-style drive model for smoother planning under uncertainty.</div>
-          <div class="actions">
-            <a class="action" href="#" target="_blank">Code</a>
-            <a class="action" href="#" target="_blank">Paper</a>
+        <!-- 1: Waymo forecasting -->
+        <article class="proj">
+          <div class="media">Waymo diffusion — cover image/video</div>
+          <div>
+            <h3>Future Trajectory Prediction for Autonomous Vehicles</h3>
+            <p>Diffusion-based model predicting 5-second future trajectories on long-tail scenarios in Waymo; explicitly models multimodal uncertainty.</p>
+            <div class="btns">
+              <a class="btn" href="https://github.com/" target="_blank">Code</a>
+              <a class="btn" href="https://arxiv.org/" target="_blank">Paper</a>
+            </div>
           </div>
-        </div>
-      </div>
+        </article>
 
-      <div class="project">
-        <div class="cover">
-          <video width="100%" height="100%" controls playsinline poster="llm-cover-poster.jpg" style="border-radius:12px;max-height:300px">
-            <source src="llm-vuln-demo.mp4" type="video/mp4"/>
-          </video>
-        </div>
-        <div>
-          <h3>LLMs for Code Vulnerability Detection</h3>
-          <div style="color:var(--text-1)">Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN highlighting data-flow risks and zero-day patterns.</div>
-          <div class="actions">
-            <a class="action" href="#" target="_blank">Code</a>
-            <a class="action" href="#" target="_blank">Paper</a>
+        <!-- 2: CUDA / LIMO -->
+        <article class="proj reveal">
+          <div class="media">Trajectories after CUDA optimization</div>
+          <div>
+            <h3>Optimizing LIMO Pipeline with CUDA Parallelization</h3>
+            <p>Shared-memory tiling, async transfers, and custom kernels for 2D conv, keyframe selection, and pose estimation — up to 60% kernel speedup.</p>
+            <div class="btns">
+              <a class="btn" href="https://github.com/" target="_blank">Code</a>
+              <a class="btn" href="https://arxiv.org/" target="_blank">Paper</a>
+            </div>
           </div>
-        </div>
+        </article>
+
+        <!-- 3: NLP -->
+        <article class="proj reveal">
+          <div class="media">NLP cover</div>
+          <div>
+            <h3>NLP for Suicide Ideation & Attempt Detection</h3>
+            <p>MIMIC-III + SuicideWatch; GloVe/Word2Vec/FastText/CBOW vs BERT/RoBERTa & Bi-LSTM.</p>
+            <div class="btns">
+              <a class="btn" href="https://github.com/" target="_blank">Code</a>
+              <a class="btn" href="https://arxiv.org/" target="_blank">Paper</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4: LLM code vulnerability (video) -->
+        <article class="proj reveal">
+          <div class="media" style="padding:0;overflow:hidden">
+            <!-- Place your demo video at /assets/llm-vuln-demo.mp4 -->
+            <video src="assets/llm-vuln-demo.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;background:#0a0f18"></video>
+          </div>
+          <div>
+            <h3>LLMs for Code Vulnerability Detection</h3>
+            <p>Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN highlighting data-flow risks and zero-day patterns.</p>
+            <div class="btns">
+              <a class="btn" href="https://github.com/" target="_blank">Code</a>
+              <a class="btn" href="https://arxiv.org/" target="_blank">Paper</a>
+            </div>
+          </div>
+        </article>
+
       </div>
     </section>
 
-    <!-- BLOGS -->
+    <!-- Blogs section (heading like Projects) -->
     <section id="blogs" class="reveal">
       <h2 class="section-title">Blogs</h2>
-      <div class="project">
-        <div class="cover">Blog cover — SimPO vs DPO</div>
-        <div>
-          <h3>SimPO vs DPO: Preference Optimization Algorithms</h3>
-          <div style="color:var(--text-1)">Deep-dive with intuition, math, trade-offs, toy examples, and when to use which.</div>
-          <div class="actions">
-            <a class="action" href="https://medium.com/@yourhandle" target="_blank">Open on Medium</a>
+      <div class="cards">
+        <article class="proj">
+          <div class="media" style="background:linear-gradient(135deg,var(--blog-grad-1),var(--blog-grad-2));color:#071124;font-weight:800">
+            SimPO vs DPO — cover
           </div>
-        </div>
+          <div>
+            <h3>SimPO vs DPO: Preference Optimization Algorithms</h3>
+            <p>TL;DR what SimPO actually optimizes, where DPO shines, the trade-offs, toy examples, and when to pick each.</p>
+            <div class="btns">
+              <a class="btn" href="https://medium.com/" target="_blank">Open on Medium</a>
+              <span class="btn" style="pointer-events:none;opacity:.7">Sep 15</span>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
   </div>
 
-  <!-- Concierge modal -->
-  <div id="modal" class="modal">
-    <div class="chat">
-      <div class="chat-h">
-        <strong>Portfolio Concierge</strong>
-        <button id="closeConcierge" class="ghost">Close</button>
+  <!-- Concierge Modal -->
+  <div class="modal" id="modal">
+    <div class="dialog">
+      <header>
+        <h3>Portfolio Concierge</h3>
+        <button class="open-btn" onclick="toggleModal(false)">Close</button>
+      </header>
+      <div class="chat" id="chat">
+        <div class="bubble ai">Hi! I’m an assistant for Gayatri’s portfolio. What can I help you find?</div>
       </div>
-      <div id="chatBody" class="chat-b">
-        <div class="msg ai">Hi! I’m an assistant for Gayatri’s portfolio. Ask about any project.</div>
-      </div>
-      <div class="chat-f">
-        <input id="chatInput" placeholder="e.g., Tell me about the Waymo trajectory project."/>
-        <button id="sendMsg" class="pill" type="button">Ask</button>
+      <div class="composer">
+        <input id="ask" placeholder="e.g., Tell me about the Waymo trajectory project." />
+        <button onclick="send()">Ask</button>
       </div>
     </div>
   </div>
 
-<script>
-/* typed headline */
-const typed = document.getElementById('typed');
-window.addEventListener('load', ()=> typed.classList.add('run'));
+  <script>
+    // ---- Set your profile image (bigger) ----
+    // Put your headshot at /assets/profile.jpg
+    const avatar = document.getElementById('avatar');
+    avatar.style.setProperty('--photo-url', 'url("assets/profile.jpg")');
 
-/* reveal on scroll */
-const io = new IntersectionObserver((ents)=>{
-  ents.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
-},{threshold:.15});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    // ---- Smooth reveal on scroll (like the reference) ----
+    const io = new IntersectionObserver((entries)=>{
+      for (const e of entries){
+        if (e.isIntersecting){ e.target.classList.add('show'); }
+      }
+    }, {threshold: .18});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-/* concierge */
-const modal = document.getElementById('modal');
-document.getElementById('openConcierge').onclick = ()=> modal.classList.add('open');
-document.getElementById('closeConcierge').onclick = ()=> modal.classList.remove('open');
-modal.addEventListener('click', e=>{ if(e.target===modal) modal.classList.remove('open'); });
+    // ---- Concierge (very small Q/A engine) ----
+    const KB = [
+      {
+        key:['waymo','trajectory','forecast','diffusion'],
+        answer:`Diffusion-based forecasting on the Waymo Open Dataset; models multimodal uncertainty and long-tail events. Code & paper links are under the project card in Projects.`,
+      },
+      {
+        key:['cuda','limo','optimize','parallel'],
+        answer:`CUDA-accelerated LIMO pipeline (2D conv, keyframe selection, pose estimation) with shared-memory tiling and async transfers — up to 60% kernel speedup.`,
+      },
+      {
+        key:['nlp','suicide','mimic','bert','roberta'],
+        answer:`NLP for suicide ideation & attempt detection on MIMIC-III and SuicideWatch; classic embeddings vs transformer baselines.`,
+      },
+      {
+        key:['vulnerability','code','graphcodebert','rag','llm'],
+        answer:`LLM + RAG for code vulnerability detection; GraphCodeBERT + DCGAN to surface data-flow risks and zero-day patterns.`,
+      },
+    ];
+    function toggleModal(on){ document.getElementById('modal').classList.toggle('on',!!on); }
+    function send(){
+      const input = document.getElementById('ask');
+      const text = input.value.trim();
+      if(!text) return;
+      push('me', text);
+      input.value='';
+      setTimeout(()=>{
+        const q = text.toLowerCase();
+        let best = KB.find(k=>k.key.some(t=>q.includes(t)));
+        push('ai', best ? best.answer : `Here’s what I can help with: Waymo forecasting • CUDA/LIMO optimizations • NLP safety • LLM code vulnerabilities. Ask about any of these and I’ll summarize + point to code/paper.`)
+      }, 320);
+    }
+    function push(who, text){
+      const chat = document.getElementById('chat');
+      const b = document.createElement('div');
+      b.className = 'bubble ' + (who==='me'?'me':'ai');
+      b.textContent = text;
+      chat.appendChild(b);
+      chat.scrollTop = chat.scrollHeight;
+    }
 
-const chatBody = document.getElementById('chatBody');
-function addMsg(t,role='ai'){
-  const d=document.createElement('div'); d.className='msg '+role; d.textContent=t;
-  chatBody.appendChild(d); chatBody.scrollTop=chatBody.scrollHeight;
-}
-const answers={
-  waymo:'Diffusion-based forecasting on the Waymo Open Dataset; multimodal uncertainty + long-tail events. Code/Paper in Projects.',
-  memory:'Short-term memory mitigation via Knowledge-Augmented Graph (Neo4j) + Reflexion-style episodic notes.',
-  cuda:'CUDA kernels with shared-memory tiling & async transfers—~60% speedup in our pipeline.',
-  kag:'KAG stores long-term preferences; reused across tasks.',
-  nlp:'NLP safety: suicide ideation & attempt detection on MIMIC-III + SuicideWatch (classic + BERT/RoBERTa).'
-};
-function reply(q){
-  const k=q.toLowerCase();
-  for(const key in answers){ if(k.includes(key)) return answers[key]; }
-  return 'I can talk about Waymo forecasting, KAG memory, CUDA speedups, or the NLP safety project. Try: “What did you do on Waymo?”';
-}
-function send(){
-  const i=document.getElementById('chatInput'); const q=i.value.trim(); if(!q) return;
-  addMsg(q,'me'); setTimeout(()=>addMsg(reply(q),'ai'),450); i.value='';
-}
-document.getElementById('sendMsg').onclick=send;
-document.getElementById('chatInput').addEventListener('keydown',e=>{if(e.key==='Enter')send();});
-
-/* keep social row in one line (scroll horizontally on overflow) */
-const socials=document.querySelectorAll('.social')[0];
-socials.addEventListener('wheel',(e)=>{ if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){ socials.scrollLeft+=e.deltaY; e.preventDefault(); } },{passive:false});
-</script>
+    // ---- Keep social row on one line on desktop ----
+    function clampSocial(){
+      const row = document.querySelector('.cta-row');
+      row.style.whiteSpace = (window.innerWidth>900?'nowrap':'normal');
+    }
+    clampSocial(); addEventListener('resize', clampSocial);
+  </script>
 </body>
 </html>
