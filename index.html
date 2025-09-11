@@ -130,6 +130,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 .frame16::before{ content:""; display:block; padding-top:56.25% } /* 16:9 */
 .media{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block }
 .frame16.contain .media{ object-fit:contain; background:#fff }
+.fit-contain{ object-fit:contain !important; background:#fff !important; }
 
 .placeholder{
   position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
@@ -349,9 +350,9 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 
   <h3 class="reveal"><span class="pill">Natural Language Processing</span></h3>
   <div class="entry reveal">
-    <div class="frame16">
+    <div class="frame16 contain">
       <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/nlp-si.jpg">
-        <!-- UPDATED cover video -->
+        <!-- Updated cover; 'contain' prevents any text from being cut off -->
         <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/images/comparative_results_slideshow%20(1).mp4" type="video/mp4">
       </video>
       <div class="placeholder" aria-hidden="true">NLP demo</div>
@@ -393,8 +394,8 @@ h2::after{ content:""; display:block; width:56px; height:3px;
   <section class="entry blog reveal">
     <div class="frame16 blogcover">
       <div class="badge">Coming on Sept 15</div>
-      <!-- Poster (no animation) -->
-      <svg viewBox="0 0 360 202" preserveAspectRatio="none" class="media" aria-hidden="true">
+      <!-- Poster (no animation); fit to frame to avoid cropping -->
+      <svg viewBox="0 0 360 202" preserveAspectRatio="none" class="media fit-contain" aria-hidden="true">
         <!-- card border -->
         <rect x="6" y="6" width="348" height="190" rx="14" fill="url(#grad)" stroke="#cdd6ff" />
         <!-- header -->
@@ -457,7 +458,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 
   function typeTitle(){
     if(!el) return;
-    el.textContent = '';         // wipe any restored text
+    el.textContent = '';         // wipe any restored text so we always begin at G
     if (reduce){ el.textContent = full; if (caret) caret.style.display='none'; return; }
     let i = 0;
     const tick = () => {
