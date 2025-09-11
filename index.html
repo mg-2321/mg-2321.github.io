@@ -147,17 +147,13 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 .entry .desc p, .blog .desc p{ text-align:justify; text-justify:inter-word }
 
 /* ==============================
-   Blog cover (poster)
+   Blog cover (minimal poster)
    ============================== */
 .blogcover{ background: radial-gradient(120% 120% at 10% 20%, #f3e8ff 0 30%, #e9f0ff 55%, #ffffff 80%); }
 .blogcover svg{ width:100%; height:100% }
-.poster-title{ font: 700 16px/1 ui-sans-serif, system-ui; letter-spacing:.2px; fill:#2b2f36 }
-.poster-sub{ font: 600 12px/1 ui-sans-serif, system-ui; fill:#475569 }
-.poster-small{ font: 700 11px/1 ui-sans-serif, system-ui }
-.poster-simpo{ fill:#8b5cf6 }
-.poster-sdpo{ fill:#6c8cff }
-.poster-stroke{ stroke:#8b5cf6; stroke-width:3; fill:none }
-.poster-stroke2{ stroke:#6c8cff; stroke-width:2; fill:none; stroke-linecap:round }
+.poster-title{ font: 800 18px/1 ui-sans-serif, system-ui; letter-spacing:.2px; fill:#2b2f36 }
+.poster-simpo{ stroke:#8b5cf6; fill:none; stroke-width:3 }
+.poster-sdpo{ fill:#6c8cff; opacity:.9 }
 .badge{
   position:absolute; right:10px; top:10px; font-weight:700; font-size:.85rem;
   color:#fff; background:#6c8cff; padding:6px 10px; border-radius:999px; box-shadow:0 4px 10px rgba(108,140,255,.25)
@@ -283,7 +279,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
   <div class="entry reveal">
     <div class="frame16">
       <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata"
-             poster="images/wip_cartoon_placeholder.jpg">
+             poster="images/wip_cartoon_placeholder.jpg" crossorigin="anonymous">
         <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/images/po_architectures_steps_clean_4slides_1080p.mp4" type="video/mp4">
       </video>
       <div class="placeholder" aria-hidden="true">Video</div>
@@ -300,7 +296,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
   <h3 class="reveal"><span class="pill">Machine Learning</span></h3>
   <div class="entry reveal">
     <div class="frame16">
-      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/waymo-forecast.jpg">
+      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/waymo-forecast.jpg" crossorigin="anonymous">
         <source src="images/waymo_diffusion_cover%20(1)%20(2)%20(1).mp4" type="video/mp4">
       </video>
       <div class="placeholder" aria-hidden="true">Video preview</div>
@@ -316,7 +312,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 
   <div class="entry reveal right">
     <div class="frame16">
-      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/cuda-limo.jpg">
+      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/cuda-limo.jpg" crossorigin="anonymous">
         <source src="images/limo_cuda_preview_v4.mp4" type="video/mp4">
       </video>
       <div class="placeholder" aria-hidden="true">Video preview</div>
@@ -333,7 +329,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 
   <div class="entry reveal">
     <div class="frame16 contain">
-      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/eeg-stroke.jpg">
+      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/eeg-stroke.jpg" crossorigin="anonymous">
         <source src="cover_all_in_one_paper_exact4.mp4" type="video/mp4">
       </video>
       <div class="placeholder" aria-hidden="true">EEG demo</div>
@@ -348,12 +344,30 @@ h2::after{ content:""; display:block; width:56px; height:3px;
     </div>
   </div>
 
+  <!-- Keep Multimodal Emotion Recognition -->
+  <div class="entry reveal right">
+    <div class="frame16">
+      <img class="media" src="images/emotion.jpg" alt="Multimodal Emotion Recognition cover" loading="lazy" decoding="async">
+      <div class="placeholder" aria-hidden="true">Project cover</div>
+    </div>
+    <div class="desc">
+      <div class="title">Multimodal Emotion Recognition using Deep Learning</div>
+      <p>Fusion of audio-visual cues with deep representations; experiments across speaker-independent splits and noisy conditions.</p>
+      <p class="row-links">
+        <a class="btn" href="https://drive.google.com/drive/search?q=gayatriMultimodal%20Emotion%20Recognition%20using%20Deep" target="_blank" rel="noopener">Project paper</a>
+      </p>
+    </div>
+  </div>
+
   <h3 class="reveal"><span class="pill">Natural Language Processing</span></h3>
   <div class="entry reveal">
     <div class="frame16 contain">
-      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/nlp-si.jpg">
-        <!-- Updated cover; 'contain' prevents any text from being cut off -->
+      <video id="nlpCover" class="media fit-contain" muted loop autoplay playsinline webkit-playsinline preload="metadata"
+             poster="images/nlp-si.jpg" crossorigin="anonymous" controlslist="noplaybackrate nodownload noremoteplayback" disablepictureinpicture>
+        <!-- Source 1 (raw.githubusercontent.com) -->
         <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/images/comparative_results_slideshow%20(1).mp4" type="video/mp4">
+        <!-- Source 2 (github.com ... /raw) as fallback for some Chrome builds -->
+        <source src="https://github.com/mg-2321/mg-2321.github.io/raw/main/images/comparative_results_slideshow%20(1).mp4" type="video/mp4">
       </video>
       <div class="placeholder" aria-hidden="true">NLP demo</div>
     </div>
@@ -394,50 +408,42 @@ h2::after{ content:""; display:block; width:56px; height:3px;
   <section class="entry blog reveal">
     <div class="frame16 blogcover">
       <div class="badge">Coming on Sept 15</div>
-      <!-- Poster (no animation); fit to frame to avoid cropping -->
-      <svg viewBox="0 0 360 202" preserveAspectRatio="none" class="media fit-contain" aria-hidden="true">
-        <!-- card border -->
-        <rect x="6" y="6" width="348" height="190" rx="14" fill="url(#grad)" stroke="#cdd6ff" />
-        <!-- header -->
-        <text x="24" y="40" class="poster-title">Preference Optimization — SimPO vs SDPO</text>
-        <text x="24" y="58" class="poster-sub">Two lenses for aligning LLMs with human preferences</text>
-
-        <!-- SimPO panel -->
-        <text x="24" y="88" class="poster-small poster-simpo">SimPO • maximize margin</text>
-        <line x1="24" y1="154" x2="156" y2="154" stroke="#e5e7fb"/>
-        <line x1="24" y1="154" x2="24"  y2="94"  stroke="#e5e7fb"/>
-        <circle cx="62"  cy="138" r="6" class="poster-simpo"/>
-        <circle cx="112" cy="106" r="6" class="poster-simpo"/>
-        <path d="M137 112 L137 132" class="poster-stroke"/>
-        <polyline points="137,108 133,118 141,118" class="poster-stroke" />
-        <polyline points="137,136 133,126 141,126" class="poster-stroke" />
-        <text x="50" y="168" class="poster-small poster-simpo" style="fill:#6b63c6">dispreferred</text>
-        <text x="95" y="98"  class="poster-small poster-simpo" style="fill:#6b63c6">preferred</text>
-        <text x="144" y="125" class="poster-small poster-simpo">margin</text>
-
-        <!-- SDPO panel -->
-        <text x="204" y="88" class="poster-small poster-sdpo">SDPO • step-wise credit</text>
-        <line x1="204" y1="154" x2="336" y2="154" stroke="#e5e7fb"/>
-        <rect x="214" y="134" width="16" height="20" class="poster-sdpo" opacity=".85"/>
-        <rect x="238" y="122" width="16" height="32" class="poster-sdpo" opacity=".85"/>
-        <rect x="262" y="110" width="16" height="44" class="poster-sdpo" opacity=".85"/>
-        <rect x="286" y="98"  width="16" height="56" class="poster-sdpo" opacity=".9"/>
-        <rect x="310" y="86"  width="16" height="68" class="poster-sdpo" opacity=".95"/>
-        <path d="M214 154 C230 154, 246 154, 262 154 S 294 154, 310 154" class="poster-stroke2" />
-
+      <!-- Minimal poster (no labels; clean, on-topic) -->
+      <svg viewBox="0 0 360 202" preserveAspectRatio="xMidYMid meet" class="media fit-contain" aria-hidden="true">
+        <!-- soft card -->
         <defs>
-          <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+          <linearGradient id="bggrad" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%"  stop-color="#f5ebff"/>
-            <stop offset="55%" stop-color="#edf2ff"/>
+            <stop offset="60%" stop-color="#edf2ff"/>
             <stop offset="100%" stop-color="#ffffff"/>
           </linearGradient>
         </defs>
+        <rect x="8" y="8" width="344" height="186" rx="16" fill="url(#bggrad)" stroke="#cfd6ff"/>
+        <!-- title -->
+        <text x="28" y="48" class="poster-title">SimPO vs SDPO</text>
+
+        <!-- SimPO glyph: two points with margin bracket -->
+        <circle cx="80"  cy="128" r="6" fill="#8b5cf6" opacity=".85"/>
+        <circle cx="132" cy="96"  r="6" fill="#8b5cf6" opacity=".95"/>
+        <path d="M154 104 L154 124" class="poster-simpo"/>
+        <polyline points="154,100 149,110 159,110" class="poster-simpo"/>
+        <polyline points="154,128 149,118 159,118" class="poster-simpo"/>
+
+        <!-- SDPO glyph: ascending steps + up arrow -->
+        <g transform="translate(210,76)">
+          <rect width="16" height="20" x="0"   y="60" class="poster-sdpo"/>
+          <rect width="16" height="32" x="24"  y="48" class="poster-sdpo"/>
+          <rect width="16" height="46" x="48"  y="34" class="poster-sdpo"/>
+          <rect width="16" height="62" x="72"  y="18" class="poster-sdpo"/>
+          <polyline points="0,60 96,-2" fill="none" stroke="#6c8cff" stroke-width="2"/>
+          <polygon points="96,-2 88,-6 90,3" fill="#6c8cff"/>
+        </g>
       </svg>
     </div>
 
     <div class="desc">
       <div class="title">Preference Optimization Algorithms: SimPO vs SDPO</div>
-      <p>We compare two preference-optimization methods for aligning LLMs. SimPO directly maximizes a margin between preferred and dispreferred responses with a stabilizing reference model. SDPO attributes credit step-wise along trajectories to reduce reward hacking and improve reasoning. We outline practical tips, when to prefer each, and open questions.</p>
+      <p>Quick primer on two ways to align LLMs: SimPO grows a margin between preferred and dispreferred responses with a stabilizing reference model; SDPO attributes credit token-by-token to curb reward hacking and boost reasoning. When each wins, practical tips, and open questions—full details in the article.</p>
       <p class="row-links">
         <a class="btn" href="https://medium.com/@gayat23" target="_blank" rel="noopener">Read on Medium →</a>
       </p>
@@ -450,7 +456,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 
 <script>
 (function(){
-  /* === Typing header (always start at 'G', robust across bfcache) === */
+  /* === Typing header (always start at 'G') === */
   const full = 'Gayatri Malladi';
   const el   = document.getElementById('typeTarget');
   const caret= document.getElementById('caret');
@@ -458,18 +464,18 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 
   function typeTitle(){
     if(!el) return;
-    el.textContent = '';         // wipe any restored text so we always begin at G
+    el.textContent = ''; // guarantee starting from empty
     if (reduce){ el.textContent = full; if (caret) caret.style.display='none'; return; }
     let i = 0;
     const tick = () => {
       el.textContent = full.slice(0, i);
       if (i < full.length){ i++; setTimeout(tick, 120); }
-      else if (caret){ caret.style.display = 'none'; }
+      else if (caret){ caret.style.display='none'; }
     };
     tick();
   }
   requestAnimationFrame(typeTitle);
-  window.addEventListener('pageshow', (e)=>{ if(e.persisted){ if (caret) caret.style.display=''; typeTitle(); } });
+  window.addEventListener('pageshow', e => { if(e.persisted){ if(caret) caret.style.display=''; typeTitle(); } });
 
   /* === Scroll progress bar === */
   const bar=document.getElementById('scrollbar');
@@ -507,6 +513,21 @@ h2::after{ content:""; display:block; width:56px; height:3px;
       img.addEventListener('error', ()=>{ if(ph) ph.style.display='flex'; }, {once:true});
     }
   });
+
+  /* === Extra fallback for Chrome on the NLP cover video === */
+  const nlp = document.getElementById('nlpCover');
+  if(nlp){
+    let triedSwap=false;
+    nlp.addEventListener('error', () => {
+      if(!triedSwap){
+        // swap to second <source> explicitly
+        const srcs = nlp.querySelectorAll('source');
+        if(srcs[1]){ nlp.src = srcs[1].src; triedSwap=true; nlp.load(); nlp.play().catch(()=>{}); return; }
+      }
+      // final fallback: show poster image
+      nlp.removeAttribute('autoplay');
+    }, {passive:true});
+  }
 
   if('IntersectionObserver' in window){
     const vio=new IntersectionObserver(items=>{
