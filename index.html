@@ -290,7 +290,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
     </div>
     <div class="desc">
       <div class="title">Solving Memory Limitations of Agents using KAG</div>
-      <p>Building KAG layer memory module to store changing user preferences for long horizon tasks, object affordances, and past interactions, enabling lightweight grounding. Planning is trained with preference optimization algorithms: sequence-level SimPO aligns whole trajectories to user choices, while Step-DPO provides fine-grained <ASK> vs <ACT> feedback.</p>
+      <p>Building KAG layer memory module to store changing user preferences for long horizon tasks, object affordances, and past interactions, enabling lightweight grounding. Planning is trained with preference optimization algorithms: sequence-level SimPO aligns whole trajectories to user choices, while Step-DPO provides fine-grained &lt;ASK&gt; vs &lt;ACT&gt; feedback.</p>
       <p class="row-links">
         <a class="btn" href="https://github.com/mg-2321/Adapt" target="_blank" rel="noopener">Code(to be updated)</a>
       </p>
@@ -334,20 +334,21 @@ h2::after{ content:""; display:block; width:56px; height:3px;
     </div>
   </div>
 
-  <!-- NEW: Real-time Construction Safety Equipment Detection -->
+  <!-- Real-time Construction Safety Equipment Detection -->
   <div class="entry reveal">
     <div class="frame16">
       <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata"
              poster="images/ppe-cover.jpg" crossorigin="anonymous" referrerpolicy="no-referrer">
-        <!-- Local build + GitHub raw fallback (rename if needed) -->
-        <source src="images/ppe_detection_cover.mp4#t=0.1" type="video/mp4">
-        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/images/ppe_detection_cover.mp4#t=0.1" type="video/mp4">
+        <!-- Use RAW GitHub URL (blob won't play). #t=0.1 nudges Chrome to paint the first frame -->
+        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/ppe_pass_fail_corrected.mp4#t=0.1" type="video/mp4">
+        <!-- Secondary fallback raw URL form -->
+        <source src="https://github.com/mg-2321/mg-2321.github.io/raw/main/ppe_pass_fail_corrected.mp4#t=0.1" type="video/mp4">
       </video>
       <div class="placeholder" aria-hidden="true">Video preview</div>
     </div>
     <div class="desc">
       <div class="title">Real-time Construction Safety Equipment Detection</div>
-      <p>Deployed YOLO-based detection to monitor PPE on construction sites in real time (hardhats, vests, goggles). Tracks workers with byte-level re-ID, raises on-screen alerts for violations, and logs clips for safety review.</p>
+      <p>Deployed YOLO-based detection to monitor PPE on construction sites in real time (hardhats, vests, goggles). Tracks workers with re-ID, raises on-screen alerts for violations, and logs clips for safety review.</p>
       <p class="row-links">
         <a class="btn" href="https://github.com/mg-2321/Construction-Safety-PPE" target="_blank" rel="noopener">Code</a>
       </p>
@@ -374,7 +375,6 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 
   <h3 class="reveal"><span class="pill">Natural Language Processing</span></h3>
   <div class="entry reveal">
-    <!-- prevent cropping + make Chrome happy -->
     <div class="frame16 contain">
       <video class="media" muted autoplay loop playsinline webkit-playsinline preload="metadata"
              poster="images/nlp-si.jpg" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -421,17 +421,12 @@ h2::after{ content:""; display:block; width:56px; height:3px;
       <!-- Minimal poster with an in-card date pill -->
       <svg viewBox="0 0 720 400" preserveAspectRatio="xMidYMid meet" class="media" aria-hidden="true">
         <rect x="18" y="18" width="684" height="364" rx="22" fill="url(#grad)" stroke="#cfd6ff" />
-
-        <!-- Title & subtitle -->
         <text x="48" y="108" class="poster-title">SimPO vs SDPO</text>
         <text x="48" y="144" class="poster-sub">A quick comparison for preference optimization</text>
-
-        <!-- Date pill (inside the card, no overlap) -->
         <g>
           <rect x="600" y="36" width="96" height="32" rx="16" fill="#6c8cff" opacity="0.95"/>
           <text x="648" y="57" fill="#ffffff" font-family="ui-sans-serif, system-ui" font-size="14" font-weight="700" text-anchor="middle">Sep 15</text>
         </g>
-
         <defs>
           <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%"  stop-color="#f5ebff"/>
@@ -465,7 +460,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 
   function typeTitle(){
     if(!el) return;
-    el.textContent = ''; // force start from empty
+    el.textContent = '';
     if (reduceMotion){ el.textContent = full; if (caret) caret.style.display='none'; return; }
     let i = 0;
     const tick = () => {
