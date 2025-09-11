@@ -232,8 +232,8 @@ h2::after{ content:""; display:block; width:56px; height:3px;
       <div class="blob" aria-hidden="true"></div>
       <picture>
         <img
-          class="avatar"
-          src="https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3"
+          class="avatar
+          " src="https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3"
           srcset="
             https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3 1x,
             https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3 2x,
@@ -395,11 +395,20 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 
   <section class="entry blog reveal">
     <div class="frame16 blogcover">
-      <!-- Minimal poster: title + subtitle only (badge removed) -->
+      <!-- Minimal poster with an in-card date pill -->
       <svg viewBox="0 0 720 400" preserveAspectRatio="xMidYMid meet" class="media" aria-hidden="true">
         <rect x="18" y="18" width="684" height="364" rx="22" fill="url(#grad)" stroke="#cfd6ff" />
+
+        <!-- Title & subtitle -->
         <text x="48" y="108" class="poster-title">SimPO vs SDPO</text>
         <text x="48" y="144" class="poster-sub">A quick comparison for preference optimization</text>
+
+        <!-- Date pill (inside the card, no overlap) -->
+        <g>
+          <rect x="600" y="36" width="96" height="32" rx="16" fill="#6c8cff" opacity="0.95"/>
+          <text x="648" y="57" fill="#ffffff" font-family="ui-sans-serif, system-ui" font-size="14" font-weight="700" text-anchor="middle">Sep 15</text>
+        </g>
+
         <defs>
           <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%"  stop-color="#f5ebff"/>
