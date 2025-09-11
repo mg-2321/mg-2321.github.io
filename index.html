@@ -91,11 +91,11 @@ p{margin:.6rem 0}
   backface-visibility:hidden; transform:translateZ(0);
   box-shadow:0 2px 18px rgba(17,24,39,.06);
 }
-/* Added a bit more space between photo and links */
+/* a bit more space between photo and links */
 .profile-links{
   display:flex; flex-wrap:nowrap; justify-content:center; align-items:center; gap:8px;
   width:100%;
-  margin-top:12px;  /* NEW */
+  margin-top:16px;
 }
 .chip{
   display:inline-flex; align-items:center; gap:6px;
@@ -271,7 +271,6 @@ h2::after{ content:""; display:block; width:56px; height:3px;
   <h3 class="reveal"><span class="pill">Agents &amp; Planning</span></h3>
   <div class="entry reveal">
     <div class="frame16">
-      <!-- UPDATED: short-term memory cover video (correct link) -->
       <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata"
              poster="images/wip_cartoon_placeholder.jpg">
         <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/images/po_architectures_steps_clean_4slides_1080p.mp4" type="video/mp4">
@@ -370,7 +369,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
     </div>
   </div>
 
-  <!--  for Vulnerability Detection -->
+  <!-- LLMs for Vulnerability Detection -->
   <div class="entry reveal right">
     <div class="frame16">
       <video class="media" id="vulnVid" muted loop autoplay playsinline webkit-playsinline preload="metadata"
@@ -416,27 +415,36 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 
 <script>
 (function(){
-  /* === Typing header (force start from 'G' and hide caret when done) === */
-  const full='Gayatri Malladi';
-  const el=document.getElementById('typeTarget');
-  const caret=document.getElementById('caret');
-  const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* === Typing header (force start at 'G' + slower speed) === */
+  const full = 'Gayatri Malladi';
+  const el   = document.getElementById('typeTarget');
+  const caret= document.getElementById('caret');
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if(el){
-    // Hard reset to guarantee the typing begins at 'G' in every browser/restore case
-    while (el.firstChild) el.removeChild(el.firstChild);
+  if (el) {
+    // wipe any restored/previous text to guarantee starting from 'G'
     el.textContent = '';
+    el.innerHTML = '';
+    // use rAF to avoid BFCache/paint race so we always begin from empty
+    requestAnimationFrame(() => {
+      if (reduce) {
+        el.textContent = full;
+        if (caret) caret.style.display = 'none';
+        return;
+      }
+      let i = 0;
+      const step = () => {
+        el.textContent = full.slice(0, i);
+        if (i < full.length) {
+          i++;
+          setTimeout(step, 120); // slower typing speed
+        } else if (caret) {
+          caret.style.display = 'none';
+        }
+      };
+      step();
+    });
   }
-
-  (function type(i=0){
-    if(!el) return;
-    el.textContent = reduce ? full : full.slice(0,i);
-    if(!reduce && i<full.length){
-      setTimeout(()=>type(i+1),70);
-    } else if (caret){
-      caret.style.display='none';
-    }
-  })();
 
   /* === Scroll progress bar === */
   const bar=document.getElementById('scrollbar');
@@ -444,7 +452,8 @@ h2::after{ content:""; display:block; width:56px; height:3px;
   addEventListener('scroll', onScroll, {passive:true}); onScroll();
 
   /* === Reveal on scroll / stagger === */
-  if('IntersectionObserver' in window && !reduce){
+  const reduceAnim = reduce;
+  if('IntersectionObserver' in window && !reduceAnim){
     const io=new IntersectionObserver(es=>es.forEach(e=>{
       if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
     }),{root:null, rootMargin:'0px 0px -10% 0px', threshold:.12});
@@ -455,12 +464,12 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 
   /* === Parallax for headshot aside === */
   const aside=document.querySelector('.aside.parallax');
-  if(aside && !reduce){
+  if(aside && !reduceAnim){
     const p=()=>{ const y=window.scrollY||document.documentElement.scrollTop; aside.style.transform=`translateY(${Math.min(12, y*0.06)}px)`; };
     addEventListener('scroll', p, {passive:true}); p();
   }
 
-  /* === Media placeholders + looping === */
+  /* === Media placeholders + looping + pause off-screen === */
   document.querySelectorAll('.frame16').forEach(frame=>{
     const v=frame.querySelector('video.media'); const img=frame.querySelector('img.media'); const ph=frame.querySelector('.placeholder');
     if(v){
@@ -475,7 +484,6 @@ h2::after{ content:""; display:block; width:56px; height:3px;
     }
   });
 
-  /* Pause videos when off-screen for perf */
   if('IntersectionObserver' in window){
     const vio=new IntersectionObserver(items=>{
       items.forEach(it=>{
