@@ -25,6 +25,7 @@ body{
   margin:0 auto; max-width:980px; padding:26px 16px 64px;
   color:var(--fg); background:var(--bg); line-height:1.75;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  /* soft entrance */
   --clipY: 100%;
   animation:reveal .9s cubic-bezier(.2,.7,.2,1) forwards;
   background:
@@ -86,16 +87,15 @@ p{margin:.6rem 0}
 
 .avatar{
   width:360px; aspect-ratio:1 / 1; border-radius:50%;
-  object-fit:cover; object-position:50% 60%;
+  object-fit:cover; object-position:50% 60%;   /* keep you centered */
   display:block; image-rendering:-webkit-optimize-contrast; image-rendering:crisp-edges;
   backface-visibility:hidden; transform:translateZ(0);
   box-shadow:0 2px 18px rgba(17,24,39,.06);
 }
-/* a bit more space between photo and links */
+/* space between photo and links */
 .profile-links{
   display:flex; flex-wrap:nowrap; justify-content:center; align-items:center; gap:8px;
-  width:100%;
-  margin-top:16px;
+  width:100%; margin-top:16px;
 }
 .chip{
   display:inline-flex; align-items:center; gap:6px;
@@ -143,6 +143,9 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 }
 .btn:hover{background:#f7faff;border-color:#cfdaf0; transform:translateY(-1px)}
 
+/* make project/blog copy justified */
+.entry .desc p, .blog .desc p{ text-align:justify; text-justify:inter-word }
+
 /* ==============================
    Skills ribbon (marquee)
    ============================== */
@@ -151,6 +154,25 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 .scroll{animation:marquee 26s linear infinite}.scroll2{animation:marquee 34s linear infinite reverse}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 @media (prefers-reduced-motion: reduce){.scroll,.scroll2{animation:none}}
+
+/* ==============================
+   Blog cover (SimPO vs SDPO)
+   ============================== */
+.blogcover{
+  background: radial-gradient(120% 120% at 10% 20%, #f3e8ff 0 30%, #e9f0ff 50%, #ffffff 75%);
+}
+.blogcover svg{ width:100%; height:100% }
+.path{ fill:none; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:6 6; animation:dash 3s linear infinite }
+.path.simpo{ stroke:#8b5cf6 }
+.path.sdpo{ stroke:#6c8cff }
+@keyframes dash{ to{ stroke-dashoffset:-120 } }
+.dot{ animation:slide 2.8s ease-in-out infinite alternate }
+.dot.simpo{ fill:#8b5cf6 } .dot.sdpo{ fill:#6c8cff }
+@keyframes slide{ 0%{ transform:translateX(10px)} 100%{ transform:translateX(300px)} }
+.badge{
+  position:absolute; right:10px; top:10px; font-weight:700; font-size:.85rem;
+  color:#fff; background:#6c8cff; padding:6px 10px; border-radius:999px; box-shadow:0 4px 10px rgba(108,140,255,.25)
+}
 
 /* ==============================
    Scroll reveal (AOS-lite)
@@ -165,42 +187,6 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 .stagger.in > *:nth-child(4){ animation-delay:.18s } .stagger.in > *:nth-child(5){ animation-delay:.24s }
 @keyframes stg{to{opacity:1; transform:none}}
 @media (prefers-reduced-motion:reduce){ .reveal,.stagger > *{opacity:1; transform:none; animation:none} }
-
-/* ==============================
-   Blog animated cover ============================== */
-.cover-anim{
-  position:absolute; inset:0; overflow:hidden;
-  background:
-    radial-gradient(1200px 600px at 20% -10%, rgba(139,92,246,.35), transparent 60%),
-    radial-gradient(1200px 600px at 80% 110%, rgba(108,140,255,.35), transparent 60%),
-    conic-gradient(from 0turn, #fff, #f7f5ff, #eef2ff, #fff);
-  animation:spinHue 14s linear infinite;
-}
-.cover-anim::before, .cover-anim::after{
-  content:""; position:absolute; width:140%; height:140%; left:-20%; top:-20%;
-  background:
-    radial-gradient( farthest-side, rgba(139,92,246,.18), transparent 70% ) 10% 20%/24% 24% no-repeat,
-    radial-gradient( farthest-side, rgba(108,140,255,.18), transparent 70% ) 80% 70%/26% 26% no-repeat,
-    radial-gradient( farthest-side, rgba(139,92,246,.12), transparent 70% ) 60% 35%/18% 18% no-repeat,
-    radial-gradient( farthest-side, rgba(108,140,255,.12), transparent 70% ) 30% 80%/22% 22% no-repeat;
-  filter: blur(10px) saturate(1.1);
-  animation:floatA 12s ease-in-out infinite alternate;
-}
-.cover-anim::after{
-  animation:floatB 16s ease-in-out infinite alternate-reverse;
-  mix-blend-mode:multiply; opacity:.7;
-}
-@keyframes spinHue{ 0%{filter:hue-rotate(0deg)} 100%{filter:hue-rotate(45deg)} }
-@keyframes floatA{ 0%{transform:translate(-10px,6px) rotate(0)} 100%{transform:translate(18px,-10px) rotate(6deg)} }
-@keyframes floatB{ 0%{transform:translate(8px,-8px) rotate(-3deg)} 100%{transform:translate(-14px,12px) rotate(5deg)} }
-
-.badge{
-  position:absolute; right:10px; top:10px; z-index:2;
-  background:linear-gradient(90deg, var(--accent), var(--accent-2));
-  color:#fff; font-weight:700; letter-spacing:.2px;
-  padding:6px 10px; border-radius:999px; font-size:.78rem;
-  box-shadow:0 6px 16px rgba(17,24,39,.18);
-}
 
 /* ==============================
    Responsive
@@ -313,7 +299,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
       </video>
       <div class="placeholder" aria-hidden="true">Video</div>
     </div>
-    <div>
+    <div class="desc">
       <div class="title">Solving Short-term Memory Limits of ADAPT Agents</div>
       <p>Added a <em>Knowledge-Aware Graph</em> module for long-term user preferences and a diffusion-style drive model for smoother planning under uncertainty.</p>
       <p class="row-links">
@@ -322,7 +308,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
     </div>
   </div>
 
-  <h3 class="reveal"><span class="pill">Vision &amp; Robotics</span></h3>
+  <h3 class="reveal"><span class="pill">Machine Learning</span></h3>
   <div class="entry reveal">
     <div class="frame16">
       <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/waymo-forecast.jpg">
@@ -330,7 +316,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
       </video>
       <div class="placeholder" aria-hidden="true">Video preview</div>
     </div>
-    <div>
+    <div class="desc">
       <div class="title">Future Trajectory Prediction for Autonomous Vehicles</div>
       <p>Diffusion-based model predicting 5-second future trajectories in long-tail scenarios using the Waymo Open Dataset; explicitly models multimodal uncertainty.</p>
       <p class="row-links">
@@ -346,7 +332,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
       </video>
       <div class="placeholder" aria-hidden="true">Video preview</div>
     </div>
-    <div>
+    <div class="desc">
       <div class="title">Optimizing LIMO Pipeline with CUDA Parallelization</div>
       <p>Shared-memory tiling, async transfers, and custom kernels for 2D conv, keyframe selection, and pose estimation, improving kernel time by up to 60%.</p>
       <p class="row-links">
@@ -363,7 +349,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
       </video>
       <div class="placeholder" aria-hidden="true">EEG demo</div>
     </div>
-    <div>
+    <div class="desc">
       <div class="title">Stroke Rehabilitation — EEG Motor Action Classification</div>
       <p>Pre/post-stroke EEG analysis for motor actions (hand wave, clench, face rub) with ICA, band-pass filtering, and PCA; models: Decision Trees, SVMs, NNs.</p>
       <p class="row-links">
@@ -373,21 +359,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
     </div>
   </div>
 
-  <div class="entry reveal right">
-    <div class="frame16">
-      <img class="media" src="images/emotion.jpg" alt="Multimodal Emotion Recognition" decoding="async" loading="lazy">
-      <div class="placeholder" aria-hidden="true">Project cover</div>
-    </div>
-    <div>
-      <div class="title">Multimodal Emotion Recognition using Deep Learning</div>
-      <p>Fusion of audio-visual cues with deep representations; experiments across speaker-independent splits and noisy conditions.</p>
-      <p class="row-links">
-        <a class="btn" href="https://drive.google.com/drive/search?q=gayatriMultimodal%20Emotion%20Recognition%20using%20Deep" target="_blank" rel="noopener">Project paper</a>
-      </p>
-    </div>
-  </div>
-
-  <h3 class="reveal"><span class="pill">NLP &amp; Safety</span></h3>
+  <h3 class="reveal"><span class="pill">Natural Language Processing</span></h3>
   <div class="entry reveal">
     <div class="frame16">
       <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/nlp-si.jpg">
@@ -395,8 +367,8 @@ h2::after{ content:""; display:block; width:56px; height:3px;
       </video>
       <div class="placeholder" aria-hidden="true">NLP demo</div>
     </div>
-    <div>
-      <div class="title">NLP for Suicide Ideation &amp; Suicide Attempt Detection</div>
+    <div class="desc">
+      <div class="title">Suicide Ideation &amp; Suicide Attempt Classification</div>
       <p>Preprocessed clinical + forum text (MIMIC-III, SuicideWatch); compared GloVe/Word2Vec/FastText/CBOW; trained BERT &amp; RoBERTa vs Bi-LSTM baselines.</p>
       <p class="row-links">
         <a class="btn" href="https://github.com/mg-2321/Suicide-Attempt-and-Suicide-Ideation-detector" target="_blank">Project</a>
@@ -415,7 +387,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
       </video>
       <div class="placeholder" aria-hidden="true">Security demo</div>
     </div>
-    <div>
+    <div class="desc">
       <div class="title">LLMs for Code Vulnerability Detection</div>
       <p>Prompt-engineered LLMs + RAG; GraphCodeBERT + DCGAN to flag zero-day patterns via data-flow visuals.</p>
       <p class="row-links">
@@ -428,23 +400,36 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 
   <!-- Blogs -->
   <h2 id="blogs" class="reveal">Blogs</h2>
-  <div class="entry reveal">
-    <!-- Animated cover (GPU-cheap CSS, loops forever) -->
-    <div class="frame16">
-      <div class="cover-anim" aria-hidden="true"></div>
+
+  <section class="entry blog reveal">
+    <div class="frame16 blogcover">
       <div class="badge">Coming on Sept 15</div>
+      <!-- Animated SimPO vs SDPO cover (CSS-only animation) -->
+      <svg viewBox="0 0 360 202" preserveAspectRatio="none" class="media" aria-hidden="true">
+        <!-- axes -->
+        <line x1="24" y1="180" x2="340" y2="180" stroke="#c9d3ff" stroke-width="1"/>
+        <line x1="24" y1="180" x2="24"  y2="22"  stroke="#c9d3ff" stroke-width="1"/>
+        <!-- SDPO: stepwise -->
+        <polyline class="path sdpo" points="24,160 80,160 80,140 140,140 140,118 200,118 200,96 260,96 260,78 320,78"/>
+        <!-- SimPO: smooth margin -->
+        <path class="path simpo" d="M24,162 C90,155 160,128 240,95 280,78 310,70 320,66"/>
+        <!-- moving dots -->
+        <circle class="dot simpo" r="5" cy="98"  cx="24"/>
+        <circle class="dot sdpo"  r="5" cy="160" cx="24"/>
+        <!-- labels -->
+        <text x="280" y="60" fill="#8b5cf6" font-weight="700" font-size="12">SimPO</text>
+        <text x="280" y="92" fill="#6c8cff" font-weight="700" font-size="12">SDPO</text>
+      </svg>
     </div>
-    <div>
+
+    <div class="desc">
       <div class="title">Preference Optimization Algorithms: SimPO vs SDPO</div>
-      <p><strong>Abstract.</strong> We compare two preference optimization methods for aligning large language models with human feedback:
-      <em>Simple Preference Optimization (SimPO)</em>, which directly optimizes a margin between preferred and dispreferred responses with a
-      stabilizing reference model, and <em>Stepwise DPO (SDPO)</em>, which decomposes long trajectories into token- or step-level preferences to
-      better attribute credit and reduce reward hacking. We discuss temperature scaling, KL anchoring, batch-mixing with SFT, off-policy replay,
-      and practical tricks for stability (logit clipping, per-token advantages, and early stopping windows). Empirically, SDPO improves faithfulness
-      on multi-step reasoning when high-quality step feedback is available, while SimPO remains competitive and simpler when only pairwise outcome
-      preferences are collected. We close with guidance on when to prefer SDPO vs SimPO in agentic tasks.</p>
+      <p>We compare two preference-optimization methods for aligning LLMs. SimPO directly maximizes a margin between preferred and dispreferred responses with a stabilizing reference model. SDPO attributes credit step-wise along trajectories to reduce reward hacking and improve reasoning. We outline practical tips, when to prefer each, and open questions.</p>
+      <p class="row-links">
+        <a class="btn" href="https://medium.com/@gayat23" target="_blank" rel="noopener">Read on Medium →</a>
+      </p>
     </div>
-  </div>
+  </section>
 
   <div class="hr reveal"></div>
   <p class="muted">© <script>document.write(new Date().getFullYear())</script> Gayatri Malladi</p>
@@ -452,30 +437,21 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 
 <script>
 (function(){
-  /* === Typing header (force start at 'G' + slower speed) === */
+  /* === Typing header (force start at 'G', slower, hide caret when done) === */
   const full = 'Gayatri Malladi';
   const el   = document.getElementById('typeTarget');
   const caret= document.getElementById('caret');
   const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (el) {
-    el.textContent = '';
-    el.innerHTML = '';
+    el.textContent = ''; el.innerHTML = '';
     requestAnimationFrame(() => {
-      if (reduce) {
-        el.textContent = full;
-        if (caret) caret.style.display = 'none';
-        return;
-      }
+      if (reduce) { el.textContent = full; if (caret) caret.style.display='none'; return; }
       let i = 0;
       const step = () => {
         el.textContent = full.slice(0, i);
-        if (i < full.length) {
-          i++;
-          setTimeout(step, 120); // slower typing speed
-        } else if (caret) {
-          caret.style.display = 'none';
-        }
+        if (i < full.length) { i++; setTimeout(step, 120); }
+        else if (caret) { caret.style.display='none'; }
       };
       step();
     });
@@ -487,8 +463,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
   addEventListener('scroll', onScroll, {passive:true}); onScroll();
 
   /* === Reveal on scroll / stagger === */
-  const reduceAnim = reduce;
-  if('IntersectionObserver' in window && !reduceAnim){
+  if('IntersectionObserver' in window && !reduce){
     const io=new IntersectionObserver(es=>es.forEach(e=>{
       if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
     }),{root:null, rootMargin:'0px 0px -10% 0px', threshold:.12});
@@ -499,7 +474,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 
   /* === Parallax for headshot aside === */
   const aside=document.querySelector('.aside.parallax');
-  if(aside && !reduceAnim){
+  if(aside && !reduce){
     const p=()=>{ const y=window.scrollY||document.documentElement.scrollTop; aside.style.transform=`translateY(${Math.min(12, y*0.06)}px)`; };
     addEventListener('scroll', p, {passive:true}); p();
   }
