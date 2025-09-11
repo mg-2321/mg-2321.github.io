@@ -231,8 +231,8 @@ h2::after{ content:""; display:block; width:56px; height:3px;
       <div class="blob" aria-hidden="true"></div>
       <picture>
         <img
-          class="avatar
-          " src="https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3"
+          class="avatar"
+          src="https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3"
           srcset="
             https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3 1x,
             https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3 2x,
@@ -289,8 +289,8 @@ h2::after{ content:""; display:block; width:56px; height:3px;
       <div class="placeholder" aria-hidden="true">Video</div>
     </div>
     <div class="desc">
-      <div class="title">Solving Memory Limitations of Agents using KAG </div>
-      <p>Building KAG layer memory module to store changing user preferences for long horizon tasks, object affordances, and past interactions, enabling lightweight grounding. Planning is trained with preference optimization algorithms: sequence-level SimPO reference-free model aligns whole trajectories to user choices, while Step-DPO provides fine-grained, stepwise feedback that teaches <ASK> vs <ACT> trade-offs under uncertainty.</p>
+      <div class="title">Solving Memory Limitations of Agents using KAG</div>
+      <p>Building KAG layer memory module to store changing user preferences for long horizon tasks, object affordances, and past interactions, enabling lightweight grounding. Planning is trained with preference optimization algorithms: sequence-level SimPO aligns whole trajectories to user choices, while Step-DPO provides fine-grained <ASK> vs <ACT> feedback.</p>
       <p class="row-links">
         <a class="btn" href="https://github.com/mg-2321/Adapt" target="_blank" rel="noopener">Code</a>
       </p>
@@ -298,6 +298,8 @@ h2::after{ content:""; display:block; width:56px; height:3px;
   </div>
 
   <h3 class="reveal"><span class="pill">Machine Learning</span></h3>
+
+  <!-- Waymo -->
   <div class="entry reveal">
     <div class="frame16">
       <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/waymo-forecast.jpg">
@@ -306,7 +308,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
       <div class="placeholder" aria-hidden="true">Video preview</div>
     </div>
     <div class="desc">
-      <div class="title">Trajectory Prediction for Vison-End-to-End Driving</div>
+      <div class="title">Trajectory Prediction for Vision End-to-End Driving</div>
       <p>Diffusion-based model predicting 5-second future trajectories in long-tail scenarios using the Waymo Open Dataset; explicitly models multimodal uncertainty.</p>
       <p class="row-links">
         <a class="btn" href="https://github.com/mg-2321/Waymo_trajectory_prediction" target="_blank">Code (to be updated)</a>
@@ -314,6 +316,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
     </div>
   </div>
 
+  <!-- CUDA LIMO -->
   <div class="entry reveal right">
     <div class="frame16">
       <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/cuda-limo.jpg">
@@ -323,7 +326,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
     </div>
     <div class="desc">
       <div class="title">Optimizing LIMO Pipeline with CUDA Parallelization</div>
-      <p>Optimized a Lidar-Monocular visual odometry pipeline using CUDA on KITTI dataset to improve feature extraction and spatial consistency. Shared-memory tiling, async transfers, and custom kernels for 2D conv, keyframe selection, and pose estimation, improving kernel time by up to 60%.</p>
+      <p>Optimized a LiDAR-Monocular VO pipeline on KITTI with shared-memory tiling, async transfers, and custom kernels for 2D conv, keyframe selection, and pose estimation—improving kernel time by up to 60%.</p>
       <p class="row-links">
         <a class="btn" href="https://github.com/mg-2321/LIMO" target="_blank" rel="noopener">Code</a>
         <a class="btn" href="https://drive.google.com/file/d/13EWTlsrXvigKUrIcd1SeBJhdUc7h2sX4/view?usp=sharing" target="_blank" rel="noopener">Project paper</a>
@@ -331,6 +334,27 @@ h2::after{ content:""; display:block; width:56px; height:3px;
     </div>
   </div>
 
+  <!-- NEW: Real-time Construction Safety Equipment Detection -->
+  <div class="entry reveal">
+    <div class="frame16">
+      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata"
+             poster="images/ppe-cover.jpg" crossorigin="anonymous" referrerpolicy="no-referrer">
+        <!-- Local build + GitHub raw fallback (rename if needed) -->
+        <source src="images/ppe_detection_cover.mp4#t=0.1" type="video/mp4">
+        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/images/ppe_detection_cover.mp4#t=0.1" type="video/mp4">
+      </video>
+      <div class="placeholder" aria-hidden="true">Video preview</div>
+    </div>
+    <div class="desc">
+      <div class="title">Real-time Construction Safety Equipment Detection</div>
+      <p>Deployed YOLO-based detection to monitor PPE on construction sites in real time (hardhats, vests, goggles). Tracks workers with byte-level re-ID, raises on-screen alerts for violations, and logs clips for safety review.</p>
+      <p class="row-links">
+        <a class="btn" href="https://github.com/mg-2321/Construction-Safety-PPE" target="_blank" rel="noopener">Code</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- EEG -->
   <div class="entry reveal">
     <div class="frame16 contain">
       <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/eeg-stroke.jpg">
@@ -339,8 +363,8 @@ h2::after{ content:""; display:block; width:56px; height:3px;
       <div class="placeholder" aria-hidden="true">EEG demo</div>
     </div>
     <div class="desc">
-      <div class="title">Stroke RehabilitationL EEG Motor Action Classification</div>
-      <p>Analyzed pre- and post-stroke EEG data from motor tasks such as hand wave, hand clench, face rub to quantify neural changes and track recovery. Using preprocessing, PCA, and statistical tests, implemented KNN, Decision Trees, SVM, and K-means to classify actions and reveal patterns, informing personalized, data-driven stroke rehabilitation strategies effectively.</p>
+      <div class="title">Stroke Rehabilitation — EEG Motor Action Classification</div>
+      <p>Analyzed pre-/post-stroke EEG for hand wave, clench, and face rub. Preprocessing + PCA + classical ML (KNN, Trees, SVM) + clustering to characterize recovery patterns.</p>
       <p class="row-links">
         <a class="btn" href="https://github.com/mg-2321/Stroke_Rehabilitation" target="_blank" rel="noopener">Code</a>
         <a class="btn" href="https://github.com/mg-2321/Stroke_Rehabilitation/blob/main/Iteration%204_%20Paper-4.pdf" target="_blank" rel="noopener">Project paper</a>
@@ -360,7 +384,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
     </div>
     <div class="desc">
       <div class="title">Suicide Ideation &amp; Suicide Attempt Classification</div>
-      <p>Text-based classification to detect suicidal ideation and attempts using clinical notes and reddit data. After noise removal and abbreviation expansion, we compared GloVe, Word2Vec, FastText, and CBOW embeddings. Classifiers with BERT and RoBERTa outperform a Bi-LSTM baseline and SVM, enabling earlier risk identification and ethically informed interventions.</p>
+      <p>Text-based risk detection using clinical notes and forum data. Compared GloVe/Word2Vec/FastText/CBOW embeddings; BERT/RoBERTa outperform Bi-LSTM/SVM baselines.</p>
       <p class="row-links">
         <a class="btn" href="https://github.com/mg-2321/Suicide-Attempt-and-Suicide-Ideation-detector" target="_blank">Project</a>
         <a class="btn" href="https://github.com/mg-2321/Suicide-Attempt-and-Suicide-Ideation-detector/blob/main/Review%20Paper%20Suicide%20Ideation%20Detector%20(1).pdf" target="_blank">Project paper</a>
