@@ -156,19 +156,26 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 @media (prefers-reduced-motion: reduce){.scroll,.scroll2{animation:none}}
 
 /* ==============================
-   Blog cover (SimPO vs SDPO)
+   Blog cover (SimPO vs SDPO) — teaser visual
    ============================== */
 .blogcover{
   background: radial-gradient(120% 120% at 10% 20%, #f3e8ff 0 30%, #e9f0ff 50%, #ffffff 75%);
 }
 .blogcover svg{ width:100%; height:100% }
-.path{ fill:none; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:6 6; animation:dash 3s linear infinite }
-.path.simpo{ stroke:#8b5cf6 }
-.path.sdpo{ stroke:#6c8cff }
-@keyframes dash{ to{ stroke-dashoffset:-120 } }
-.dot{ animation:slide 2.8s ease-in-out infinite alternate }
-.dot.simpo{ fill:#8b5cf6 } .dot.sdpo{ fill:#6c8cff }
-@keyframes slide{ 0%{ transform:translateX(10px)} 100%{ transform:translateX(300px)} }
+.label{ font-size:12px; font-weight:700 }
+.line-simpo{ stroke:#8b5cf6; stroke-width:3 }
+.line-sdpo{ stroke:#6c8cff; stroke-width:3; stroke-dasharray:10 8 }
+.margin{
+  stroke:#8b5cf6; stroke-width:3; transform-box:fill-box; transform-origin:center; 
+  animation:grow 2.4s ease-in-out infinite alternate;
+}
+@keyframes grow{ 0%{transform:scaleY(.75)} 100%{transform:scaleY(1.15)} }
+.bar{ fill:#6c8cff; opacity:.25; animation:pulse 2s ease-in-out infinite; }
+@keyframes pulse{ 0%,100%{opacity:.25} 50%{opacity:1} }
+.token{ fill:#6c8cff }
+.token.active{ fill:#6c8cff }
+.runner{ fill:#6c8cff; animation:runner 2.4s ease-in-out infinite }
+@keyframes runner{ 0%{transform:translateX(0)} 100%{transform:translateX(220px)} }
 .badge{
   position:absolute; right:10px; top:10px; font-weight:700; font-size:.85rem;
   color:#fff; background:#6c8cff; padding:6px 10px; border-radius:999px; box-shadow:0 4px 10px rgba(108,140,255,.25)
@@ -404,27 +411,42 @@ h2::after{ content:""; display:block; width:56px; height:3px;
   <section class="entry blog reveal">
     <div class="frame16 blogcover">
       <div class="badge">Coming on Sept 15</div>
-      <!-- Animated SimPO vs SDPO cover (CSS-only animation) -->
+      <!-- Animated SimPO vs SDPO teaser -->
       <svg viewBox="0 0 360 202" preserveAspectRatio="none" class="media" aria-hidden="true">
-        <!-- axes -->
-        <line x1="24" y1="180" x2="340" y2="180" stroke="#c9d3ff" stroke-width="1"/>
-        <line x1="24" y1="180" x2="24"  y2="22"  stroke="#c9d3ff" stroke-width="1"/>
-        <!-- SDPO: stepwise -->
-        <polyline class="path sdpo" points="24,160 80,160 80,140 140,140 140,118 200,118 200,96 260,96 260,78 320,78"/>
-        <!-- SimPO: smooth margin -->
-        <path class="path simpo" d="M24,162 C90,155 160,128 240,95 280,78 310,70 320,66"/>
-        <!-- moving dots -->
-        <circle class="dot simpo" r="5" cy="98"  cx="24"/>
-        <circle class="dot sdpo"  r="5" cy="160" cx="24"/>
-        <!-- labels -->
-        <text x="280" y="60" fill="#8b5cf6" font-weight="700" font-size="12">SimPO</text>
-        <text x="280" y="92" fill="#6c8cff" font-weight="700" font-size="12">SDPO</text>
+        <!-- split background -->
+        <rect x="0" y="0" width="180" height="202" fill="transparent"/>
+        <rect x="180" y="0" width="180" height="202" fill="transparent"/>
+        <!-- Left: SimPO — margin between preferred vs. dispreferred -->
+        <line x1="24" y1="165" x2="170" y2="165" stroke="#e0e7ff" stroke-width="1"/>
+        <circle cx="60" cy="120" r="6" fill="#8b5cf6"/>
+        <circle cx="120" cy="80" r="6" fill="#8b5cf6"/>
+        <text x="40" y="136" class="label" fill="#8b5cf6">dispreferred</text>
+        <text x="102" y="70" class="label" fill="#8b5cf6">preferred</text>
+        <!-- vertical margin bracket that gently grows -->
+        <line x1="150" y1="84" x2="150" y2="116" class="margin"/>
+        <polyline points="150,80 146,90 154,90" fill="none" stroke="#8b5cf6" stroke-width="3"/>
+        <polyline points="150,120 146,110 154,110" fill="none" stroke="#8b5cf6" stroke-width="3"/>
+        <text x="156" y="103" class="label" fill="#8b5cf6">margin</text>
+
+        <!-- Right: SDPO — stepwise token credit along a trajectory -->
+        <!-- axis -->
+        <line x1="200" y1="165" x2="336" y2="165" stroke="#e0e7ff" stroke-width="1"/>
+        <!-- token bars (pulse sequentially) -->
+        <rect x="206" y="145" width="16" height="20" class="bar" style="animation-delay:.0s"/>
+        <rect x="230" y="130" width="16" height="35" class="bar" style="animation-delay:.2s"/>
+        <rect x="254" y="120" width="16" height="45" class="bar" style="animation-delay:.4s"/>
+        <rect x="278" y="110" width="16" height="55" class="bar" style="animation-delay:.6s"/>
+        <rect x="302" y="98"  width="16" height="67" class="bar" style="animation-delay:.8s"/>
+        <!-- moving credit dot -->
+        <circle cx="206" cy="170" r="5" class="runner"/>
+        <text x="290" y="82" class="label" fill="#6c8cff">SDPO (step credit)</text>
+        <text x="26"  y="28" class="label" fill="#8b5cf6">SimPO (maximize margin)</text>
       </svg>
     </div>
 
     <div class="desc">
       <div class="title">Preference Optimization Algorithms: SimPO vs SDPO</div>
-      <p>We compare two preference-optimization methods for aligning LLMs. SimPO directly maximizes a margin between preferred and dispreferred responses with a stabilizing reference model. SDPO attributes credit step-wise along trajectories to reduce reward hacking and improve reasoning. We outline practical tips, when to prefer each, and open questions.</p>
+      <p>Quick primer on two ways to align LLMs: SimPO grows a margin between preferred and dispreferred responses; SDPO attributes credit step-by-step across tokens. We’ll share recipes, pitfalls, and when each wins—plus results on agentic tasks. Full details in the article.</p>
       <p class="row-links">
         <a class="btn" href="https://medium.com/@gayat23" target="_blank" rel="noopener">Read on Medium →</a>
       </p>
