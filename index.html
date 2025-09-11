@@ -17,7 +17,7 @@
   --bg:#ffffff;
   --rule:#dee5ef;
   --accent:#8b5cf6;         /* underline + media border */
-  --accent-2:#6c8cff;       /* gradient buddy for animations */
+  --accent-2:#6c8cff;       /* gradient buddy for accents */
   --pill:#f2f6ff;
 }
 html{font-size:16px; scroll-behavior:smooth}
@@ -25,7 +25,6 @@ body{
   margin:0 auto; max-width:980px; padding:26px 16px 64px;
   color:var(--fg); background:var(--bg); line-height:1.75;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-  /* soft entrance */
   --clipY: 100%;
   animation:reveal .9s cubic-bezier(.2,.7,.2,1) forwards;
   background:
@@ -87,7 +86,7 @@ p{margin:.6rem 0}
 
 .avatar{
   width:360px; aspect-ratio:1 / 1; border-radius:50%;
-  object-fit:cover; object-position:50% 60%;   /* keep you centered */
+  object-fit:cover; object-position:50% 60%;
   display:block; image-rendering:-webkit-optimize-contrast; image-rendering:crisp-edges;
   backface-visibility:hidden; transform:translateZ(0);
   box-shadow:0 2px 18px rgba(17,24,39,.06);
@@ -147,36 +146,17 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 .entry .desc p, .blog .desc p{ text-align:justify; text-justify:inter-word }
 
 /* ==============================
-   Skills ribbon (marquee)
+   Blog cover (poster)
    ============================== */
-.tokenribbon{border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:linear-gradient(90deg,#f7faff 0,#fff 50%,#f7faff 100%)}
-.track{display:flex;gap:2rem;white-space:nowrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9rem;padding:10px 12px;color:#264;opacity:.92}
-.scroll{animation:marquee 26s linear infinite}.scroll2{animation:marquee 34s linear infinite reverse}
-@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-@media (prefers-reduced-motion: reduce){.scroll,.scroll2{animation:none}}
-
-/* ==============================
-   Blog cover (SimPO vs SDPO) — improved teaser
-   ============================== */
-.blogcover{
-  background: radial-gradient(120% 120% at 10% 20%, #f3e8ff 0 30%, #e9f0ff 50%, #ffffff 75%);
-}
+.blogcover{ background: radial-gradient(120% 120% at 10% 20%, #f3e8ff 0 30%, #e9f0ff 55%, #ffffff 80%); }
 .blogcover svg{ width:100%; height:100% }
-.label{ font-size:12px; font-weight:700 }
-.simpo-dot{ fill:#8b5cf6; filter:drop-shadow(0 2px 6px rgba(139,92,246,.35)) }
-.sdpo-bar{ fill:#6c8cff; opacity:.25; animation:rise 1.5s ease forwards; transform-origin:bottom }
-.sdpo-bar:nth-of-type(1){ animation-delay:.1s }
-.sdpo-bar:nth-of-type(2){ animation-delay:.25s }
-.sdpo-bar:nth-of-type(3){ animation-delay:.4s }
-.sdpo-bar:nth-of-type(4){ animation-delay:.55s }
-.sdpo-bar:nth-of-type(5){ animation-delay:.7s }
-@keyframes rise{ from{ transform:scaleY(.2); opacity:.15 } to{ transform:scaleY(1); opacity:.9 } }
-.margin-bracket{ stroke:#8b5cf6; stroke-width:3; fill:none; transform-box:fill-box; transform-origin:center; animation:widen 2.2s ease-in-out infinite alternate }
-@keyframes widen{ from{ transform:scaleY(.8) } to{ transform:scaleY(1.2) } }
-.margin-dots{ fill:#8b5cf6; opacity:.9; animation:pulse 1.8s ease-in-out infinite }
-@keyframes pulse{ 0%,100%{opacity:.6} 50%{opacity:1} }
-.sdpo-runner{ fill:#6c8cff }
-.path{ stroke:#6c8cff; stroke-width:2; fill:none; stroke-dasharray:4 5; opacity:.6 }
+.poster-title{ font: 700 16px/1 ui-sans-serif, system-ui; letter-spacing:.2px; fill:#2b2f36 }
+.poster-sub{ font: 600 12px/1 ui-sans-serif, system-ui; fill:#475569 }
+.poster-small{ font: 700 11px/1 ui-sans-serif, system-ui }
+.poster-simpo{ fill:#8b5cf6 }
+.poster-sdpo{ fill:#6c8cff }
+.poster-stroke{ stroke:#8b5cf6; stroke-width:3; fill:none }
+.poster-stroke2{ stroke:#6c8cff; stroke-width:2; fill:none; stroke-linecap:round }
 .badge{
   position:absolute; right:10px; top:10px; font-weight:700; font-size:.85rem;
   color:#fff; background:#6c8cff; padding:6px 10px; border-radius:999px; box-shadow:0 4px 10px rgba(108,140,255,.25)
@@ -371,7 +351,8 @@ h2::after{ content:""; display:block; width:56px; height:3px;
   <div class="entry reveal">
     <div class="frame16">
       <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/nlp-si.jpg">
-        <source src="videos/suicide_ideation_demo.mp4" type="video/mp4">
+        <!-- UPDATED cover video -->
+        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/images/comparative_results_slideshow%20(1).mp4" type="video/mp4">
       </video>
       <div class="placeholder" aria-hidden="true">NLP demo</div>
     </div>
@@ -412,41 +393,44 @@ h2::after{ content:""; display:block; width:56px; height:3px;
   <section class="entry blog reveal">
     <div class="frame16 blogcover">
       <div class="badge">Coming on Sept 15</div>
-      <!-- Animated SimPO vs SDPO teaser -->
+      <!-- Poster (no animation) -->
       <svg viewBox="0 0 360 202" preserveAspectRatio="none" class="media" aria-hidden="true">
-        <!-- axes -->
-        <line x1="24" y1="170" x2="170" y2="170" stroke="#e0e7ff" stroke-width="1"/>
-        <line x1="24" y1="170" x2="24"  y2="32"  stroke="#e0e7ff" stroke-width="1"/>
+        <!-- card border -->
+        <rect x="6" y="6" width="348" height="190" rx="14" fill="url(#grad)" stroke="#cdd6ff" />
+        <!-- header -->
+        <text x="24" y="40" class="poster-title">Preference Optimization — SimPO vs SDPO</text>
+        <text x="24" y="58" class="poster-sub">Two lenses for aligning LLMs with human preferences</text>
 
-        <!-- SimPO side: two points + growing margin bracket -->
-        <circle cx="70"  cy="130" r="7" class="simpo-dot"/>
-        <circle cx="120" cy="80"  r="7" class="simpo-dot"/>
-        <path d="M150 90 L150 120" class="margin-bracket"/>
-        <polyline points="150,86 146,96 154,96" fill="none" stroke="#8b5cf6" stroke-width="3"/>
-        <polyline points="150,124 146,114 154,114" fill="none" stroke="#8b5cf6" stroke-width="3"/>
-        <circle cx="150" cy="105" r="3.5" class="margin-dots"/>
-        <text x="26" y="48" class="label" fill="#8b5cf6">SimPO (maximize margin)</text>
-        <text x="58" y="148" class="label" fill="#8b5cf6">dispreferred</text>
-        <text x="106" y="68" class="label" fill="#8b5cf6">preferred</text>
-        <text x="156" y="108" class="label" fill="#8b5cf6">margin</text>
+        <!-- SimPO panel -->
+        <text x="24" y="88" class="poster-small poster-simpo">SimPO • maximize margin</text>
+        <line x1="24" y1="154" x2="156" y2="154" stroke="#e5e7fb"/>
+        <line x1="24" y1="154" x2="24"  y2="94"  stroke="#e5e7fb"/>
+        <circle cx="62"  cy="138" r="6" class="poster-simpo"/>
+        <circle cx="112" cy="106" r="6" class="poster-simpo"/>
+        <path d="M137 112 L137 132" class="poster-stroke"/>
+        <polyline points="137,108 133,118 141,118" class="poster-stroke" />
+        <polyline points="137,136 133,126 141,126" class="poster-stroke" />
+        <text x="50" y="168" class="poster-small poster-simpo" style="fill:#6b63c6">dispreferred</text>
+        <text x="95" y="98"  class="poster-small poster-simpo" style="fill:#6b63c6">preferred</text>
+        <text x="144" y="125" class="poster-small poster-simpo">margin</text>
 
-        <!-- SDPO side: stepwise credit bars + moving runner -->
-        <line x1="200" y1="170" x2="336" y2="170" stroke="#e0e7ff" stroke-width="1"/>
-        <g transform="translate(206,170)">
-          <rect width="16" height="20" y="-20" class="sdpo-bar"/>
-          <rect width="16" height="35" x="24"  y="-35" class="sdpo-bar"/>
-          <rect width="16" height="48" x="48"  y="-48" class="sdpo-bar"/>
-          <rect width="16" height="60" x="72"  y="-60" class="sdpo-bar"/>
-          <rect width="16" height="74" x="96"  y="-74" class="sdpo-bar"/>
-        </g>
-        <!-- runner path and dot (SMIL animateMotion for smoothness) -->
-        <path id="sdpoPath" d="M206,170 C214,170 230,170 238,170 246,170 262,170 270,170 278,170 294,170 302,170 310,170 326,170 334,170" class="path"/>
-        <circle r="5" class="sdpo-runner">
-          <animateMotion dur="2s" repeatCount="indefinite" keyTimes="0;1" calcMode="linear">
-            <mpath xlink:href="#sdpoPath"/>
-          </animateMotion>
-        </circle>
-        <text x="270" y="86" class="label" fill="#6c8cff">SDPO (step credit)</text>
+        <!-- SDPO panel -->
+        <text x="204" y="88" class="poster-small poster-sdpo">SDPO • step-wise credit</text>
+        <line x1="204" y1="154" x2="336" y2="154" stroke="#e5e7fb"/>
+        <rect x="214" y="134" width="16" height="20" class="poster-sdpo" opacity=".85"/>
+        <rect x="238" y="122" width="16" height="32" class="poster-sdpo" opacity=".85"/>
+        <rect x="262" y="110" width="16" height="44" class="poster-sdpo" opacity=".85"/>
+        <rect x="286" y="98"  width="16" height="56" class="poster-sdpo" opacity=".9"/>
+        <rect x="310" y="86"  width="16" height="68" class="poster-sdpo" opacity=".95"/>
+        <path d="M214 154 C230 154, 246 154, 262 154 S 294 154, 310 154" class="poster-stroke2" />
+
+        <defs>
+          <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%"  stop-color="#f5ebff"/>
+            <stop offset="55%" stop-color="#edf2ff"/>
+            <stop offset="100%" stop-color="#ffffff"/>
+          </linearGradient>
+        </defs>
       </svg>
     </div>
 
@@ -473,8 +457,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 
   function typeTitle(){
     if(!el) return;
-    // hard reset to guarantee start from empty
-    el.textContent = '';
+    el.textContent = '';         // wipe any restored text
     if (reduce){ el.textContent = full; if (caret) caret.style.display='none'; return; }
     let i = 0;
     const tick = () => {
@@ -484,9 +467,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
     };
     tick();
   }
-  // Initial call after paint to avoid restoring stale text
   requestAnimationFrame(typeTitle);
-  // Re-run when returning via back/forward cache
   window.addEventListener('pageshow', (e)=>{ if(e.persisted){ if (caret) caret.style.display=''; typeTitle(); } });
 
   /* === Scroll progress bar === */
