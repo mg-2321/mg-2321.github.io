@@ -167,6 +167,42 @@ h2::after{ content:""; display:block; width:56px; height:3px;
 @media (prefers-reduced-motion:reduce){ .reveal,.stagger > *{opacity:1; transform:none; animation:none} }
 
 /* ==============================
+   Blog animated cover ============================== */
+.cover-anim{
+  position:absolute; inset:0; overflow:hidden;
+  background:
+    radial-gradient(1200px 600px at 20% -10%, rgba(139,92,246,.35), transparent 60%),
+    radial-gradient(1200px 600px at 80% 110%, rgba(108,140,255,.35), transparent 60%),
+    conic-gradient(from 0turn, #fff, #f7f5ff, #eef2ff, #fff);
+  animation:spinHue 14s linear infinite;
+}
+.cover-anim::before, .cover-anim::after{
+  content:""; position:absolute; width:140%; height:140%; left:-20%; top:-20%;
+  background:
+    radial-gradient( farthest-side, rgba(139,92,246,.18), transparent 70% ) 10% 20%/24% 24% no-repeat,
+    radial-gradient( farthest-side, rgba(108,140,255,.18), transparent 70% ) 80% 70%/26% 26% no-repeat,
+    radial-gradient( farthest-side, rgba(139,92,246,.12), transparent 70% ) 60% 35%/18% 18% no-repeat,
+    radial-gradient( farthest-side, rgba(108,140,255,.12), transparent 70% ) 30% 80%/22% 22% no-repeat;
+  filter: blur(10px) saturate(1.1);
+  animation:floatA 12s ease-in-out infinite alternate;
+}
+.cover-anim::after{
+  animation:floatB 16s ease-in-out infinite alternate-reverse;
+  mix-blend-mode:multiply; opacity:.7;
+}
+@keyframes spinHue{ 0%{filter:hue-rotate(0deg)} 100%{filter:hue-rotate(45deg)} }
+@keyframes floatA{ 0%{transform:translate(-10px,6px) rotate(0)} 100%{transform:translate(18px,-10px) rotate(6deg)} }
+@keyframes floatB{ 0%{transform:translate(8px,-8px) rotate(-3deg)} 100%{transform:translate(-14px,12px) rotate(5deg)} }
+
+.badge{
+  position:absolute; right:10px; top:10px; z-index:2;
+  background:linear-gradient(90deg, var(--accent), var(--accent-2));
+  color:#fff; font-weight:700; letter-spacing:.2px;
+  padding:6px 10px; border-radius:999px; font-size:.78rem;
+  box-shadow:0 6px 16px rgba(17,24,39,.18);
+}
+
+/* ==============================
    Responsive
    ============================== */
 @media (max-width:1100px){
@@ -286,7 +322,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
     </div>
   </div>
 
-  <h3 class="reveal"><span class="pill">Machine Learning</span></h3>
+  <h3 class="reveal"><span class="pill">Vision &amp; Robotics</span></h3>
   <div class="entry reveal">
     <div class="frame16">
       <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/waymo-forecast.jpg">
@@ -298,7 +334,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
       <div class="title">Future Trajectory Prediction for Autonomous Vehicles</div>
       <p>Diffusion-based model predicting 5-second future trajectories in long-tail scenarios using the Waymo Open Dataset; explicitly models multimodal uncertainty.</p>
       <p class="row-links">
-        <a class="btn" href="https://github.com/mg-2321/Waymo_trajectory_prediction" target="_blank">Code(to be updated)</a>
+        <a class="btn" href="https://github.com/mg-2321/Waymo_trajectory_prediction" target="_blank">Code (to be updated)</a>
       </p>
     </div>
   </div>
@@ -351,7 +387,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
     </div>
   </div>
 
-  <h3 class="reveal"><span class="pill">Natural Language Processing</span></h3>
+  <h3 class="reveal"><span class="pill">NLP &amp; Safety</span></h3>
   <div class="entry reveal">
     <div class="frame16">
       <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/nlp-si.jpg">
@@ -360,7 +396,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
       <div class="placeholder" aria-hidden="true">NLP demo</div>
     </div>
     <div>
-      <div class="title"> Suicide Ideation &amp; Suicide Attempt Classification</div>
+      <div class="title">NLP for Suicide Ideation &amp; Suicide Attempt Detection</div>
       <p>Preprocessed clinical + forum text (MIMIC-III, SuicideWatch); compared GloVe/Word2Vec/FastText/CBOW; trained BERT &amp; RoBERTa vs Bi-LSTM baselines.</p>
       <p class="row-links">
         <a class="btn" href="https://github.com/mg-2321/Suicide-Attempt-and-Suicide-Ideation-detector" target="_blank">Project</a>
@@ -393,19 +429,20 @@ h2::after{ content:""; display:block; width:56px; height:3px;
   <!-- Blogs -->
   <h2 id="blogs" class="reveal">Blogs</h2>
   <div class="entry reveal">
+    <!-- Animated cover (GPU-cheap CSS, loops forever) -->
     <div class="frame16">
-      <img class="media" src="images/blog-agents.jpg" alt="Blog cover" decoding="async" loading="lazy">
+      <div class="cover-anim" aria-hidden="true"></div>
+      <div class="badge">Coming on Sept 15</div>
     </div>
     <div>
-      <p class="row-links"><a class="btn" href="https://medium.com/@gayat23" target="_blank">Read on Medium →</a></p>
-    </div>
-  </div>
-  <div class="entry reveal right">
-    <div class="frame16">
-      <img class="media" src="images/blog-cuda.jpg" alt="Blog cover" decoding="async" loading="lazy">
-    </div>
-    <div>
-      <p class="row-links"><a class="btn" href="https://medium.com/@gayat23" target="_blank">Read on Medium →</a></p>
+      <div class="title">Preference Optimization Algorithms: SimPO vs SDPO</div>
+      <p><strong>Abstract.</strong> We compare two preference optimization methods for aligning large language models with human feedback:
+      <em>Simple Preference Optimization (SimPO)</em>, which directly optimizes a margin between preferred and dispreferred responses with a
+      stabilizing reference model, and <em>Stepwise DPO (SDPO)</em>, which decomposes long trajectories into token- or step-level preferences to
+      better attribute credit and reduce reward hacking. We discuss temperature scaling, KL anchoring, batch-mixing with SFT, off-policy replay,
+      and practical tricks for stability (logit clipping, per-token advantages, and early stopping windows). Empirically, SDPO improves faithfulness
+      on multi-step reasoning when high-quality step feedback is available, while SimPO remains competitive and simpler when only pairwise outcome
+      preferences are collected. We close with guidance on when to prefer SDPO vs SimPO in agentic tasks.</p>
     </div>
   </div>
 
@@ -422,10 +459,8 @@ h2::after{ content:""; display:block; width:56px; height:3px;
   const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (el) {
-    // wipe any restored/previous text to guarantee starting from 'G'
     el.textContent = '';
     el.innerHTML = '';
-    // use rAF to avoid BFCache/paint race so we always begin from empty
     requestAnimationFrame(() => {
       if (reduce) {
         el.textContent = full;
