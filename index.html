@@ -6,575 +6,235 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Gayatri Malladi</title>
 <meta name="description" content="Gayatri Malladi — Agentic AI, LLMs, projects, and blogs." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet">
 
 <style>
-/* ==============================
-   Design tokens
-   ============================== */
 :root{
-  --fg:#14161a;
-  --muted:#5b6574;
-  --link:#0b57d0;
-  --bg:#ffffff;
-  --rule:#dee5ef;
-  --accent:#8b5cf6;         /* underline + media border */
-  --accent-2:#6c8cff;       /* gradient buddy for animations */
-  --pill:#f2f6ff;
+  --fg:#e2e8f0;--fg-bright:#f1f5f9;--muted:#8892a6;--link:#7dd3fc;
+  --bg:#0b0f1a;--bg-card:rgba(255,255,255,.04);--rule:rgba(255,255,255,.07);
+  --accent:#a78bfa;--accent-2:#60a5fa;
+  --pill-bg:rgba(167,139,250,.1);--pill-border:rgba(167,139,250,.2);--glow:rgba(167,139,250,.15);
+  --alert:#f87171;
 }
-html{font-size:16px; scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+html{font-size:16px;scroll-behavior:smooth}
 body{
-  margin:0 auto; max-width:1180px; padding:26px 40px 64px;
-  color:var(--fg); background:var(--bg); line-height:1.75;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-  --clipY: 100%;
-  animation:reveal .9s cubic-bezier(.2,.7,.2,1) forwards;
-  background:
-    linear-gradient(var(--bg),var(--bg)) padding-box,
-    radial-gradient(1200px 900px at 50% -300px, rgba(139,92,246,.07), transparent) no-repeat content-box;
+  margin:0 auto;max-width:1180px;padding:26px 40px 64px;
+  color:var(--fg);background:var(--bg);line-height:1.75;
+  font-family:'DM Sans',ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+  --clipY:100%;animation:reveal .9s cubic-bezier(.2,.7,.2,1) forwards;position:relative;
 }
-@keyframes reveal{ from{clip-path:inset(0 0 var(--clipY) 0)} to{clip-path:inset(0 0 0 0)} }
-@media (prefers-reduced-motion:reduce){ body{animation:none} }
-
-a{color:var(--link); text-decoration:none}
-a:hover{text-decoration:underline}
+@keyframes reveal{from{clip-path:inset(0 0 var(--clipY) 0)}to{clip-path:inset(0 0 0 0)}}
+@media(prefers-reduced-motion:reduce){body{animation:none}}
+a{color:var(--link);text-decoration:none;transition:color .2s}
+a:hover{color:var(--accent);text-decoration:underline}
 p{margin:.6rem 0}
-
-/* ==============================
-   Header + typing + progress bar
-   ============================== */
-.site-title{ text-align:center; font-size:2.9rem; margin:0 0 .75rem; white-space:nowrap; letter-spacing:.3px }
-.typewrap{ display:inline-flex; align-items:center; gap:.25rem }
-.caret{ width:1ch; display:inline-block; color:var(--accent); animation:blink 1s steps(1,end) infinite }
-@keyframes blink{ 0%,49%{opacity:1} 50%,100%{opacity:0} }
-@media (prefers-reduced-motion:reduce){ .caret{animation:none} }
-
-.mini-nav{ text-align:center; margin:.2rem 0 1.2rem }
-.mini-nav a{ display:inline-block; font-size:.95rem; margin:0 .55rem; padding:2px 8px; border-radius:999px }
-.mini-nav a:hover{ background:var(--pill) }
-
-/* scroll progress */
-#scrollbar{
-  position:fixed; left:0; top:0; height:3px; width:0;
-  background:linear-gradient(90deg, var(--accent), var(--accent-2));
-  z-index:9999; transform-origin:0 50%;
-}
-
-/* ==============================
-   Intro area
-   ============================== */
-.intro{
-  display:grid; grid-template-columns:minmax(0,1fr) 420px; gap:40px; align-items:start;
-  margin-bottom:8px;
-}
-.prose{ max-width:none; text-align:justify; text-justify:inter-word }
-.lead{ font-size:1.06rem } .lead.red{ color:#c62828 }
-
-/* headshot container with floating blob */
-.aside{position:relative; display:flex; flex-direction:column; align-items:center; gap:14px; margin-top:6px}
-.blob{
-  position:absolute; inset:auto; width:380px; height:380px; top:-10px; z-index:-1;
-  filter:blur(26px) saturate(1.2); opacity:.6; border-radius:50%;
-  background: radial-gradient(70% 70% at 30% 30%, rgba(139,92,246,.45), transparent 70%),
-              radial-gradient(70% 70% at 70% 60%, rgba(108,140,255,.45), transparent 70%);
-  animation:blob 12s ease-in-out infinite alternate;
-}
-@keyframes blob{
-  0%   { transform:translate(-10px, 12px) scale(1); }
-  50%  { transform:translate(8px, -8px) scale(1.05) rotate(4deg); }
-  100% { transform:translate(18px, 4px) scale(1.08) rotate(-3deg); }
-}
-@media (prefers-reduced-motion:reduce){ .blob{animation:none; opacity:.25} }
-
-.avatar{
-  width:360px; aspect-ratio:1 / 1; border-radius:50%;
-  object-fit:cover; object-position:50% 60%;
-  display:block; image-rendering:-webkit-optimize-contrast; image-rendering:crisp-edges;
-  backface-visibility:hidden; transform:translateZ(0);
-  box-shadow:0 2px 18px rgba(17,24,39,.06);
-}
-/* space between photo and links */
-.profile-links{
-  display:flex; flex-wrap:nowrap; justify-content:center; align-items:center; gap:8px;
-  width:100%; margin-top:16px;
-}
-.chip{
-  display:inline-flex; align-items:center; gap:6px;
-  padding:6px 9px; border:1.25px solid var(--rule); border-radius:999px;
-  background:#fff; text-decoration:none; font-weight:600; font-size:.78rem;
-  white-space:nowrap; line-height:1.2; transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;
-}
-.chip:hover{ background:#f7faff; border-color:#cfdaf0; transform:translateY(-1px); box-shadow:0 4px 10px rgba(17,24,39,.05) }
-.ico{ width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.8; }
-
-/* parallax nudge for the whole aside */
+#neuralGraph{position:fixed;inset:0;z-index:0;pointer-events:none}
+main{position:relative;z-index:1}
+.site-title{text-align:center;font-size:2.9rem;margin:0 0 .75rem;white-space:nowrap;letter-spacing:.3px;font-weight:700;color:var(--fg-bright)}
+.typewrap{display:inline-flex;align-items:center;gap:.25rem}
+.caret{width:1ch;display:inline-block;color:var(--accent);animation:blink 1s steps(1,end) infinite}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.caret{animation:none}}
+.mini-nav{text-align:center;margin:.2rem 0 1.2rem}
+.mini-nav a{display:inline-block;font-size:.95rem;margin:0 .55rem;padding:4px 14px;border-radius:999px;font-weight:500;color:var(--muted);transition:all .25s}
+.mini-nav a:hover{background:var(--pill-bg);color:var(--accent);text-decoration:none;transform:translateY(-1px)}
+#scrollbar{position:fixed;left:0;top:0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));z-index:9999}
+.intro{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:40px;align-items:start;margin-bottom:8px}
+.prose{max-width:none;text-align:justify;text-justify:inter-word}
+.lead{font-size:1.06rem;color:var(--fg)}.lead.red{color:var(--alert);opacity:.85}
+.aside{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:6px}
+.blob{position:absolute;inset:auto;width:380px;height:380px;top:-10px;z-index:-1;filter:blur(30px) saturate(1.4);opacity:.3;border-radius:50%;background:radial-gradient(70% 70% at 30% 30%,rgba(167,139,250,.5),transparent 70%),radial-gradient(70% 70% at 70% 60%,rgba(96,165,250,.5),transparent 70%);animation:blob 12s ease-in-out infinite alternate}
+@keyframes blob{0%{transform:translate(-10px,12px) scale(1)}50%{transform:translate(8px,-8px) scale(1.05) rotate(4deg)}100%{transform:translate(18px,4px) scale(1.08) rotate(-3deg)}}
+@media(prefers-reduced-motion:reduce){.blob{animation:none;opacity:.15}}
+.avatar{width:360px;aspect-ratio:1/1;border-radius:50%;object-fit:cover;object-position:50% 60%;display:block;backface-visibility:hidden;transform:translateZ(0);box-shadow:0 0 0 3px rgba(167,139,250,.25),0 8px 32px rgba(0,0,0,.4)}
+.profile-links{display:flex;flex-wrap:nowrap;justify-content:center;align-items:center;gap:8px;width:100%;margin-top:16px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border:1px solid var(--rule);border-radius:999px;background:var(--bg-card);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);text-decoration:none;font-weight:600;font-size:.8rem;color:var(--muted);white-space:nowrap;line-height:1.2;transition:all .25s cubic-bezier(.4,0,.2,1)}
+.chip:hover{background:var(--pill-bg);border-color:var(--accent);color:var(--accent);transform:translateY(-2px);box-shadow:0 4px 20px rgba(167,139,250,.15);text-decoration:none}
+.ico{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8}
 .aside.parallax{will-change:transform}
-
-/* ==============================
-   Sections
-   ============================== */
-h2{ font-size:1.55rem; line-height:1.25; margin:1.6rem 0 .6rem; position:relative }
-h2::after{ content:""; display:block; width:56px; height:3px;
-  background:linear-gradient(90deg,#0b57d0,var(--accent)); border-radius:3px; margin-top:6px; opacity:.9 }
-.hr{ height:1px; background:var(--rule); margin:24px 0 }
-.pill{display:inline-block;font-size:.75rem;color:#244;padding:2px 8px;border-radius:999px;background:var(--pill);border:1px solid #d8e4ff;margin-bottom:.25rem}
-.title{ font-weight:600 }
-
-/* ==============================
-   Projects + media frames
-   ============================== */
-.entry{ display:grid; grid-template-columns:520px 1fr; gap:20px; align-items:start; margin:18px 0 24px }
-.frame16{
-  position:relative; width:100%;
-  border:2px solid var(--accent); border-radius:14px; overflow:hidden; background:#fff;
-  box-shadow:0 1px 10px rgba(17,24,39,.04);
-}
-.frame16::before{ content:""; display:block; padding-top:56.25% } /* 16:9 */
-.media{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block }
-.frame16.contain .media{ object-fit:contain; background:#fff } /* avoid cropping text in videos */
-
-/* visible placeholder until media paints */
-.placeholder{
-  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-  font-weight:600; color:#5b6574; text-align:center;
-  background:repeating-linear-gradient(-45deg,#faf8ff,#faf8ff 10px,#f2edff 10px,#f2edff 20px)
-}
-.row-links a.btn{
-  display:inline-block;border:1px solid var(--rule);padding:6px 10px;border-radius:10px;text-decoration:none;margin-right:.45rem;font-weight:600;
-  transition:transform .15s ease, border-color .2s ease, background-color .2s ease;
-}
-.btn:hover{background:#f7faff;border-color:#cfdaf0; transform:translateY(-1px)}
-
-/* make project/blog copy justified */
-.entry .desc p, .blog .desc p{ text-align:justify; text-justify:inter-word }
-
-/* ==============================
-   Skills ribbon (original UI)
-   ============================== */
-.tokenribbon{border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:linear-gradient(90deg,#f7faff 0,#fff 50%,#f7faff 100%)}
-.track{display:flex;gap:2rem;white-space:nowrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9rem;padding:10px 12px;color:#264;opacity:.92}
+h2{font-size:1.55rem;line-height:1.25;margin:1.6rem 0 .6rem;position:relative;font-weight:700;color:var(--fg-bright)}
+h2::after{content:"";display:block;width:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:3px;margin-top:6px;transition:width .6s cubic-bezier(.4,0,.2,1)}
+.hr{height:1px;background:var(--rule);margin:24px 0}
+.pill{display:inline-block;font-size:.75rem;color:var(--accent);padding:3px 12px;border-radius:999px;background:var(--pill-bg);border:1px solid var(--pill-border);margin-bottom:.25rem;font-weight:600;letter-spacing:.02em;transition:all .3s ease}
+.pill:hover{box-shadow:0 0 16px var(--glow);transform:translateY(-1px)}
+.title{font-weight:600;font-size:1.05rem;color:var(--fg-bright)}
+.entry{display:grid;grid-template-columns:520px 1fr;gap:20px;align-items:start;margin:18px 0 24px;padding:20px;border-radius:16px;background:var(--bg-card);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--rule);transition:all .35s cubic-bezier(.4,0,.2,1)}
+.entry:hover{transform:translateY(-3px);box-shadow:0 8px 40px rgba(167,139,250,.08),0 0 1px rgba(167,139,250,.3);border-color:rgba(167,139,250,.2)}
+.frame16{position:relative;width:100%;border:1px solid rgba(255,255,255,.08);border-radius:12px;overflow:hidden;background:rgba(0,0,0,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.04);transition:border-color .3s,box-shadow .3s}
+.entry:hover .frame16{border-color:var(--accent);box-shadow:0 0 20px rgba(167,139,250,.1)}
+.frame16::before{content:"";display:block;padding-top:56.25%}
+.media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.frame16.contain .media{object-fit:contain;background:#111}
+.placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:600;color:var(--muted);text-align:center;font-size:.9rem;letter-spacing:.03em;background:linear-gradient(135deg,rgba(167,139,250,.06),rgba(96,165,250,.04))}
+.row-links a.btn{display:inline-block;border:1px solid var(--rule);padding:6px 14px;border-radius:10px;text-decoration:none;margin-right:.45rem;font-weight:600;font-size:.88rem;color:var(--muted);background:var(--bg-card);transition:all .25s cubic-bezier(.4,0,.2,1)}
+.btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(167,139,250,.08);transform:translateY(-2px);box-shadow:0 3px 12px rgba(167,139,250,.12);text-decoration:none}
+.entry .desc p,.blog .desc p{text-align:justify;text-justify:inter-word}
+.tokenribbon{border:1px solid var(--rule);border-radius:14px;overflow:hidden;background:var(--bg-card);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.track{display:flex;gap:2rem;white-space:nowrap;font-family:ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,monospace;font-size:.85rem;padding:10px 16px;color:var(--muted);opacity:.8}
 .scroll{animation:marquee 26s linear infinite}.scroll2{animation:marquee 34s linear infinite reverse}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-@media (prefers-reduced-motion: reduce){.scroll,.scroll2{animation:none}}
-
-/* ==============================
-   Blog cover (ultra-simple poster)
-   ============================== */
-.blogcover{ background: radial-gradient(120% 120% at 10% 20%, #f5ebff 0 35%, #eef2ff 60%, #ffffff 85%); }
-.blogcover svg{ width:100%; height:100% }
-/* poster type */
-.poster-title{ font:800 34px/1.1 ui-sans-serif,system-ui; fill:#1f2430 }
-.poster-sub{ font:600 14px/1.2 ui-sans-serif,system-ui; fill:#475569 }
-
-/* ==============================
-   Scroll reveal (AOS-lite)
-   ============================== */
-.reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease }
-.reveal.in{ opacity:1; transform:none }
-.reveal.right{ transform:translateX(24px) }
-.reveal.right.in{ transform:none }
-.stagger > *{ opacity:0; transform:translateY(10px) }
-.stagger.in > *{ animation:stg .5s ease forwards }
-.stagger.in > *:nth-child(2){ animation-delay:.06s } .stagger.in > *:nth-child(3){ animation-delay:.12s }
-.stagger.in > *:nth-child(4){ animation-delay:.18s } .stagger.in > *:nth-child(5){ animation-delay:.24s }
-@keyframes stg{to{opacity:1; transform:none}}
-@media (prefers-reduced-motion:reduce){ .reveal,.stagger > *{opacity:1; transform:none; animation:none} }
-
-/* ==============================
-   Responsive
-   ============================== */
-@media (max-width:1280px){
-  .intro{grid-template-columns:minmax(0,1fr) 360px}
-  .avatar{width:320px}
-  .blob{width:340px;height:340px}
-}
-@media (max-width:1020px){
-  .intro{grid-template-columns:1fr}
-  .avatar{width:260px}
-  .blob{display:none}
-  .profile-links{flex-wrap:wrap; gap:6px}
-  .chip{font-size:.8rem}
-  .entry{grid-template-columns:1fr}
-}
-@media (max-width:520px){
-   body{padding-left:16px; padding-right:16px}
-  .chip{font-size:.78rem; padding:6px 8px}
-  .avatar{width:220px}
-  .track{font-size:.85rem}
-}
+@media(prefers-reduced-motion:reduce){.scroll,.scroll2{animation:none}}
+.blogcover{background:linear-gradient(135deg,rgba(167,139,250,.12),rgba(96,165,250,.08))}
+.blogcover svg{width:100%;height:100%}
+.poster-title{font:800 34px/1.1 'DM Sans',ui-sans-serif,system-ui;fill:var(--fg-bright)}
+.poster-sub{font:600 14px/1.2 'DM Sans',ui-sans-serif,system-ui;fill:var(--muted)}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.in h2::after{width:56px}
+.reveal.right{transform:translateX(28px)}.reveal.right.in{transform:none}
+.stagger > *{opacity:0;transform:translateY(12px)}
+.stagger.in > *{animation:stg .6s cubic-bezier(.4,0,.2,1) forwards}
+.stagger.in > *:nth-child(2){animation-delay:.08s}.stagger.in > *:nth-child(3){animation-delay:.16s}
+.stagger.in > *:nth-child(4){animation-delay:.24s}.stagger.in > *:nth-child(5){animation-delay:.32s}
+@keyframes stg{to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.reveal,.stagger > *{opacity:1;transform:none;animation:none}}
+#ids-tooltip{position:fixed;pointer-events:none;z-index:9998;padding:4px 10px;border-radius:6px;font-size:.7rem;font-weight:600;font-family:ui-monospace,monospace;letter-spacing:.04em;white-space:nowrap;opacity:0;transition:opacity .3s;background:rgba(248,113,113,.15);border:1px solid rgba(248,113,113,.3);color:#f87171;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+#ids-tooltip.active{opacity:1}
+@media(max-width:1280px){.intro{grid-template-columns:minmax(0,1fr) 360px}.avatar{width:320px}.blob{width:340px;height:340px}}
+@media(max-width:1020px){.intro{grid-template-columns:1fr}.avatar{width:260px}.blob{display:none}.profile-links{flex-wrap:wrap;gap:6px}.chip{font-size:.8rem}.entry{grid-template-columns:1fr;padding:16px}}
+@media(max-width:520px){body{padding-left:16px;padding-right:16px}.chip{font-size:.78rem;padding:6px 8px}.avatar{width:220px}.track{font-size:.85rem}.entry{padding:12px}}
 </style>
 </head>
 <body>
 <div id="scrollbar" aria-hidden="true"></div>
+<canvas id="neuralGraph" aria-hidden="true"></canvas>
+<div id="ids-tooltip">ANOMALY DETECTED</div>
 
 <main>
-  <!-- Title -->
   <h1 class="site-title reveal in">
     <span class="typewrap"><span id="typeTarget" aria-label="Gayatri Malladi"></span><span class="caret" id="caret">|</span></span>
   </h1>
-
   <p class="mini-nav reveal in">
     <a href="#projects">Projects</a>
     <a href="#blogs">Blogs</a>
   </p>
-
-  <!-- Intro -->
   <section class="intro reveal">
     <div class="prose">
-      <p class="lead">
-        I’m a second-year M.S. student in the Computer Science department at the University of Washington. Currently, my research supervised by
-        <a href="https://sites.uw.edu/geetha/" target="_blank" rel="noopener">Dr. Geetha Thamilarasu</a>
-        focuses on defensive RAG & LLM Security: planning and teaching language models when to ask vs. when to act, with lightweight grounding and prefrence optimization algorithms to choose the best model based on user preference-satisfaction rate.
-      </p>
+      <p class="lead">I'm a second-year M.S. student in the Computer Science department at the University of Washington. Currently, my research supervised by <a href="https://sites.uw.edu/geetha/" target="_blank" rel="noopener">Dr. Geetha Thamilarasu</a> focuses on defensive RAG & LLM Security: planning and teaching language models when to ask vs. when to act, with lightweight grounding and prefrence optimization algorithms to choose the best model based on user preference-satisfaction rate.</p>
       <p class="lead">Additionally, I'm exploring how to overcome memory context-window limitations using short- and long-term retrieval caches, summarization, and Reflexion-style episodic notes that are indexed and reused across tasks.</p>
-      <p class="lead red">I’m open to research collaborations. Please email me at [gayat23@uw.edu] if you are interested to explore assistive agents for day-to-day task automation, tool use, and self-evolving large language models.</p>
+      <p class="lead red">I'm open to research collaborations. Please email me at [gayat23@uw.edu] if you are interested to explore assistive agents for day-to-day task automation, tool use, and self-evolving large language models.</p>
     </div>
-
     <aside class="aside parallax stagger" aria-label="Profile">
       <div class="blob" aria-hidden="true"></div>
-      <picture>
-        <img
-          class="avatar"
-          src="https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3"
-          srcset="
-            https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3 1x,
-            https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3 2x,
-            https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3 3x"
-          sizes="(max-width:520px) 220px, (max-width:940px) 260px, (max-width:1100px) 320px, 360px"
-          alt="Portrait of Gayatri Malladi"
-          loading="eager" decoding="sync" fetchpriority="high"
-        />
-      </picture>
-
+      <picture><img class="avatar" src="https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3" srcset="https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3 1x,https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3 2x,https://mg-2321.github.io/images/7763BBD2-C563-4027-9867-5B67270EAB02.JPEG?v=3 3x" sizes="(max-width:520px) 220px,(max-width:940px) 260px,(max-width:1100px) 320px,360px" alt="Portrait of Gayatri Malladi" loading="eager" decoding="sync" fetchpriority="high"/></picture>
       <nav class="profile-links">
-        <a class="chip" href="https://drive.google.com/file/d/1QVzhN6e_ZId-Z15yuzJavPsxxAAw7h2L/view?usp=drive_link" target="_blank" rel="noopener">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9z"/><path d="M14 2v7h7"/></svg>
-          <span>CV</span>
-        </a>
-        <a class="chip" href="https://www.linkedin.com/in/gayatri-malladi/" target="_blank" rel="me noopener">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="4" height="12" rx="1"/><circle cx="5" cy="5" r="2"/><path d="M10 21v-8a4 4 0 0 1 8 0v8"/></svg>
-          <span>LinkedIn</span>
-        </a>
-        <a class="chip" href="https://github.com/mg-2321" target="_blank" rel="me noopener">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a9.5 9.5 0 0 0-3 18.5c.5.1.7-.2.7-.5v-1.8c-2.9.7-3.5-1.2-3.5-1.2-.5-1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.6 1 1.6 1 1 .9 2.5.6 3.1.3.1-.6.4-1.1.7-1.3-2.4-.3-5-1.2-5-5.2 0-1.1.4-2 1.1-2.8-.1-.3-.5-1.3.1-2.7 0 0 .9-.3 2.9 1.1a9.6 9.6 0 0 1 5 0c2-1.4 2.9-1.1 2.9-1.1.6 1.4.2 2.4.1 2.7.7.8 1.1 1.7 1.1 2.8 0 4-2.6 4.9-5.1 5.2.4.3.8 1 .8 2.1v2.5c0 .3.2.6.7.5A9.5 9.5 0 0 0 12 2z"/></svg>
-          <span>GitHub</span>
-        </a>
-        <a class="chip" href="https://medium.com/@gayat23" target="_blank" rel="me noopener">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="12" r="6"/><ellipse cx="17" cy="12" rx="3.5" ry="6"/><ellipse cx="22" cy="12" rx="1.2" ry="6"/></svg>
-          <span>Medium</span>
-        </a>
+        <a class="chip" href="https://drive.google.com/file/d/1QVzhN6e_ZId-Z15yuzJavPsxxAAw7h2L/view?usp=drive_link" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9z"/><path d="M14 2v7h7"/></svg><span>CV</span></a>
+        <a class="chip" href="https://www.linkedin.com/in/gayatri-malladi/" target="_blank" rel="me noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="4" height="12" rx="1"/><circle cx="5" cy="5" r="2"/><path d="M10 21v-8a4 4 0 0 1 8 0v8"/></svg><span>LinkedIn</span></a>
+        <a class="chip" href="https://github.com/mg-2321" target="_blank" rel="me noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a9.5 9.5 0 0 0-3 18.5c.5.1.7-.2.7-.5v-1.8c-2.9.7-3.5-1.2-3.5-1.2-.5-1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.6 1 1.6 1 1 .9 2.5.6 3.1.3.1-.6.4-1.1.7-1.3-2.4-.3-5-1.2-5-5.2 0-1.1.4-2 1.1-2.8-.1-.3-.5-1.3.1-2.7 0 0 .9-.3 2.9 1.1a9.6 9.6 0 0 1 5 0c2-1.4 2.9-1.1 2.9-1.1.6 1.4.2 2.4.1 2.7.7.8 1.1 1.7 1.1 2.8 0 4-2.6 4.9-5.1 5.2.4.3.8 1 .8 2.1v2.5c0 .3.2.6.7.5A9.5 9.5 0 0 0 12 2z"/></svg><span>GitHub</span></a>
+        <a class="chip" href="https://medium.com/@gayat23" target="_blank" rel="me noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="12" r="6"/><ellipse cx="17" cy="12" rx="3.5" ry="6"/><ellipse cx="22" cy="12" rx="1.2" ry="6"/></svg><span>Medium</span></a>
       </nav>
     </aside>
   </section>
-
-  <!-- Skills ribbon -->
   <div class="tokenribbon reveal" aria-hidden="true" style="margin-top:8px">
-    <div class="track scroll">
-      Programming: Python • C++ • SQL · Tools: PyTorch • MATLAB • Apache Spark ·
-      Data Mining: Data Visualization • Statistical Analysis • Predictive Modeling • Pattern Recognition • Feature Engineering • Dimensionality Reduction 
-    </div>
-    <div class="track scroll2">
-      Machine Learning: Linear Models • Decision Tree • SVMs • Clustering • Time Series Analysis ·
-      Deep Learning: CNNs • RNNs • Autoencoders • GANs
-    </div>
+    <div class="track scroll">Programming: Python • C++ • SQL · Tools: PyTorch • MATLAB • Apache Spark · Data Mining: Data Visualization • Statistical Analysis • Predictive Modeling • Pattern Recognition • Feature Engineering • Dimensionality Reduction</div>
+    <div class="track scroll2">Machine Learning: Linear Models • Decision Tree • SVMs • Clustering • Time Series Analysis · Deep Learning: CNNs • RNNs • Autoencoders • GANs</div>
   </div>
 
-  <!-- Projects -->
   <h2 id="projects" class="reveal">Projects</h2>
-
-  <!-- ===== LLM Security ===== -->
   <h3 class="reveal"><span class="pill">LLM Security</span></h3>
+  <div class="entry reveal"><div class="frame16"><div class="placeholder" aria-hidden="true">GuardRAG</div></div><div class="desc"><div class="title">GuardRAG: Adversarial Preference Training Against IPIs in RAG Systems</div><p>A defense framework that guards Retrieval-Augmented Generation pipelines against indirect prompt injection (IPI) attacks. Uses weighted Direct Preference Optimization and constrained RLHF with Lagrangian optimization to train models that distinguish benign retrieved context from adversarially injected payloads, preserving answer quality while rejecting malicious instructions.</p><p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank" rel="noopener">Code (coming soon)</a></p></div></div>
+  <div class="entry reveal right"><div class="frame16"><div class="placeholder" aria-hidden="true">RIPE-II</div></div><div class="desc"><div class="title">RIPE-II: Retrieval In Place Posioning Evaluation with IPIs</div><p>A corpus poisoning evaluation framework that stress-tests RAG systems against indirect prompt injection. Generates a poisoned corpus using 13 attack techniques across blackbox, graybox, and whitebox attacker models with semantic alignment via S-PubMedBERT. Provides a standardized benchmark for measuring RAG robustness under realistic adversarial conditions.</p><p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank" rel="noopener">Code (coming soon)</a></p></div></div>
 
-  <!-- GuardRAG -->
-  <div class="entry reveal">
-    <div class="frame16">
-      <div class="placeholder" aria-hidden="true">GuardRAG</div>
-    </div>
-    <div class="desc">
-      <div class="title">GuardRAG: Adversarial Preference Training Against IPIs in RAG Systems</div>
-      <p>A defense framework that guards Retrieval-Augmented Generation pipelines against indirect prompt injection (IPI) attacks. Uses weighted Direct Preference Optimization and constrained RLHF with Lagrangian optimization to train models that distinguish benign retrieved context from adversarially injected payloads, preserving answer quality while rejecting malicious instructions.</p>
-      <p class="row-links">
-        <a class="btn" href="https://github.com/mg-2321" target="_blank" rel="noopener">Code (coming soon)</a>
-      </p>
-    </div>
-  </div>
-
-  <!-- RIPE-II -->
-  <div class="entry reveal right">
-    <div class="frame16">
-      <div class="placeholder" aria-hidden="true">RIPE-II</div>
-    </div>
-    <div class="desc">
-      <div class="title">RIPE-II: Retrieval In Place Posioning Evaluation with IPIs </div>
-      <p>A corpus poisoning evaluation framework that stress-tests RAG systems against indirect prompt injection. Generates a poisoned corpus using 13 attack techniques across blackbox, graybox, and whitebox attacker models with semantic alignment via S-PubMedBERT. Provides a standardized benchmark for measuring RAG robustness under realistic adversarial conditions.</p>
-      <p class="row-links">
-        <a class="btn" href="https://github.com/mg-2321" target="_blank" rel="noopener">Code (coming soon)</a>
-      </p>
-    </div>
-  </div>
-
-  <!-- ===== High Performance Computing ===== -->
   <h3 class="reveal"><span class="pill">High Performance Computing</span></h3>
+  <div class="entry reveal"><div class="frame16"><video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/cuda-limo.jpg"><source src="images/limo_cuda_preview_v4.mp4" type="video/mp4"></video><div class="placeholder" aria-hidden="true">Video preview</div></div><div class="desc"><div class="title">Optimizing LIMO Pipeline with CUDA Parallelization</div><p>Optimized a LiDAR-Monocular VO pipeline on KITTI with shared-memory tiling, async transfers, and custom kernels for 2D conv, keyframe selection, and pose estimation improving kernel time by up to 60%.</p><p class="row-links"><a class="btn" href="https://github.com/mg-2321/LIMO" target="_blank" rel="noopener">Code</a><a class="btn" href="https://drive.google.com/file/d/13EWTlsrXvigKUrIcd1SeBJhdUc7h2sX4/view?usp=sharing" target="_blank" rel="noopener">Project paper</a></p></div></div>
 
-  <!-- CUDA LIMO -->
-  <div class="entry reveal">
-    <div class="frame16">
-      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/cuda-limo.jpg">
-        <source src="images/limo_cuda_preview_v4.mp4" type="video/mp4">
-      </video>
-      <div class="placeholder" aria-hidden="true">Video preview</div>
-    </div>
-    <div class="desc">
-      <div class="title">Optimizing LIMO Pipeline with CUDA Parallelization</div>
-      <p>Optimized a LiDAR-Monocular VO pipeline on KITTI with shared-memory tiling, async transfers, and custom kernels for 2D conv, keyframe selection, and pose estimation improving kernel time by up to 60%.</p>
-      <p class="row-links">
-        <a class="btn" href="https://github.com/mg-2321/LIMO" target="_blank" rel="noopener">Code</a>
-        <a class="btn" href="https://drive.google.com/file/d/13EWTlsrXvigKUrIcd1SeBJhdUc7h2sX4/view?usp=sharing" target="_blank" rel="noopener">Project paper</a>
-      </p>
-    </div>
-  </div>
-
-  <!-- ===== Computer Vision & Perception ===== -->
   <h3 class="reveal"><span class="pill">Computer Vision &amp; Perception</span></h3>
+  <div class="entry reveal"><div class="frame16"><video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/waymo-forecast.jpg"><source src="images/waymo_diffusion_cover%20(1)%20(2)%20(1).mp4" type="video/mp4"></video><div class="placeholder" aria-hidden="true">Video preview</div></div><div class="desc"><div class="title">Trajectory Prediction for Vision End-to-End Driving</div><p>Diffusion-based model predicting 5-second future trajectories in long-tail scenarios using the Waymo Open Dataset; explicitly models multimodal uncertainty.</p><p class="row-links"><a class="btn" href="https://github.com/mg-2321/Waymo_trajectory_prediction" target="_blank">Code (to be updated)</a></p></div></div>
+  <div class="entry reveal right"><div class="frame16"><div class="placeholder" aria-hidden="true">Image Stitching</div></div><div class="desc"><div class="title">Image Stitching using Seamless Optimization</div><p>Panoramic image stitching pipeline that aligns overlapping views and blends them using seam-finding with seamless cloning optimization to minimize visible artifacts at stitch boundaries, producing high-quality composite images.</p><p class="row-links"><a class="btn" href="https://github.com/mg-2321" target="_blank" rel="noopener">Code (coming soon)</a></p></div></div>
 
-  <!-- Waymo -->
-  <div class="entry reveal">
-    <div class="frame16">
-      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/waymo-forecast.jpg">
-        <source src="images/waymo_diffusion_cover%20(1)%20(2)%20(1).mp4" type="video/mp4">
-      </video>
-      <div class="placeholder" aria-hidden="true">Video preview</div>
-    </div>
-    <div class="desc">
-      <div class="title">Trajectory Prediction for Vision End-to-End Driving</div>
-      <p>Diffusion-based model predicting 5-second future trajectories in long-tail scenarios using the Waymo Open Dataset; explicitly models multimodal uncertainty.</p>
-      <p class="row-links">
-        <a class="btn" href="https://github.com/mg-2321/Waymo_trajectory_prediction" target="_blank">Code (to be updated)</a>
-      </p>
-    </div>
-  </div>
-
-  <!-- Image Stitching -->
-  <div class="entry reveal right">
-    <div class="frame16">
-      <div class="placeholder" aria-hidden="true">Image Stitching</div>
-    </div>
-    <div class="desc">
-      <div class="title">Image Stitching using Seamless Optimization</div>
-      <p>Panoramic image stitching pipeline that aligns overlapping views and blends them using seam-finding with seamless cloning optimization to minimize visible artifacts at stitch boundaries, producing high-quality composite images.</p>
-      <p class="row-links">
-        <a class="btn" href="https://github.com/mg-2321" target="_blank" rel="noopener">Code (coming soon)</a>
-      </p>
-    </div>
-  </div>
-
-  <!-- ===== Natural Language Processing ===== -->
   <h3 class="reveal"><span class="pill">Natural Language Processing</span></h3>
+  <div class="entry reveal"><div class="frame16 contain"><video class="media" muted autoplay loop playsinline webkit-playsinline preload="metadata" poster="images/nlp-si.jpg" crossorigin="anonymous" referrerpolicy="no-referrer"><source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/images/comparative_results_slideshow%20(1).mp4#t=0.1" type="video/mp4"></video><div class="placeholder" aria-hidden="true">NLP demo</div></div><div class="desc"><div class="title">Suicide Ideation &amp; Suicide Attempt Classification</div><p>Text-based classification to detect suicide ideation and attempts using clinical notes and reddit data. After noise removal and abbreviation expansion, compared GloVe, Word2Vec, FastText, and CBOW embeddings. Classifiers with BERT and RoBERTa outperform a Bi-LSTM and SVM baseline, enabling earlier risk identification and ethically informed interventions.</p><p class="row-links"><a class="btn" href="https://github.com/mg-2321/Suicide-Attempt-and-Suicide-Ideation-detector" target="_blank">Code</a><a class="btn" href="https://github.com/mg-2321/Suicide-Attempt-and-Suicide-Ideation-detector/blob/main/Review%20Paper%20Suicide%20Ideation%20Detector%20(1).pdf" target="_blank">Project paper</a></p></div></div>
+  <div class="entry reveal right"><div class="frame16"><video class="media" id="vulnVid" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/llm-security.jpg" crossorigin="anonymous"><source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/gcb_full_demo_v13.mp4" type="video/mp4"><source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/gcb_web_demo_v10.mp4" type="video/mp4"></video><div class="placeholder" aria-hidden="true">Security demo</div></div><div class="desc"><div class="title">LLMs for Code Vulnerability Detection</div><p>Graph CodeBERT–based detector for zero-day exploits and insecure design flaws (e.g., insufficient compartmentalization and leakage of critical state). It outputs data-flow visualizations and a CLI for triage. Validated on internal repositories mapped to CWE, training combines real code and DCGAN generated synthetic data.</p><p class="row-links"><a class="btn" href="https://github.com/mg-2321/Vulnerability-Detection-using-Image-Processing" target="_blank">Code</a></p></div></div>
 
-  <div class="entry reveal">
-    <div class="frame16 contain">
-      <video class="media" muted autoplay loop playsinline webkit-playsinline preload="metadata"
-             poster="images/nlp-si.jpg" crossorigin="anonymous" referrerpolicy="no-referrer">
-        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/images/comparative_results_slideshow%20(1).mp4#t=0.1" type="video/mp4">
-      </video>
-      <div class="placeholder" aria-hidden="true">NLP demo</div>
-    </div>
-    <div class="desc">
-      <div class="title">Suicide Ideation &amp; Suicide Attempt Classification</div>
-      <p>Text-based classification to detect suicide ideation and attempts using clinical notes and reddit data. After noise removal and abbreviation expansion, compared GloVe, Word2Vec, FastText, and CBOW embeddings. Classifiers with BERT and RoBERTa outperform a Bi-LSTM and SVM baseline, enabling earlier risk identification and ethically informed interventions.</p>
-      <p class="row-links">
-        <a class="btn" href="https://github.com/mg-2321/Suicide-Attempt-and-Suicide-Ideation-detector" target="_blank">Code</a>
-        <a class="btn" href="https://github.com/mg-2321/Suicide-Attempt-and-Suicide-Ideation-detector/blob/main/Review%20Paper%20Suicide%20Ideation%20Detector%20(1).pdf" target="_blank">Project paper</a>
-      </p>
-    </div>
-  </div>
-
-  <!-- LLMs for Vulnerability Detection -->
-  <div class="entry reveal right">
-    <div class="frame16">
-      <video class="media" id="vulnVid" muted loop autoplay playsinline webkit-playsinline preload="metadata"
-             poster="images/llm-security.jpg" crossorigin="anonymous">
-        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/gcb_full_demo_v13.mp4" type="video/mp4">
-        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/gcb_web_demo_v10.mp4" type="video/mp4">
-      </video>
-      <div class="placeholder" aria-hidden="true">Security demo</div>
-    </div>
-    <div class="desc">
-      <div class="title">LLMs for Code Vulnerability Detection</div>
-      <p>Graph CodeBERT–based detector for zero-day exploits and insecure design flaws (e.g., insufficient compartmentalization and leakage of critical state). It outputs data-flow visualizations and a CLI for triage. Validated on internal repositories mapped to CWE, training combines real code and DCGAN generated synthetic data.</p>
-      <p class="row-links">
-        <a class="btn" href="https://github.com/mg-2321/Vulnerability-Detection-using-Image-Processing" target="_blank">Code</a>
-      </p>
-    </div>
-  </div>
-
-  <!-- ===== Agents, Planning & Memory Optimization ===== -->
   <h3 class="reveal"><span class="pill">Agents, Planning &amp; Memory Optimization</span></h3>
+  <div class="entry reveal"><div class="frame16"><video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/wip_cartoon_placeholder.jpg"><source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/images/po_architectures_steps_clean_4slides_1080p.mp4" type="video/mp4"></video><div class="placeholder" aria-hidden="true">Video</div></div><div class="desc"><div class="title">Solving Memory Limitations of Agents using KAG</div><p>Building KAG layer memory module to store changing user preferences for long horizon tasks, object affordances, and past interactions, enabling lightweight grounding. Planning is trained with preference optimization algorithms: sequence-level SimPO aligns whole trajectories to user choices, while Step-DPO provides fine-grained &lt;ASK&gt; vs &lt;ACT&gt; feedback.</p><p class="row-links"><a class="btn" href="https://github.com/mg-2321/Adapt" target="_blank" rel="noopener">Code (to be updated)</a></p></div></div>
 
-  <div class="entry reveal">
-    <div class="frame16">
-      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata"
-             poster="images/wip_cartoon_placeholder.jpg">
-        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/images/po_architectures_steps_clean_4slides_1080p.mp4" type="video/mp4">
-      </video>
-      <div class="placeholder" aria-hidden="true">Video</div>
-    </div>
-    <div class="desc">
-      <div class="title">Solving Memory Limitations of Agents using KAG</div>
-      <p>Building KAG layer memory module to store changing user preferences for long horizon tasks, object affordances, and past interactions, enabling lightweight grounding. Planning is trained with preference optimization algorithms: sequence-level SimPO aligns whole trajectories to user choices, while Step-DPO provides fine-grained &lt;ASK&gt; vs &lt;ACT&gt; feedback.</p>
-      <p class="row-links">
-        <a class="btn" href="https://github.com/mg-2321/Adapt" target="_blank" rel="noopener">Code (to be updated)</a>
-      </p>
-    </div>
-  </div>
-
-  <!-- ===== Machine Learning ===== -->
   <h3 class="reveal"><span class="pill">Machine Learning</span></h3>
-
-  <!-- Real-time Construction Safety Equipment Detection -->
-  <div class="entry reveal">
-    <div class="frame16">
-      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata"
-             poster="images/ppe-cover.jpg" crossorigin="anonymous" referrerpolicy="no-referrer">
-        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/ppe_pass_fail_corrected.mp4#t=0.1" type="video/mp4">
-        <source src="https://github.com/mg-2321/mg-2321.github.io/raw/main/ppe_pass_fail_corrected.mp4#t=0.1" type="video/mp4">
-      </video>
-      <div class="placeholder" aria-hidden="true">Video preview</div>
-    </div>
-    <div class="desc">
-      <div class="title">Real-time Construction Safety Equipment Detection</div>
-      <p>Deployed YOLO-based detection to monitor PPE on construction sites in real time (hardhats, vests, goggles). Tracks workers with re-ID, raises on-screen alerts for violations, and logs clips for safety review.</p>
-      <p class="row-links">
-        <a class="btn" href="https://github.com/mg-2321/Construction-Safety-PPE" target="_blank" rel="noopener">Code</a>
-      </p>
-    </div>
-  </div>
-
-  <!-- EEG -->
-  <div class="entry reveal right">
-    <div class="frame16 contain">
-      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/eeg-stroke.jpg">
-        <source src="cover_all_in_one_paper_exact4.mp4" type="video/mp4">
-      </video>
-      <div class="placeholder" aria-hidden="true">EEG demo</div>
-    </div>
-    <div class="desc">
-      <div class="title">Stroke Rehabilitation: EEG Motor Action Classification</div>
-      <p>Analyzed pre and post-stroke EEG for hand wave, clench, and face rub motor actions to quantify neural changes and track recovery. Implemented KNN, Decision Tree, SVM, and K-means to classify actions and reveal patterns, informing personalized, data-driven stroke rehabilitation strategies effectively.</p>
-      <p class="row-links">
-        <a class="btn" href="https://github.com/mg-2321/Stroke_Rehabilitation" target="_blank" rel="noopener">Code</a>
-        <a class="btn" href="https://github.com/mg-2321/Stroke_Rehabilitation/blob/main/Iteration%204_%20Paper-4.pdf" target="_blank" rel="noopener">Project paper</a>
-      </p>
-    </div>
-  </div>
+  <div class="entry reveal"><div class="frame16"><video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/ppe-cover.jpg" crossorigin="anonymous" referrerpolicy="no-referrer"><source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/ppe_pass_fail_corrected.mp4#t=0.1" type="video/mp4"><source src="https://github.com/mg-2321/mg-2321.github.io/raw/main/ppe_pass_fail_corrected.mp4#t=0.1" type="video/mp4"></video><div class="placeholder" aria-hidden="true">Video preview</div></div><div class="desc"><div class="title">Real-time Construction Safety Equipment Detection</div><p>Deployed YOLO-based detection to monitor PPE on construction sites in real time (hardhats, vests, goggles). Tracks workers with re-ID, raises on-screen alerts for violations, and logs clips for safety review.</p><p class="row-links"><a class="btn" href="https://github.com/mg-2321/Construction-Safety-PPE" target="_blank" rel="noopener">Code</a></p></div></div>
+  <div class="entry reveal right"><div class="frame16 contain"><video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/eeg-stroke.jpg"><source src="cover_all_in_one_paper_exact4.mp4" type="video/mp4"></video><div class="placeholder" aria-hidden="true">EEG demo</div></div><div class="desc"><div class="title">Stroke Rehabilitation: EEG Motor Action Classification</div><p>Analyzed pre and post-stroke EEG for hand wave, clench, and face rub motor actions to quantify neural changes and track recovery. Implemented KNN, Decision Tree, SVM, and K-means to classify actions and reveal patterns, informing personalized, data-driven stroke rehabilitation strategies effectively.</p><p class="row-links"><a class="btn" href="https://github.com/mg-2321/Stroke_Rehabilitation" target="_blank" rel="noopener">Code</a><a class="btn" href="https://github.com/mg-2321/Stroke_Rehabilitation/blob/main/Iteration%204_%20Paper-4.pdf" target="_blank" rel="noopener">Project paper</a></p></div></div>
 
   <div class="hr reveal"></div>
-
-  <!-- Blogs -->
   <h2 id="blogs" class="reveal">Blogs</h2>
-
   <section class="entry blog reveal">
-    <div class="frame16 blogcover">
-      <!-- Minimal poster with an in-card date pill -->
-      <svg viewBox="0 0 720 400" preserveAspectRatio="xMidYMid meet" class="media" aria-hidden="true">
-        <rect x="18" y="18" width="684" height="364" rx="22" fill="url(#grad)" stroke="#cfd6ff" />
-        <text x="48" y="108" class="poster-title">SimPO vs SDPO</text>
-        <text x="48" y="144" class="poster-sub">A quick comparison for preference optimization</text>
-        <g>
-          <rect x="600" y="36" width="96" height="32" rx="16" fill="#6c8cff" opacity="0.95"/>
-          <text x="648" y="57" fill="#ffffff" font-family="ui-sans-serif, system-ui" font-size="14" font-weight="700" text-anchor="middle">Sep 15</text>
-        </g>
-        <defs>
-          <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%"  stop-color="#f5ebff"/>
-            <stop offset="55%" stop-color="#edf2ff"/>
-            <stop offset="100%" stop-color="#ffffff"/>
-          </linearGradient>
-        </defs>
-      </svg>
-    </div>
-
-    <div class="desc">
-      <div class="title">Preference Optimization Algorithms: SimPO vs SDPO</div>
-      <p>We compare two preference-optimization methods for aligning LLMs. SimPO directly maximizes a margin between preferred and dispreferred responses with a stabilizing reference model. SDPO attributes credit step-wise along trajectories to reduce reward hacking and improve reasoning. We outline practical tips, when to prefer each, and open questions.</p>
-      <p class="row-links">
-        <a class="btn" href="https://medium.com/@gayat23" target="_blank" rel="noopener">Read on Medium →</a>
-      </p>
-    </div>
+    <div class="frame16 blogcover"><svg viewBox="0 0 720 400" preserveAspectRatio="xMidYMid meet" class="media" aria-hidden="true"><rect x="18" y="18" width="684" height="364" rx="22" fill="url(#grad)" stroke="rgba(167,139,250,.2)"/><text x="48" y="108" class="poster-title">SimPO vs SDPO</text><text x="48" y="144" class="poster-sub">A quick comparison for preference optimization</text><g><rect x="600" y="36" width="96" height="32" rx="16" fill="#7c5cf6" opacity="0.95"/><text x="648" y="57" fill="#fff" font-family="'DM Sans',ui-sans-serif,system-ui" font-size="14" font-weight="700" text-anchor="middle">Sep 15</text></g><defs><linearGradient id="grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="rgba(167,139,250,.12)"/><stop offset="55%" stop-color="rgba(96,165,250,.08)"/><stop offset="100%" stop-color="rgba(11,15,26,1)"/></linearGradient></defs></svg></div>
+    <div class="desc"><div class="title">Preference Optimization Algorithms: SimPO vs SDPO</div><p>We compare two preference-optimization methods for aligning LLMs. SimPO directly maximizes a margin between preferred and dispreferred responses with a stabilizing reference model. SDPO attributes credit step-wise along trajectories to reduce reward hacking and improve reasoning. We outline practical tips, when to prefer each, and open questions.</p><p class="row-links"><a class="btn" href="https://medium.com/@gayat23" target="_blank" rel="noopener">Read on Medium →</a></p></div>
   </section>
-
   <div class="hr reveal"></div>
-  <p class="muted">© <script>document.write(new Date().getFullYear())</script> Gayatri Malladi</p>
+  <p style="color:var(--muted)">© <script>document.write(new Date().getFullYear())</script> Gayatri Malladi</p>
 </main>
 
 <script>
 (function(){
-  /* === Typing header (always from 'G') === */
-  const full = 'Gayatri Malladi';
-  const el   = document.getElementById('typeTarget');
-  const caret= document.getElementById('caret');
-  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function typeTitle(){
-    if(!el) return;
-    el.textContent = '';
-    if (reduceMotion){ el.textContent = full; if (caret) caret.style.display='none'; return; }
-    let i = 0;
-    const tick = () => {
-      el.textContent = full.slice(0, i);
-      if (i < full.length){ i++; setTimeout(tick, 120); }
-      else if (caret){ caret.style.display = 'none'; }
-    };
-    tick();
-  }
+  const full='Gayatri Malladi',el=document.getElementById('typeTarget'),caret=document.getElementById('caret');
+  const reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function typeTitle(){if(!el)return;el.textContent='';if(reduceMotion){el.textContent=full;if(caret)caret.style.display='none';return;}let i=0;const tick=()=>{el.textContent=full.slice(0,i);if(i<full.length){i++;setTimeout(tick,120);}else if(caret)caret.style.display='none';};tick();}
   requestAnimationFrame(typeTitle);
-  window.addEventListener('pageshow', (e)=>{ if(e.persisted){ if (caret) caret.style.display=''; typeTitle(); } });
-
-  /* === Scroll progress bar === */
+  window.addEventListener('pageshow',(e)=>{if(e.persisted){if(caret)caret.style.display='';typeTitle();}});
   const bar=document.getElementById('scrollbar');
-  const onScroll=()=>{ const h=document.documentElement; const sc=h.scrollTop||document.body.scrollTop; const max=h.scrollHeight-h.clientHeight; bar.style.width=(max? (sc/max*100):0)+'%'; };
-  addEventListener('scroll', onScroll, {passive:true}); onScroll();
-
-  /* === Reveal on scroll / stagger === */
-  if('IntersectionObserver' in window && !reduceMotion){
-    const io=new IntersectionObserver(es=>es.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-    }),{root:null, rootMargin:'0px 0px -10% 0px', threshold:.12});
-    document.querySelectorAll('.reveal, .stagger').forEach(n=>io.observe(n));
-  } else {
-    document.querySelectorAll('.reveal, .stagger').forEach(n=>n.classList.add('in'));
-  }
-
-  /* === Parallax for headshot aside === */
+  const onScroll=()=>{const h=document.documentElement;const sc=h.scrollTop||document.body.scrollTop;const max=h.scrollHeight-h.clientHeight;bar.style.width=(max?(sc/max*100):0)+'%';};
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+  if('IntersectionObserver' in window&&!reduceMotion){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{root:null,rootMargin:'0px 0px -10% 0px',threshold:.12});
+    document.querySelectorAll('.reveal,.stagger').forEach(n=>io.observe(n));
+  }else{document.querySelectorAll('.reveal,.stagger').forEach(n=>n.classList.add('in'));}
   const aside=document.querySelector('.aside.parallax');
-  if(aside && !reduceMotion){
-    const p=()=>{ const y=window.scrollY||document.documentElement.scrollTop; aside.style.transform=`translateY(${Math.min(12, y*0.06)}px)`; };
-    addEventListener('scroll', p, {passive:true}); p();
-  }
-
-  /* === Media placeholders + looping + pause off-screen === */
+  if(aside&&!reduceMotion){const p=()=>{const y=window.scrollY||document.documentElement.scrollTop;aside.style.transform='translateY('+Math.min(12,y*.06)+'px)';};addEventListener('scroll',p,{passive:true});p();}
   document.querySelectorAll('.frame16').forEach(frame=>{
-    const v=frame.querySelector('video.media'); const img=frame.querySelector('img.media'); const ph=frame.querySelector('.placeholder');
-    if(v){
-      v.addEventListener('loadeddata', ()=>{ if(ph) ph.style.display='none'; }, {once:true});
-      v.addEventListener('canplay', ()=>v.play().catch(()=>{}));
-      v.addEventListener('ended', ()=>v.play().catch(()=>{}));
-      v.addEventListener('error', ()=>{ if(ph) ph.style.display='flex'; });
-    }
-    if(img){
-      img.addEventListener('load', ()=>{ if(ph) ph.style.display='none'; }, {once:true});
-      img.addEventListener('error', ()=>{ if(ph) ph.style.display='flex'; }, {once:true});
-    }
+    const v=frame.querySelector('video.media'),ph=frame.querySelector('.placeholder');
+    if(v){v.addEventListener('loadeddata',()=>{if(ph)ph.style.display='none';},{once:true});v.addEventListener('canplay',()=>v.play().catch(()=>{}));v.addEventListener('ended',()=>v.play().catch(()=>{}));v.addEventListener('error',()=>{if(ph)ph.style.display='flex';});}
   });
+  if('IntersectionObserver' in window){const vio=new IntersectionObserver(items=>{items.forEach(it=>{const v=it.target;if(!it.isIntersecting)v.pause&&v.pause();else v.play&&v.play().catch(()=>{});});},{root:null,threshold:0});document.querySelectorAll('video.media').forEach(v=>vio.observe(v));}
 
-  if('IntersectionObserver' in window){
-    const vio=new IntersectionObserver(items=>{
-      items.forEach(it=>{
-        const v=it.target;
-        if(!it.isIntersecting){ v.pause && v.pause(); }
-        else { v.play && v.play().catch(()=>{}); }
-      });
-    },{root:null, threshold:0});
-    document.querySelectorAll('video.media').forEach(v=>vio.observe(v));
+  /* ================================================================
+     INTERACTIVE NEURAL GRAPH IDS
+     Your cursor = intruder in the network.
+     Nodes detect proximity, flash red, edges alert, nodes push away.
+     Move your mouse to trigger anomaly detection — your research, playable.
+     ================================================================ */
+  const cvs=document.getElementById('neuralGraph'),tooltip=document.getElementById('ids-tooltip');
+  if(cvs&&!reduceMotion){
+    const ctx=cvs.getContext('2d');
+    let W,H,mouseX=-999,mouseY=-999;
+    const N=50,EDGE=150,DETECT=120;
+    function resize(){W=cvs.width=window.innerWidth;H=cvs.height=window.innerHeight;}
+    resize();window.addEventListener('resize',resize);
+    document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY;});
+    document.addEventListener('mouseleave',()=>{mouseX=-999;mouseY=-999;});
+    const pal=[{r:167,g:139,b:250},{r:96,g:165,b:250},{r:56,g:178,b:172}];
+    const al={r:248,g:113,b:113};
+    const nodes=[];
+    for(let i=0;i<N;i++){const c=pal[Math.floor(Math.random()*pal.length)];nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:1.5+Math.random()*2,c,phase:Math.random()*Math.PI*2,threat:0});}
+    let alertCount=0;
+    function draw(){
+      ctx.clearRect(0,0,W,H);const t=Date.now()*.001;alertCount=0;
+      for(const n of nodes){
+        const dx=n.x-mouseX,dy=n.y-mouseY,dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<DETECT){n.threat=Math.min(1,n.threat+.08);alertCount++;const push=.3*(1-dist/DETECT);n.vx+=dx/dist*push;n.vy+=dy/dist*push;}
+        else{n.threat=Math.max(0,n.threat-.02);}
+        n.vx*=.985;n.vy*=.985;
+      }
+      for(let i=0;i<nodes.length;i++){for(let j=i+1;j<nodes.length;j++){
+        const dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<EDGE){const fade=1-d/EDGE,mt=Math.max(nodes[i].threat,nodes[j].threat);
+        const r=Math.round(167+(al.r-167)*mt),g=Math.round(139+(al.g-139)*mt),b=Math.round(250+(al.b-250)*mt);
+        ctx.beginPath();ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);
+        ctx.strokeStyle='rgba('+r+','+g+','+b+','+(fade*(mt>.3?.25:.1)).toFixed(3)+')';ctx.lineWidth=mt>.3?1:.5;ctx.stroke();}
+      }}
+      for(const n of nodes){
+        const pulse=1+Math.sin(t*1.5+n.phase)*.2,thr=n.threat;
+        const cr=Math.round(n.c.r+(al.r-n.c.r)*thr),cg=Math.round(n.c.g+(al.g-n.c.g)*thr),cb=Math.round(n.c.b+(al.b-n.c.b)*thr);
+        const ba=.4+thr*.4,glowR=n.r*pulse*(2.5+thr*3);
+        ctx.beginPath();ctx.arc(n.x,n.y,glowR,0,Math.PI*2);ctx.fillStyle='rgba('+cr+','+cg+','+cb+','+(ba*.12).toFixed(3)+')';ctx.fill();
+        ctx.beginPath();ctx.arc(n.x,n.y,n.r*pulse*(1+thr*.5),0,Math.PI*2);ctx.fillStyle='rgba('+cr+','+cg+','+cb+','+ba.toFixed(3)+')';ctx.fill();
+        n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;
+      }
+      if(tooltip){if(alertCount>2){tooltip.classList.add('active');tooltip.style.left=(mouseX+16)+'px';tooltip.style.top=(mouseY-28)+'px';tooltip.textContent=alertCount>6?'\u26A0 THREAT LEVEL HIGH':'\u26A0 ANOMALY DETECTED';}else{tooltip.classList.remove('active');}}
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
   }
 })();
 </script>
