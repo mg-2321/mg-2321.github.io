@@ -31,7 +31,7 @@ body{
 a{color:var(--link);text-decoration:none;transition:color .2s}
 a:hover{color:var(--accent);text-decoration:underline}
 p{margin:.6rem 0}
-#agentCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+#agentRail{position:fixed;top:0;right:10px;height:100vh;width:0;z-index:0;pointer-events:none;opacity:.52}
 main{position:relative;z-index:1;pointer-events:none}
 main *{pointer-events:auto}
 .site-title{text-align:center;font-size:2.9rem;margin:0 0 .75rem;white-space:nowrap;letter-spacing:.3px;font-weight:700;color:var(--fg-bright)}
@@ -97,13 +97,14 @@ h2::after{content:"";display:block;width:0;height:3px;background:linear-gradient
 </head>
 <body>
 <div id="scrollbar" aria-hidden="true"></div>
-<canvas id="agentCanvas" aria-hidden="true"></canvas>
+<canvas id="agentRail" aria-hidden="true"></canvas>
+
 <main>
   <h1 class="site-title reveal in"><span class="typewrap"><span id="typeTarget" aria-label="Gayatri Malladi"></span><span class="caret" id="caret">|</span></span></h1>
   <p class="mini-nav reveal in"><a href="#projects">Projects</a><a href="#blogs">Blogs</a></p>
   <section class="intro reveal">
     <div class="prose">
-      <p class="lead">I'm a second-year M.S. student in the Computer Science department at the University of Washington. Currently, my research supervised by <a href="https://sites.uw.edu/geetha/" target="_blank" rel="noopener">Dr. Geetha Thamilarasu</a> focuses on defensive RAG & LLM Security: planning and teaching language models when to ask vs. when to act, with lightweight grounding and preference optimization algorithms to choose the best model based on user preference-satisfaction rate.</p>
+      <p class="lead">I'm a second-year M.S. student in the Computer Science department at the University of Washington. Currently, my research supervised by <a href="https://sites.uw.edu/geetha/" target="_blank" rel="noopener">Dr. Geetha Thamilarasu</a> focuses on defensive RAG & LLM Security: planning and teaching language models when to ask vs. when to act, with lightweight grounding and prefrence optimization algorithms to choose the best model based on user preference-satisfaction rate.</p>
       <p class="lead">Additionally, I'm exploring how to overcome memory context-window limitations using short- and long-term retrieval caches, summarization, and Reflexion-style episodic notes that are indexed and reused across tasks.</p>
       <p class="lead red">I'm open to research collaborations. Please email me at [gayat23@uw.edu] if you are interested to explore assistive agents for day-to-day task automation, tool use, and self-evolving large language models.</p>
     </div>
@@ -150,150 +151,7 @@ h2::after{content:"";display:block;width:0;height:3px;background:linear-gradient
     <div class="desc"><div class="title">Preference Optimization Algorithms: SimPO vs SDPO</div><p>We compare two preference-optimization methods for aligning LLMs. SimPO directly maximizes a margin between preferred and dispreferred responses with a stabilizing reference model. SDPO attributes credit step-wise along trajectories to reduce reward hacking and improve reasoning. We outline practical tips, when to prefer each, and open questions.</p><p class="row-links"><a class="btn" href="https://medium.com/@gayat23" target="_blank" rel="noopener">Read on Medium →</a></p></div>
   </section>
   <div class="hr reveal"></div>
-  <p style="color:var(--muted)">© <script>
-(function(){
-  const full='Gayatri Malladi',el=document.getElementById('typeTarget'),caret=document.getElementById('caret');
-  const reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-  function typeTitle(){if(!el)return;el.textContent='';if(reduceMotion){el.textContent=full;if(caret)caret.style.display='none';return;}let i=0;const tick=()=>{el.textContent=full.slice(0,i);if(i<full.length){i++;setTimeout(tick,120);}else if(caret)caret.style.display='none';};tick();}
-  requestAnimationFrame(typeTitle);
-  window.addEventListener('pageshow',e=>{if(e.persisted){if(caret)caret.style.display='';typeTitle();}});
-  const bar=document.getElementById('scrollbar');
-  const onScroll=()=>{const h=document.documentElement;const sc=h.scrollTop||document.body.scrollTop;const mx=h.scrollHeight-h.clientHeight;bar.style.width=(mx?(sc/mx*100):0)+'%';};
-  addEventListener('scroll',onScroll,{passive:true});onScroll();
-  if('IntersectionObserver' in window&&!reduceMotion){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{root:null,rootMargin:'0px 0px -10% 0px',threshold:.12});document.querySelectorAll('.reveal,.stagger').forEach(n=>io.observe(n));}
-  else{document.querySelectorAll('.reveal,.stagger').forEach(n=>n.classList.add('in'));}
-  const aside=document.querySelector('.aside.parallax');
-  if(aside&&!reduceMotion){const p=()=>{const y=window.scrollY||document.documentElement.scrollTop;aside.style.transform='translateY('+Math.min(12,y*.06)+'px)';};addEventListener('scroll',p,{passive:true});p();}
-  document.querySelectorAll('.frame16').forEach(frame=>{const v=frame.querySelector('video.media'),ph=frame.querySelector('.placeholder');if(v){v.addEventListener('loadeddata',()=>{if(ph)ph.style.display='none';},{once:true});v.addEventListener('canplay',()=>v.play().catch(()=>{}));v.addEventListener('ended',()=>v.play().catch(()=>{}));v.addEventListener('error',()=>{if(ph)ph.style.display='flex';});}});
-  if('IntersectionObserver' in window){const vio=new IntersectionObserver(items=>{items.forEach(it=>{const v=it.target;if(!it.isIntersecting)v.pause&&v.pause();else v.play&&v.play().catch(()=>{});});},{root:null,threshold:0});document.querySelectorAll('video.media').forEach(v=>vio.observe(v));}
-
-  const cvs=document.getElementById('agentCanvas');
-  if(cvs&&!reduceMotion){
-    const ctx=cvs.getContext('2d');
-    let W,H,dpr=window.devicePixelRatio||1;
-    const particles=[];
-    let phase=0;
-    const colors={
-      user:[52,211,153],
-      retriever:[96,165,250],
-      agent:[167,139,250],
-      action:[236,179,94],
-      faint:'rgba(148,163,184,.07)',
-      text:'rgba(226,232,240,.56)'
-    };
-
-    function safeBox(){
-      const horizontalPad=W<=520?32:80;
-      const content=Math.min(1180, Math.max(860, W-horizontalPad));
-      const left=(W-content)/2;
-      return {left,right:left+content};
-    }
-
-    function resize(){
-      dpr=window.devicePixelRatio||1;
-      W=window.innerWidth;H=window.innerHeight;
-      cvs.width=Math.floor(W*dpr);cvs.height=Math.floor(H*dpr);
-      cvs.style.width=W+'px';cvs.style.height=H+'px';
-      ctx.setTransform(dpr,0,0,dpr,0,0);
-    }
-    resize(); addEventListener('resize',resize);
-
-    function bezier(a,b,c,d,t){
-      const mt=1-t;
-      return mt*mt*mt*a + 3*mt*mt*t*b + 3*mt*t*t*c + t*t*t*d;
-    }
-
-    function getRail(){
-      const box=safeBox();
-      const gutterRight=W-box.right;
-      if(gutterRight<120 || W<1320) return null;
-      const x=W-gutterRight*.44;
-      return {
-        x,
-        top:Math.max(120,H*.23),
-        mid1:H*.39,
-        mid2:H*.56,
-        bottom:Math.min(H*.78, H-120),
-        gutterRight,
-        labelX:x-16,
-        clearLeft:box.right+18
-      };
-    }
-
-    function emit(){
-      const rail=getRail();
-      if(!rail) return;
-      const y1=rail.top, y2=rail.mid1, y3=rail.mid2, y4=rail.bottom;
-      particles.push({kind:'user', t:0, speed:.012+Math.random()*.004, path:[rail.x,y1, rail.x+20,(y1+y2)/2, rail.x-22,(y1+y2)/2, rail.x,y2]});
-      setTimeout(()=>{particles.push({kind:'retriever', t:0, speed:.013+Math.random()*.004, path:[rail.x,y2, rail.x+22,(y2+y3)/2, rail.x-18,(y2+y3)/2, rail.x,y3]});},220);
-      setTimeout(()=>{phase=(phase+1)%2; particles.push({kind:'action', t:0, speed:.012+Math.random()*.004, path:[rail.x,y3, rail.x+18,(y3+y4)/2, rail.x-20,(y3+y4)/2, rail.x,y4]});},420);
-    }
-    emit();
-    setInterval(emit, 1800);
-
-    function drawNode(x,y,r,rgba,halo){
-      ctx.beginPath();ctx.arc(x,y,r*halo,0,Math.PI*2);ctx.fillStyle=`rgba(${rgba[0]},${rgba[1]},${rgba[2]},.06)`;ctx.fill();
-      ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=`rgba(${rgba[0]},${rgba[1]},${rgba[2]},.58)`;ctx.fill();
-    }
-
-    function drawLabel(text,x,y,active){
-      ctx.font='600 10px "DM Sans",ui-sans-serif,system-ui';
-      ctx.textAlign='right';
-      ctx.textBaseline='middle';
-      ctx.fillStyle=active?'rgba(241,245,249,.82)':colors.text;
-      ctx.fillText(text,x,y);
-    }
-
-    function drawRail(rail){
-      const ys=[rail.top,rail.mid1,rail.mid2,rail.bottom];
-      for(let i=0;i<ys.length-1;i++){
-        const y1=ys[i], y2=ys[i+1];
-        ctx.beginPath();
-        ctx.moveTo(rail.x,y1);
-        ctx.bezierCurveTo(rail.x+20,(y1+y2)/2,rail.x-20,(y1+y2)/2,rail.x,y2);
-        ctx.strokeStyle=colors.faint; ctx.lineWidth=1; ctx.stroke();
-      }
-      drawNode(rail.x,rail.top,4.4,colors.user,4.4);
-      drawNode(rail.x,rail.mid1,4.6,colors.retriever,4.6);
-      drawNode(rail.x,rail.mid2,4.8,colors.agent,4.8);
-      drawNode(rail.x,rail.bottom,4.6,colors.action,4.4);
-      drawLabel('User', rail.labelX, rail.top, false);
-      drawLabel('Retriever', rail.labelX, rail.mid1, false);
-      drawLabel('Agent', rail.labelX, rail.mid2, true);
-      drawLabel(phase===0?'Ask':'Act', rail.labelX, rail.bottom, true);
-    }
-
-    function drawParticles(){
-      for(let i=particles.length-1;i>=0;i--){
-        const p=particles[i];
-        p.t+=p.speed;
-        if(p.t>=1){particles.splice(i,1);continue;}
-        const [a,b,c,d,e,f,g,h]=p.path;
-        const x=bezier(a,c,e,g,p.t), y=bezier(b,d,f,h,p.t);
-        const col=colors[p.kind];
-        ctx.beginPath();ctx.arc(x,y,2.6,0,Math.PI*2);ctx.fillStyle=`rgba(${col[0]},${col[1]},${col[2]},.72)`;ctx.fill();
-        ctx.beginPath();ctx.arc(x,y,7.5,0,Math.PI*2);ctx.fillStyle=`rgba(${col[0]},${col[1]},${col[2]},.06)`;ctx.fill();
-      }
-    }
-
-    function draw(){
-      ctx.clearRect(0,0,W,H);
-      const rail=getRail();
-      if(rail){
-        ctx.save();
-        ctx.beginPath();
-        ctx.rect(rail.clearLeft, 0, W-rail.clearLeft, H);
-        ctx.clip();
-        drawRail(rail);
-        drawParticles();
-        ctx.restore();
-      }
-      requestAnimationFrame(draw);
-    }
-    requestAnimationFrame(draw);
-  }
-})();
-</script> Gayatri Malladi</p>
+  <p style="color:var(--muted)">© <script>document.write(new Date().getFullYear())</script> Gayatri Malladi</p>
 </main>
 
 <script>
@@ -313,193 +171,114 @@ h2::after{content:"";display:block;width:0;height:3px;background:linear-gradient
   document.querySelectorAll('.frame16').forEach(frame=>{const v=frame.querySelector('video.media'),ph=frame.querySelector('.placeholder');if(v){v.addEventListener('loadeddata',()=>{if(ph)ph.style.display='none';},{once:true});v.addEventListener('canplay',()=>v.play().catch(()=>{}));v.addEventListener('ended',()=>v.play().catch(()=>{}));v.addEventListener('error',()=>{if(ph)ph.style.display='flex';});}});
   if('IntersectionObserver' in window){const vio=new IntersectionObserver(items=>{items.forEach(it=>{const v=it.target;if(!it.isIntersecting)v.pause&&v.pause();else v.play&&v.play().catch(()=>{});});},{root:null,threshold:0});document.querySelectorAll('video.media').forEach(v=>vio.observe(v));}
 
-  const cvs=document.getElementById('agentCanvas');
-  const hudEl=document.getElementById('agent-hud');
-  const hudYou=document.getElementById('hud-you');
-  const hudAuto=document.getElementById('hud-auto');
-  const hudSub=document.getElementById('hud-sub');
+  /* ================================================================
+     SUBTLE AGENT RAIL
+     Lives only in the right gutter and never overlaps main content.
+     Shows USER → RETRIEVER → AGENT flow with occasional ASK / ACT hints.
+     ================================================================ */
+  const cvs=document.getElementById('agentRail');
   if(cvs&&!reduceMotion){
     const ctx=cvs.getContext('2d');
-    let W,H,dpr=window.devicePixelRatio||1;
-    let humanScore=0,agentScore=0;
-    const floats=[];
-    const particles=[];
+    let W=0,H=0,dpr=window.devicePixelRatio||1,visible=false;
     const hubs={};
-    let currentDecision=null;
-
+    const pulses=[];
+    const decisions=['ASK','ACT','RETRIEVE','REFLECT'];
+    let hint={label:'ASK',born:0,y:0};
     const colors={
-      user:{r:52,g:211,b:153},
-      agent:{r:167,g:139,b:250},
-      retriever:{r:96,g:165,b:250},
-      warm:{r:236,g:179,b:94},
-      text:'rgba(241,245,249,.94)',
-      panel:'rgba(11,15,26,.9)'
+      user:[52,211,153],
+      retriever:[96,165,250],
+      agent:[167,139,250],
+      warm:[236,179,94]
     };
 
-    const scenarios=[
-      {prompt:'User asks for a recent fact.', left:{label:'RETRIEVE', good:true}, right:{label:'ACT', good:false}, auto:'ACT'},
-      {prompt:'Goal is underspecified.', left:{label:'ASK', good:true}, right:{label:'ACT', good:false}, auto:'ACT'},
-      {prompt:'Retriever returned weak evidence.', left:{label:'REFINE RETRIEVAL', good:true}, right:{label:'ANSWER NOW', good:false}, auto:'ANSWER NOW'},
-      {prompt:'Enough evidence is grounded.', left:{label:'ACT', good:true}, right:{label:'ASK AGAIN', good:false}, auto:'ASK AGAIN'},
-      {prompt:'Long task needs prior preferences.', left:{label:'LOAD MEMORY', good:true}, right:{label:'ACT', good:false}, auto:'ACT'},
-      {prompt:'Tool result is missing.', left:{label:'ASK', good:true}, right:{label:'GUESS', good:false}, auto:'GUESS'}
-    ];
-
     function resize(){
-      dpr=window.devicePixelRatio||1;
-      W=window.innerWidth;H=window.innerHeight;
-      cvs.width=Math.floor(W*dpr);cvs.height=Math.floor(H*dpr);
-      cvs.style.width=W+'px';cvs.style.height=H+'px';
+      const gutter=Math.max(0,(window.innerWidth-Math.min(1180,window.innerWidth))/2);
+      const railW=Math.min(150,Math.max(0,gutter-20));
+      visible=railW>=110 && window.innerWidth>=1320;
+      cvs.style.width=(visible?railW:0)+'px';
+      cvs.style.right='10px';
+      W=railW; H=window.innerHeight;
+      cvs.width=Math.max(1,Math.floor(W*dpr));
+      cvs.height=Math.max(1,Math.floor(H*dpr));
       ctx.setTransform(dpr,0,0,dpr,0,0);
-      const sideY=Math.min(H-180, Math.max(170, H*0.54));
-      const agentY=Math.min(H-120, Math.max(220, H*0.74));
-      hubs.user={x:72, y:sideY, r:26, key:'user', label:'USER'};
-      hubs.agent={x:W*0.5, y:agentY, r:30, key:'agent', label:'AGENT'};
-      hubs.retriever={x:W-72, y:sideY, r:26, key:'retriever', label:'RETRIEVER'};
+      if(!visible) return;
+      hubs.user={x:W*0.68,y:H*0.24,r:10,label:'USER',color:colors.user};
+      hubs.retriever={x:W*0.42,y:H*0.50,r:11,label:'RETRIEVER',color:colors.retriever};
+      hubs.agent={x:W*0.70,y:H*0.76,r:13,label:'AGENT',color:colors.agent};
+      hint.y=H*0.63;
     }
-    resize();window.addEventListener('resize',resize);
+    resize();
+    window.addEventListener('resize',resize);
 
-    function spawnParticle(from,to,type){
-      particles.push({from,to,t:0,speed:.008+Math.random()*.007,type});
-    }
-    function pulseTraffic(){
-      spawnParticle(hubs.user,hubs.agent,'query');
-      if(Math.random()>.35) spawnParticle(hubs.agent,hubs.retriever,'retrieve');
-      if(Math.random()>.55) spawnParticle(hubs.retriever,hubs.agent,'evidence');
-      setTimeout(pulseTraffic,800+Math.random()*900);
-    }
-    pulseTraffic();
-
-    function makeDecision(){
-      if(currentDecision) return;
-      const s=scenarios[Math.floor(Math.random()*scenarios.length)];
-      currentDecision={
-        prompt:s.prompt,
-        left:{...s.left},
-        right:{...s.right},
-        auto:s.auto,
-        born:Date.now(),
-        x:hubs.agent.x,
-        y:Math.min(H-120, hubs.agent.y+72),
-        selected:null
-      };
-      hudSub.textContent=s.prompt;
-      if(hudEl) hudEl.classList.add('visible');
-      setTimeout(()=>{if(!currentDecision||currentDecision.selected) return; autoResolve();},3200);
-      setTimeout(makeDecision,5600+Math.random()*2200);
-    }
-    setTimeout(makeDecision,1800);
-
-    function roundRect(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();}
-
-    function optionRects(){
-      if(!currentDecision) return [];
-      const boxW=Math.min(156, W<560?124:156), boxH=34, gap=Math.min(26,W*0.04), y=currentDecision.y;
-      return [
-        {side:'left',x:currentDecision.x-gap-boxW,y:y,w:boxW,h:boxH,label:currentDecision.left.label,good:currentDecision.left.good},
-        {side:'right',x:currentDecision.x+gap,y:y,w:boxW,h:boxH,label:currentDecision.right.label,good:currentDecision.right.good}
-      ];
-    }
-
-    cvs.addEventListener('click',e=>{
-      if(!currentDecision||currentDecision.selected) return;
-      const rects=optionRects();
-      const x=e.clientX,y=e.clientY;
-      for(const r of rects){
-        if(x>=r.x && x<=r.x+r.w && y>=r.y && y<=r.y+r.h){
-          currentDecision.selected={label:r.label,by:'human',good:r.good,time:Date.now()};
-          humanScore++; if(hudYou) hudYou.textContent=humanScore;
-          floats.push({x:currentDecision.x,y:currentDecision.y-12,text:r.good?'Good steer':'Human override',born:Date.now(),color:r.good?colors.user:colors.warm});
-          hudSub.textContent='You steered the agent toward '+r.label;
-          setTimeout(()=>{currentDecision=null;hudSub.textContent='Steer the next step: ASK, RETRIEVE, or ACT';},1200);
-          return;
-        }
+    function spawn(){
+      if(!visible){setTimeout(spawn,1200);return;}
+      pulses.push({from:'user',to:'retriever',t:0,speed:0.012,color:colors.user});
+      if(Math.random()>.2) pulses.push({from:'retriever',to:'agent',t:0,speed:0.01,color:colors.retriever});
+      if(Math.random()>.58){
+        hint={label:decisions[Math.floor(Math.random()*decisions.length)],born:Date.now(),y:H*(0.58+Math.random()*0.12)};
       }
-    });
+      setTimeout(spawn,1300+Math.random()*1200);
+    }
+    spawn();
 
-    function autoResolve(){
-      if(!currentDecision) return;
-      const label=currentDecision.auto;
-      const good=(label===currentDecision.left.label && currentDecision.left.good) || (label===currentDecision.right.label && currentDecision.right.good);
-      currentDecision.selected={label,by:'agent',good,time:Date.now()};
-      agentScore++; if(hudAuto) hudAuto.textContent=agentScore;
-      floats.push({x:currentDecision.x,y:currentDecision.y-12,text:good?'Agent chose well':'Defaulted to '+label,born:Date.now(),color:good?colors.retriever:colors.warm});
-      hudSub.textContent='Agent defaulted to '+label;
-      setTimeout(()=>{currentDecision=null;hudSub.textContent='Steer the next step: ASK, RETRIEVE, or ACT';},1200);
+    function drawLink(a,b){
+      ctx.beginPath();
+      ctx.moveTo(a.x,a.y);
+      ctx.bezierCurveTo((a.x+b.x)/2,a.y,(a.x+b.x)/2,b.y,b.x,b.y);
+      ctx.strokeStyle='rgba(148,163,184,.12)';
+      ctx.lineWidth=1;
+      ctx.stroke();
     }
 
     function drawHub(h){
-      const c=colors[h.key];
-      const glow= h.key==='agent' ? 1.2 : 1;
-      ctx.beginPath();ctx.arc(h.x,h.y,h.r*2.1*glow,0,Math.PI*2);ctx.fillStyle=`rgba(${c.r},${c.g},${c.b},.045)`;ctx.fill();
-      ctx.beginPath();ctx.arc(h.x,h.y,h.r,0,Math.PI*2);ctx.fillStyle=`rgba(${c.r},${c.g},${c.b},.11)`;ctx.fill();
-      ctx.beginPath();ctx.arc(h.x,h.y,h.r*.72,0,Math.PI*2);ctx.fillStyle=`rgba(${c.r},${c.g},${c.b},.58)`;ctx.fill();
-      ctx.font='700 10px "DM Sans",ui-sans-serif,system-ui'; ctx.textAlign='center'; ctx.textBaseline='middle';
-      ctx.fillStyle='rgba(241,245,249,.72)'; ctx.fillText(h.label,h.x,h.y+h.r+14);
+      ctx.beginPath(); ctx.arc(h.x,h.y,h.r*2.2,0,Math.PI*2); ctx.fillStyle=`rgba(${h.color[0]},${h.color[1]},${h.color[2]},.05)`; ctx.fill();
+      ctx.beginPath(); ctx.arc(h.x,h.y,h.r,0,Math.PI*2); ctx.fillStyle=`rgba(${h.color[0]},${h.color[1]},${h.color[2]},.42)`; ctx.fill();
+      ctx.font='700 9px "DM Sans",ui-sans-serif,system-ui';
+      ctx.fillStyle='rgba(241,245,249,.46)';
+      ctx.textAlign='center';
+      ctx.fillText(h.label,h.x,h.y+h.r+12);
     }
 
-    function drawLinks(){
-      [['user','agent'],['agent','retriever']].forEach(pair=>{
-        const a=hubs[pair[0]], b=hubs[pair[1]];
-        ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
-        ctx.strokeStyle='rgba(148,163,184,.08)';ctx.lineWidth=1;ctx.stroke();
-      });
+    function drawPulse(p){
+      const a=hubs[p.from], b=hubs[p.to];
+      p.t+=p.speed;
+      const t=Math.min(1,p.t);
+      const x=(1-t)*(1-t)*a.x + 2*(1-t)*t*((a.x+b.x)/2) + t*t*b.x;
+      const y=(1-t)*(1-t)*a.y + 2*(1-t)*t*((a.y+b.y)/2) + t*t*b.y;
+      ctx.beginPath(); ctx.arc(x,y,2.6,0,Math.PI*2); ctx.fillStyle=`rgba(${p.color[0]},${p.color[1]},${p.color[2]},.72)`; ctx.fill();
+      return p.t<1;
     }
 
-    function drawParticles(){
-      for(let i=particles.length-1;i>=0;i--){
-        const p=particles[i]; p.t+=p.speed; if(p.t>=1){particles.splice(i,1); continue;}
-        const x=p.from.x+(p.to.x-p.from.x)*p.t, y=p.from.y+(p.to.y-p.from.y)*p.t;
-        let c=colors.agent;
-        if(p.type==='query') c=colors.user;
-        else if(p.type==='retrieve') c=colors.warm;
-        else if(p.type==='evidence') c=colors.retriever;
-        ctx.beginPath();ctx.arc(x,y,3.2,0,Math.PI*2);ctx.fillStyle=`rgba(${c.r},${c.g},${c.b},.62)`;ctx.fill();
-      }
+    function drawHint(now){
+      if(!hint.born||now-hint.born>1800) return;
+      const alpha=1-((now-hint.born)/1800);
+      const x=W*0.58;
+      const y=hint.y-((now-hint.born)/1800)*10;
+      const w=74, h=24, r=12;
+      ctx.beginPath();
+      ctx.moveTo(x-w/2+r,y-h/2); ctx.lineTo(x+w/2-r,y-h/2); ctx.quadraticCurveTo(x+w/2,y-h/2,x+w/2,y-h/2+r);
+      ctx.lineTo(x+w/2,y+h/2-r); ctx.quadraticCurveTo(x+w/2,y+h/2,x+w/2-r,y+h/2);
+      ctx.lineTo(x-w/2+r,y+h/2); ctx.quadraticCurveTo(x-w/2,y+h/2,x-w/2,y+h/2-r);
+      ctx.lineTo(x-w/2,y-h/2+r); ctx.quadraticCurveTo(x-w/2,y-h/2,x-w/2+r,y-h/2); ctx.closePath();
+      ctx.fillStyle=`rgba(11,15,26,${0.32*alpha})`; ctx.fill();
+      ctx.strokeStyle=`rgba(167,139,250,${0.24*alpha})`; ctx.lineWidth=1; ctx.stroke();
+      ctx.font='700 10px "DM Sans",ui-sans-serif,system-ui';
+      ctx.fillStyle=`rgba(241,245,249,${0.62*alpha})`; ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillText(hint.label,x,y+0.5);
     }
 
-    function drawDecision(now){
-      if(!currentDecision) return;
-      const age=(now-currentDecision.born)/3200;
-      const prompt=currentDecision.prompt;
-      const panelW=Math.min(380,W-32), panelH=44, px=currentDecision.x-panelW/2, py=currentDecision.y-54;
-      roundRect(px,py,panelW,panelH,14); ctx.fillStyle='rgba(11,15,26,.72)'; ctx.fill(); ctx.strokeStyle='rgba(167,139,250,.14)'; ctx.lineWidth=1; ctx.stroke();
-      ctx.font='600 12px "DM Sans",ui-sans-serif,system-ui'; ctx.fillStyle='rgba(241,245,249,.88)'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(prompt,currentDecision.x,py+panelH/2);
-      const rects=optionRects();
-      rects.forEach(r=>{
-        const isAuto=currentDecision.selected && currentDecision.selected.label===r.label && currentDecision.selected.by==='agent';
-        const isHuman=currentDecision.selected && currentDecision.selected.label===r.label && currentDecision.selected.by==='human';
-        const activePulse=1+Math.sin(now*.008)*.04;
-        roundRect(r.x,r.y,r.w,r.h,14);
-        const fill = isHuman ? 'rgba(52,211,153,.18)' : isAuto ? 'rgba(96,165,250,.18)' : 'rgba(255,255,255,.04)';
-        ctx.fillStyle=fill; ctx.fill();
-        ctx.strokeStyle=isHuman?'rgba(52,211,153,.65)':isAuto?'rgba(96,165,250,.65)':`rgba(236,179,94,${.32+.18*Math.max(0,1-age)})`;
-        ctx.lineWidth=(currentDecision.selected?1.3:1.1)*activePulse; ctx.stroke();
-        ctx.font='700 12px "DM Sans",ui-sans-serif,system-ui'; ctx.fillStyle=colors.text; ctx.fillText(r.label,r.x+r.w/2,r.y+r.h/2+0.5);
-        ctx.beginPath(); ctx.moveTo(currentDecision.x,currentDecision.y-4); ctx.lineTo(r.x+(r.side==='left'?r.w:0), r.y); ctx.strokeStyle='rgba(148,163,184,.14)'; ctx.lineWidth=1; ctx.stroke();
-      });
-    }
-
-    function drawFloats(now){
-      for(let i=floats.length-1;i>=0;i--){
-        const f=floats[i], age=(now-f.born)/1000; if(age>1.7){floats.splice(i,1); continue;}
-        const alpha=Math.max(0,1-age/1.7); const c=f.color;
-        ctx.font='700 13px "DM Sans",ui-sans-serif,system-ui';
-        ctx.fillStyle=`rgba(${c.r},${c.g},${c.b},${alpha.toFixed(2)})`; ctx.textAlign='center'; ctx.fillText(f.text,f.x,f.y-age*18);
-      }
-    }
-
-    function draw(){
+    function loop(){
       ctx.clearRect(0,0,W,H);
-      const now=Date.now();
-      drawLinks();
-      drawParticles();
-      drawHub(hubs.user); drawHub(hubs.agent); drawHub(hubs.retriever);
-      drawDecision(now);
-      drawFloats(now);
-      requestAnimationFrame(draw);
+      if(visible){
+        drawLink(hubs.user,hubs.retriever);
+        drawLink(hubs.retriever,hubs.agent);
+        drawHub(hubs.user); drawHub(hubs.retriever); drawHub(hubs.agent);
+        for(let i=pulses.length-1;i>=0;i--){ if(!drawPulse(pulses[i])) pulses.splice(i,1); }
+        drawHint(Date.now());
+      }
+      requestAnimationFrame(loop);
     }
-    requestAnimationFrame(draw);
+    requestAnimationFrame(loop);
   }
 })();
 </script>
