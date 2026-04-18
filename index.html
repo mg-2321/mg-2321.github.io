@@ -280,25 +280,60 @@ h2::after{ content:""; display:block; width:56px; height:3px;
   <!-- Projects -->
   <h2 id="projects" class="reveal">Projects</h2>
 
-  <h3 class="reveal"><span class="pill">Agents &amp; Planning</span></h3>
+  <!-- ===== LLM Security ===== -->
+  <h3 class="reveal"><span class="pill">LLM Security</span></h3>
+
+  <!-- GuardRAG -->
   <div class="entry reveal">
     <div class="frame16">
-      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata"
-             poster="images/wip_cartoon_placeholder.jpg">
-        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/images/po_architectures_steps_clean_4slides_1080p.mp4" type="video/mp4">
-      </video>
-      <div class="placeholder" aria-hidden="true">Video</div>
+      <div class="placeholder" aria-hidden="true">GuardRAG</div>
     </div>
     <div class="desc">
-      <div class="title">Solving Memory Limitations of Agents using KAG</div>
-      <p>Building KAG layer memory module to store changing user preferences for long horizon tasks, object affordances, and past interactions, enabling lightweight grounding. Planning is trained with preference optimization algorithms: sequence-level SimPO aligns whole trajectories to user choices, while Step-DPO provides fine-grained &lt;ASK&gt; vs &lt;ACT&gt; feedback.</p>
+      <div class="title">GuardRAG: Training-Based Defense for RAG Systems</div>
+      <p>A defense framework that guards Retrieval-Augmented Generation pipelines against indirect prompt injection (IPI) attacks. Uses weighted Direct Preference Optimization and constrained RLHF with Lagrangian optimization to train models that distinguish benign retrieved context from adversarially injected payloads, preserving answer quality while rejecting malicious instructions.</p>
       <p class="row-links">
-        <a class="btn" href="https://github.com/mg-2321/Adapt" target="_blank" rel="noopener">Code(to be updated)</a>
+        <a class="btn" href="https://github.com/mg-2321" target="_blank" rel="noopener">Code (coming soon)</a>
       </p>
     </div>
   </div>
 
-  <h3 class="reveal"><span class="pill">Machine Learning</span></h3>
+  <!-- RIPE-II -->
+  <div class="entry reveal right">
+    <div class="frame16">
+      <div class="placeholder" aria-hidden="true">RIPE-II</div>
+    </div>
+    <div class="desc">
+      <div class="title">RIPE-II: Benchmark for Indirect Prompt Injection in RAG</div>
+      <p>A corpus poisoning evaluation framework that stress-tests RAG systems against indirect prompt injection. Generates a poisoned corpus using 13 attack techniques across blackbox, graybox, and whitebox attacker models with semantic alignment via S-PubMedBERT. Provides a standardized benchmark for measuring RAG robustness under realistic adversarial conditions.</p>
+      <p class="row-links">
+        <a class="btn" href="https://github.com/mg-2321" target="_blank" rel="noopener">Code (coming soon)</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== High Performance Computing ===== -->
+  <h3 class="reveal"><span class="pill">High Performance Computing</span></h3>
+
+  <!-- CUDA LIMO -->
+  <div class="entry reveal">
+    <div class="frame16">
+      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/cuda-limo.jpg">
+        <source src="images/limo_cuda_preview_v4.mp4" type="video/mp4">
+      </video>
+      <div class="placeholder" aria-hidden="true">Video preview</div>
+    </div>
+    <div class="desc">
+      <div class="title">Optimizing LIMO Pipeline with CUDA Parallelization</div>
+      <p>Optimized a LiDAR-Monocular VO pipeline on KITTI with shared-memory tiling, async transfers, and custom kernels for 2D conv, keyframe selection, and pose estimation improving kernel time by up to 60%.</p>
+      <p class="row-links">
+        <a class="btn" href="https://github.com/mg-2321/LIMO" target="_blank" rel="noopener">Code</a>
+        <a class="btn" href="https://drive.google.com/file/d/13EWTlsrXvigKUrIcd1SeBJhdUc7h2sX4/view?usp=sharing" target="_blank" rel="noopener">Project paper</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== Computer Vision & Perception ===== -->
+  <h3 class="reveal"><span class="pill">Computer Vision &amp; Perception</span></h3>
 
   <!-- Waymo -->
   <div class="entry reveal">
@@ -317,64 +352,23 @@ h2::after{ content:""; display:block; width:56px; height:3px;
     </div>
   </div>
 
-  <!-- CUDA LIMO -->
+  <!-- Image Stitching -->
   <div class="entry reveal right">
     <div class="frame16">
-      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/cuda-limo.jpg">
-        <source src="images/limo_cuda_preview_v4.mp4" type="video/mp4">
-      </video>
-      <div class="placeholder" aria-hidden="true">Video preview</div>
+      <div class="placeholder" aria-hidden="true">Image Stitching</div>
     </div>
     <div class="desc">
-      <div class="title">Optimizing LIMO Pipeline with CUDA Parallelization</div>
-      <p>Optimized a LiDAR-Monocular VO pipeline on KITTI with shared-memory tiling, async transfers, and custom kernels for 2D conv, keyframe selection, and pose estimation improving kernel time by up to 60%.</p>
+      <div class="title">Image Stitching using Seamless Optimization</div>
+      <p>Panoramic image stitching pipeline that aligns overlapping views and blends them using seam-finding with seamless cloning optimization to minimize visible artifacts at stitch boundaries, producing high-quality composite images.</p>
       <p class="row-links">
-        <a class="btn" href="https://github.com/mg-2321/LIMO" target="_blank" rel="noopener">Code</a>
-        <a class="btn" href="https://drive.google.com/file/d/13EWTlsrXvigKUrIcd1SeBJhdUc7h2sX4/view?usp=sharing" target="_blank" rel="noopener">Project paper</a>
+        <a class="btn" href="https://github.com/mg-2321" target="_blank" rel="noopener">Code (coming soon)</a>
       </p>
     </div>
   </div>
 
-  <!-- Real-time Construction Safety Equipment Detection -->
-  <div class="entry reveal">
-    <div class="frame16">
-      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata"
-             poster="images/ppe-cover.jpg" crossorigin="anonymous" referrerpolicy="no-referrer">
-        <!-- Use RAW GitHub URL (blob won't play). #t=0.1 nudges Chrome to paint the first frame -->
-        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/ppe_pass_fail_corrected.mp4#t=0.1" type="video/mp4">
-        <!-- Secondary fallback raw URL form -->
-        <source src="https://github.com/mg-2321/mg-2321.github.io/raw/main/ppe_pass_fail_corrected.mp4#t=0.1" type="video/mp4">
-      </video>
-      <div class="placeholder" aria-hidden="true">Video preview</div>
-    </div>
-    <div class="desc">
-      <div class="title">Real-time Construction Safety Equipment Detection</div>
-      <p>Deployed YOLO-based detection to monitor PPE on construction sites in real time (hardhats, vests, goggles). Tracks workers with re-ID, raises on-screen alerts for violations, and logs clips for safety review.</p>
-      <p class="row-links">
-        <a class="btn" href="https://github.com/mg-2321/Construction-Safety-PPE" target="_blank" rel="noopener">Code</a>
-      </p>
-    </div>
-  </div>
-
-  <!-- EEG -->
-  <div class="entry reveal">
-    <div class="frame16 contain">
-      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/eeg-stroke.jpg">
-        <source src="cover_all_in_one_paper_exact4.mp4" type="video/mp4">
-      </video>
-      <div class="placeholder" aria-hidden="true">EEG demo</div>
-    </div>
-    <div class="desc">
-      <div class="title">Stroke Rehabilitation: EEG Motor Action Classification</div>
-      <p>Analyzed pre and post-stroke EEG for hand wave, clench, and face rub motor actions to quantify neural changes and track recovery. Implemented KNN, Decision Tree, SVM, and K-means to classify actions and reveal patterns, informing personalized, data-driven stroke rehabilitation strategies effectively.</p>
-      <p class="row-links">
-        <a class="btn" href="https://github.com/mg-2321/Stroke_Rehabilitation" target="_blank" rel="noopener">Code</a>
-        <a class="btn" href="https://github.com/mg-2321/Stroke_Rehabilitation/blob/main/Iteration%204_%20Paper-4.pdf" target="_blank" rel="noopener">Project paper</a>
-      </p>
-    </div>
-  </div>
-
+  <!-- ===== Natural Language Processing ===== -->
   <h3 class="reveal"><span class="pill">Natural Language Processing</span></h3>
+
   <div class="entry reveal">
     <div class="frame16 contain">
       <video class="media" muted autoplay loop playsinline webkit-playsinline preload="metadata"
@@ -385,7 +379,7 @@ h2::after{ content:""; display:block; width:56px; height:3px;
     </div>
     <div class="desc">
       <div class="title">Suicide Ideation &amp; Suicide Attempt Classification</div>
-      <p>Text-based classification to detect suicide ideation and attempts using clinical notes and reddit data. After noise removal and abbreviation expansion,compared GloVe, Word2Vec, FastText, and CBOW embeddings. Classifiers with BERT and RoBERTa outperform a Bi-LSTM and SVM baseline, enabling earlier risk identification and ethically informed interventions.</p>
+      <p>Text-based classification to detect suicide ideation and attempts using clinical notes and reddit data. After noise removal and abbreviation expansion, compared GloVe, Word2Vec, FastText, and CBOW embeddings. Classifiers with BERT and RoBERTa outperform a Bi-LSTM and SVM baseline, enabling earlier risk identification and ethically informed interventions.</p>
       <p class="row-links">
         <a class="btn" href="https://github.com/mg-2321/Suicide-Attempt-and-Suicide-Ideation-detector" target="_blank">Code</a>
         <a class="btn" href="https://github.com/mg-2321/Suicide-Attempt-and-Suicide-Ideation-detector/blob/main/Review%20Paper%20Suicide%20Ideation%20Detector%20(1).pdf" target="_blank">Project paper</a>
@@ -408,6 +402,66 @@ h2::after{ content:""; display:block; width:56px; height:3px;
       <p>Graph CodeBERT–based detector for zero-day exploits and insecure design flaws (e.g., insufficient compartmentalization and leakage of critical state). It outputs data-flow visualizations and a CLI for triage. Validated on internal repositories mapped to CWE, training combines real code and DCGAN generated synthetic data.</p>
       <p class="row-links">
         <a class="btn" href="https://github.com/mg-2321/Vulnerability-Detection-using-Image-Processing" target="_blank">Code</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== Agents, Planning & Memory Optimization ===== -->
+  <h3 class="reveal"><span class="pill">Agents, Planning &amp; Memory Optimization</span></h3>
+
+  <div class="entry reveal">
+    <div class="frame16">
+      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata"
+             poster="images/wip_cartoon_placeholder.jpg">
+        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/images/po_architectures_steps_clean_4slides_1080p.mp4" type="video/mp4">
+      </video>
+      <div class="placeholder" aria-hidden="true">Video</div>
+    </div>
+    <div class="desc">
+      <div class="title">Solving Memory Limitations of Agents using KAG</div>
+      <p>Building KAG layer memory module to store changing user preferences for long horizon tasks, object affordances, and past interactions, enabling lightweight grounding. Planning is trained with preference optimization algorithms: sequence-level SimPO aligns whole trajectories to user choices, while Step-DPO provides fine-grained &lt;ASK&gt; vs &lt;ACT&gt; feedback.</p>
+      <p class="row-links">
+        <a class="btn" href="https://github.com/mg-2321/Adapt" target="_blank" rel="noopener">Code (to be updated)</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== Machine Learning ===== -->
+  <h3 class="reveal"><span class="pill">Machine Learning</span></h3>
+
+  <!-- Real-time Construction Safety Equipment Detection -->
+  <div class="entry reveal">
+    <div class="frame16">
+      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata"
+             poster="images/ppe-cover.jpg" crossorigin="anonymous" referrerpolicy="no-referrer">
+        <source src="https://raw.githubusercontent.com/mg-2321/mg-2321.github.io/main/ppe_pass_fail_corrected.mp4#t=0.1" type="video/mp4">
+        <source src="https://github.com/mg-2321/mg-2321.github.io/raw/main/ppe_pass_fail_corrected.mp4#t=0.1" type="video/mp4">
+      </video>
+      <div class="placeholder" aria-hidden="true">Video preview</div>
+    </div>
+    <div class="desc">
+      <div class="title">Real-time Construction Safety Equipment Detection</div>
+      <p>Deployed YOLO-based detection to monitor PPE on construction sites in real time (hardhats, vests, goggles). Tracks workers with re-ID, raises on-screen alerts for violations, and logs clips for safety review.</p>
+      <p class="row-links">
+        <a class="btn" href="https://github.com/mg-2321/Construction-Safety-PPE" target="_blank" rel="noopener">Code</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- EEG -->
+  <div class="entry reveal right">
+    <div class="frame16 contain">
+      <video class="media" muted loop autoplay playsinline webkit-playsinline preload="metadata" poster="images/eeg-stroke.jpg">
+        <source src="cover_all_in_one_paper_exact4.mp4" type="video/mp4">
+      </video>
+      <div class="placeholder" aria-hidden="true">EEG demo</div>
+    </div>
+    <div class="desc">
+      <div class="title">Stroke Rehabilitation: EEG Motor Action Classification</div>
+      <p>Analyzed pre and post-stroke EEG for hand wave, clench, and face rub motor actions to quantify neural changes and track recovery. Implemented KNN, Decision Tree, SVM, and K-means to classify actions and reveal patterns, informing personalized, data-driven stroke rehabilitation strategies effectively.</p>
+      <p class="row-links">
+        <a class="btn" href="https://github.com/mg-2321/Stroke_Rehabilitation" target="_blank" rel="noopener">Code</a>
+        <a class="btn" href="https://github.com/mg-2321/Stroke_Rehabilitation/blob/main/Iteration%204_%20Paper-4.pdf" target="_blank" rel="noopener">Project paper</a>
       </p>
     </div>
   </div>
