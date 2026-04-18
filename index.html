@@ -16,7 +16,7 @@
   --bg:#0b0f1a;--bg-card:rgba(255,255,255,.04);--rule:rgba(255,255,255,.07);
   --accent:#a78bfa;--accent-2:#60a5fa;
   --pill-bg:rgba(167,139,250,.1);--pill-border:rgba(167,139,250,.2);--glow:rgba(167,139,250,.15);
-  --alert:#f87171;
+  --alert:#f87171;--safe:#34d399;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{font-size:16px;scroll-behavior:smooth}
@@ -31,8 +31,9 @@ body{
 a{color:var(--link);text-decoration:none;transition:color .2s}
 a:hover{color:var(--accent);text-decoration:underline}
 p{margin:.6rem 0}
-#neuralGraph{position:fixed;inset:0;z-index:0;pointer-events:none}
-main{position:relative;z-index:1}
+#agentCanvas{position:fixed;inset:0;z-index:0;cursor:pointer}
+main{position:relative;z-index:1;pointer-events:none}
+main *{pointer-events:auto}
 .site-title{text-align:center;font-size:2.9rem;margin:0 0 .75rem;white-space:nowrap;letter-spacing:.3px;font-weight:700;color:var(--fg-bright)}
 .typewrap{display:inline-flex;align-items:center;gap:.25rem}
 .caret{width:1ch;display:inline-block;color:var(--accent);animation:blink 1s steps(1,end) infinite}
@@ -91,29 +92,29 @@ h2::after{content:"";display:block;width:0;height:3px;background:linear-gradient
 .stagger.in > *:nth-child(4){animation-delay:.24s}.stagger.in > *:nth-child(5){animation-delay:.32s}
 @keyframes stg{to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.reveal,.stagger > *{opacity:1;transform:none;animation:none}}
-#ids-tooltip{position:fixed;pointer-events:none;z-index:9998;padding:4px 10px;border-radius:6px;font-size:.7rem;font-weight:600;font-family:ui-monospace,monospace;letter-spacing:.04em;white-space:nowrap;opacity:0;transition:opacity .3s;background:rgba(248,113,113,.15);border:1px solid rgba(248,113,113,.3);color:#f87171;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-#ids-tooltip.active{opacity:1}
+/* Preference optimization HUD */
+#agent-hud{position:fixed;bottom:16px;right:16px;z-index:9998;padding:8px 14px;border-radius:10px;font-size:.72rem;font-weight:600;font-family:ui-monospace,monospace;letter-spacing:.03em;background:rgba(11,15,26,.8);border:1px solid var(--rule);color:var(--muted);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);line-height:1.6;pointer-events:none;opacity:0;transition:opacity .5s}
+#agent-hud.visible{opacity:1}
+#agent-hud .label{color:var(--accent);font-size:.65rem;display:block;margin-bottom:2px}
+#agent-hud .stat{display:flex;gap:14px}
+#agent-hud .caught{color:var(--safe)}
+#agent-hud .auto{color:var(--accent-2)}
 @media(max-width:1280px){.intro{grid-template-columns:minmax(0,1fr) 360px}.avatar{width:320px}.blob{width:340px;height:340px}}
 @media(max-width:1020px){.intro{grid-template-columns:1fr}.avatar{width:260px}.blob{display:none}.profile-links{flex-wrap:wrap;gap:6px}.chip{font-size:.8rem}.entry{grid-template-columns:1fr;padding:16px}}
-@media(max-width:520px){body{padding-left:16px;padding-right:16px}.chip{font-size:.78rem;padding:6px 8px}.avatar{width:220px}.track{font-size:.85rem}.entry{padding:12px}}
+@media(max-width:520px){body{padding-left:16px;padding-right:16px}.chip{font-size:.78rem;padding:6px 8px}.avatar{width:220px}.track{font-size:.85rem}.entry{padding:12px}#agent-hud{bottom:8px;right:8px;font-size:.65rem}}
 </style>
 </head>
 <body>
 <div id="scrollbar" aria-hidden="true"></div>
-<canvas id="neuralGraph" aria-hidden="true"></canvas>
-<div id="ids-tooltip">ANOMALY DETECTED</div>
+<canvas id="agentCanvas" aria-hidden="true"></canvas>
+<div id="agent-hud"><span class="label">AGENT LOOP</span><div class="stat"><span class="caught">Human steer: <span id="hud-you">0</span></span><span class="auto">Auto plan: <span id="hud-auto">0</span></span></div><div style="font-size:.62rem;opacity:.78;margin-top:2px">Click glowing choices: ASK · ACT · RETRIEVE · REFLECT</div></div>
 
 <main>
-  <h1 class="site-title reveal in">
-    <span class="typewrap"><span id="typeTarget" aria-label="Gayatri Malladi"></span><span class="caret" id="caret">|</span></span>
-  </h1>
-  <p class="mini-nav reveal in">
-    <a href="#projects">Projects</a>
-    <a href="#blogs">Blogs</a>
-  </p>
+  <h1 class="site-title reveal in"><span class="typewrap"><span id="typeTarget" aria-label="Gayatri Malladi"></span><span class="caret" id="caret">|</span></span></h1>
+  <p class="mini-nav reveal in"><a href="#projects">Projects</a><a href="#blogs">Blogs</a></p>
   <section class="intro reveal">
     <div class="prose">
-      <p class="lead">I'm a second-year M.S. student in the Computer Science department at the University of Washington. Currently, my research supervised by <a href="https://sites.uw.edu/geetha/" target="_blank" rel="noopener">Dr. Geetha Thamilarasu</a> focuses on defensive RAG & LLM Security: planning and teaching language models when to ask vs. when to act, with lightweight grounding and prefrence optimization algorithms to choose the best model based on user preference-satisfaction rate.</p>
+      <p class="lead">I'm a second-year M.S. student in the Computer Science department at the University of Washington. Currently, my research supervised by <a href="https://sites.uw.edu/geetha/" target="_blank" rel="noopener">Dr. Geetha Thamilarasu</a> focuses on defensive RAG & LLM Security: planning and teaching language models when to ask vs. when to act, with lightweight grounding and preference optimization algorithms to choose the best model based on user preference-satisfaction rate.</p>
       <p class="lead">Additionally, I'm exploring how to overcome memory context-window limitations using short- and long-term retrieval caches, summarization, and Reflexion-style episodic notes that are indexed and reused across tasks.</p>
       <p class="lead red">I'm open to research collaborations. Please email me at [gayat23@uw.edu] if you are interested to explore assistive agents for day-to-day task automation, tool use, and self-evolving large language models.</p>
     </div>
@@ -128,10 +129,7 @@ h2::after{content:"";display:block;width:0;height:3px;background:linear-gradient
       </nav>
     </aside>
   </section>
-  <div class="tokenribbon reveal" aria-hidden="true" style="margin-top:8px">
-    <div class="track scroll">Programming: Python • C++ • SQL · Tools: PyTorch • MATLAB • Apache Spark · Data Mining: Data Visualization • Statistical Analysis • Predictive Modeling • Pattern Recognition • Feature Engineering • Dimensionality Reduction</div>
-    <div class="track scroll2">Machine Learning: Linear Models • Decision Tree • SVMs • Clustering • Time Series Analysis · Deep Learning: CNNs • RNNs • Autoencoders • GANs</div>
-  </div>
+  <div class="tokenribbon reveal" aria-hidden="true" style="margin-top:8px"><div class="track scroll">Programming: Python • C++ • SQL · Tools: PyTorch • MATLAB • Apache Spark · Data Mining: Data Visualization • Statistical Analysis • Predictive Modeling • Pattern Recognition • Feature Engineering • Dimensionality Reduction</div><div class="track scroll2">Machine Learning: Linear Models • Decision Tree • SVMs • Clustering • Time Series Analysis · Deep Learning: CNNs • RNNs • Autoencoders • GANs</div></div>
 
   <h2 id="projects" class="reveal">Projects</h2>
   <h3 class="reveal"><span class="pill">LLM Security</span></h3>
@@ -172,66 +170,233 @@ h2::after{content:"";display:block;width:0;height:3px;background:linear-gradient
   const reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
   function typeTitle(){if(!el)return;el.textContent='';if(reduceMotion){el.textContent=full;if(caret)caret.style.display='none';return;}let i=0;const tick=()=>{el.textContent=full.slice(0,i);if(i<full.length){i++;setTimeout(tick,120);}else if(caret)caret.style.display='none';};tick();}
   requestAnimationFrame(typeTitle);
-  window.addEventListener('pageshow',(e)=>{if(e.persisted){if(caret)caret.style.display='';typeTitle();}});
+  window.addEventListener('pageshow',e=>{if(e.persisted){if(caret)caret.style.display='';typeTitle();}});
   const bar=document.getElementById('scrollbar');
-  const onScroll=()=>{const h=document.documentElement;const sc=h.scrollTop||document.body.scrollTop;const max=h.scrollHeight-h.clientHeight;bar.style.width=(max?(sc/max*100):0)+'%';};
+  const onScroll=()=>{const h=document.documentElement;const sc=h.scrollTop||document.body.scrollTop;const mx=h.scrollHeight-h.clientHeight;bar.style.width=(mx?(sc/mx*100):0)+'%';};
   addEventListener('scroll',onScroll,{passive:true});onScroll();
-  if('IntersectionObserver' in window&&!reduceMotion){
-    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{root:null,rootMargin:'0px 0px -10% 0px',threshold:.12});
-    document.querySelectorAll('.reveal,.stagger').forEach(n=>io.observe(n));
-  }else{document.querySelectorAll('.reveal,.stagger').forEach(n=>n.classList.add('in'));}
+  if('IntersectionObserver' in window&&!reduceMotion){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{root:null,rootMargin:'0px 0px -10% 0px',threshold:.12});document.querySelectorAll('.reveal,.stagger').forEach(n=>io.observe(n));}
+  else{document.querySelectorAll('.reveal,.stagger').forEach(n=>n.classList.add('in'));}
   const aside=document.querySelector('.aside.parallax');
   if(aside&&!reduceMotion){const p=()=>{const y=window.scrollY||document.documentElement.scrollTop;aside.style.transform='translateY('+Math.min(12,y*.06)+'px)';};addEventListener('scroll',p,{passive:true});p();}
-  document.querySelectorAll('.frame16').forEach(frame=>{
-    const v=frame.querySelector('video.media'),ph=frame.querySelector('.placeholder');
-    if(v){v.addEventListener('loadeddata',()=>{if(ph)ph.style.display='none';},{once:true});v.addEventListener('canplay',()=>v.play().catch(()=>{}));v.addEventListener('ended',()=>v.play().catch(()=>{}));v.addEventListener('error',()=>{if(ph)ph.style.display='flex';});}
-  });
+  document.querySelectorAll('.frame16').forEach(frame=>{const v=frame.querySelector('video.media'),ph=frame.querySelector('.placeholder');if(v){v.addEventListener('loadeddata',()=>{if(ph)ph.style.display='none';},{once:true});v.addEventListener('canplay',()=>v.play().catch(()=>{}));v.addEventListener('ended',()=>v.play().catch(()=>{}));v.addEventListener('error',()=>{if(ph)ph.style.display='flex';});}});
   if('IntersectionObserver' in window){const vio=new IntersectionObserver(items=>{items.forEach(it=>{const v=it.target;if(!it.isIntersecting)v.pause&&v.pause();else v.play&&v.play().catch(()=>{});});},{root:null,threshold:0});document.querySelectorAll('video.media').forEach(v=>vio.observe(v));}
 
   /* ================================================================
-     INTERACTIVE NEURAL GRAPH IDS
-     Your cursor = intruder in the network.
-     Nodes detect proximity, flash red, edges alert, nodes push away.
-     Move your mouse to trigger anomaly detection — your research, playable.
+     INTERACTIVE AGENT LOOP
+     Nodes = memory, tools, goals, and plan states drifting in a latent graph.
+     Every few seconds one node surfaces as the next decision with a tag:
+     ASK, ACT, RETRIEVE, or REFLECT.
+     You can click the glowing choice to steer the loop before the policy acts.
      ================================================================ */
-  const cvs=document.getElementById('neuralGraph'),tooltip=document.getElementById('ids-tooltip');
+  const cvs=document.getElementById('agentCanvas');
+  const hudEl=document.getElementById('agent-hud');
+  const hudYou=document.getElementById('hud-you');
+  const hudAuto=document.getElementById('hud-auto');
   if(cvs&&!reduceMotion){
     const ctx=cvs.getContext('2d');
-    let W,H,mouseX=-999,mouseY=-999;
-    const N=50,EDGE=150,DETECT=120;
+    let W,H;
+    const NC=48,EDGE=145;
+    let youScore=0,autoScore=0;
+    const floats=[];
+    const decisions=['ASK','ACT','RETRIEVE','REFLECT'];
+    const kinds=['memory','tool','goal','plan'];
+
     function resize(){W=cvs.width=window.innerWidth;H=cvs.height=window.innerHeight;}
     resize();window.addEventListener('resize',resize);
-    document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY;});
-    document.addEventListener('mouseleave',()=>{mouseX=-999;mouseY=-999;});
-    const pal=[{r:167,g:139,b:250},{r:96,g:165,b:250},{r:56,g:178,b:172}];
-    const al={r:248,g:113,b:113};
+
+    const pal={
+      memory:{r:167,g:139,b:250},
+      tool:{r:96,g:165,b:250},
+      goal:{r:56,g:178,b:172},
+      plan:{r:129,g:140,b:248}
+    };
+    const HOT={r:236,g:179,b:94};
+    const GRN={r:52,g:211,b:153};
+    const BLU={r:96,g:165,b:250};
     const nodes=[];
-    for(let i=0;i<N;i++){const c=pal[Math.floor(Math.random()*pal.length)];nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:1.5+Math.random()*2,c,phase:Math.random()*Math.PI*2,threat:0});}
-    let alertCount=0;
-    function draw(){
-      ctx.clearRect(0,0,W,H);const t=Date.now()*.001;alertCount=0;
+    for(let i=0;i<NC;i++){
+      const kind=kinds[Math.floor(Math.random()*kinds.length)];
+      nodes.push({
+        x:Math.random()*W,y:Math.random()*H,
+        vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,
+        r:1.9+Math.random()*1.7,
+        kind,c:pal[kind],phase:Math.random()*Math.PI*2,
+        active:false,activeTime:0,decision:'',
+        selected:false,selectTime:0,selectBy:''
+      });
+    }
+
+    function surfaceDecision(){
+      const pool=nodes.filter(n=>!n.active&&!n.selected);
+      if(pool.length===0)return;
+      const n=pool[Math.floor(Math.random()*pool.length)];
+      n.active=true;
+      n.activeTime=Date.now();
+      n.decision=decisions[Math.floor(Math.random()*decisions.length)];
+      n.selected=false;
+      n.vx=(Math.random()-.5)*1.8;
+      n.vy=(Math.random()-.5)*1.8;
+      setTimeout(surfaceDecision,4200+Math.random()*2600);
+    }
+    setTimeout(surfaceDecision,2200);
+
+    cvs.addEventListener('click',e=>{
+      const cx=e.clientX,cy=e.clientY;
       for(const n of nodes){
-        const dx=n.x-mouseX,dy=n.y-mouseY,dist=Math.sqrt(dx*dx+dy*dy);
-        if(dist<DETECT){n.threat=Math.min(1,n.threat+.08);alertCount++;const push=.3*(1-dist/DETECT);n.vx+=dx/dist*push;n.vy+=dy/dist*push;}
-        else{n.threat=Math.max(0,n.threat-.02);}
-        n.vx*=.985;n.vy*=.985;
+        if(!n.active||n.selected)continue;
+        const dx=n.x-cx,dy=n.y-cy;
+        if(Math.sqrt(dx*dx+dy*dy)<34){
+          n.selected=true;
+          n.selectTime=Date.now();
+          n.selectBy='you';
+          n.active=false;
+          n.vx*=.15;n.vy*=.15;
+          youScore++;if(hudYou)hudYou.textContent=youScore;
+          floats.push({x:n.x,y:n.y,text:'Human-guided',born:Date.now(),color:GRN});
+          if(hudEl)hudEl.classList.add('visible');
+          break;
+        }
       }
+    });
+
+    function roundRect(x,y,w,h,r){
+      ctx.beginPath();
+      ctx.moveTo(x+r,y);
+      ctx.lineTo(x+w-r,y);
+      ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+      ctx.lineTo(x+w,y+h-r);
+      ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+      ctx.lineTo(x+r,y+h);
+      ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+      ctx.lineTo(x,y+r);
+      ctx.quadraticCurveTo(x,y,x+r,y);
+      ctx.closePath();
+    }
+
+    function drawDecisionTag(n, now){
+      if(!n.active) return;
+      const wobble=Math.sin(now*.006+n.phase)*3;
+      const label=n.decision;
+      ctx.font='700 10px "DM Sans",ui-sans-serif,system-ui';
+      const padX=8;
+      const w=ctx.measureText(label).width+padX*2;
+      const h=20;
+      const x=n.x-(w/2);
+      const y=n.y-24+wobble;
+      roundRect(x,y,w,h,10);
+      ctx.fillStyle='rgba(11,15,26,.92)';
+      ctx.fill();
+      ctx.strokeStyle='rgba(236,179,94,.45)';
+      ctx.lineWidth=1;
+      ctx.stroke();
+      ctx.fillStyle='rgba(241,245,249,.95)';
+      ctx.textAlign='center';
+      ctx.textBaseline='middle';
+      ctx.fillText(label,n.x,y+h/2+0.5);
+    }
+
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      const t=Date.now()*.001,now=Date.now();
+
+      for(const n of nodes){
+        if(n.active&&!n.selected&&(now-n.activeTime)>2400){
+          n.selected=true;
+          n.selectTime=now;
+          n.selectBy='auto';
+          n.active=false;
+          n.vx*=.15;n.vy*=.15;
+          autoScore++;if(hudAuto)hudAuto.textContent=autoScore;
+          floats.push({x:n.x,y:n.y,text:'Auto-planned',born:now,color:BLU});
+          if(hudEl)hudEl.classList.add('visible');
+        }
+      }
+
       for(let i=0;i<nodes.length;i++){for(let j=i+1;j<nodes.length;j++){
         const dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y,d=Math.sqrt(dx*dx+dy*dy);
-        if(d<EDGE){const fade=1-d/EDGE,mt=Math.max(nodes[i].threat,nodes[j].threat);
-        const r=Math.round(167+(al.r-167)*mt),g=Math.round(139+(al.g-139)*mt),b=Math.round(250+(al.b-250)*mt);
-        ctx.beginPath();ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);
-        ctx.strokeStyle='rgba('+r+','+g+','+b+','+(fade*(mt>.3?.25:.1)).toFixed(3)+')';ctx.lineWidth=mt>.3?1:.5;ctx.stroke();}
+        if(d<EDGE){
+          const fade=1-d/EDGE;
+          const anyActive=nodes[i].active||nodes[j].active;
+          const r=anyActive?HOT.r:140,g=anyActive?HOT.g:150,b=anyActive?HOT.b:250;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x,nodes[i].y);
+          ctx.lineTo(nodes[j].x,nodes[j].y);
+          ctx.strokeStyle='rgba('+r+','+g+','+b+','+(fade*(anyActive?.18:.07)).toFixed(3)+')';
+          ctx.lineWidth=anyActive?.85:.45;
+          ctx.stroke();
+        }
       }}
+
       for(const n of nodes){
-        const pulse=1+Math.sin(t*1.5+n.phase)*.2,thr=n.threat;
-        const cr=Math.round(n.c.r+(al.r-n.c.r)*thr),cg=Math.round(n.c.g+(al.g-n.c.g)*thr),cb=Math.round(n.c.b+(al.b-n.c.b)*thr);
-        const ba=.4+thr*.4,glowR=n.r*pulse*(2.5+thr*3);
-        ctx.beginPath();ctx.arc(n.x,n.y,glowR,0,Math.PI*2);ctx.fillStyle='rgba('+cr+','+cg+','+cb+','+(ba*.12).toFixed(3)+')';ctx.fill();
-        ctx.beginPath();ctx.arc(n.x,n.y,n.r*pulse*(1+thr*.5),0,Math.PI*2);ctx.fillStyle='rgba('+cr+','+cg+','+cb+','+ba.toFixed(3)+')';ctx.fill();
-        n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;
+        const pulse=1+Math.sin(t*1.4+n.phase)*.15;
+        let cr=n.c.r,cg=n.c.g,cb=n.c.b,ba=.38+Math.sin(t*.8+n.phase)*.08;
+
+        if(n.active){
+          const rp=1+Math.sin(t*6.2+n.phase)*.28;
+          ctx.beginPath();
+          ctx.arc(n.x,n.y,n.r*rp*5.8,0,Math.PI*2);
+          ctx.fillStyle='rgba(236,179,94,.10)';
+          ctx.fill();
+          ctx.beginPath();
+          ctx.arc(n.x,n.y,n.r*rp*1.8,0,Math.PI*2);
+          ctx.fillStyle='rgba(236,179,94,.82)';
+          ctx.fill();
+          ctx.beginPath();
+          ctx.arc(n.x,n.y,n.r*rp*3.2,0,Math.PI*2);
+          ctx.strokeStyle='rgba(236,179,94,.35)';
+          ctx.lineWidth=1.2;
+          ctx.stroke();
+        } else if(n.selected&&(now-n.selectTime)<1500){
+          const prog=(now-n.selectTime)/1500;
+          const ringR=10+prog*40;
+          const rc=n.selectBy==='you'?GRN:BLU;
+          ctx.beginPath();
+          ctx.arc(n.x,n.y,ringR,0,Math.PI*2);
+          ctx.strokeStyle='rgba('+rc.r+','+rc.g+','+rc.b+','+(1-prog).toFixed(2)+')';
+          ctx.lineWidth=2;
+          ctx.stroke();
+          ba=.5;
+        } else if(n.selected){
+          n.selected=false;
+        }
+
+        ctx.beginPath();
+        ctx.arc(n.x,n.y,n.r*pulse*2.6,0,Math.PI*2);
+        ctx.fillStyle='rgba('+cr+','+cg+','+cb+','+(ba*.1).toFixed(3)+')';
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(n.x,n.y,n.r*pulse,0,Math.PI*2);
+        ctx.fillStyle='rgba('+cr+','+cg+','+cb+','+ba.toFixed(3)+')';
+        ctx.fill();
+
+        if(n.kind==='tool' || n.kind==='goal'){
+          ctx.beginPath();
+          ctx.arc(n.x,n.y,n.r*pulse*1.45,0,Math.PI*2);
+          ctx.strokeStyle='rgba('+cr+','+cg+','+cb+',.18)';
+          ctx.lineWidth=.7;
+          ctx.stroke();
+        }
+
+        if(n.active){n.vx+=((Math.random()-.5)*.11);n.vy+=((Math.random()-.5)*.11);n.vx*=.985;n.vy*=.985;}
+        else{n.vx*=.996;n.vy*=.996;}
+        n.x+=n.vx;n.y+=n.vy;
+        if(n.x<0||n.x>W)n.vx*=-1;
+        if(n.y<0||n.y>H)n.vy*=-1;
+
+        drawDecisionTag(n, now);
       }
-      if(tooltip){if(alertCount>2){tooltip.classList.add('active');tooltip.style.left=(mouseX+16)+'px';tooltip.style.top=(mouseY-28)+'px';tooltip.textContent=alertCount>6?'\u26A0 THREAT LEVEL HIGH':'\u26A0 ANOMALY DETECTED';}else{tooltip.classList.remove('active');}}
+
+      for(let i=floats.length-1;i>=0;i--){
+        const f=floats[i];
+        const age=(now-f.born)/1000;
+        if(age>1.5){floats.splice(i,1);continue;}
+        const alpha=Math.max(0,1-age/1.5);
+        ctx.font='600 13px "DM Sans",ui-sans-serif,system-ui';
+        ctx.fillStyle='rgba('+f.color.r+','+f.color.g+','+f.color.b+','+alpha.toFixed(2)+')';
+        ctx.fillText(f.text,f.x+14,f.y-12-age*18);
+      }
+
       requestAnimationFrame(draw);
     }
     requestAnimationFrame(draw);
