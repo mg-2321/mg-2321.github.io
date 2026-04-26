@@ -219,6 +219,29 @@ h2::after{content:"";display:block;width:0;height:3px;background:linear-gradient
   </section>
 
   <section class="entry blog reveal">
+    <a href="blog-dpo-vs-simpo.html" style="display:contents;text-decoration:none;color:inherit">
+    <div class="frame16 blogcover"><svg viewBox="0 0 720 400" preserveAspectRatio="xMidYMid meet" class="media" aria-hidden="true">
+      <defs><linearGradient id="grad3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="rgba(167,139,250,.14)"/><stop offset="50%" stop-color="rgba(96,165,250,.10)"/><stop offset="100%" stop-color="rgba(11,15,26,1)"/></linearGradient></defs>
+      <rect x="18" y="18" width="684" height="364" rx="22" fill="url(#grad3)" stroke="rgba(167,139,250,.15)"/>
+      <circle cx="260" cy="240" r="90" fill="none" stroke="rgba(96,165,250,.15)" stroke-width="1.5"/>
+      <circle cx="460" cy="240" r="90" fill="none" stroke="rgba(167,139,250,.15)" stroke-width="1.5"/>
+      <text x="220" y="244" fill="rgba(96,165,250,.3)" font-family="'DM Sans',ui-sans-serif,system-ui" font-size="18" font-weight="700" text-anchor="middle">DPO</text>
+      <text x="500" y="244" fill="rgba(167,139,250,.3)" font-family="'DM Sans',ui-sans-serif,system-ui" font-size="18" font-weight="700" text-anchor="middle">SimPO</text>
+      <text x="360" y="244" fill="rgba(52,211,153,.3)" font-family="'DM Sans',ui-sans-serif,system-ui" font-size="10" font-weight="600" text-anchor="middle">overlap</text>
+      <text x="48" y="70" class="poster-title">DPO vs SimPO</text>
+      <text x="48" y="105" class="poster-title" style="font-size:28px">When to Use Which</text>
+      <text x="48" y="132" class="poster-sub">Equations, failure modes, and a decision framework</text>
+      <g><rect x="580" y="36" width="116" height="32" rx="16" fill="#7c5cf6" opacity="0.9"/><text x="638" y="57" fill="#fff" font-family="'DM Sans',ui-sans-serif,system-ui" font-size="13" font-weight="700" text-anchor="middle">Apr 2026</text></g>
+    </svg></div>
+    </a>
+    <div class="desc">
+      <div class="title">DPO vs SimPO: When to Use Which</div>
+      <p>DPO and SimPO are both offline preference optimization algorithms, but their design choices lead to meaningfully different behavior. SimPO drops the reference model, adds length normalization, and typically scores higher on chat benchmarks. DPO retains a KL constraint that prevents catastrophic drift and better preserves reasoning. I walk through the equations, likelihood displacement, length bias, the math performance tradeoff, and a practical decision framework.</p>
+      <p class="row-links"><a class="btn" href="blog-dpo-vs-simpo.html">Read full post →</a></p>
+    </div>
+  </section>
+
+  <section class="entry blog reveal">
     <div class="frame16 blogcover"><svg viewBox="0 0 720 400" preserveAspectRatio="xMidYMid meet" class="media" aria-hidden="true"><rect x="18" y="18" width="684" height="364" rx="22" fill="url(#grad)" stroke="rgba(167,139,250,.2)"/><text x="48" y="108" class="poster-title">SimPO vs SDPO</text><text x="48" y="144" class="poster-sub">A quick comparison for preference optimization</text><g><rect x="600" y="36" width="96" height="32" rx="16" fill="#7c5cf6" opacity="0.95"/><text x="648" y="57" fill="#fff" font-family="'DM Sans',ui-sans-serif,system-ui" font-size="14" font-weight="700" text-anchor="middle">Sep 15</text></g><defs><linearGradient id="grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="rgba(167,139,250,.12)"/><stop offset="55%" stop-color="rgba(96,165,250,.08)"/><stop offset="100%" stop-color="rgba(11,15,26,1)"/></linearGradient></defs></svg></div>
     <div class="desc"><div class="title">Preference Optimization Algorithms: SimPO vs SDPO</div><p>We compare two preference-optimization methods for aligning LLMs. SimPO directly maximizes a margin between preferred and dispreferred responses with a stabilizing reference model. SDPO attributes credit step-wise along trajectories to reduce reward hacking and improve reasoning. We outline practical tips, when to prefer each, and open questions.</p><p class="row-links"><a class="btn" href="https://medium.com/@gayat23" target="_blank" rel="noopener">Read on Medium →</a></p></div>
   </section>
