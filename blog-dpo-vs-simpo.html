@@ -78,6 +78,42 @@ article a:hover{color:var(--accent);text-decoration:underline}
 @media(prefers-reduced-motion:reduce){.anim-curve,.anim-fade,.anim-pop,.pipe-node{animation:none !important;opacity:1 !important;transform:none !important;stroke-dashoffset:0 !important}}
 
 .blog-footer{max-width:780px;margin:0 auto;padding:0 40px 40px;color:var(--muted);font-size:.85rem;text-align:center}
+
+/* ── social engagement ── */
+.blog-byline{display:flex;align-items:center;gap:12px;margin-top:16px}
+.byline-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;color:#fff;flex-shrink:0}
+.byline-info{font-size:.82rem;color:var(--muted);line-height:1.4}
+.byline-name{color:var(--fg-bright);font-weight:600}
+.engagement-bar{display:flex;align-items:center;gap:20px;padding:16px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin:32px 0;max-width:780px;margin-left:auto;margin-right:auto}
+.eng-btn{display:flex;align-items:center;gap:6px;background:none;border:1px solid var(--rule);border-radius:999px;padding:7px 16px;color:var(--muted);font-family:inherit;font-size:.85rem;cursor:pointer;transition:all .25s;user-select:none}
+.eng-btn:hover{border-color:rgba(167,139,250,.3);color:var(--fg-bright);background:rgba(167,139,250,.06)}
+.eng-btn.liked{border-color:rgba(248,113,113,.3);color:#f87171;background:rgba(248,113,113,.08)}
+.eng-btn.liked:hover{background:rgba(248,113,113,.12)}
+.eng-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;transition:transform .3s}
+.eng-btn.liked svg{fill:#f87171;stroke:#f87171}
+@keyframes heartPop{0%{transform:scale(1)}30%{transform:scale(1.3)}60%{transform:scale(.95)}100%{transform:scale(1)}}
+.eng-btn.pop svg{animation:heartPop .4s ease}
+.eng-views{margin-left:auto;font-size:.82rem;color:rgba(255,255,255,.25);display:flex;align-items:center;gap:5px}
+.eng-views svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}
+.social-section{max-width:780px;margin:0 auto;padding:0 40px}
+.social-section h3{font-size:1.15rem;font-weight:700;color:var(--fg-bright);margin:2rem 0 .8rem;display:flex;align-items:center;gap:8px}
+.social-section h3 svg{width:20px;height:20px;fill:none;stroke:var(--accent);stroke-width:2}
+.thought-input{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--rule);border-radius:12px;padding:14px 18px;color:var(--fg);font-family:inherit;font-size:.9rem;resize:vertical;min-height:80px;transition:border-color .25s}
+.thought-input:focus{outline:none;border-color:rgba(167,139,250,.4)}
+.thought-submit{margin-top:10px;padding:8px 20px;border-radius:999px;border:1px solid rgba(167,139,250,.3);background:rgba(167,139,250,.08);color:#c4b5fd;font-family:inherit;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .25s}
+.thought-submit:hover{background:rgba(167,139,250,.15);border-color:#c4b5fd;transform:translateY(-1px)}
+.thoughts-list{list-style:none;padding:0;margin:16px 0}
+.thought-item{padding:14px 18px;border:1px solid var(--rule);border-radius:12px;margin-bottom:10px;background:rgba(255,255,255,.02)}
+.thought-item .th-name{font-weight:600;color:var(--fg-bright);font-size:.88rem}
+.thought-item .th-date{font-size:.75rem;color:var(--muted);margin-left:8px}
+.thought-item .th-text{margin:6px 0 0;font-size:.88rem;color:var(--fg)}
+.question-card{padding:16px 20px;border:1px solid rgba(167,139,250,.12);border-radius:12px;margin-bottom:10px;background:rgba(167,139,250,.03);cursor:pointer;transition:all .25s}
+.question-card:hover{border-color:rgba(167,139,250,.25);background:rgba(167,139,250,.06)}
+.question-card .q-text{font-size:.92rem;color:var(--fg-bright);font-weight:500}
+.question-card .q-hint{font-size:.78rem;color:var(--muted);margin-top:4px}
+.q-input-wrap{margin-top:10px;display:none}
+.q-input-wrap.open{display:block}
+.empty-state{text-align:center;padding:20px;color:var(--muted);font-size:.88rem;font-style:italic}
 @media(max-width:640px){.hero{height:340px}.hero-title{font-size:1.8rem}article{padding:20px 20px 60px}.back{top:12px;left:12px;font-size:.8rem;padding:6px 12px}.vs-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -92,10 +128,19 @@ article a:hover{color:var(--accent);text-decoration:underline}
     <h1 class="hero-title">DPO vs SimPO: When to Use Which</h1>
     <p class="hero-sub">A detailed comparison of two preference optimization algorithms and the tradeoffs between them</p>
     <p class="hero-meta">April 2026 · 10 min read</p>
+    <div class="blog-byline">
+      <div class="byline-avatar">GM</div>
+      <div class="byline-info"><span class="byline-name">Gayatri Malladi</span></div>
+    </div>
   </div>
 </header>
 
 <article>
+
+<section class="reveal" style="padding:24px;border:1px solid var(--rule);border-radius:14px;background:rgba(255,255,255,.02);margin-bottom:2rem">
+<p style="font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:600;margin:0 0 8px">Overview</p>
+<p style="margin:0;font-size:.95rem;line-height:1.8">DPO and SimPO are both offline preference optimization algorithms that replace the reward model and reinforcement learning stages of RLHF with a single loss function. But they make fundamentally different design choices: DPO uses a reference model for KL regularization and operates on raw log probabilities; SimPO drops the reference model entirely, normalizes by sequence length, and adds a target reward margin. These differences produce different failure modes, different strengths on different benchmarks, and different practical tradeoffs around memory, stability, and hyperparameter sensitivity. This post walks through the math behind each, identifies where each one breaks down, and provides a decision framework for choosing between them based on your specific constraints.</p>
+</section>
 
 <section class="reveal">
 <h2>The question that actually matters</h2>
@@ -345,6 +390,36 @@ article a:hover{color:var(--accent);text-decoration:underline}
 
 </article>
 
+<!-- ═══════ ENGAGEMENT BAR ═══════ -->
+<div class="engagement-bar" style="padding-left:40px;padding-right:40px">
+  <button class="eng-btn" id="likeBtn" onclick="toggleLike('dpo-vs-simpo')">
+    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    <span id="likeCount">0</span>
+  </button>
+  <button class="eng-btn" onclick="document.getElementById('thoughtsSection').scrollIntoView({behavior:'smooth'})">
+    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <span id="commentCount">0</span>
+  </button>
+  <button class="eng-btn" onclick="navigator.share?navigator.share({title:'DPO vs SimPO',url:location.href}):navigator.clipboard.writeText(location.href).then(()=>this.querySelector('span').textContent='Copied!')">
+    <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+    <span>Share</span>
+  </button>
+  <div class="eng-views">
+    <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+    <span id="viewCount">0</span> views
+  </div>
+</div>
+
+<!-- ═══════ SHARE YOUR THOUGHTS ═══════ -->
+<div class="social-section" id="thoughtsSection">
+  <h3 class="reveal"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>Share your thoughts</h3>
+  <textarea class="thought-input" id="thoughtInput" placeholder="What did you think of this comparison? Any experiences with DPO or SimPO you would like to share?"></textarea>
+  <button class="thought-submit" onclick="postThought('dpo-vs-simpo')">Post comment</button>
+  <ul class="thoughts-list" id="thoughtsList">
+    <li class="empty-state" id="emptyThoughts">Be the first to share your thoughts on this post.</li>
+  </ul>
+</div>
+
 <footer class="blog-footer">
   <p>© <script>document.write(new Date().getFullYear())</script> Gayatri Malladi · <a href="index.html" style="color:var(--link)">Back to portfolio</a></p>
 </footer>
@@ -404,6 +479,69 @@ article a:hover{color:var(--accent);text-decoration:underline}
   resize();addEventListener('resize',resize);
   if(!rm)draw();
 })();
+
+/* ── Social engagement (localStorage) ── */
+function initSocial(slug){
+  /* Views */
+  const vk='views-'+slug;
+  let v=parseInt(localStorage.getItem(vk)||'0');
+  const seen='seen-'+slug;
+  if(!sessionStorage.getItem(seen)){v++;localStorage.setItem(vk,v);sessionStorage.setItem(seen,'1');}
+  document.getElementById('viewCount').textContent=v;
+  /* Likes */
+  const lk='likes-'+slug,lu='liked-'+slug;
+  const likes=parseInt(localStorage.getItem(lk)||'0');
+  const liked=localStorage.getItem(lu)==='1';
+  document.getElementById('likeCount').textContent=likes;
+  if(liked)document.getElementById('likeBtn').classList.add('liked');
+  /* Comments */
+  const ck='comments-'+slug;
+  const comments=JSON.parse(localStorage.getItem(ck)||'[]');
+  const list=document.getElementById('thoughtsList');
+  const empty=document.getElementById('emptyThoughts');
+  if(comments.length>0)empty.style.display='none';
+  comments.forEach(c=>appendComment(c));
+  document.getElementById('commentCount').textContent=comments.length;
+}
+function toggleLike(slug){
+  const btn=document.getElementById('likeBtn');
+  const lk='likes-'+slug,lu='liked-'+slug;
+  let likes=parseInt(localStorage.getItem(lk)||'0');
+  const liked=localStorage.getItem(lu)==='1';
+  if(liked){likes=Math.max(0,likes-1);localStorage.setItem(lk,likes);localStorage.removeItem(lu);btn.classList.remove('liked');}
+  else{likes++;localStorage.setItem(lk,likes);localStorage.setItem(lu,'1');btn.classList.add('liked');btn.classList.add('pop');setTimeout(()=>btn.classList.remove('pop'),400);}
+  document.getElementById('likeCount').textContent=likes;
+}
+function postThought(slug){
+  const input=document.getElementById('thoughtInput');
+  const text=input.value.trim();if(!text)return;
+  const c={name:'Anonymous Reader',date:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),text};
+  const ck='comments-'+slug;
+  const comments=JSON.parse(localStorage.getItem(ck)||'[]');
+  comments.push(c);localStorage.setItem(ck,JSON.stringify(comments));
+  appendComment(c);input.value='';
+  const empty=document.getElementById('emptyThoughts');if(empty)empty.style.display='none';
+  document.getElementById('commentCount').textContent=comments.length;
+}
+function appendComment(c){
+  const list=document.getElementById('thoughtsList');
+  const li=document.createElement('li');li.className='thought-item';
+  li.innerHTML='<span class="th-name">'+c.name+'</span><span class="th-date">'+c.date+'</span><p class="th-text">'+c.text.replace(/</g,'&lt;')+'</p>';
+  list.appendChild(li);
+}
+function postAnswer(btn,key){
+  const wrap=btn.parentElement;
+  const ta=wrap.querySelector('textarea');
+  const text=ta.value.trim();if(!text)return;
+  const answers=JSON.parse(localStorage.getItem(key)||'[]');
+  answers.push({text,date:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})});
+  localStorage.setItem(key,JSON.stringify(answers));
+  ta.value='';
+  const card=wrap.parentElement;
+  card.querySelector('.q-hint').textContent='Thanks for your perspective!';
+  wrap.classList.remove('open');
+}
+initSocial('dpo-vs-simpo');
 </script>
 </body>
 </html>
