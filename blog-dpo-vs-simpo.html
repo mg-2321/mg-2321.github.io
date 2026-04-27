@@ -93,8 +93,6 @@ article a:hover{color:var(--accent);text-decoration:underline}
 .eng-btn.liked svg{fill:#f87171;stroke:#f87171}
 @keyframes heartPop{0%{transform:scale(1)}30%{transform:scale(1.3)}60%{transform:scale(.95)}100%{transform:scale(1)}}
 .eng-btn.pop svg{animation:heartPop .4s ease}
-.eng-views{margin-left:auto;font-size:.82rem;color:rgba(255,255,255,.25);display:flex;align-items:center;gap:5px}
-.eng-views svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}
 .social-section{max-width:780px;margin:0 auto;padding:0 40px}
 .social-section h3{font-size:1.15rem;font-weight:700;color:var(--fg-bright);margin:2rem 0 .8rem;display:flex;align-items:center;gap:8px}
 .social-section h3 svg{width:20px;height:20px;fill:none;stroke:var(--accent);stroke-width:2}
@@ -404,10 +402,6 @@ article a:hover{color:var(--accent);text-decoration:underline}
     <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
     <span>Share</span>
   </button>
-  <div class="eng-views">
-    <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-    <span id="viewCount">0</span> views
-  </div>
 </div>
 
 <!-- ═══════ SHARE YOUR THOUGHTS ═══════ -->
@@ -482,12 +476,6 @@ article a:hover{color:var(--accent);text-decoration:underline}
 
 /* ── Social engagement (localStorage) ── */
 function initSocial(slug){
-  /* Views */
-  const vk='views-'+slug;
-  let v=parseInt(localStorage.getItem(vk)||'0');
-  const seen='seen-'+slug;
-  if(!sessionStorage.getItem(seen)){v++;localStorage.setItem(vk,v);sessionStorage.setItem(seen,'1');}
-  document.getElementById('viewCount').textContent=v;
   /* Likes */
   const lk='likes-'+slug,lu='liked-'+slug;
   const likes=parseInt(localStorage.getItem(lk)||'0');
